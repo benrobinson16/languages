@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/benrobinson/Projects/Languages/Languages/Languages.csproj": {}
+    "/Users/benrobinson/Desktop/NEA/LanguagesServer/Languages/Languages.csproj": {}
   },
   "projects": {
-    "/Users/benrobinson/Projects/Languages/Languages/Languages.csproj": {
+    "/Users/benrobinson/Desktop/NEA/LanguagesServer/Languages/Languages.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/benrobinson/Projects/Languages/Languages/Languages.csproj",
+        "projectUniqueName": "/Users/benrobinson/Desktop/NEA/LanguagesServer/Languages/Languages.csproj",
         "projectName": "Languages",
-        "projectPath": "/Users/benrobinson/Projects/Languages/Languages/Languages.csproj",
+        "projectPath": "/Users/benrobinson/Desktop/NEA/LanguagesServer/Languages/Languages.csproj",
         "packagesPath": "/Users/benrobinson/.nuget/packages/",
-        "outputPath": "/Users/benrobinson/Projects/Languages/Languages/obj/",
+        "outputPath": "/Users/benrobinson/Desktop/NEA/LanguagesServer/Languages/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -46,6 +46,10 @@
               "version": "[2.2.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.6, )"
+            },
+            "Microsoft.AspNetCore.Authentication.MicrosoftAccount": {
               "target": "Package",
               "version": "[6.0.6, )"
             },

@@ -8,7 +8,6 @@ namespace Languages.Controllers;
 
 [ApiController]
 [Route("/teacher")]
-[Authorize]
 public class TeacherController : ControllerBase
 {
     DatabaseContext db;

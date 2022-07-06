@@ -10,6 +10,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Authentication": "2.2.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.6",
+          "Microsoft.AspNetCore.Authentication.MicrosoftAccount": "6.0.6",
           "Microsoft.EntityFrameworkCore": "6.0.6",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.6",
           "Pomelo.EntityFrameworkCore.MySql": "6.0.1",
@@ -58,6 +59,14 @@
         },
         "runtime": {
           "lib/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "assemblyVersion": "6.0.6.0",
+            "fileVersion": "6.0.622.26805"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.MicrosoftAccount/6.0.6": {
+        "runtime": {
+          "lib/net6.0/Microsoft.AspNetCore.Authentication.MicrosoftAccount.dll": {
             "assemblyVersion": "6.0.6.0",
             "fileVersion": "6.0.622.26805"
           }
@@ -493,6 +502,13 @@
       "sha512": "sha512-lrfPEeisa0xCmZKKQIKxuks37aGE6jgGqDq1ikZDwNLWfIt2/ajOQpHMSE6a5uLjEVqkChKpXpvA7ZvfIKvdzA==",
       "path": "microsoft.aspnetcore.authentication.jwtbearer/6.0.6",
       "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.6.0.6.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.MicrosoftAccount/6.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-obaFD//jlsxLHOZPfF7uYOZy5XFwKvvnlhe+hXg7E0yQ1tSkdhoEDsKh3F+fHjEAJZHkLHNfbRYpyJkJBUB4fQ==",
+      "path": "microsoft.aspnetcore.authentication.microsoftaccount/6.0.6",
+      "hashPath": "microsoft.aspnetcore.authentication.microsoftaccount.6.0.6.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/2.2.0": {
       "type": "package",

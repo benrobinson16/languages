@@ -1,0 +1,36 @@
+﻿<Properties StartupConfiguration="{951666B1-98D0-4A1F-A036-0EAE9910C0B9}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Languages PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Languages/Controllers/StudentEndpointController.cs">
+    <Files>
+      <File FileName="Languages/Controllers/StudentEndpointController.cs" Line="11" Column="11" />
+      <File FileName="Languages/Program.cs" Line="28" Column="17" />
+      <File FileName="Languages/appsettings.json" Line="15" Column="54" />
+      <File FileName="Languages/Controllers/TeacherController.cs" Line="10" Column="20" />
+      <File FileName="Languages/Properties/launchSettings.json" Line="1" Column="1" />
+      <File FileName="Languages/Database/DatabaseContext.cs" Line="7" Column="14" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Languages" expanded="True">
+            <Node name="Languages" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Database" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+</Properties>
