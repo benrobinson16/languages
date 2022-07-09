@@ -15,9 +15,9 @@ public class Shield
 
     public User Authenticate(HttpRequest request)
     {
-        string token = request.Headers["AccessToken"];
+        string token = request.Headers["Authorization"];
         User? user = auth.Authenticate(token);
-        if (user == null) throw new UnauthorizedAccessException();
+        if (user == null) throw new LanguagesUnauthenticated();
         return user;
     }
 
@@ -25,7 +25,7 @@ public class Shield
     {
         User user = Authenticate(request);
         Student? student = da.GetStudentByEmail(user.Email);
-        if (student == null) throw new UnauthorizedAccessException();
+        if (student == null) throw new LanguagesUnauthorized();
         return student;
     }
 
@@ -33,7 +33,7 @@ public class Shield
     {
         User user = Authenticate(request);
         Teacher? teacher = da.GetTeacherByEmail(user.Email);
-        if (teacher == null) throw new UnauthorizedAccessException();
+        if (teacher == null) throw new LanguagesUnauthorized();
         return teacher;
     }
 }

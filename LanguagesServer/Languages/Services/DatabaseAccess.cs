@@ -1,31 +1,23 @@
-﻿using Languages.Models;
-using Task = Languages.Models.Task;
+﻿using Languages.Services.Repositories;
 
 namespace Languages.Services;
 
 public class DatabaseAccess
 {
-    DatabaseContext db;
+    public CardRepository Cards;
+    public ClassRepository Classes;
+    public DeckRepository Decks;
+    public StudentRepository Students;
+    public TaskRepository Tasks;
+    public TeacherRepository Teachers;
 
     public DatabaseAccess(DatabaseContext db)
     {
-        this.db = db;
-    }
-
-    public Student? GetStudentByEmail(string email)
-    {
-        var qry = from student in db.Students
-                  where student.Email == email
-                  select student;
-        return qry.FirstOrDefault();
-    }
-
-    public Teacher? GetTeacherByEmail(string email)
-    {
-        var qry = from teacher in db.Teachers
-                  where teacher.Email == email
-                  select teacher;
-        return qry.FirstOrDefault();
+        this.Cards = new CardRepository(db);
+        this.Classes = new ClassRepository(db);
+        this.Decks = new DeckRepository(db);
+        this.Students = new StudentRepository(db);
+        this.Tasks = new TaskRepository(db);
+        this.Teachers = new TeacherRepository(db);
     }
 }
-

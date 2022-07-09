@@ -13,8 +13,5 @@ public class Student
 	public string Surname { get; set; }
 	public string Email { get; set; }
 
-	public virtual List<Enrollment> Enrollments { get; set; }
-	public virtual List<StudentAttempt> StudentAttempts { get; set; }
-
 	public string DisplayName => FirstName + " " + Surname;
 }

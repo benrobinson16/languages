@@ -2,8 +2,6 @@
 using Languages.Services;
 using Languages.Models;
 using Task = Languages.Models.Task;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 
 namespace Languages.Controllers;
 
@@ -24,34 +22,29 @@ public class StudentController: ControllerBase
         this.shield = shield;
     }
 
-    [HttpGet("test")]
-    public string TestEndpoint()
+    [HttpGet("summary")]
+    public object GetSummary()
     {
         Student student = shield.AuthenticateStudent(Request);
 
-        return "Authenticated as " + student.FirstName + " " + student.Email;
-    }
-
-    [HttpGet("summary")]
-    public object GetSummary(int studentId)
-    {
-        //return db.Students.ToList();
-
-        // Get classes for student with studentId
+        // TODO: Decide what is needed in the summary
 
         var qry = from enr in db.Enrollments
                   join cla in db.Classes on enr.ClassId equals cla.ClassId
-                  where enr.StudentId == studentId
+                  where enr.StudentId == student.StudentId
                   select new { cla.Name, cla.TeacherId, cla.ClassId };
+
         return qry.ToList();
 
     }
 
     [HttpGet("taskcards")]
-    public List<TaskCardVm> GetTaskCards(int studentId)
+    public List<TaskCardVm> GetTaskCards()
     {
+        Student student = shield.AuthenticateStudent(Request);
+
         var qry = from enr in db.Enrollments
-                  where enr.StudentId == studentId
+                  where enr.StudentId == student.StudentId
                   join task in db.Tasks on enr.ClassId equals task.TaskId
                   join card in db.Cards on task.DeckId equals card.DeckId
                   select new TaskCardVm
@@ -62,7 +55,7 @@ public class StudentController: ControllerBase
                       DueDate = task.DueDate,
                       LastQuestionType = (
                           from stuAtt in db.StudentAttempts
-                          where stuAtt.StudentId == studentId
+                          where stuAtt.StudentId == student.StudentId
                           where stuAtt.CardId == card.CardId
                           where stuAtt.Correct == true
                           orderby stuAtt.AttemptDate
@@ -82,21 +75,61 @@ public class StudentController: ControllerBase
     [HttpGet("taskdetails")]
     public Task GetTaskDetails(int taskId)
     {
-        var qry = from task in db.Tasks
-                  where task.TaskId == taskId
-                  select task;
-        return qry.FirstOrDefault();
+        Student student = shield.AuthenticateStudent(Request);
+
+        Task? task = da.Tasks.ById(taskId);
+        if (task == null) throw new LanguagesResourceNotFound();
+
+        bool studentAssignedTask = da.Tasks.AssignedToStudent(taskId, student.StudentId);
+        if (!studentAssignedTask) throw new LanguagesUnauthorized();
+
+        return task;
     }
 
     [HttpPost("didAnswer")]
-    public string PostDidAnswer()
+    public void PostDidAnswer(int cardId, bool correct, int questionType)
     {
-        return "Not yet implemented";
+        Student student = shield.AuthenticateStudent(Request);
+
+        StudentAttempt attempt = new StudentAttempt
+        {
+            StudentId = student.StudentId,
+            CardId = cardId,
+            AttemptDate = DateTime.Now,
+            Correct = correct,
+            QuestionType = questionType
+        };
+
+        db.StudentAttempts.Add(attempt);
+        db.SaveChanges();
     }
 
     [HttpPost("joinClass")]
-    public string PostJoinClass()
+    public void PostJoinClass(string joinCode)
     {
-        return "Not yet implemented";
+        Student student = shield.AuthenticateStudent(Request);
+
+        var classQry = from cla in db.Classes
+                       where cla.JoinCode == joinCode
+                       select cla;
+
+        Class? foundClass = classQry.FirstOrDefault();
+        if (foundClass == null) throw new LanguagesResourceNotFound();
+
+        var enrollmentQry = from enrol in db.Enrollments
+                            where enrol.ClassId == foundClass.ClassId && enrol.StudentId == student.StudentId
+                            select enrol;
+
+        bool existingEnrollment = enrollmentQry.Any();
+        if (existingEnrollment) throw new LanguagesOperationAlreadyExecuted();
+
+        Enrollment newEnrollment = new Enrollment
+        {
+            ClassId = foundClass.ClassId,
+            StudentId = student.StudentId
+        };
+
+        db.Enrollments.Add(newEnrollment);
+        db.SaveChanges();
     }
 }

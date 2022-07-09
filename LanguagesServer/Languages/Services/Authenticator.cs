@@ -54,8 +54,9 @@ public class Authenticator
             {
                 user = new User
                 {
-                    Name = decodedToken.name,
-                    Email = decodedToken.preferred_username.ToLower()
+                    FirstName = decodedToken.given_name,
+                    Surname = decodedToken.family_name,
+                    Email = decodedToken.email.ToLower()
                 };
             }
         }
@@ -110,7 +111,8 @@ public class Authenticator
     {
         public string aud;
         public string iss;
-        public string name;
-        public string preferred_username;
+        public string family_name;
+        public string given_name;
+        public string email;
     }
 }

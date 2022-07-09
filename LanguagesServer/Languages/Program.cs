@@ -1,6 +1,7 @@
 using System.Text.Json;
 using GlobalExceptionHandler.WebApi;
 using Languages.Services;
+using Languages.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,7 +47,11 @@ app.UseGlobalExceptionHandler(opt => {
         Message = "An error occurred."
     }));
 
-    opt.Map<UnauthorizedAccessException>().ToStatusCode(StatusCodes.Status401Unauthorized);
+    opt.Map<LanguagesUnauthorized>().ToStatusCode(StatusCodes.Status403Forbidden);
+    opt.Map<LanguagesResourceNotFound>().ToStatusCode(StatusCodes.Status404NotFound);
+    opt.Map<LanguagesUnauthenticated>().ToStatusCode(StatusCodes.Status401Unauthorized);
+    opt.Map<LanguagesOperationAlreadyExecuted>().ToStatusCode(StatusCodes.Status409Conflict);
+    opt.Map<LanguagesInternalError>().ToStatusCode(StatusCodes.Status500InternalServerError);
 });
 
 app.UseHttpsRedirection();

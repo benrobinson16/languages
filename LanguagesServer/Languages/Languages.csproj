@@ -32,11 +32,10 @@
     <None Remove="Microsoft.AspNetCore.Authentication.MicrosoftAccount" />
     <None Remove="JWT" />
     <None Remove="GlobalExceptionHandler" />
+    <None Remove="Services\Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\.editorconfig" />
+    <Folder Include="Services\Repositories\" />
   </ItemGroup>
 </Project>

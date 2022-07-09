@@ -40,13 +40,9 @@ function ProtectedComponent() {
 
         if (!apiData && inProgress === InteractionStatus.None) {
             instance.acquireTokenSilent(accessTokenRequest).then((accessTokenResponse) => {
-                // Acquire token silent success
-                let accessToken = accessTokenResponse.accessToken;
-                console.log(accessToken);
-                console.log("HELLO");
-                // Call your API with token
+                let idToken = accessTokenResponse.idToken;
                 let headers = new Headers();
-                headers.append("AccessToken", accessToken);
+                headers.append("Authorization", idToken);
                 headers.append("Content-Type", "application/json");
                 let options = {
                     method: "GET",
@@ -57,7 +53,6 @@ function ProtectedComponent() {
                     .then(async function (response) {
                         const textResponse = await response.text()
                         setApiData(textResponse);
-                        console.log(textResponse);
                     })
                     .catch((error) => console.log(error ?? "unknown error"));
             }).catch((error) => {
