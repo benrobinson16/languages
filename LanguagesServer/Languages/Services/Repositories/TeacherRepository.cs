@@ -19,4 +19,13 @@ public class TeacherRepository
 
         return qry.FirstOrDefault();
     }
+
+    public bool ExistingForEmail(string email)
+    {
+        var qry = from teacher in db.Teachers
+                  where teacher.Email == email
+                  select teacher;
+
+        return qry.Any();
+    }
 }

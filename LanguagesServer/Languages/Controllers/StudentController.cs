@@ -11,14 +11,12 @@ public class StudentController: ControllerBase
 {
     DatabaseContext db;
     DatabaseAccess da;
-    Authenticator auth;
     Shield shield;
 
-    public StudentController(DatabaseContext db, DatabaseAccess da, Authenticator auth, Shield shield)
+    public StudentController(DatabaseContext db, DatabaseAccess da, Shield shield)
     {
         this.db = db;
         this.da = da;
-        this.auth = auth;
         this.shield = shield;
     }
 

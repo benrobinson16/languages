@@ -7,10 +7,10 @@ public class Shield
     DatabaseAccess da;
     Authenticator auth;
 
-    public Shield(DatabaseAccess da, Authenticator auth)
+    public Shield(DatabaseAccess da)
     {
         this.da = da;
-        this.auth = auth;
+        this.auth = new Authenticator();
     }
 
     public User Authenticate(HttpRequest request)
@@ -24,7 +24,7 @@ public class Shield
     public Student AuthenticateStudent(HttpRequest request)
     {
         User user = Authenticate(request);
-        Student? student = da.GetStudentByEmail(user.Email);
+        Student? student = da.Students.ByEmail(user.Email);
         if (student == null) throw new LanguagesUnauthorized();
         return student;
     }
@@ -32,7 +32,7 @@ public class Shield
     public Teacher AuthenticateTeacher(HttpRequest request)
     {
         User user = Authenticate(request);
-        Teacher? teacher = da.GetTeacherByEmail(user.Email);
+        Teacher? teacher = da.Teachers.ByEmail(user.Email);
         if (teacher == null) throw new LanguagesUnauthorized();
         return teacher;
     }

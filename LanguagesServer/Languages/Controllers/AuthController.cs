@@ -11,14 +11,12 @@ public class AuthController : ControllerBase
 {
     DatabaseContext db;
     DatabaseAccess da;
-    Authenticator auth;
     Shield shield;
 
-    public AuthController(DatabaseContext db, DatabaseAccess da, Authenticator auth, Shield shield)
+    public AuthController(DatabaseContext db, DatabaseAccess da, Shield shield)
     {
         this.db = db;
         this.da = da;
-        this.auth = auth;
         this.shield = shield;
     }
 
@@ -48,11 +46,7 @@ public class AuthController : ControllerBase
     {
         User user = shield.Authenticate(Request);
 
-        var studentQry = from stu in db.Students
-                         where stu.Email == user.Email
-                         select stu;
-
-        bool existingStudent = studentQry.Any();
+        bool existingStudent = da.Students.ExistingForEmail(user.Email);
         if (existingStudent) throw new LanguagesOperationAlreadyExecuted();
 
         Student student = new Student
@@ -71,11 +65,7 @@ public class AuthController : ControllerBase
     {
         User user = shield.Authenticate(Request);
 
-        var teacherQry = from tea in db.Teachers
-                         where tea.Email == user.Email
-                         select tea;
-
-        bool existingTeacher = teacherQry.Any();
+        bool existingTeacher = da.Teachers.ExistingForEmail(user.Email);
         if (existingTeacher) throw new LanguagesOperationAlreadyExecuted();
 
         Teacher teacher = new Teacher

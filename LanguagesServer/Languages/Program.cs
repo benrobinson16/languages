@@ -11,12 +11,10 @@ builder.Services.AddControllers();
 // Add a connection to the database.
 DatabaseContext db = new DatabaseContext(builder.Configuration);
 DatabaseAccess da = new DatabaseAccess(db);
-Authenticator auth = new Authenticator();
-Shield shield = new Shield(da, auth);
+Shield shield = new Shield(da);
 
 builder.Services.Add(new ServiceDescriptor(typeof(DatabaseContext), db));
 builder.Services.Add(new ServiceDescriptor(typeof(DatabaseAccess), da));
-builder.Services.Add(new ServiceDescriptor(typeof(Authenticator), auth));
 builder.Services.Add(new ServiceDescriptor(typeof(Shield), shield));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

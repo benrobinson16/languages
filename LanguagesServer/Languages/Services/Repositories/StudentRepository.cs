@@ -19,4 +19,13 @@ public class StudentRepository
 
         return qry.FirstOrDefault();
     }
+
+    public bool ExistingForEmail(string email)
+    {
+        var qry = from student in db.Students
+                  where student.Email == email
+                  select student;
+
+        return qry.Any();
+    }
 }
