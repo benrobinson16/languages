@@ -1,9 +1,6 @@
-using System.Text;
-using Languages.Database;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
-using Microsoft.IdentityModel.Tokens;
+using System.Text.Json;
+using GlobalExceptionHandler.WebApi;
+using Languages.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,26 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Add a connection to the database.
-builder.Services.Add(new ServiceDescriptor(typeof(DatabaseContext), new DatabaseContext(builder.Configuration)));
-builder.Services.Add(new ServiceDescriptor(typeof(DatabaseAccess), new DatabaseAccess()));
+DatabaseContext db = new DatabaseContext(builder.Configuration);
+DatabaseAccess da = new DatabaseAccess(db);
+Authenticator auth = new Authenticator();
+Shield shield = new Shield(da, auth);
 
-// Add authentication
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opt => builder.Configuration.Bind("JwtSettings", opt))
-//    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt => builder.Configuration.Bind("CookieSettings", opt));
-
-builder.Services
-    .AddAuthentication((opt) =>
-    {
-        opt.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        opt.DefaultChallengeScheme = MicrosoftAccountDefaults.AuthenticationScheme;
-    })
-    .AddCookie()
-    .AddMicrosoftAccount((opt) =>
-    {
-        opt.ClientId = "67d7b840-45a6-480b-be53-3d93c187ed66";
-        opt.ClientSecret = "1al8Q~wnkh-frkb4Yhi3E.eNXPiEFZQQCw-PXaB6";
-    });
+builder.Services.Add(new ServiceDescriptor(typeof(DatabaseContext), db));
+builder.Services.Add(new ServiceDescriptor(typeof(DatabaseAccess), da));
+builder.Services.Add(new ServiceDescriptor(typeof(Authenticator), auth));
+builder.Services.Add(new ServiceDescriptor(typeof(Shield), shield));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -51,11 +37,17 @@ app.UseCors((opt) =>
     opt.AllowCredentials();
     opt.AllowAnyHeader();
     opt.AllowAnyMethod();
-    opt.WithOrigins("http://localhost:3000");
+    opt.WithOrigins("http://localhost:3000", "*");
 });
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseGlobalExceptionHandler(opt => {
+    opt.ResponseBody(s => JsonSerializer.Serialize(new
+    {
+        Message = "An error occurred."
+    }));
+
+    opt.Map<UnauthorizedAccessException>().ToStatusCode(StatusCodes.Status401Unauthorized);
+});
 
 app.UseHttpsRedirection();
 app.MapControllers();

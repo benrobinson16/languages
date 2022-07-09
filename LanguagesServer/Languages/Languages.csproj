@@ -17,6 +17,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.6" />
+    <PackageReference Include="JWT" Version="9.0.3" />
+    <PackageReference Include="GlobalExceptionHandler" Version="4.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,13 +27,16 @@
     <None Remove="Pomelo.EntityFrameworkCore.MySql" />
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
     <None Remove="Microsoft.EntityFrameworkCore" />
-    <None Remove="DatabaseAccess\" />
     <None Remove="Microsoft.AspNetCore.Authentication" />
     <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <None Remove="Microsoft.AspNetCore.Authentication.MicrosoftAccount" />
+    <None Remove="JWT" />
+    <None Remove="GlobalExceptionHandler" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="DatabaseAccess\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig" />
   </ItemGroup>
 </Project>

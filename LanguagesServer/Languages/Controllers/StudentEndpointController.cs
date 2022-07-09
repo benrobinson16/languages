@@ -1,23 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Languages.Database;
+using Languages.Services;
 using Languages.Models;
 using Task = Languages.Models.Task;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 
 namespace Languages.Controllers;
 
 [ApiController]
 [Route("/student")]
-[Authorize]
 public class StudentController: ControllerBase
 {
     DatabaseContext db;
     DatabaseAccess da;
+    Authenticator auth;
+    Shield shield;
 
-    public StudentController(DatabaseContext db, DatabaseAccess da)
+    public StudentController(DatabaseContext db, DatabaseAccess da, Authenticator auth, Shield shield)
     {
         this.db = db;
         this.da = da;
+        this.auth = auth;
+        this.shield = shield;
+    }
+
+    [HttpGet("test")]
+    public string TestEndpoint()
+    {
+        Student student = shield.AuthenticateStudent(Request);
+
+        return "Authenticated as " + student.FirstName + " " + student.Email;
     }
 
     [HttpGet("summary")]

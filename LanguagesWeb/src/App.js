@@ -46,14 +46,13 @@ function ProtectedComponent() {
                 console.log("HELLO");
                 // Call your API with token
                 let headers = new Headers();
-                let bearer = "Bearer " + accessToken;
-                headers.append("Authorization", bearer);
+                headers.append("AccessToken", accessToken);
                 headers.append("Content-Type", "application/json");
                 let options = {
                     method: "GET",
                     headers: headers,
                 };
-                let graphEndpoint = "https://localhost:7255/student/reviewcards";
+                let graphEndpoint = "https://localhost:7255/student/test";
                 fetch(graphEndpoint, options)
                     .then(async function (response) {
                         const textResponse = await response.text()
