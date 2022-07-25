@@ -1,7 +1,7 @@
-import { InteractionRequiredAuthError, PublicClientApplication } from "@azure/msal-browser";
+import { Configuration, InteractionRequiredAuthError, PublicClientApplication } from "@azure/msal-browser";
 import { useMsal } from "@azure/msal-react";
 
-const options = {
+const options: Configuration = {
     auth: {
         clientId: '67d7b840-45a6-480b-be53-3d93c187ed66',
         // authority: "https://login.microsoftonline.com/common", <-- Do I need this?
@@ -10,22 +10,18 @@ const options = {
 }
 
 // Provides all logic for authenticating a user with Microsoft.
-export const authenticator = {
+class AuthService {
 
     // The current instance of the application for MSAL to use.
-    instance: new PublicClientApplication(options),
+    instance: PublicClientApplication;
 
-    // The current token. Do not use this directly. Use the get token function instead.
-    token: null,
+    // Create the instance with the provided options.
+    constructor(options: Configuration) {
+        this.instance = new PublicClientApplication(options)
+    }
 
     // Gets the id token for the user, redirecting them to sign in if necessary.
-    getToken: function (): Promise<string> {
-
-        // If the token is cached, return it immediately to avoid a trip to the server.
-        if (this.token != null) {
-            return this.token;
-        }
-
+    async getToken(): Promise<string> {
         const { instance, accounts } = useMsal();
 
         // Provide information to mMicrosoft so that they can handle the request.
@@ -39,7 +35,7 @@ export const authenticator = {
             instance.acquireTokenSilent(accessTokenRequest)
                 .then(accessToken => {
                     
-                    // Got the token successfully, now save and return.
+                    // Got the token successfully, now return.
                     let idToken = accessToken.idToken;
                     resolve(idToken);
                 })
@@ -54,4 +50,14 @@ export const authenticator = {
                 });
         });
     }
+
+    // Create the header for an API request
+    async requestHeader(token: string | null) {
+        const resolvedToken = token ?? await this.getToken();
+        return {
+            "Authorization": resolvedToken
+        };
+    }
 }
+
+export default new AuthService(options);
