@@ -1,29 +1,19 @@
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../redux/store";
+import { useAppSelector } from "../redux/store.ts";
 import React from "react";
+import HomePage from "./home";
 
 export default function Nav() {
-    const dispatch = useAppDispatch();
-    const currentPage = useSelector((state: RootState) => state.nav.navStack[state.nav.navStack.length - 1]);
+    const currentPage = useAppSelector(state => state.nav.navStack[state.nav.navStack.length - 1]);
 
     switch (currentPage.id) {
         case "home":
-            return (<div>Home</div>);
-
-        case "classes":
-            return <div>Classes</div>;
+            return <HomePage />;
 
         case "class":
-            return <div>Class</div>;
-
-        case "decks":
-            return <div>Decks</div>;        
+            return <div>Class</div>; 
 
         case "deck":
             return <div>Deck</div>;     
-
-        case "tasks":
-            return <div>Tasks</div>;     
 
         case "task":
             return <div>Task</div>;

@@ -1,12 +1,11 @@
 import { Configuration, InteractionRequiredAuthError, PublicClientApplication } from "@azure/msal-browser";
-import { useMsal } from "@azure/msal-react";
 
 const options: Configuration = {
     auth: {
         clientId: '67d7b840-45a6-480b-be53-3d93c187ed66',
-        // authority: "https://login.microsoftonline.com/common", <-- Do I need this?
-        // redirectUri: "http://localhost:3000", <-- Do I need this?
-    },
+        authority: "https://login.microsoftonline.com/common",
+        redirectUri: "http://localhost:3000"
+    }
 }
 
 // Provides all logic for authenticating a user with Microsoft.
@@ -22,17 +21,16 @@ class AuthService {
 
     // Gets the id token for the user, redirecting them to sign in if necessary.
     async getToken(): Promise<string> {
-        const { instance, accounts } = useMsal();
 
         // Provide information to mMicrosoft so that they can handle the request.
         const accessTokenRequest = {
             scopes: ["api://67d7b840-45a6-480b-be53-3d93c187ed66/API.Access"],
-            account: accounts[0]
+            account: this.instance.getAllAccounts()[0]
         };
 
         // Wrap the callback in a promise so that it can be used with async/await.
         return new Promise((resolve, reject) => {
-            instance.acquireTokenSilent(accessTokenRequest)
+            this.instance.acquireTokenSilent(accessTokenRequest)
                 .then(accessToken => {
                     
                     // Got the token successfully, now return.
@@ -43,7 +41,7 @@ class AuthService {
                     
                     // An error has ocurred. Redirect if the user needs to manually sign in.
                     if (error instanceof InteractionRequiredAuthError) {
-                        instance.acquireTokenRedirect(accessTokenRequest);
+                        this.instance.acquireTokenRedirect(accessTokenRequest);
                     } else {
                         reject(error);
                     }

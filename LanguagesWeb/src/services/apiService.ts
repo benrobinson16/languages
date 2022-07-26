@@ -1,6 +1,6 @@
 import { baseUrl } from "../api/constants";
 import { ApiEndpoint, getCardsForDeckEndpoint, getClassesEndpoint, getDecksEndpoint, getTasksForClassEndpoint, getUserDetailsEndpoint } from "../api/endpoints";
-import { User, Class, Task, StudentProgress, Deck, Card } from "../api/models";
+import { Teacher, Class, Task, StudentProgress, Deck, Card } from "../api/models";
 
 class ApiService {
     private async makeRequest(token: string, endpoint: ApiEndpoint, data: { [key: string]: string } = {}): Promise<any> {
@@ -27,7 +27,7 @@ class ApiService {
         }
     }
 
-    async getUserDetails(token: string): Promise<User> {
+    async getUserDetails(token: string): Promise<Teacher> {
         return await this.makeRequest(token, getUserDetailsEndpoint);
     }
 

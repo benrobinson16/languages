@@ -1,6 +1,14 @@
-export interface User {
+export interface Teacher {
+    id: number,
     title: string,
     surname: string,
+    email: string
+}
+
+export interface Student { 
+    id: number,
+    firstName: string,
+    surname: String,
     email: string
 }
 
@@ -12,10 +20,7 @@ export interface Card {
 }
 
 export interface StudentProgress {
-    id: number,
-    firstName: string,
-    surname: string,
-    email: string,
+    studentId: number,
     progress: number
 }
 

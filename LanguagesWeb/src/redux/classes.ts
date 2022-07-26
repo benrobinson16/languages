@@ -1,7 +1,7 @@
 import { Class } from "../api/models";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Action, ActionCreator, AnyAction, createSlice, PayloadAction, ThunkAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
-import store from "./store";
+import store, { AppState, TypedThunk } from "./store";
 import apiService from "../services/apiService";
 
 interface ClassesState {
@@ -37,8 +37,8 @@ export const classesSlice = createSlice({
 
 export const { startedLoading, loadedClasses, failedLoadingClasses } = classesSlice.actions;
 
-export const loadClasses = (params) => {
-    return async (dispatch, getState) => {
+export const loadClasses = (): TypedThunk => {
+    return async (dispatch, getState): Promise<void> => {
         store.dispatch(startedLoading());
 
         try {

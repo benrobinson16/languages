@@ -5,7 +5,7 @@ import apiService from "../services/apiService";
 
 interface AuthState {
     token: string | null,
-    user: User | null,
+    user: Teacher | null,
     error: string | null,
     isAuthenticating: boolean
 }
@@ -30,7 +30,7 @@ export const authSlice = createSlice({
         gotToken: (state, action: PayloadAction<string>) => {
             state.token = action.payload;
         },
-        gotUserInfo: (state, action: PayloadAction<User>) => {
+        gotUserInfo: (state, action: PayloadAction<Teacher>) => {
             state.user = action.payload;
             state.isAuthenticating = false;
         },
