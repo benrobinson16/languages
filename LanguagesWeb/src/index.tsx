@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import store from "./redux/store";
 import Nav from './pages/nav';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootElement = document.getElementById('root')!;
+const root = ReactDOM.createRoot(rootElement);
 
 root.render(
     <React.StrictMode>

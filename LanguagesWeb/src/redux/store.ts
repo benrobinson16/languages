@@ -1,10 +1,9 @@
 import { AnyAction, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { navSlice } from "./nav";
-import thunk, { ThunkAction, ThunkDispatch, ThunkMiddleware } from "redux-thunk";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { authSlice } from "./auth";
 import { classesSlice } from "./classes";
-import { composeWithDevTools } from "@reduxjs/toolkit/dist/devtoolsExtension";
 
 const store = configureStore({
     reducer: {

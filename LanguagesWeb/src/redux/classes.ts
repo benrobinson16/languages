@@ -1,7 +1,7 @@
 import { Class } from "../api/models";
-import { Action, ActionCreator, AnyAction, createSlice, PayloadAction, ThunkAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
-import store, { AppState, TypedThunk } from "./store";
+import store, { TypedThunk } from "./store";
 import apiService from "../services/apiService";
 
 interface ClassesState {
@@ -52,7 +52,13 @@ export const loadClasses = (): TypedThunk => {
             const response: Class[] = await apiService.getClasses(token, userId)
             dispatch(loadedClasses(response));
         } catch (error) {
-            dispatch(failedLoadingClasses(error));
+            if (error instanceof Error) {
+                dispatch(failedLoadingClasses(error.message));
+            } else if (typeof error === "string") {
+                dispatch(failedLoadingClasses(error));
+            } else {
+                dispatch(failedLoadingClasses("An unexpected error was encountered. Please try again."));
+            }
         }
     }
 }

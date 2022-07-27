@@ -38,13 +38,9 @@ class AuthService {
                     resolve(idToken);
                 })
                 .catch(error => {
-                    
-                    // An error has ocurred. Redirect if the user needs to manually sign in.
-                    if (error instanceof InteractionRequiredAuthError) {
-                        this.instance.acquireTokenRedirect(accessTokenRequest);
-                    } else {
-                        reject(error);
-                    }
+
+                    // An error has ocurred. Redirect as the user needs to manually sign in.
+                    this.instance.acquireTokenRedirect(accessTokenRequest);
                 });
         });
     }

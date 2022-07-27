@@ -13,7 +13,7 @@ export default function HomePage() {
     
     useEffect(() => {
         dispatch(loadClasses());
-    }, []);
+    }, [dispatch]);
 
     if (errorMessage) { 
         return <div>{errorMessage}</div>;
@@ -23,7 +23,7 @@ export default function HomePage() {
         return <div>Loading...</div>;
     }
 
-    if (classes != null && classes.length == 0) {
+    if (classes != null && classes.length === 0) {
         return <div>No classes have been created.</div>;
     }
 
@@ -36,6 +36,7 @@ export default function HomePage() {
     
     return (
         <div>
+            <div>Hello</div>
             {classCards}
         </div>
     );

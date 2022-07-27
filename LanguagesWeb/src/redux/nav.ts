@@ -45,4 +45,4 @@ export const navSlice = createSlice({
     }
 });
 
-export const { openClassList, openClass, openDeckList, openDeck, openTaskList, openTask, back } = navSlice.actions;
+export const { openHome, openClassList, openClass, openDeckList, openDeck, openTaskList, openTask, back } = navSlice.actions;

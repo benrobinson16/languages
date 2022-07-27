@@ -1,7 +1,9 @@
-import { User } from "../api/models";
+import { Teacher } from "../api/models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 import apiService from "../services/apiService";
+import { AppDispatch, AppState } from "./store";
+import { openHome } from "./nav";
 
 interface AuthState {
     token: string | null,
@@ -43,9 +45,10 @@ export const authSlice = createSlice({
 
 export const { startedAuthenticating, gotToken, gotUserInfo, encounteredError } = authSlice.actions;
 
-export const getToken = () => { 
-    return async (dispatch, getState) => {
+export const getToken = (redirect: boolean = true) => { 
+    return async (dispatch: AppDispatch, getState: () => AppState) => {
         if (getState().auth.isAuthenticating) {
+            console.log("Already authenticating...");
             return;
         }
 
@@ -56,8 +59,17 @@ export const getToken = () => {
             dispatch(gotToken(token));
             const userInfo = await apiService.getUserDetails(token);
             dispatch(gotUserInfo(userInfo));
+
+            if (redirect) {
+                dispatch(openHome());
+            }
         } catch (error) {
-            dispatch(encounteredError(error.message));
+            console.log(error);
+            if (error instanceof Error) {
+                dispatch(encounteredError(error.message));
+            } else if (typeof error === "string") {
+                dispatch(encounteredError(error));
+            }
         }
     }
 }
