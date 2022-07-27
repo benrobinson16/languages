@@ -6,7 +6,7 @@ using Task = Languages.Models.Task;
 namespace Languages.Controllers;
 
 [ApiController]
-[Route("/student")]
+[Route("/auth")]
 public class AuthController : ControllerBase
 {
     DatabaseContext db;
@@ -20,29 +20,8 @@ public class AuthController : ControllerBase
         this.shield = shield;
     }
 
-    [HttpPost("test")]
-    public string Test()
-    {
-        User user = shield.Authenticate(Request);
-        return user.Email;
-    }
-
-    [HttpPost("testStudent")]
-    public string TestStudent()
-    {
-        Student student = shield.AuthenticateStudent(Request);
-        return student.Email;
-    }
-
-    [HttpPost("testTeacher")]
-    public string TestTeacher()
-    {
-        Teacher teacher = shield.AuthenticateTeacher(Request);
-        return teacher.Email;
-    }
-
     [HttpPost("registerStudent")]
-    public void RegisterStudent()
+    public Student RegisterStudent()
     {
         User user = shield.Authenticate(Request);
 
@@ -58,10 +37,12 @@ public class AuthController : ControllerBase
 
         db.Students.Add(student);
         db.SaveChanges();
+
+        return student;
     }
 
     [HttpPost("registerTeacher")]
-    public void RegisterTeacher(string title)
+    public Teacher RegisterTeacher(string title, string surname)
     {
         User user = shield.Authenticate(Request);
 
@@ -71,11 +52,27 @@ public class AuthController : ControllerBase
         Teacher teacher = new Teacher
         {
             Title = title,
-            Surname = user.Surname,
+            Surname = surname,
             Email = user.Email,
         };
 
         db.Teachers.Add(teacher);
         db.SaveChanges();
+
+        return teacher;
+    }
+
+    [HttpGet("studentDetails")]
+    public Student StudentDetails()
+    {
+        Student student = shield.AuthenticateStudent(Request);
+        return student;
+    }
+
+    [HttpGet("teacherDetails")]
+    public Teacher TeacherDetails()
+    {
+        Teacher teacher = shield.AuthenticateTeacher(Request);
+        return teacher;
     }
 }

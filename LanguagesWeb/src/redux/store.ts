@@ -3,14 +3,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { navSlice } from "./nav";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { authSlice } from "./auth";
-import { classesSlice } from "./classes";
+import { summarySlice } from "./summary";
 import { signUpSlice } from "./signUp";
 
 const store = configureStore({
     reducer: {
         nav: navSlice.reducer,
         auth: authSlice.reducer,
-        classes: classesSlice.reducer,
+        summary: summarySlice.reducer,
         signUp: signUpSlice.reducer
     }
 });

@@ -1,9 +1,8 @@
 import { Flex, Heading, Spacer, Stack, VStack } from "@chakra-ui/react";
 import React from "react";
-import ClassList from "../components/classList";
-import { SignOutButton } from "../components/buttons";
+import { SignOutButton } from "./buttons";
 
-export default function HomePage() {
+export default function Layout(props: { children: React.ReactNode }) {
     return (
         <VStack>
             <Flex
@@ -17,12 +16,7 @@ export default function HomePage() {
                 <Spacer />
                 <SignOutButton />
             </Flex>
-            <Stack direction="row" spacing={8}>
-                <ClassList />
-                <ClassList />
-                <ClassList />
-            </Stack>
+            {props.children}
         </VStack>
-        
     );
 }

@@ -41,8 +41,8 @@ public class TeacherController : ControllerBase
         };
     }
 
-    [HttpGet("classsummary")]
-    public void ClassSummary(int classId)
+    [HttpGet("classDetails")]
+    public void ClassDetails(int classId)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
@@ -90,8 +90,8 @@ public class TeacherController : ControllerBase
         return cla.ClassId;
     }
 
-    [HttpGet("decksummary")]
-    public void DeckSummary(int deckId)
+    [HttpGet("deckDetails")]
+    public void DeckDetails(int deckId)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 

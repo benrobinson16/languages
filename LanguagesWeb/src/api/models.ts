@@ -39,5 +39,13 @@ export interface Deck {
 
 export interface Class {
     id: number,
-    name: string
+    name: string,
+    numActiveTasks: number,
+    numStudents: number
+}
+
+export interface TeacherSummary {
+    classes: Class[],
+    tasks: Task[],
+    decks: Deck[]
 }

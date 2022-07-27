@@ -2,6 +2,7 @@ import { useAppSelector } from "../redux/store";
 import React from "react";
 import HomePage from "./home";
 import LogInPage from "./logIn";
+import { createStandaloneToast } from "@chakra-ui/react";
 
 export default function Nav() {
     const currentPage = useAppSelector(state => state.nav.navStack[state.nav.navStack.length - 1]);

@@ -1,8 +1,7 @@
-import { Deck, Class, Task } from "../api/models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface NavPage {
-    id: "home" | "classes" | "class" | "decks" | "deck" | "tasks" | "task" | "signup",
+    id: "home" | "class" | "deck" | "task" | "signup",
     data: number | null
 }
 
@@ -24,28 +23,28 @@ export const navSlice = createSlice({
         openSignUp: (state) => {
             state.navStack.push({ id: "signup", data: null });
         },
-        openClassList: (state) => {
-            state.navStack.push({ id: "classes", data: null });
-        },
         openClass: (state, action: PayloadAction<number>) => {
             state.navStack.push({ id: "class", data: action.payload });
         },
-        openDeckList: (state) => {
-            state.navStack.push({ id: "decks", data: null });
-        },
         openDeck: (state, action: PayloadAction<number>) => {
             state.navStack.push({ id: "deck", data: action.payload });
-        },
-        openTaskList: (state) => {
-            state.navStack.push({ id: "tasks", data: null });
         },
         openTask: (state, action: PayloadAction<number>) => {
             state.navStack.push({ id: "task", data: action.payload });
         },
         back: (state) => {
-            state.navStack.pop();
+            // Only proceed if there is something to pop.
+            if (state.navStack.length === 0) return;
+
+            // Pop the current page, provided it is not the home page.
+            if (state.navStack[state.navStack.length - 1].id != "home") {
+                state.navStack.pop();
+            }
+        },
+        popToHome: (state) => {
+            state.navStack = [{ id: "home", data: null }];
         }
     }
 });
 
-export const { openHome, openSignUp, openClassList, openClass, openDeckList, openDeck, openTaskList, openTask, back } = navSlice.actions;
+export const { openHome, openSignUp, openClass, openDeck, openTask, back, popToHome } = navSlice.actions;
