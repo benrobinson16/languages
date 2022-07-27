@@ -13,6 +13,7 @@ export class ApiEndpoint {
 }
 
 export const getUserDetailsEndpoint = new ApiEndpoint("auth", "teacherDetails", "GET");
+export const createAccountEndpoint = new ApiEndpoint("auth", "createTeacherAccount", "POST");
 export const getClassesEndpoint = new ApiEndpoint("teacher", "getClasses", "GET");
 export const getTasksForClassEndpoint = new ApiEndpoint("teacher", "getTasksForClass", "GET");
 export const getProgressForTaskEndpoint = new ApiEndpoint("teacher", "getProgressForTask", "GET");

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Class } from "../api/models";
+import { Class, Teacher } from "../api/models";
 import ClassCard from "../components/classCard";
 import { loadClasses } from "../redux/classes";
 import { useAppDispatch, useAppSelector } from "../redux/store";
@@ -7,10 +7,11 @@ import { useAppDispatch, useAppSelector } from "../redux/store";
 export default function HomePage() {
     const dispatch = useAppDispatch();
 
-    let classes: Class[] | null = useAppSelector(state => state.classes.classes);
-    let isLoading: boolean = useAppSelector(state => state.classes.isLoading);
-    let errorMessage: string | null = useAppSelector(state => state.classes.errorMessage);
-    
+    const classes: Class[] | null = useAppSelector(state => state.classes.classes);
+    const isLoading: boolean = useAppSelector(state => state.classes.isLoading);
+    const errorMessage: string | null = useAppSelector(state => state.classes.errorMessage);
+    const user: Teacher = useAppSelector(state => state.auth.user)!;
+
     useEffect(() => {
         dispatch(loadClasses());
     }, [dispatch]);
@@ -36,7 +37,7 @@ export default function HomePage() {
     
     return (
         <div>
-            <div>Hello</div>
+            <div>Hello {user.title} {user.surname}</div>
             {classCards}
         </div>
     );

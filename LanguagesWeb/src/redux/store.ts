@@ -4,12 +4,14 @@ import { navSlice } from "./nav";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { authSlice } from "./auth";
 import { classesSlice } from "./classes";
+import { signUpSlice } from "./signUp";
 
 const store = configureStore({
     reducer: {
         nav: navSlice.reducer,
         auth: authSlice.reducer,
-        classes: classesSlice.reducer
+        classes: classesSlice.reducer,
+        signUp: signUpSlice.reducer
     }
 });
 

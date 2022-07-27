@@ -2,8 +2,8 @@ import { Deck, Class, Task } from "../api/models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface NavPage {
-    id: "home" | "classes" | "class" | "decks" | "deck" | "tasks" | "task",
-    data: Deck | Class | Task | null
+    id: "home" | "classes" | "class" | "decks" | "deck" | "tasks" | "task" | "signup",
+    data: number | null
 }
 
 interface NavigationState {
@@ -21,22 +21,25 @@ export const navSlice = createSlice({
         openHome: (state) => {
             state.navStack.push({ id: "home", data: null });
         },
+        openSignUp: (state) => {
+            state.navStack.push({ id: "signup", data: null });
+        },
         openClassList: (state) => {
             state.navStack.push({ id: "classes", data: null });
         },
-        openClass: (state, action: PayloadAction<Class>) => {
+        openClass: (state, action: PayloadAction<number>) => {
             state.navStack.push({ id: "class", data: action.payload });
         },
         openDeckList: (state) => {
             state.navStack.push({ id: "decks", data: null });
         },
-        openDeck: (state, action: PayloadAction<Deck>) => {
+        openDeck: (state, action: PayloadAction<number>) => {
             state.navStack.push({ id: "deck", data: action.payload });
         },
         openTaskList: (state) => {
             state.navStack.push({ id: "tasks", data: null });
         },
-        openTask: (state, action: PayloadAction<Task>) => {
+        openTask: (state, action: PayloadAction<number>) => {
             state.navStack.push({ id: "task", data: action.payload });
         },
         back: (state) => {
@@ -45,4 +48,4 @@ export const navSlice = createSlice({
     }
 });
 
-export const { openHome, openClassList, openClass, openDeckList, openDeck, openTaskList, openTask, back } = navSlice.actions;
+export const { openHome, openSignUp, openClassList, openClass, openDeckList, openDeck, openTaskList, openTask, back } = navSlice.actions;
