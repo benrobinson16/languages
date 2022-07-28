@@ -1,4 +1,5 @@
-﻿using Languages.Models;
+﻿using Languages.DbModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Languages.Services.Repositories;
 
@@ -11,36 +12,36 @@ public class ClassRepository
         this.db = db;
     }
 
-    public Class? ById(int id)
+    public async Task<Class?> ById(int id)
     {
         var classQry = from cla in db.Classes
                        where cla.ClassId == id
                        select cla;
 
-        return classQry.FirstOrDefault();
+        return await classQry.FirstOrDefaultAsync();
     }
 
-    public List<Class> ForTeacher(int teacherId)
+    public async Task<List<Class>> ForTeacher(int teacherId)
     {
         var classQry = from cla in db.Classes
                        where cla.TeacherId == teacherId
                        select cla;
 
-        return classQry.ToList();
+        return await classQry.ToListAsync();
     }
 
-    public bool OwnedByTeacher(int classId, int teacherId)
+    public async Task<bool> OwnedByTeacher(int classId, int teacherId)
     {
-        Class? targetClass = ById(classId);
+        Class? targetClass = await ById(classId);
         return targetClass?.TeacherId == teacherId;
     }
 
-    public bool JoinCodeExists(string joinCode)
+    public async Task<bool> JoinCodeExists(string joinCode)
     {
         var classQry = from cla in db.Classes
                        where cla.JoinCode == joinCode
                        select cla;
 
-        return classQry.Any();
+        return await classQry.AnyAsync();
     }
 }

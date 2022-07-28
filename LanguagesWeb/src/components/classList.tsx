@@ -9,10 +9,6 @@ export default function ClassList() {
     const classes = useAppSelector(state => state.summary.classes);
     const isLoading = useAppSelector(state => state.summary.isLoading);
 
-    useEffect(() => {
-        dispatch(loadSummary());
-    }, [dispatch]);
-
     if (isLoading) {
         return <div>Loading...</div>;
     }

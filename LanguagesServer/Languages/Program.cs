@@ -1,21 +1,19 @@
 using System.Text.Json;
 using GlobalExceptionHandler.WebApi;
 using Languages.Services;
-using Languages.Models;
+using Languages.ApiModels;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add student and teacher controllers.
+// Add API controllers.
 builder.Services.AddControllers();
 
-// Add a connection to the database.
-DatabaseContext db = new DatabaseContext(builder.Configuration);
-DatabaseAccess da = new DatabaseAccess(db);
-Shield shield = new Shield(da);
-
-builder.Services.Add(new ServiceDescriptor(typeof(DatabaseContext), db));
-builder.Services.Add(new ServiceDescriptor(typeof(DatabaseAccess), da));
-builder.Services.Add(new ServiceDescriptor(typeof(Shield), shield));
+// Add service layer
+builder.Services.AddDbContext<DatabaseContext>();
+builder.Services.AddScoped<DatabaseAccess>();
+builder.Services.AddScoped<Shield>();
+builder.Services.AddSingleton<Authenticator>(new Authenticator());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

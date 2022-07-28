@@ -31,15 +31,12 @@ export const summarySlice = createSlice({
         },
         loadedClasses: (state, action: PayloadAction<Class[]>) => {
             state.classes = action.payload;
-            state.isLoading = false
         },
         loadedTasks: (state, action: PayloadAction<Task[]>) => {
             state.tasks = action.payload;
-            state.isLoading = false
         },
         loadedDecks: (state, action: PayloadAction<Deck[]>) => {
             state.decks = action.payload;
-            state.isLoading = false
         },
         failedLoadingSummary: (state) => {
             state.isLoading = false;
@@ -55,8 +52,6 @@ export const loadSummary = (): TypedThunk => {
         store.dispatch(startedLoading());
 
         try {
-            console.log(getState().auth.token);
-            console.log(getState().auth.user);
             const token = getState().auth.token || await authService.getToken();
             const userId = getState().auth.user?.id;
 
@@ -68,6 +63,7 @@ export const loadSummary = (): TypedThunk => {
             dispatch(loadedClasses(response.classes));
             dispatch(loadedTasks(response.tasks));
             dispatch(loadedDecks(response.decks));
+            dispatch(failedLoadingSummary());
         } catch (error) {
             errorToast(error);
             dispatch(failedLoadingSummary());

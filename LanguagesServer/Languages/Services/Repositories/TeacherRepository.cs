@@ -1,4 +1,5 @@
-﻿using Languages.Models;
+﻿using Languages.DbModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Languages.Services.Repositories;
 
@@ -11,21 +12,21 @@ public class TeacherRepository
         this.db = db;
     }
 
-    public Teacher? ByEmail(string email)
+    public async Task<Teacher?> ByEmail(string email)
     {
         var qry = from teacher in db.Teachers
                   where teacher.Email == email
                   select teacher;
 
-        return qry.FirstOrDefault();
+        return await qry.FirstOrDefaultAsync();
     }
 
-    public bool ExistingForEmail(string email)
+    public async Task<bool> ExistingForEmail(string email)
     {
         var qry = from teacher in db.Teachers
                   where teacher.Email == email
                   select teacher;
 
-        return qry.Any();
+        return await qry.AnyAsync();
     }
 }

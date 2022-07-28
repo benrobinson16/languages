@@ -1,5 +1,14 @@
 import { baseUrl, HttpMethod } from "./common";
 
+/*
+
+Api Endpoint.
+
+The generic Res type is the expected result type of the endpoint, avoiding the need
+for explicit type casting at the call site.
+
+*/
+
 export class ApiEndpoint<Res> { 
     controller: string;
     action: string;

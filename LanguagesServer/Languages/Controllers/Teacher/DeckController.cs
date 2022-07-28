@@ -1,19 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Languages.Services;
-using Languages.Models;
-using Task = Languages.Models.Task;
+using Languages.DbModels;
+using Languages.ApiModels;
+using Task = Languages.DbModels.Task;
+using Microsoft.EntityFrameworkCore;
 
 namespace Languages.Controllers;
 
 [ApiController]
 [Route("/teacher/deck")]
-public class DeckController : ControllerBase
+public class TeacherDeckController : ControllerBase
 {
     DatabaseContext db;
     DatabaseAccess da;
     Shield shield;
 
-    public DeckController(DatabaseContext db, DatabaseAccess da, Shield shield)
+    public TeacherDeckController(DatabaseContext db, DatabaseAccess da, Shield shield)
     {
         this.db = db;
         this.da = da;
@@ -21,11 +23,11 @@ public class DeckController : ControllerBase
     }
 
     [HttpGet]
-    public Deck Get(int deckId)
+    public async Task<Deck> Get(int deckId)
     {
-        Teacher teacher = shield.AuthenticateTeacher(Request);
+        Teacher teacher = await shield.AuthenticateTeacher(Request);
 
-        Deck? deck = da.Decks.ById(deckId);
+        Deck? deck = await da.Decks.ById(deckId);
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -33,9 +35,9 @@ public class DeckController : ControllerBase
     }
 
     [HttpPost]
-    public Deck Post(string name)
+    public async Task<Deck> Post(string name)
     {
-        Teacher teacher = shield.AuthenticateTeacher(Request);
+        Teacher teacher = await shield.AuthenticateTeacher(Request);
 
         Deck deck = new Deck
         {
@@ -45,36 +47,36 @@ public class DeckController : ControllerBase
         };
 
         db.Decks.Add(deck);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
 
         return deck;
     }
 
     [HttpPatch]
-    public Deck Patch(int deckId, string name)
+    public async Task<Deck> Patch(int deckId, string name)
     {
-        Teacher teacher = shield.AuthenticateTeacher(Request);
+        Teacher teacher = await shield.AuthenticateTeacher(Request);
 
-        Deck? deck = da.Decks.ById(deckId);
+        Deck? deck = await da.Decks.ById(deckId);
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
         deck.Name = name;
-        db.SaveChanges();
+        await db.SaveChangesAsync();
 
         return deck;
     }
 
     [HttpDelete]
-    public void Delete(int deckId)
+    public async void Delete(int deckId)
     {
-        Teacher teacher = shield.AuthenticateTeacher(Request);
+        Teacher teacher = await shield.AuthenticateTeacher(Request);
 
-        Deck? deck = da.Decks.ById(deckId);
+        Deck? deck = await da.Decks.ById(deckId);
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
         db.Decks.Remove(deck);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 }

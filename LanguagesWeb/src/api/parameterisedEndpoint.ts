@@ -1,5 +1,18 @@
 import { baseUrl, HttpMethod } from "./common";
 
+/*
+
+Parameterised Endpoint.
+
+The generic Keys type is a union Typescript type that gives the type system information
+about the keys to be expected for the request. Typescript will not allow any requests
+with more or fewer parameters to be sent.
+
+The generic Res type is the expected result type of the endpoint, avoiding the need
+for explicit type casting at the call site.
+
+*/
+
 export class ParameterisedEndpoint<Keys extends string, Res> { 
     controller: string;
     action: string;

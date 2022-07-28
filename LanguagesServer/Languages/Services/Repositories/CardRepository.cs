@@ -1,4 +1,5 @@
-﻿using Languages.Models;
+﻿using Languages.DbModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Languages.Services.Repositories;
 
@@ -11,21 +12,21 @@ public class CardRepository
         this.db = db;
     }
 
-    public Card? ById(int id)
+    public async Task<Card?> ById(int id)
     {
         var cardQry = from card in db.Cards
                       where card.CardId == id
                       select card;
 
-        return cardQry.FirstOrDefault();
+        return await cardQry.FirstOrDefaultAsync();
     }
 
-    public List<Card> ForDeck(int deckId)
+    public async Task<List<Card>> ForDeck(int deckId)
     {
         var cardQry = from card in db.Cards
                       where card.DeckId == deckId
                       select card;
 
-        return cardQry.ToList();
+        return await cardQry.ToListAsync();
     }
 }

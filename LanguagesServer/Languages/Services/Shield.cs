@@ -1,4 +1,5 @@
-﻿using Languages.Models;
+﻿using Languages.DbModels;
+using Languages.ApiModels;
 
 namespace Languages.Services;
 
@@ -7,33 +8,39 @@ public class Shield
     DatabaseAccess da;
     Authenticator auth;
 
-    public Shield(DatabaseAccess da)
+    public Shield(DatabaseAccess da, Authenticator auth)
     {
         this.da = da;
-        this.auth = new Authenticator();
+        this.auth = auth;
     }
 
     public User Authenticate(HttpRequest request)
     {
         string token = request.Headers["Authorization"];
+
         User? user = auth.Authenticate(token);
         if (user == null) throw new LanguagesUnauthenticated();
+
         return user;
     }
 
-    public Student AuthenticateStudent(HttpRequest request)
+    public async Task<Student> AuthenticateStudent(HttpRequest request)
     {
         User user = Authenticate(request);
-        Student? student = da.Students.ByEmail(user.Email);
+
+        Student? student = await da.Students.ByEmail(user.Email);
         if (student == null) throw new LanguagesUnauthorized();
+
         return student;
     }
 
-    public Teacher AuthenticateTeacher(HttpRequest request)
+    public async Task<Teacher> AuthenticateTeacher(HttpRequest request)
     {
         User user = Authenticate(request);
-        Teacher? teacher = da.Teachers.ByEmail(user.Email);
+
+        Teacher? teacher = await da.Teachers.ByEmail(user.Email);
         if (teacher == null) throw new LanguagesUnauthorized();
+
         return teacher;
     }
 }

@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Languages.Services;
-using Languages.Models;
+using Languages.DbModels;
+using Languages.ApiModels;
 
 namespace Languages.Controllers;
 
 [ApiController]
 [Route("/teacher/card")]
-public class CardController : ControllerBase
+public class TeacherCardController : ControllerBase
 {
     DatabaseContext db;
     DatabaseAccess da;
     Shield shield;
 
-    public CardController(DatabaseContext db, DatabaseAccess da, Shield shield)
+    public TeacherCardController(DatabaseContext db, DatabaseAccess da, Shield shield)
     {
         this.db = db;
         this.da = da;
@@ -20,14 +21,14 @@ public class CardController : ControllerBase
     }
 
     [HttpGet]
-    public Card Get(int cardId)
+    public async Task<Card> Get(int cardId)
     {
-        Teacher teacher = shield.AuthenticateTeacher(Request);
+        Teacher teacher = await shield.AuthenticateTeacher(Request);
 
-        Card? card = da.Cards.ById(cardId);
+        Card? card = await da.Cards.ById(cardId);
         if (card == null) throw new LanguagesResourceNotFound();
 
-        Deck? deck = da.Decks.ById(card.DeckId);
+        Deck? deck = await da.Decks.ById(card.DeckId);
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -35,11 +36,11 @@ public class CardController : ControllerBase
     }
 
     [HttpPost]
-    public Card Post(int deckId, string englishTerm, string foreignTerm)
+    public async Task<Card> Post(int deckId, string englishTerm, string foreignTerm)
     {
-        Teacher teacher = shield.AuthenticateTeacher(Request);
+        Teacher teacher = await shield.AuthenticateTeacher(Request);
 
-        Deck? deck = da.Decks.ById(deckId);
+        Deck? deck = await da.Decks.ById(deckId);
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -52,26 +53,26 @@ public class CardController : ControllerBase
         };
 
         db.Cards.Add(card);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
 
         return card;
     }
 
     [HttpPatch]
-    public Card Patch(int cardId, int deckId, string englishTerm, string foreignTerm)
+    public async Task<Card> Patch(int cardId, int deckId, string englishTerm, string foreignTerm)
     {
-        Teacher teacher = shield.AuthenticateTeacher(Request);
+        Teacher teacher = await shield.AuthenticateTeacher(Request);
 
-        Card? card = da.Cards.ById(cardId);
+        Card? card = await da.Cards.ById(cardId);
         if (card == null) throw new LanguagesResourceNotFound();
 
-        Deck? originalDeck = da.Decks.ById(card.DeckId);
+        Deck? originalDeck = await da.Decks.ById(card.DeckId);
         if (originalDeck == null) throw new LanguagesResourceNotFound();
         if (originalDeck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
         if (deckId != originalDeck.DeckId)
         {
-            Deck? newDeck = da.Decks.ById(deckId);
+            Deck? newDeck = await da.Decks.ById(deckId);
             if (newDeck == null) throw new LanguagesResourceNotFound();
             if (newDeck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -80,24 +81,24 @@ public class CardController : ControllerBase
 
         card.EnglishTerm = englishTerm;
         card.ForeignTerm = foreignTerm;
-        db.SaveChanges();
+        await db.SaveChangesAsync();
 
         return card;
     }
 
     [HttpDelete]
-    public void Delete(int cardId)
+    public async void Delete(int cardId)
     {
-        Teacher teacher = shield.AuthenticateTeacher(Request);
+        Teacher teacher = await shield.AuthenticateTeacher(Request);
 
-        Card? card = da.Cards.ById(cardId);
+        Card? card = await da.Cards.ById(cardId);
         if (card == null) throw new LanguagesResourceNotFound();
 
-        Deck? deck = da.Decks.ById(card.DeckId);
+        Deck? deck = await da.Decks.ById(card.DeckId);
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
         db.Cards.Remove(card);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 }

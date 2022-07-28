@@ -1,6 +1,6 @@
 import { Flex, Heading, Spacer, Stack, VStack } from "@chakra-ui/react";
 import React from "react";
-import { SignOutButton } from "./buttons";
+import { HomeButton, SignOutButton } from "./buttons";
 
 export default function Layout(props: { children: React.ReactNode }) {
     return (
@@ -12,6 +12,8 @@ export default function Layout(props: { children: React.ReactNode }) {
                 borderBottomWidth={2}
                 alignItems="center"
             >
+                <HomeButton />
+                <Spacer />
                 <Heading size="md">Languages</Heading>
                 <Spacer />
                 <SignOutButton />

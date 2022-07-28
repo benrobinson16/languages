@@ -1,4 +1,4 @@
-﻿namespace Languages.Models;
+﻿namespace Languages.ApiModels;
 
 public class User
 {

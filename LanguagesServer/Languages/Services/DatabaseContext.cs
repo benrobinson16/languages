@@ -1,21 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Languages.Models;
-using Task = Languages.Models.Task;
+using Languages.DbModels;
+using Task = Languages.DbModels.Task;
 
 namespace Languages.Services;
 
 public class DatabaseContext : DbContext
 {
-    private readonly IConfiguration Configuration;
-
-    public DatabaseContext(IConfiguration configuration) : base()
-    {
-        Configuration = configuration;
-    }
+    public DatabaseContext() : base() { }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        var connectionString = Configuration.GetConnectionString("LocalConnection");
+        string connectionString = "server=localhost; port=3306; database=Languages; user=root; password=password";
         options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     }
 

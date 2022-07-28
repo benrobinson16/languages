@@ -1,4 +1,5 @@
-﻿using Languages.Models;
+﻿using Languages.DbModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Languages.Services.Repositories;
 
@@ -11,27 +12,27 @@ public class DeckRepository
         this.db = db;
     }
 
-    public Deck? ById(int id)
+    public async Task<Deck?> ById(int id)
     {
         var deckQry = from deck in db.Decks
                       where deck.DeckId == id
                       select deck;
 
-        return deckQry.FirstOrDefault();
+        return await deckQry.FirstOrDefaultAsync();
     }
 
-    public List<Deck> ForTeacher(int teacherId)
+    public async Task<List<Deck>> ForTeacher(int teacherId)
     {
         var deckQry = from deck in db.Decks
                       where deck.TeacherId == teacherId
                       select deck;
 
-        return deckQry.ToList();
+        return await deckQry.ToListAsync();
     }
 
-    public bool OwnedByTeacher(int deckId, int teacherId)
+    public async Task<bool> OwnedByTeacher(int deckId, int teacherId)
     {
-        Deck? deck = ById(deckId);
+        Deck? deck = await ById(deckId);
         return deck?.TeacherId == teacherId;
     }
 }

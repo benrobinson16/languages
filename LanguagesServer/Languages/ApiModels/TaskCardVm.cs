@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Languages.Models;
+﻿namespace Languages.ApiModels;
 
 public class TaskCardVm
 {

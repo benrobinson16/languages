@@ -1,9 +1,17 @@
 import { Flex, Heading, Spacer, Stack, VStack } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import ClassList from "../components/classList";
 import { SignOutButton } from "../components/buttons";
+import { useAppDispatch } from "../redux/store";
+import { loadSummary } from "../redux/summary";
 
 export default function HomePage() {
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(loadSummary());
+    }, [dispatch]);
+
     return (
         <VStack>
             <Flex

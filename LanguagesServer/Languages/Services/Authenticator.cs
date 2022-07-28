@@ -5,7 +5,7 @@ using System.Text.Json;
 using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
-using Languages.Models;
+using Languages.ApiModels;
 
 namespace Languages.Services;
 

@@ -2,15 +2,31 @@ import { Teacher, TeacherSummary, Class, Task, Deck, Card } from "./models";
 import { ApiEndpoint } from "./apiEndpoint";
 import { ParameterisedEndpoint } from "./parameterisedEndpoint";
 
-// General endpoints.
-export const getTeacherDetails = new ApiEndpoint<Teacher>("teacher", "getDetails", "GET");
-export const registerTeacher = new ParameterisedEndpoint<"title" | "surname", Teacher>("teacher", "register", "POST");
+/*
+
+Endpoints are defined centrally here for the following reasons.
+
+- Maintainability. It is easy to see at a glance all the endpoints used by the client, and discern
+  the purpose of each one. If the path for one of the endpoints changed, it only needs to be edited here.
+
+- Typo safety. The client application does not need to repeat the path string for each request, so there
+  is a single point of truth for the name of each path.
+
+- Type safety. Each endpoint here declares the type of data it expects to send as part of the request
+  and the type of the data it expects to be returned from the server. This means that with Typescript the
+  correct parameters and return type is enforced at the call site.
+
+*/
+
+// Account/general endpoints.
+export const getTeacherDetails = new ApiEndpoint<Teacher>("account", "details/teacher", "GET");
+export const registerTeacher = new ParameterisedEndpoint<"title" | "surname", Teacher>("account", "register/teacher", "POST");
 export const getSummary = new ApiEndpoint<TeacherSummary>("teacher", "summary", "GET");
 
 // Class endpoints.
 export const getClass = new ParameterisedEndpoint<"classId", Class>("teacher", "class", "GET");
 export const newClass = new ParameterisedEndpoint<"name", Class>("teacher", "class", "POST");
-export const updateClass = new ParameterisedEndpoint<"classId" | "name", Class>("teacher", "class", "PATCH");
+export const editClass = new ParameterisedEndpoint<"classId" | "name", Class>("teacher", "class", "PATCH");
 export const deleteClass = new ParameterisedEndpoint<"classId", void>("teacher", "class", "DELETE");
 
 // Task endpoints.

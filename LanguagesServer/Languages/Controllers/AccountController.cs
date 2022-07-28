@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Languages.Services;
-using Languages.Models;
-using Task = Languages.Models.Task;
+using Languages.DbModels;
+using Languages.ApiModels;
+using Task = Languages.DbModels.Task;
 
 namespace Languages.Controllers;
 
@@ -21,11 +22,11 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("register/student")]
-    public Student RegisterStudent()
+    public async Task<Student> RegisterStudent()
     {
         User user = shield.Authenticate(Request);
 
-        bool existingStudent = da.Students.ExistingForEmail(user.Email);
+        bool existingStudent = await da.Students.ExistingForEmail(user.Email);
         if (existingStudent) throw new LanguagesOperationAlreadyExecuted();
 
         Student student = new Student
@@ -36,17 +37,17 @@ public class AccountController : ControllerBase
         };
 
         db.Students.Add(student);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
 
         return student;
     }
 
     [HttpPost("register/teacher")]
-    public Teacher RegisterTeacher(string title, string surname)
+    public async Task<Teacher> RegisterTeacher(string title, string surname)
     {
         User user = shield.Authenticate(Request);
 
-        bool existingTeacher = da.Teachers.ExistingForEmail(user.Email);
+        bool existingTeacher = await da.Teachers.ExistingForEmail(user.Email);
         if (existingTeacher) throw new LanguagesOperationAlreadyExecuted();
 
         Teacher teacher = new Teacher
@@ -57,22 +58,22 @@ public class AccountController : ControllerBase
         };
 
         db.Teachers.Add(teacher);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
 
         return teacher;
     }
 
     [HttpGet("details/student")]
-    public Student StudentDetails()
+    public async Task<Student> StudentDetails()
     {
-        Student student = shield.AuthenticateStudent(Request);
+        Student student = await shield.AuthenticateStudent(Request);
         return student;
     }
 
     [HttpGet("details/teacher")]
-    public Teacher TeacherDetails()
+    public async Task<Teacher> TeacherDetails()
     {
-        Teacher teacher = shield.AuthenticateTeacher(Request);
+        Teacher teacher = await shield.AuthenticateTeacher(Request);
         return teacher;
     }
 }
