@@ -12,12 +12,12 @@ public class EnrollmentRepository
 		this.db = db;
 	}
 
-	public async Task<List<Enrollment>> ForClass(int classId)
+	public List<Enrollment> ForClass(int classId)
 	{
 		var enrolQry = from enrol in db.Enrollments
 					   where enrol.ClassId == classId
 					   select enrol;
 
-		return await enrolQry.ToListAsync();
+		return enrolQry.ToList();
 	}
 }

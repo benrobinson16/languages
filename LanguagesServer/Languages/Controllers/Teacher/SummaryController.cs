@@ -2,8 +2,7 @@
 using Languages.Services;
 using Languages.DbModels;
 using Languages.ApiModels;
-using HwTask = Languages.DbModels.Task;
-using Task = System.Threading.Tasks.Task;
+using Task = Languages.DbModels.Task;
 
 namespace Languages.Controllers;
 
@@ -23,23 +22,23 @@ public class TeacherSummaryController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<TeacherSummaryVm> Get()
+    public TeacherSummaryVm Get()
     {
-        Teacher teacher = await shield.AuthenticateTeacher(Request);
+        Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        List<Class> classes = await da.Classes.ForTeacher(teacher.TeacherId);
-        ClassVm[] classVms = await Task.WhenAll(classes
-            .Select(async cla => new ClassVm
+        List<ClassVm> classVms = da.Classes
+            .ForTeacher(teacher.TeacherId)
+            .Select(cla => new ClassVm
             {
                 Id = cla.ClassId,
                 Name = cla.Name,
-                NumActiveTasks = (await da.Tasks.ActiveForClass(cla.ClassId)).Count(),
-                NumStudents = (await da.Enrollments.ForClass(cla.ClassId)).Count()
+                NumActiveTasks = da.Tasks.ActiveForClass(cla.ClassId).Count(),
+                NumStudents = da.Enrollments.ForClass(cla.ClassId).Count()
             })
-            .ToList());
+            .ToList();
 
-        List<HwTask> tasks = await da.Tasks.ForTeacher(teacher.TeacherId);
-        List<Deck> decks = await da.Decks.ForTeacher(teacher.TeacherId);
+        List<Task> tasks = da.Tasks.ForTeacher(teacher.TeacherId);
+        List<Deck> decks = da.Decks.ForTeacher(teacher.TeacherId);
 
         return new TeacherSummaryVm
         {

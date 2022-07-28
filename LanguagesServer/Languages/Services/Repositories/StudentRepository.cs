@@ -12,21 +12,21 @@ public class StudentRepository
         this.db = db;
     }
 
-    public async Task<Student?> ByEmail(string email)
+    public Student? ByEmail(string email)
     {
         var qry = from student in db.Students
                   where student.Email == email
                   select student;
 
-        return await qry.FirstOrDefaultAsync();
+        return qry.FirstOrDefault();
     }
 
-    public async Task<bool> ExistingForEmail(string email)
+    public bool ExistingForEmail(string email)
     {
         var qry = from student in db.Students
                   where student.Email == email
                   select student;
 
-        return await qry.AnyAsync();
+        return qry.Any();
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Languages.DbModels;
-using HwTask = Languages.DbModels.Task;
+using Task = Languages.DbModels.Task;
 using Microsoft.EntityFrameworkCore;
 
 namespace Languages.Services.Repositories;
@@ -13,16 +13,16 @@ public class TaskRepository
         this.db = db;
     }
 
-    public async Task<HwTask?> ById(int id)
+    public Task? ById(int id)
     {
         var taskQry = from task in db.Tasks
                       where task.TaskId == id
                       select task;
 
-        return await taskQry.FirstOrDefaultAsync();
+        return taskQry.FirstOrDefault();
     }
 
-    public async Task<List<HwTask>> ForStudent(int studentId)
+    public List<Task> ForStudent(int studentId)
     {
         var taskQry = from enrollment in db.Enrollments
                       where enrollment.StudentId == studentId
@@ -31,10 +31,10 @@ public class TaskRepository
                       orderby task.DueDate descending
                       select task;
 
-        return await taskQry.ToListAsync();
+        return taskQry.ToList();
     }
 
-    public async Task<List<HwTask>> ForTeacher(int teacherId)
+    public List<Task> ForTeacher(int teacherId)
     {
         var taskQry = from cla in db.Classes
                       where cla.TeacherId == teacherId
@@ -42,37 +42,37 @@ public class TaskRepository
                       orderby task.DueDate descending
                       select task;
 
-        return await taskQry.ToListAsync();
+        return taskQry.ToList();
     }
 
-    public async Task<bool> OwnedByTeacher(int taskId, int teacherId)
+    public bool OwnedByTeacher(int taskId, int teacherId)
     {
         var classQry = from task in db.Tasks
                        where task.TaskId == taskId
                        join cla in db.Classes on task.ClassId equals cla.ClassId
                        select cla;
 
-        Class? taskClass = await classQry.FirstOrDefaultAsync();
+        Class? taskClass = classQry.FirstOrDefault();
         return taskClass?.TeacherId == teacherId;
     }
 
-    public async Task<bool> AssignedToStudent(int taskId, int studentId)
+    public bool AssignedToStudent(int taskId, int studentId)
     {
         var studentQry = from task in db.Tasks
                          where task.TaskId == taskId
                          join enrollment in db.Enrollments on task.ClassId equals enrollment.ClassId
                          select enrollment.StudentId;
 
-        return await studentQry.ContainsAsync(studentId);
+        return studentQry.Contains(studentId);
     }
 
-    public async Task<List<HwTask>> ActiveForClass(int classId)
+    public List<Task> ActiveForClass(int classId)
     {
         var taskQry = from task in db.Tasks
                       where task.ClassId == classId
                       where task.DueDate > DateTime.Now
                       select task;
 
-        return await taskQry.ToListAsync();
+        return taskQry.ToList();
     }
 }

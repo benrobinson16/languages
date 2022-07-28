@@ -22,11 +22,11 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("register/student")]
-    public async Task<Student> RegisterStudent()
+    public Student RegisterStudent()
     {
         User user = shield.Authenticate(Request);
 
-        bool existingStudent = await da.Students.ExistingForEmail(user.Email);
+        bool existingStudent = da.Students.ExistingForEmail(user.Email);
         if (existingStudent) throw new LanguagesOperationAlreadyExecuted();
 
         Student student = new Student
@@ -37,17 +37,17 @@ public class AccountController : ControllerBase
         };
 
         db.Students.Add(student);
-        await db.SaveChangesAsync();
+        db.SaveChanges();
 
         return student;
     }
 
     [HttpPost("register/teacher")]
-    public async Task<Teacher> RegisterTeacher(string title, string surname)
+    public Teacher RegisterTeacher(string title, string surname)
     {
         User user = shield.Authenticate(Request);
 
-        bool existingTeacher = await da.Teachers.ExistingForEmail(user.Email);
+        bool existingTeacher = da.Teachers.ExistingForEmail(user.Email);
         if (existingTeacher) throw new LanguagesOperationAlreadyExecuted();
 
         Teacher teacher = new Teacher
@@ -58,22 +58,22 @@ public class AccountController : ControllerBase
         };
 
         db.Teachers.Add(teacher);
-        await db.SaveChangesAsync();
+        db.SaveChanges();
 
         return teacher;
     }
 
     [HttpGet("details/student")]
-    public async Task<Student> StudentDetails()
+    public Student StudentDetails()
     {
-        Student student = await shield.AuthenticateStudent(Request);
+        Student student = shield.AuthenticateStudent(Request);
         return student;
     }
 
     [HttpGet("details/teacher")]
-    public async Task<Teacher> TeacherDetails()
+    public Teacher TeacherDetails()
     {
-        Teacher teacher = await shield.AuthenticateTeacher(Request);
+        Teacher teacher = shield.AuthenticateTeacher(Request);
         return teacher;
     }
 }

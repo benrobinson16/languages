@@ -2,8 +2,7 @@
 using Languages.Services;
 using Languages.ApiModels;
 using Languages.DbModels;
-using HwTask = Languages.DbModels.Task;
-using Microsoft.EntityFrameworkCore;
+using Task = Languages.DbModels.Task;
 
 namespace Languages.Controllers;
 
@@ -23,14 +22,14 @@ public class TeacherTaskController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<HwTask> Get(int taskId)
+    public Task Get(int taskId)
     {
-        Teacher teacher = await shield.AuthenticateTeacher(Request);
+        Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        HwTask? task = await da.Tasks.ById(taskId);
+        Task? task = da.Tasks.ById(taskId);
         if (task == null) throw new LanguagesResourceNotFound();
 
-        Class? cla = await da.Classes.ById(task.ClassId);
+        Class? cla = da.Classes.ById(task.ClassId);
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -38,15 +37,15 @@ public class TeacherTaskController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<HwTask> Post(int deckId, int classId, DateTime dueDate)
+    public Task Post(int deckId, int classId, DateTime dueDate)
     {
-        Teacher teacher = await shield.AuthenticateTeacher(Request);
+        Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Class? cla = await da.Classes.ById(classId);
+        Class? cla = da.Classes.ById(classId);
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
-        HwTask task = new HwTask
+        Task task = new Task
         {
             ClassId = classId,
             DeckId = deckId,
@@ -54,26 +53,26 @@ public class TeacherTaskController : ControllerBase
         };
 
         db.Tasks.Add(task);
-        await db.SaveChangesAsync();
+        db.SaveChanges();
 
         return task;
     }
 
     [HttpPatch]
-    public async Task<HwTask> Patch(int taskId, int deckId, int classId, DateTime dueDate)
+    public Task Patch(int taskId, int deckId, int classId, DateTime dueDate)
     {
-        Teacher teacher = await shield.AuthenticateTeacher(Request);
+        Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        HwTask? task = await da.Tasks.ById(taskId);
+        Task? task = da.Tasks.ById(taskId);
         if (task == null) throw new LanguagesResourceNotFound();
 
-        Class? originalClass = await da.Classes.ById(task.ClassId);
+        Class? originalClass = da.Classes.ById(task.ClassId);
         if (originalClass == null) throw new LanguagesResourceNotFound();
         if (originalClass.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
         if (classId != originalClass.ClassId)
         {
-            Class? newClass = await da.Classes.ById(classId);
+            Class? newClass = da.Classes.ById(classId);
             if (newClass == null) throw new LanguagesResourceNotFound();
             if (newClass.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -82,24 +81,24 @@ public class TeacherTaskController : ControllerBase
 
         task.DeckId = deckId;
         task.DueDate = dueDate;
-        await db.SaveChangesAsync();
+        db.SaveChanges();
 
         return task;
     }
 
     [HttpDelete]
-    public async void Delete(int taskId)
+    public void Delete(int taskId)
     {
-        Teacher teacher = await shield.AuthenticateTeacher(Request);
+        Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        HwTask? task = await da.Tasks.ById(taskId);
+        Task? task = da.Tasks.ById(taskId);
         if (task == null) throw new LanguagesResourceNotFound();
 
-        Class? originalClass = await da.Classes.ById(task.ClassId);
+        Class? originalClass = da.Classes.ById(task.ClassId);
         if (originalClass == null) throw new LanguagesResourceNotFound();
         if (originalClass.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
         db.Tasks.Remove(task);
-        await db.SaveChangesAsync();
+        db.SaveChanges();
     }
 }

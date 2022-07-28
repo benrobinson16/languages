@@ -2,8 +2,7 @@
 using Languages.Services;
 using Languages.DbModels;
 using Languages.ApiModels;
-using HwTask = Languages.DbModels.Task;
-using Microsoft.EntityFrameworkCore;
+using Task = Languages.DbModels.Task;
 
 namespace Languages.Controllers;
 
@@ -23,9 +22,9 @@ public class StudentController: ControllerBase
     }
 
     [HttpGet("summary")]
-    public async Task<object> GetSummary()
+    public object GetSummary()
     {
-        Student student = await shield.AuthenticateStudent(Request);
+        Student student = shield.AuthenticateStudent(Request);
 
         // TODO: Decide what is needed in the summary
 
@@ -34,14 +33,14 @@ public class StudentController: ControllerBase
                   where enr.StudentId == student.StudentId
                   select new { cla.Name, cla.TeacherId, cla.ClassId };
 
-        return await qry.ToListAsync();
+        return qry.ToList();
 
     }
 
     [HttpGet("taskcards")]
-    public async Task<List<TaskCardVm>> GetTaskCards()
+    public List<TaskCardVm> GetTaskCards()
     {
-        Student student = await shield.AuthenticateStudent(Request);
+        Student student = shield.AuthenticateStudent(Request);
 
         var qry = from enr in db.Enrollments
                   where enr.StudentId == student.StudentId
@@ -63,7 +62,7 @@ public class StudentController: ControllerBase
                       ).FirstOrDefault()
                   };
 
-        return await qry.ToListAsync();
+        return qry.ToList();
     }
 
     [HttpGet("reviewcards")]
@@ -73,23 +72,23 @@ public class StudentController: ControllerBase
     }
 
     [HttpGet("taskdetails")]
-    public async Task<HwTask> GetTaskDetails(int taskId)
+    public Task GetTaskDetails(int taskId)
     {
-        Student student = await shield.AuthenticateStudent(Request);
+        Student student = shield.AuthenticateStudent(Request);
 
-        HwTask? task = await da.Tasks.ById(taskId);
+        Task? task = da.Tasks.ById(taskId);
         if (task == null) throw new LanguagesResourceNotFound();
 
-        bool studentAssignedTask = await da.Tasks.AssignedToStudent(taskId, student.StudentId);
+        bool studentAssignedTask = da.Tasks.AssignedToStudent(taskId, student.StudentId);
         if (!studentAssignedTask) throw new LanguagesUnauthorized();
 
         return task;
     }
 
     [HttpPost("didAnswer")]
-    public async void PostDidAnswer(int cardId, bool correct, int questionType)
+    public void PostDidAnswer(int cardId, bool correct, int questionType)
     {
-        Student student = await shield.AuthenticateStudent(Request);
+        Student student = shield.AuthenticateStudent(Request);
 
         StudentAttempt attempt = new StudentAttempt
         {
@@ -101,26 +100,26 @@ public class StudentController: ControllerBase
         };
 
         db.StudentAttempts.Add(attempt);
-        await db.SaveChangesAsync();
+        db.SaveChanges();
     }
 
     [HttpPost("joinClass")]
-    public async void PostJoinClass(string joinCode)
+    public void PostJoinClass(string joinCode)
     {
-        Student student = await shield.AuthenticateStudent(Request);
+        Student student = shield.AuthenticateStudent(Request);
 
         var classQry = from cla in db.Classes
                        where cla.JoinCode == joinCode
                        select cla;
 
-        Class? foundClass = await classQry.FirstOrDefaultAsync();
+        Class? foundClass = classQry.FirstOrDefault();
         if (foundClass == null) throw new LanguagesResourceNotFound();
 
         var enrollmentQry = from enrol in db.Enrollments
                             where enrol.ClassId == foundClass.ClassId && enrol.StudentId == student.StudentId
                             select enrol;
 
-        bool existingEnrollment = await enrollmentQry.AnyAsync();
+        bool existingEnrollment = enrollmentQry.Any();
         if (existingEnrollment) throw new LanguagesOperationAlreadyExecuted();
 
         Enrollment newEnrollment = new Enrollment
@@ -130,6 +129,6 @@ public class StudentController: ControllerBase
         };
 
         db.Enrollments.Add(newEnrollment);
-        await db.SaveChangesAsync();
+        db.SaveChanges();
     }
 }
