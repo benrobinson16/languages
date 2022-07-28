@@ -27,6 +27,6 @@ export const deleteDeck = new ParameterisedEndpoint<"deckId", void>("teacher", "
 
 // Card endpoints.
 export const getCard = new ParameterisedEndpoint<"cardId", Card>("teacher", "card", "GET");
-export const newCard = new ParameterisedEndpoint<"deckId" | "englishTerm" | "foreignTerm" | "difficulty", Card>("teacher", "card", "POST");
-export const editCard = new ParameterisedEndpoint<"cardId" | "deckId" | "englishTerm" | "foreignTerm" | "difficulty", Card>("teacher", "card", "PATCH");
+export const newCard = new ParameterisedEndpoint<"deckId" | "englishTerm" | "foreignTerm", Card>("teacher", "card", "POST");
+export const editCard = new ParameterisedEndpoint<"cardId" | "deckId" | "englishTerm" | "foreignTerm", Card>("teacher", "card", "PATCH");
 export const deleteCard = new ParameterisedEndpoint<"cardId", void>("teacher", "card", "DELETE");

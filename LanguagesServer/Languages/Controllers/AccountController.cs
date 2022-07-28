@@ -6,21 +6,21 @@ using Task = Languages.Models.Task;
 namespace Languages.Controllers;
 
 [ApiController]
-[Route("/auth")]
-public class AuthController : ControllerBase
+[Route("/account")]
+public class AccountController : ControllerBase
 {
     DatabaseContext db;
     DatabaseAccess da;
     Shield shield;
 
-    public AuthController(DatabaseContext db, DatabaseAccess da, Shield shield)
+    public AccountController(DatabaseContext db, DatabaseAccess da, Shield shield)
     {
         this.db = db;
         this.da = da;
         this.shield = shield;
     }
 
-    [HttpPost("registerStudent")]
+    [HttpPost("register/student")]
     public Student RegisterStudent()
     {
         User user = shield.Authenticate(Request);
@@ -41,7 +41,7 @@ public class AuthController : ControllerBase
         return student;
     }
 
-    [HttpPost("registerTeacher")]
+    [HttpPost("register/teacher")]
     public Teacher RegisterTeacher(string title, string surname)
     {
         User user = shield.Authenticate(Request);
@@ -62,14 +62,14 @@ public class AuthController : ControllerBase
         return teacher;
     }
 
-    [HttpGet("studentDetails")]
+    [HttpGet("details/student")]
     public Student StudentDetails()
     {
         Student student = shield.AuthenticateStudent(Request);
         return student;
     }
 
-    [HttpGet("teacherDetails")]
+    [HttpGet("details/teacher")]
     public Teacher TeacherDetails()
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);

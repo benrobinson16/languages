@@ -20,6 +20,15 @@ public class DeckRepository
         return deckQry.FirstOrDefault();
     }
 
+    public List<Deck> ForTeacher(int teacherId)
+    {
+        var deckQry = from deck in db.Decks
+                      where deck.TeacherId == teacherId
+                      select deck;
+
+        return deckQry.ToList();
+    }
+
     public bool OwnedByTeacher(int deckId, int teacherId)
     {
         Deck? deck = ById(deckId);

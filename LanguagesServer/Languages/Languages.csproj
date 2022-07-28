@@ -33,9 +33,11 @@
     <None Remove="JWT" />
     <None Remove="GlobalExceptionHandler" />
     <None Remove="Services\Repositories\" />
+    <None Remove="Controllers\Teacker\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Services\Repositories\" />
+    <Folder Include="Controllers\Teacher\" />
   </ItemGroup>
 </Project>
