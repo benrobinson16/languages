@@ -9,13 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add API controllers.
 builder.Services.AddControllers();
 
-// Add service layer
+// Add service layer. Scoped to ensure no concurrent access to dbContext.
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddScoped<DatabaseAccess>();
 builder.Services.AddScoped<Shield>();
+
+// This instance is created directly, because we want the certificates to be loaded
+// in advance of the first request. Singleton is used because it does not depend
+// on the dbContext so does not need to be scoped.
 builder.Services.AddSingleton<Authenticator>(new Authenticator());
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Generate documentation site.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

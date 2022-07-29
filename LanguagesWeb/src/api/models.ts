@@ -1,3 +1,9 @@
+/*
+Declare models expected as return types from the API. Note that these
+do not neccessarily correspond to the models in the database as the
+server may return a ViewModel datatype.
+*/
+
 export interface Teacher {
     id: number,
     title: string,
@@ -28,13 +34,16 @@ export interface Task {
     id: number,
     dueDate: Date,
     deckId: number,
-    studentsComplete: number
+    studentsComplete: number,
+    className: string,
+    deckName: string,
 }
 
 export interface Deck {
     id: number,
     name: string,
-    cards: Card[]
+    cards: Card[],
+    dateModified: Date
 }
 
 export interface Class {

@@ -24,8 +24,10 @@ const variants = {
 }
 
 interface CardProps {
-    children: React.ReactNode;
-    onClick?: () => void;
+    children: React.ReactNode,
+    onClick?: () => void,
+    background?: string,
+    border?: string
 }
 
 export default function Card(props: CardProps) {
@@ -43,9 +45,10 @@ export default function Card(props: CardProps) {
                 rounded="1rem"
                 width="100%"
                 align="start"
-                padding={8}
+                padding={4}
                 border="1px"
-                borderColor="gray.300"
+                borderColor={props.border ?? "gray.300"}
+                bgColor={props.background ?? "white"}
             >
                 {props.children}
             </VStack>
