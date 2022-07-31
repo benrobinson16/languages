@@ -2,8 +2,7 @@ import { Teacher } from "../api/models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 import { AppDispatch, AppState } from "./store";
-import { openHome } from "./nav";
-import { extractErrorMessage } from "../helper/error";
+import * as nav from "./nav";
 import { errorToast } from "../helper/toast";
 
 interface AuthState {
@@ -59,7 +58,7 @@ export const getToken = (redirectToHome: boolean = false) => {
             dispatch(gotUserInfo(userInfo));
 
             if (redirectToHome) {
-                dispatch(openHome());
+                dispatch(nav.openHome());
             }
         } catch (error) {
             errorToast(error);
@@ -94,7 +93,7 @@ export const saveTokenAndRedirect = (token: string) => {
             const userInfo: Teacher = { id: 0, title: "Mr.", surname: "Smith", email: "smith@example.com" };
             dispatch(gotUserInfo(userInfo));
 
-            dispatch(openHome());
+            dispatch(nav.openHome());
         } catch (error) {
             errorToast(error);
             dispatch(encounteredError());

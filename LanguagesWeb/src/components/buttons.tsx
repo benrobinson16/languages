@@ -22,7 +22,7 @@ export function AppButton(props: AppButtonProps) {
             isLoading={props.isLoading} 
             leftIcon={props.icon} 
             loadingText={props.loadingText}
-            colorScheme="teal" 
+            colorScheme="blue" 
             variant="solid"
         >
             {props.children}

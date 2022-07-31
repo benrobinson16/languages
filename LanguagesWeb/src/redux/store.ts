@@ -5,13 +5,15 @@ import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { authSlice } from "./auth";
 import { summarySlice } from "./summary";
 import { signUpSlice } from "./signUp";
+import { newClassSlice } from "./newClass";
 
 const store = configureStore({
     reducer: {
         nav: navSlice.reducer,
         auth: authSlice.reducer,
         summary: summarySlice.reducer,
-        signUp: signUpSlice.reducer
+        signUp: signUpSlice.reducer,
+        newClass: newClassSlice.reducer,
     }
 });
 

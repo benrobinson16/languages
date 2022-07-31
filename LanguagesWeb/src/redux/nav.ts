@@ -6,7 +6,7 @@ interface NavPage {
 }
 
 interface NavigationState {
-    navStack: NavPage[],
+    navStack: NavPage[]
 }
 
 const initialState: NavigationState = {
@@ -34,10 +34,10 @@ export const navSlice = createSlice({
         },
         back: (state) => {
             // Only proceed if there is something to pop.
-            if (state.navStack.length === 0) return;
-
+            if (state.navStack.length === 0) return
+            
             // Pop the current page, provided it is not the home page.
-            if (state.navStack[state.navStack.length - 1].id != "home") {
+            if (state.navStack[state.navStack.length - 1].id !== "home") {
                 state.navStack.pop();
             }
         },
