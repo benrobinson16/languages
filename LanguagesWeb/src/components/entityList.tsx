@@ -6,6 +6,8 @@ import Card from "./card";
 import { Class, Deck, Task } from "../api/models";
 import { openClass, openDeck, openTask } from "../redux/nav";
 import * as newClassActions from "../redux/newClass";
+import * as newTaskActions from "../redux/newTask";
+import * as newDeckActions from "../redux/newDeck";
 import { AnyAction } from "@reduxjs/toolkit";
 
 export interface EntityListProps<Entity> {
@@ -93,25 +95,25 @@ export function DeckList(props: {decks: Deck[] | null}) {
 
     return EntityList({
         entities: props.decks,
-        createCard: (entity: Deck) => <DeckCard deck={entity} key={entity.id} />,
+        createCard: (entity: Deck) => <DeckCard deck={entity} key={entity.deckId} />,
         title: "Decks",
         newTite: "New Deck",
         information: "Decks are sets of vocabulary for students to learn. They are made up of a series of flashcards with the foreign language term and the English translation. Whilst a deck you create belongs only to you, others may use it when creating tasks for students.",
-        onSelect: (entity: Deck) => dispatch(openDeck(entity.id)),
-        newEntityAction: newClassActions.showNewClassModal()
+        onSelect: (entity: Deck) => dispatch(openDeck(entity.deckId)),
+        newEntityAction: newDeckActions.showModal()
     });
 }
 
-export function TaskList(props: {tasks: Task[] | null}) {
+export function TaskList(props: {tasks: Task[] | null, classId?: number}) {
     const dispatch = useAppDispatch();
 
     return EntityList({
         entities: props.tasks,
-        createCard: (entity: Task) => <TaskCard task={entity} key={entity.id} />,
+        createCard: (entity: Task) => <TaskCard task={entity} key={entity.taskId} />,
         title: "Tasks",
         newTite: "New Task",
         information: "Tasks assign a deck to a class, adding its terms to the vocabulary students will review/learn next. Tasks may use decks created by you or any other teacher. Set a due date to indicate the urgency of the task, and the in-app scheduling will ensure students complete it on time.",
-        onSelect: (entity: Task) => dispatch(openTask(entity.id)),
-        newEntityAction: newClassActions.showNewClassModal()
+        onSelect: (entity: Task) => dispatch(openTask(entity.taskId)),
+        newEntityAction: props.classId == null ? newTaskActions.showModal() : newTaskActions.showModalForClass(props.classId)
     });
 }

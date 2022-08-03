@@ -1,5 +1,4 @@
 import { createStandaloneToast } from "@chakra-ui/react";
-import React from "react";
 
 // Create the toast container. Must be the same instance throughout application, so declared in file here.
 export const { ToastContainer, toast } = createStandaloneToast();

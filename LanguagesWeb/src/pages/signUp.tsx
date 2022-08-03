@@ -3,7 +3,7 @@ import React from "react";
 import { AppButton } from "../components/buttons";
 import CenteredCard from "../components/centeredCard";
 import { TitleSurnameTextField } from "../components/titleSurnameTextField";
-import { changeSurname, changeTitle, createAccount } from "../redux/signUp";
+import * as signUpActions from "../redux/signUp";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 
 export default function SignUpPage() {
@@ -18,10 +18,10 @@ export default function SignUpPage() {
             <TitleSurnameTextField 
                 title={title}
                 surname={surname}
-                onTitleChange={(newTitle) => dispatch(changeTitle(newTitle))}
-                onSurnameChange={(newName) => dispatch(changeSurname(newName))}
+                onTitleChange={(newTitle) => dispatch(signUpActions.changeTitle(newTitle))}
+                onSurnameChange={(newName) => dispatch(signUpActions.changeSurname(newName))}
             />
-            <AppButton onClick={() => dispatch(createAccount(title, surname))}>Mr.</AppButton>
+            <AppButton onClick={() => dispatch(signUpActions.createAccount(title, surname))}>Mr.</AppButton>
         </CenteredCard>
     )
 }

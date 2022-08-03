@@ -1,4 +1,4 @@
-import { Flex, Grid, GridItem, Heading, Spacer, Stack, VStack } from "@chakra-ui/react";
+import { Grid, GridItem, Heading, VStack } from "@chakra-ui/react";
 import React from "react";
 import { useAppSelector } from "../redux/store";
 import { BackButton, HomeButton, SignOutButton } from "./buttons";
@@ -19,7 +19,7 @@ export default function Layout(props: { children: React.ReactNode }) {
             >
                 <GridItem justifySelf="start">
                     {
-                        page != null && page.id == "home" ? <HomeButton /> : <BackButton />
+                        page != null && page.id === "home" ? <HomeButton /> : <BackButton />
                     }
                 </GridItem>
                 <GridItem justifySelf="center">

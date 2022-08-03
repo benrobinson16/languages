@@ -37,6 +37,8 @@ export class ParameterisedEndpoint<Keys extends string, Res> {
         let url = new URL(baseUrl + "/" + this.controller + "/" + this.action);
 
         for (const key of Object.keys(data)) {
+            console.log(key)
+            console.log(data[key as Keys]);
             url.searchParams.append(key, data[key as Keys].toString());
         }
 

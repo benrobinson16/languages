@@ -1,4 +1,4 @@
-import { Teacher, TeacherSummary, Class, Task, Deck, Card } from "./models";
+import { Teacher, TeacherSummary, Class, Task, Deck, Card, ClassSummary } from "./models";
 import { ApiEndpoint } from "./apiEndpoint";
 import { ParameterisedEndpoint } from "./parameterisedEndpoint";
 
@@ -24,7 +24,7 @@ export const registerTeacher = new ParameterisedEndpoint<"title" | "surname", Te
 export const getSummary = new ApiEndpoint<TeacherSummary>("teacher", "summary", "GET");
 
 // Class endpoints.
-export const getClass = new ParameterisedEndpoint<"classId", Class>("teacher", "class", "GET");
+export const getClass = new ParameterisedEndpoint<"classId", ClassSummary>("teacher", "class", "GET");
 export const newClass = new ParameterisedEndpoint<"name", Class>("teacher", "class", "POST");
 export const editClass = new ParameterisedEndpoint<"classId" | "name", Class>("teacher", "class", "PATCH");
 export const deleteClass = new ParameterisedEndpoint<"classId", void>("teacher", "class", "DELETE");

@@ -45,6 +45,16 @@ public class TaskRepository
         return taskQry.ToList();
     }
 
+    public List<Task> ForClass(int classId)
+    {
+        var taskQry = from task in db.Tasks
+                      where task.ClassId == classId
+                      orderby task.DueDate descending
+                      select task;
+
+        return taskQry.ToList();
+    }
+
     public bool OwnedByTeacher(int taskId, int teacherId)
     {
         var classQry = from task in db.Tasks

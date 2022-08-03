@@ -29,4 +29,15 @@ public class StudentRepository
 
         return qry.Any();
     }
+
+    public List<Student> ForClass(int classId)
+    {
+        var qry = from enrol in db.Enrollments
+                  where enrol.ClassId == classId
+                  join stu in db.Students on enrol.StudentId equals stu.StudentId
+                  orderby stu.Surname, stu.FirstName
+                  select stu;
+
+        return qry.ToList();
+    }
 }

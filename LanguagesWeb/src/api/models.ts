@@ -31,16 +31,17 @@ export interface StudentProgress {
 }
 
 export interface Task {
-    id: number,
+    taskId: number,
     dueDate: Date,
     deckId: number,
+    classId: number,
     studentsComplete: number,
     className: string,
     deckName: string,
 }
 
 export interface Deck {
-    id: number,
+    deckId: number,
     name: string,
     cards: Card[],
     dateModified: Date
@@ -50,11 +51,18 @@ export interface Class {
     id: number,
     name: string,
     numActiveTasks: number,
-    numStudents: number
+    numStudents: number,
+    joinCode: string
 }
 
 export interface TeacherSummary {
     classes: Class[],
     tasks: Task[],
     decks: Deck[]
+}
+
+export interface ClassSummary {
+    classDetails: Class,
+    students: string[],
+    tasks: Task[]
 }

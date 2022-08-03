@@ -23,10 +23,10 @@ export function DeckCard(props: {deck: Deck, key: number}) {
     const dispatch = useAppDispatch();
 
     return (
-        <Card onClick={() => dispatch(openDeck(props.deck.id))}>
+        <Card onClick={() => dispatch(openDeck(props.deck.deckId))}>
             <Text fontSize="lg" fontWeight="semibold" >{props.deck.name}</Text>
-            <Text fontSize="md">{props.deck.cards.length} cards</Text>
-            <Text fontSize="md">Last modified {props.deck.dateModified.toDateString()}</Text>
+            <Text fontSize="md">{props.deck.cards?.length ?? 0} cards</Text>
+            <Text fontSize="md">Last modified {props.deck.dateModified?.toDateString() ?? "Never"}</Text>
         </Card>
     );
 }
@@ -35,7 +35,7 @@ export function TaskCard(props: {task: Task, key: number}) {
     const dispatch = useAppDispatch();
 
     return (
-        <Card onClick={() => dispatch(openTask(props.task.id))}>
+        <Card onClick={() => dispatch(openTask(props.task.taskId))}>
             <Text fontSize="lg" fontWeight="semibold" >{props.task.className}</Text>
             <Text fontSize="md">{props.task.deckName}</Text>
             <Text fontSize="md">Due by {props.task.dueDate.toDateString()}</Text>

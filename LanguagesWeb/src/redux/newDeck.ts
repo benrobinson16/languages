@@ -5,23 +5,23 @@ import { errorToast } from "../helper/toast";
 import * as nav from "./nav";
 import * as endpoints from "../api/endpoints";
 
-interface NewClassState {
+interface NewDeckState {
     showModal: boolean,
     isLoading: boolean,
     name: string
 }
 
-const initialState: NewClassState = {
+const initialState: NewDeckState = {
     showModal: false,
     isLoading: false,
     name: ""
 }
 
-export const newClassSlice = createSlice({
-    name: "newclass",
+export const newDeckSlice = createSlice({
+    name: "newdeck",
     initialState,
     reducers: {
-        showNewClassModal: (state) => {
+        showModal: (state) => {
             state.showModal = true;
         },
         nameChange: (state, action: PayloadAction<string>) => {
@@ -44,29 +44,29 @@ export const newClassSlice = createSlice({
     }
 });
 
-export const { showNewClassModal, nameChange, startedCreating, finishedCreating, failedCreating, closeModal } = newClassSlice.actions;
+export const { showModal, nameChange, startedCreating, finishedCreating, failedCreating, closeModal } = newDeckSlice.actions;
 
 /** Gets and saves the classes for the current user. */
-export const createNewClass = (): TypedThunk => {
+export const createNewDeck = (): TypedThunk => {
     return async (dispatch, getState): Promise<void> => {
-        const name = getState().newClass.name;
-        const isLoading = getState().newClass.isLoading;
+        const name = getState().newDeck.name;
+        const isLoading = getState().newDeck.isLoading;
 
         if (isLoading) return;
         dispatch(startedCreating());
 
         if (name.trim().length === 0) {
             dispatch(failedCreating());
-            errorToast("Please enter a name for the class.");
+            errorToast("Please enter a name for the deck.");
             return;
         }
 
         try {
             const token = getState().auth.token || await authService.getToken();
-            const cla = await endpoints.newClass.makeRequest(token, { name: name });
+            const deck = await endpoints.newDeck.makeRequest(token, { name: name });
 
             dispatch(finishedCreating());
-            dispatch(nav.openClass(cla.id));
+            dispatch(nav.openDeck(deck.deckId));
         } catch (error) {
             dispatch(failedCreating());
             errorToast(error);

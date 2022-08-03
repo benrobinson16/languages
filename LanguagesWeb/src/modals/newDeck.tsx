@@ -2,35 +2,35 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Modal
 import React from "react";
 import { AppButton } from "../components/buttons";
 import { useAppDispatch, useAppSelector } from "../redux/store";
-import * as newClassActions from "../redux/newClass";
+import * as newDeckActions from "../redux/newDeck";
 
-export default function NewClassModal() {
+export default function NewDeckModal() {
     const dispatch = useAppDispatch();
     
-    const showModal = useAppSelector(state => state.newClass.showModal);
-    const isLoading = useAppSelector(state => state.newClass.isLoading);
+    const showModal = useAppSelector(state => state.newDeck.showModal);
+    const isLoading = useAppSelector(state => state.newDeck.isLoading);
 
     const onKeyUp = (event: React.KeyboardEvent) => {
         if (event.key === "Enter") {
-            dispatch(newClassActions.createNewClass());
+            dispatch(newDeckActions.createNewDeck());
         }
     }
 
     return (
-        <Modal isOpen={showModal} onClose={() => dispatch(newClassActions.closeModal())} isCentered>
+        <Modal isOpen={showModal} onClose={() => dispatch(newDeckActions.closeModal())} isCentered>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>New Class</ModalHeader>
+                <ModalHeader>New Deck</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <Input 
                         placeholder="Name" 
-                        onChange={newVal => dispatch(newClassActions.nameChange(newVal.target.value))}
+                        onChange={newVal => dispatch(newDeckActions.nameChange(newVal.target.value))}
                         onKeyUp={onKeyUp}
                     />
                 </ModalBody>
                 <ModalFooter>
-                    <AppButton onClick={() => dispatch(newClassActions.createNewClass())} isLoading={isLoading}>Create</AppButton>
+                    <AppButton onClick={() => dispatch(newDeckActions.createNewDeck())} isLoading={isLoading}>Create</AppButton>
                 </ModalFooter>
             </ModalContent>
         </Modal>

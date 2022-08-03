@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 import store, { TypedThunk } from "./store";
 import { gotUserInfo } from "./auth";
-import { extractErrorMessage } from "../helper/error";
 import { openHome } from "./nav";
 import { errorToast } from "../helper/toast";
 import { registerTeacher } from "../api/endpoints";

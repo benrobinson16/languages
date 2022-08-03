@@ -2,6 +2,7 @@
 using Languages.Services;
 using Languages.DbModels;
 using Languages.ApiModels;
+using Task = Languages.DbModels.Task;
 
 namespace Languages.Controllers;
 
@@ -21,7 +22,7 @@ public class TeacherClassController : ControllerBase
     }
 
     [HttpGet]
-    public ClassVm? Get(int classId)
+    public ClassSummaryVm? Get(int classId)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
@@ -29,7 +30,24 @@ public class TeacherClassController : ControllerBase
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
-        return ConvertClassToVm(cla);
+        List<Task> tasks = da.Tasks.ForClass(classId);
+        List<string> students = da.Students.ForClass(classId).Select(stu => stu.DisplayName).ToList();
+
+        ClassSummaryVm vm = new ClassSummaryVm
+        {
+            ClassDetails = new ClassVm
+            {
+                Id = cla.ClassId,
+                Name = cla.Name,
+                NumActiveTasks = tasks.Where(t => t.DueDate > DateTime.Now).Count(),
+                NumStudents = students.Count(),
+                JoinCode = cla.JoinCode
+            },
+            Tasks = tasks,
+            Students = students
+        };
+
+        return vm;
     }
 
     [HttpPost]
@@ -97,7 +115,8 @@ public class TeacherClassController : ControllerBase
             Id = cla.ClassId,
             Name = cla.Name,
             NumActiveTasks = da.Tasks.ActiveForClass(cla.ClassId).Count(),
-            NumStudents = da.Enrollments.ForClass(cla.ClassId).Count()
+            NumStudents = da.Enrollments.ForClass(cla.ClassId).Count(),
+            JoinCode = cla.JoinCode
         };
     }
 }

@@ -2,8 +2,8 @@ import { VStack, Heading, Text } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import CenteredCard from "../components/centeredCard";
 import { SignInWithMicrosoftButton } from "../components/buttons";
-import { getToken, saveTokenAndRedirect } from "../redux/auth";
-import { openHome, openSignUp } from "../redux/nav";
+import * as authActions from "../redux/auth";
+import * as navActions from "../redux/nav";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import authService from "../services/authService";
 
@@ -14,20 +14,20 @@ export default function LogInPage() {
 
     useEffect(() => {
         authService.registerLoginCallback(token => {
-            dispatch(saveTokenAndRedirect(token));
+            dispatch(authActions.saveTokenAndRedirect(token));
         });
 
         if (authService.instance.getAllAccounts().length > 0) {
-            dispatch(getToken(true));
+            dispatch(authActions.getToken(true));
         }
     });
 
     if (token != null && user != null) {
         // Signed in and account already exists.
-        dispatch(openHome());
+        dispatch(navActions.openHome());
     } else if (token != null) {
         // Signed in but account does not exist.
-        dispatch(openSignUp());
+        dispatch(navActions.openSignUp());
     }
 
     return (

@@ -6,6 +6,9 @@ import { authSlice } from "./auth";
 import { summarySlice } from "./summary";
 import { signUpSlice } from "./signUp";
 import { newClassSlice } from "./newClass";
+import { classSlice } from "./class";
+import { newTaskSlice } from "./newTask";
+import { newDeckSlice } from "./newDeck";
 
 const store = configureStore({
     reducer: {
@@ -14,6 +17,9 @@ const store = configureStore({
         summary: summarySlice.reducer,
         signUp: signUpSlice.reducer,
         newClass: newClassSlice.reducer,
+        class: classSlice.reducer,
+        newTask: newTaskSlice.reducer,
+        newDeck: newDeckSlice.reducer
     }
 });
 

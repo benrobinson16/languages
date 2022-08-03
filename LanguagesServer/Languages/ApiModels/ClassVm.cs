@@ -6,4 +6,5 @@ public class ClassVm
     public string Name { get; set; }
     public int NumActiveTasks { get; set; }
     public int NumStudents { get; set; }
+    public string JoinCode { get; set; }
 }
