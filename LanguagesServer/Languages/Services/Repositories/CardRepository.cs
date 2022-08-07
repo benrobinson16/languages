@@ -11,21 +11,17 @@ public class CardRepository
         this.db = db;
     }
 
-    public Card? ById(int id)
+    public IQueryable<Card?> ForId(int id)
     {
-        var cardQry = from card in db.Cards
-                      where card.CardId == id
-                      select card;
-
-        return cardQry.FirstOrDefault();
+        return from card in db.Cards
+               where card.CardId == id
+               select card;
     }
 
-    public List<Card> ForDeck(int deckId)
+    public IQueryable<Card> ForDeck(int deckId)
     {
-        var cardQry = from card in db.Cards
-                      where card.DeckId == deckId
-                      select card;
-
-        return cardQry.ToList();
+        return from card in db.Cards
+               where card.DeckId == deckId
+               select card;
     }
 }

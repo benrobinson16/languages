@@ -11,27 +11,23 @@ public class DeckRepository
         this.db = db;
     }
 
-    public Deck? ById(int id)
+    public IQueryable<Deck> ForId(int id)
     {
-        var deckQry = from deck in db.Decks
-                      where deck.DeckId == id
-                      select deck;
-
-        return deckQry.FirstOrDefault();
+        return from deck in db.Decks
+               where deck.DeckId == id
+               select deck;
     }
 
-    public List<Deck> ForTeacher(int teacherId)
+    public IQueryable<Deck> ForTeacher(int teacherId)
     {
-        var deckQry = from deck in db.Decks
-                      where deck.TeacherId == teacherId
-                      select deck;
-
-        return deckQry.ToList();
+        return from deck in db.Decks
+               where deck.TeacherId == teacherId
+               select deck;
     }
 
     public bool OwnedByTeacher(int deckId, int teacherId)
     {
-        Deck? deck = ById(deckId);
+        Deck? deck = ForId(deckId).SingleOrDefault();
         return deck?.TeacherId == teacherId;
     }
 }

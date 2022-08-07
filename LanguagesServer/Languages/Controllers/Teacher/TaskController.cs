@@ -26,10 +26,10 @@ public class TeacherTaskController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Task? task = da.Tasks.ById(taskId);
+        Task? task = da.Tasks.ForId(taskId).SingleOrDefault();
         if (task == null) throw new LanguagesResourceNotFound();
 
-        Class? cla = da.Classes.ById(task.ClassId);
+        Class? cla = da.Classes.ForId(task.ClassId).SingleOrDefault();
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -37,19 +37,22 @@ public class TeacherTaskController : ControllerBase
     }
 
     [HttpPost]
-    public Task Post(int deckId, int classId, DateTime dueDate)
+    public Task Post(int deckId, int classId, double dueDate)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Class? cla = da.Classes.ById(classId);
+        Class? cla = da.Classes.ForId(classId).SingleOrDefault();
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
+
+        // Convert from unix timestamp to C# DateTime.
+        DateTime dueDateAsDate = DateTime.UnixEpoch.AddMilliseconds(dueDate);
 
         Task task = new Task
         {
             ClassId = classId,
             DeckId = deckId,
-            DueDate = dueDate
+            DueDate = dueDateAsDate
         };
 
         db.Tasks.Add(task);
@@ -63,16 +66,16 @@ public class TeacherTaskController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Task? task = da.Tasks.ById(taskId);
+        Task? task = da.Tasks.ForId(taskId).SingleOrDefault();
         if (task == null) throw new LanguagesResourceNotFound();
 
-        Class? originalClass = da.Classes.ById(task.ClassId);
+        Class? originalClass = da.Classes.ForId(task.ClassId).SingleOrDefault();
         if (originalClass == null) throw new LanguagesResourceNotFound();
         if (originalClass.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
         if (classId != originalClass.ClassId)
         {
-            Class? newClass = da.Classes.ById(classId);
+            Class? newClass = da.Classes.ForId(classId).SingleOrDefault();
             if (newClass == null) throw new LanguagesResourceNotFound();
             if (newClass.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -91,10 +94,10 @@ public class TeacherTaskController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Task? task = da.Tasks.ById(taskId);
+        Task? task = da.Tasks.ForId(taskId).SingleOrDefault();
         if (task == null) throw new LanguagesResourceNotFound();
 
-        Class? originalClass = da.Classes.ById(task.ClassId);
+        Class? originalClass = da.Classes.ForId(task.ClassId).SingleOrDefault();
         if (originalClass == null) throw new LanguagesResourceNotFound();
         if (originalClass.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 

@@ -26,7 +26,7 @@ public class AccountController : ControllerBase
     {
         User user = shield.Authenticate(Request);
 
-        bool existingStudent = da.Students.ExistingForEmail(user.Email);
+        bool existingStudent = da.Students.ForEmail(user.Email).Any();
         if (existingStudent) throw new LanguagesOperationAlreadyExecuted();
 
         Student student = new Student
@@ -47,7 +47,7 @@ public class AccountController : ControllerBase
     {
         User user = shield.Authenticate(Request);
 
-        bool existingTeacher = da.Teachers.ExistingForEmail(user.Email);
+        bool existingTeacher = da.Teachers.ForEmail(user.Email).Any();
         if (existingTeacher) throw new LanguagesOperationAlreadyExecuted();
 
         Teacher teacher = new Teacher

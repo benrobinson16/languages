@@ -76,7 +76,7 @@ public class StudentController: ControllerBase
     {
         Student student = shield.AuthenticateStudent(Request);
 
-        Task? task = da.Tasks.ById(taskId);
+        Task? task = da.Tasks.ForId(taskId).SingleOrDefault();
         if (task == null) throw new LanguagesResourceNotFound();
 
         bool studentAssignedTask = da.Tasks.AssignedToStudent(taskId, student.StudentId);

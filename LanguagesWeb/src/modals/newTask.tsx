@@ -46,7 +46,7 @@ export default function NewTaskModal() {
                             placeholder="Select Date and Time"
                             size="md"
                             type="datetime-local"
-                            onChange={newVal => console.log(newVal)}
+                            onChange={newVal => dispatch(newTaskActions.changedDate(newVal.target.valueAsNumber))}
                         />
                     </VStack>
                 </ModalBody>

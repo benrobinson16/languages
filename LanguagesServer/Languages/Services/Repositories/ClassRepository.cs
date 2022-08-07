@@ -1,4 +1,6 @@
-﻿using Languages.DbModels;
+﻿using Languages.ApiModels;
+using Languages.DbModels;
+using Task = Languages.DbModels.Task;
 
 namespace Languages.Services.Repositories;
 
@@ -11,27 +13,43 @@ public class ClassRepository
         this.db = db;
     }
 
-    public Class? ById(int id)
+    public IQueryable<Class> ForId(int id)
     {
-        var classQry = from cla in db.Classes
-                       where cla.ClassId == id
-                       select cla;
-
-        return classQry.FirstOrDefault();
+        return from cla in db.Classes
+               where cla.ClassId == id
+               select cla;
     }
 
-    public List<Class> ForTeacher(int teacherId)
+    public IQueryable<Class> ForTeacher(int teacherId)
     {
-        var classQry = from cla in db.Classes
-                       where cla.TeacherId == teacherId
-                       select cla;
+        return from cla in db.Classes
+               where cla.TeacherId == teacherId
+               select cla;
+    }
 
-        return classQry.ToList();
+    public IQueryable<ClassVm> VmsForTeacher(int teacherId)
+    {
+        IQueryable<Task> activeTasks = from task in db.Tasks
+                                       where task.DueDate > DateTime.Now
+                                       select task;
+
+        return from cla in db.Classes
+               where cla.TeacherId == teacherId
+               join enrol in db.Enrollments on cla.ClassId equals enrol.ClassId into students
+               join task in activeTasks on cla.ClassId equals task.ClassId into tasks
+               select new ClassVm
+               {
+                   Id = cla.ClassId,
+                   Name = cla.Name,
+                   JoinCode = cla.JoinCode,
+                   NumStudents = students.Count(),
+                   NumActiveTasks = tasks.Count()
+               };
     }
 
     public bool OwnedByTeacher(int classId, int teacherId)
     {
-        Class? targetClass = ById(classId);
+        Class? targetClass = ForId(classId).SingleOrDefault();
         return targetClass?.TeacherId == teacherId;
     }
 

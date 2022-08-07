@@ -26,11 +26,11 @@ public class TeacherClassController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Class? cla = da.Classes.ById(classId);
+        Class? cla = da.Classes.ForId(classId).SingleOrDefault();
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
-        List<Task> tasks = da.Tasks.ForClass(classId);
+        List<Task> tasks = da.Tasks.ForClass(classId).ToList();
         List<string> students = da.Students.ForClass(classId).Select(stu => stu.DisplayName).ToList();
 
         ClassSummaryVm vm = new ClassSummaryVm
@@ -85,7 +85,7 @@ public class TeacherClassController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Class? cla = da.Classes.ById(classId);
+        Class? cla = da.Classes.ForId(classId).SingleOrDefault();
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -100,7 +100,7 @@ public class TeacherClassController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Class? cla = da.Classes.ById(classId);
+        Class? cla = da.Classes.ForId(classId).SingleOrDefault();
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 

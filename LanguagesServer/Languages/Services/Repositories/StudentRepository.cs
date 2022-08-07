@@ -12,32 +12,19 @@ public class StudentRepository
         this.db = db;
     }
 
-    public Student? ByEmail(string email)
+    public IQueryable<Student> ForEmail(string email)
     {
-        var qry = from student in db.Students
-                  where student.Email == email
-                  select student;
-
-        return qry.FirstOrDefault();
+        return from student in db.Students
+               where student.Email == email
+               select student;
     }
 
-    public bool ExistingForEmail(string email)
+    public IQueryable<Student> ForClass(int classId)
     {
-        var qry = from student in db.Students
-                  where student.Email == email
-                  select student;
-
-        return qry.Any();
-    }
-
-    public List<Student> ForClass(int classId)
-    {
-        var qry = from enrol in db.Enrollments
-                  where enrol.ClassId == classId
-                  join stu in db.Students on enrol.StudentId equals stu.StudentId
-                  orderby stu.Surname, stu.FirstName
-                  select stu;
-
-        return qry.ToList();
+        return from enrol in db.Enrollments
+               where enrol.ClassId == classId
+               join stu in db.Students on enrol.StudentId equals stu.StudentId
+               orderby stu.Surname, stu.FirstName
+               select stu;
     }
 }

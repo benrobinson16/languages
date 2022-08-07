@@ -28,7 +28,7 @@ public class Shield
     {
         User user = Authenticate(request);
 
-        Student? student = da.Students.ByEmail(user.Email);
+        Student? student = da.Students.ForEmail(user.Email).SingleOrDefault();
         if (student == null) throw new LanguagesUnauthorized();
 
         return student;
@@ -38,7 +38,7 @@ public class Shield
     {
         User user = Authenticate(request);
 
-        Teacher? teacher = da.Teachers.ByEmail(user.Email);
+        Teacher? teacher = da.Teachers.ForEmail(user.Email).SingleOrDefault();
         if (teacher == null) throw new LanguagesUnauthorized();
 
         return teacher;

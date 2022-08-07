@@ -1,6 +1,7 @@
 ﻿using Languages.DbModels;
 using Task = Languages.DbModels.Task;
 using Microsoft.EntityFrameworkCore;
+using Languages.ApiModels;
 
 namespace Languages.Services.Repositories;
 
@@ -13,46 +14,56 @@ public class TaskRepository
         this.db = db;
     }
 
-    public Task? ById(int id)
+    public IQueryable<Task> ForId(int id)
     {
-        var taskQry = from task in db.Tasks
-                      where task.TaskId == id
-                      select task;
-
-        return taskQry.FirstOrDefault();
+        return from task in db.Tasks
+               where task.TaskId == id
+               select task;
     }
 
-    public List<Task> ForStudent(int studentId)
+    public IQueryable<Task> ForStudent(int studentId)
     {
-        var taskQry = from enrollment in db.Enrollments
-                      where enrollment.StudentId == studentId
-                      join cla in db.Classes on enrollment.ClassId equals cla.ClassId
-                      join task in db.Tasks on cla.ClassId equals task.TaskId
-                      orderby task.DueDate descending
-                      select task;
-
-        return taskQry.ToList();
+        return from enrollment in db.Enrollments
+               where enrollment.StudentId == studentId
+               join cla in db.Classes on enrollment.ClassId equals cla.ClassId
+               join task in db.Tasks on cla.ClassId equals task.TaskId
+               orderby task.DueDate descending
+               select task;
     }
 
-    public List<Task> ForTeacher(int teacherId)
+    public IQueryable<Task> ForTeacher(int teacherId)
     {
-        var taskQry = from cla in db.Classes
-                      where cla.TeacherId == teacherId
-                      join task in db.Tasks on cla.ClassId equals task.TaskId
-                      orderby task.DueDate descending
-                      select task;
-
-        return taskQry.ToList();
+        return from cla in db.Classes
+               where cla.TeacherId == teacherId
+               join task in db.Tasks on cla.ClassId equals task.ClassId
+               orderby task.DueDate descending
+               select task;
     }
 
-    public List<Task> ForClass(int classId)
+    public IQueryable<TaskVm> VmsForTeacher(int teacherId)
     {
-        var taskQry = from task in db.Tasks
-                      where task.ClassId == classId
-                      orderby task.DueDate descending
-                      select task;
+        return from cla in db.Classes
+               where cla.TeacherId == teacherId
+               join task in db.Tasks on cla.ClassId equals task.ClassId
+               join deck in db.Decks on task.DeckId equals deck.DeckId
+               orderby task.DueDate descending
+               select new TaskVm
+               {
+                   Id = task.TaskId,
+                   ClassId = cla.ClassId,
+                   DeckId = deck.DeckId,
+                   ClassName = cla.Name,
+                   DeckName = deck.Name,
+                   DueDate = task.DueDate
+               };
+    }
 
-        return taskQry.ToList();
+    public IQueryable<Task> ForClass(int classId)
+    {
+        return from task in db.Tasks
+               where task.ClassId == classId
+               orderby task.DueDate descending
+               select task;
     }
 
     public bool OwnedByTeacher(int taskId, int teacherId)
@@ -76,13 +87,11 @@ public class TaskRepository
         return studentQry.Contains(studentId);
     }
 
-    public List<Task> ActiveForClass(int classId)
+    public IQueryable<Task> ActiveForClass(int classId)
     {
-        var taskQry = from task in db.Tasks
-                      where task.ClassId == classId
-                      where task.DueDate > DateTime.Now
-                      select task;
-
-        return taskQry.ToList();
+        return from task in db.Tasks
+               where task.ClassId == classId
+               where task.DueDate > DateTime.Now
+               select task;
     }
 }

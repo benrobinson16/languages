@@ -26,7 +26,7 @@ public class TeacherDeckController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Deck? deck = da.Decks.ById(deckId);
+        Deck? deck = da.Decks.ForId(deckId).SingleOrDefault();
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -56,7 +56,7 @@ public class TeacherDeckController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Deck? deck = da.Decks.ById(deckId);
+        Deck? deck = da.Decks.ForId(deckId).SingleOrDefault();
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -71,7 +71,7 @@ public class TeacherDeckController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Deck? deck = da.Decks.ById(deckId);
+        Deck? deck = da.Decks.ForId(deckId).SingleOrDefault();
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 

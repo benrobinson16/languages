@@ -25,10 +25,10 @@ public class TeacherCardController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Card? card = da.Cards.ById(cardId);
+        Card? card = da.Cards.ForId(cardId).SingleOrDefault();
         if (card == null) throw new LanguagesResourceNotFound();
 
-        Deck? deck = da.Decks.ById(card.DeckId);
+        Deck? deck = da.Decks.ForId(card.DeckId).SingleOrDefault();
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -40,7 +40,7 @@ public class TeacherCardController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Deck? deck = da.Decks.ById(deckId);
+        Deck? deck = da.Decks.ForId(deckId).SingleOrDefault();
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -63,16 +63,16 @@ public class TeacherCardController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Card? card = da.Cards.ById(cardId);
+        Card? card = da.Cards.ForId(cardId).SingleOrDefault();
         if (card == null) throw new LanguagesResourceNotFound();
 
-        Deck? originalDeck = da.Decks.ById(card.DeckId);
+        Deck? originalDeck = da.Decks.ForId(card.DeckId).SingleOrDefault();
         if (originalDeck == null) throw new LanguagesResourceNotFound();
         if (originalDeck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
         if (deckId != originalDeck.DeckId)
         {
-            Deck? newDeck = da.Decks.ById(deckId);
+            Deck? newDeck = da.Decks.ForId(deckId).SingleOrDefault();
             if (newDeck == null) throw new LanguagesResourceNotFound();
             if (newDeck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
@@ -91,10 +91,10 @@ public class TeacherCardController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Card? card = da.Cards.ById(cardId);
+        Card? card = da.Cards.ForId(cardId).SingleOrDefault();
         if (card == null) throw new LanguagesResourceNotFound();
 
-        Deck? deck = da.Decks.ById(card.DeckId);
+        Deck? deck = da.Decks.ForId(card.DeckId).SingleOrDefault();
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 

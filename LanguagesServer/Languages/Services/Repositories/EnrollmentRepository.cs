@@ -12,12 +12,10 @@ public class EnrollmentRepository
 		this.db = db;
 	}
 
-	public List<Enrollment> ForClass(int classId)
+	public IQueryable<Enrollment> ForClass(int classId)
 	{
-		var enrolQry = from enrol in db.Enrollments
-					   where enrol.ClassId == classId
-					   select enrol;
-
-		return enrolQry.ToList();
+		return from enrol in db.Enrollments
+			   where enrol.ClassId == classId
+			   select enrol;
 	}
 }

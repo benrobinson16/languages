@@ -10,7 +10,7 @@ interface NewTaskState {
     isLoading: boolean,
     classId: number | null,
     deckId: number | null,
-    dueDate: Date | null,
+    dueDate: number | null,
     classEditable: boolean
 }
 
@@ -44,7 +44,8 @@ export const newTaskSlice = createSlice({
             console.log(action.payload);
             state.deckId = action.payload;
         },
-        changedDate: (state, action: PayloadAction<Date>) => {
+        changedDate: (state, action: PayloadAction<number>) => {
+            console.log("Changed date to: " + action.payload);
             state.dueDate = action.payload;
         },
         startedCreating: (state) => {
@@ -94,7 +95,7 @@ export const createNewTask = (): TypedThunk => {
 
         try {
             const token = getState().auth.token || await authService.getToken();
-            const task = await endpoints.newTask.makeRequest(token, { classId, deckId, dueDate: dueDate.toISOString() });
+            const task = await endpoints.newTask.makeRequest(token, { classId, deckId, dueDate: dueDate });
 
             dispatch(finishedCreating());
             dispatch(nav.openTask(task.taskId));

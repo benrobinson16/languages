@@ -12,21 +12,10 @@ public class TeacherRepository
         this.db = db;
     }
 
-    public Teacher? ByEmail(string email)
+    public IQueryable<Teacher> ForEmail(string email)
     {
-        var qry = from teacher in db.Teachers
-                  where teacher.Email == email
-                  select teacher;
-
-        return qry.FirstOrDefault();
-    }
-
-    public bool ExistingForEmail(string email)
-    {
-        var qry = from teacher in db.Teachers
-                  where teacher.Email == email
-                  select teacher;
-
-        return qry.Any();
+        return from teacher in db.Teachers
+               where teacher.Email == email
+               select teacher;
     }
 }
