@@ -19,6 +19,8 @@ export default function Nav() {
         return <LogInPage />;
     }
 
+    console.log(currentPage);
+
     return (
         <Layout>
             <ScaleFade in={currentPage.id === "home"}>
@@ -28,10 +30,10 @@ export default function Nav() {
                 {currentPage.id === "class" ? <ClassPage id={currentPage.data as number} /> : <></>}
             </ScaleFade>
             <ScaleFade in={currentPage.id === "deck"}>
-                <DeckPage id={currentPage.data as number} />
+                {currentPage.id === "deck" ? <DeckPage id={currentPage.data as number} /> : <></>}
             </ScaleFade>
             <ScaleFade in={currentPage.id === "task"}>
-                <TaskPage id={currentPage.data as number} />
+                {currentPage.id === "task" ? <TaskPage id={currentPage.data as number} /> : <></>}
             </ScaleFade>
 
             {/* MODALS */}

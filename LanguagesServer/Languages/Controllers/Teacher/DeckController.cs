@@ -2,7 +2,6 @@
 using Languages.Services;
 using Languages.DbModels;
 using Languages.ApiModels;
-using Task = Languages.DbModels.Task;
 
 namespace Languages.Controllers;
 
@@ -21,6 +20,11 @@ public class TeacherDeckController : ControllerBase
         this.shield = shield;
     }
 
+    /// <summary>
+    /// Gets a summary of a deck of cards.
+    /// </summary>
+    /// <param name="deckId">The id of the deck to inspect.</param>
+    /// <returns>The summary object.</returns>
     [HttpGet]
     public Deck Get(int deckId)
     {
@@ -33,6 +37,11 @@ public class TeacherDeckController : ControllerBase
         return deck;
     }
 
+    /// <summary>
+    /// Creates a new deck.
+    /// </summary>
+    /// <param name="name">The name of the deck to create.</param>
+    /// <returns>The newly created deck (including the id).</returns>
     [HttpPost]
     public Deck Post(string name)
     {
@@ -51,6 +60,12 @@ public class TeacherDeckController : ControllerBase
         return deck;
     }
 
+    /// <summary>
+    /// Edits a pre-existing deck.
+    /// </summary>
+    /// <param name="deckId">The id of the deck to edit.</param>
+    /// <param name="name">The new name of the deck.</param>
+    /// <returns>The edited deck.</returns>
     [HttpPatch]
     public Deck Patch(int deckId, string name)
     {
@@ -66,6 +81,10 @@ public class TeacherDeckController : ControllerBase
         return deck;
     }
 
+    /// <summary>
+    /// Deletes a deck from the database.
+    /// </summary>
+    /// <param name="deckId">The id of the deck to delete.</param>
     [HttpDelete]
     public void Delete(int deckId)
     {

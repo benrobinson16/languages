@@ -1,4 +1,4 @@
-import { Teacher, TeacherSummary, Class, Task, Deck, Card, ClassSummary } from "./models";
+import { Teacher, TeacherSummary, Class, Task, TaskSummary, Deck, Card, ClassSummary } from "./models";
 import { ApiEndpoint } from "./apiEndpoint";
 import { ParameterisedEndpoint } from "./parameterisedEndpoint";
 
@@ -19,8 +19,8 @@ Endpoints are defined centrally here for the following reasons.
 */
 
 // Account/general endpoints.
-export const getTeacherDetails = new ApiEndpoint<Teacher>("account", "details/teacher", "GET");
-export const registerTeacher = new ParameterisedEndpoint<"title" | "surname", Teacher>("account", "register/teacher", "POST");
+export const getTeacherDetails = new ApiEndpoint<Teacher>("account", "teacher/details", "GET");
+export const registerTeacher = new ParameterisedEndpoint<"title" | "surname", Teacher>("account", "teacher/register", "POST");
 export const getSummary = new ApiEndpoint<TeacherSummary>("teacher", "summary", "GET");
 
 // Class endpoints.
@@ -30,7 +30,7 @@ export const editClass = new ParameterisedEndpoint<"classId" | "name", Class>("t
 export const deleteClass = new ParameterisedEndpoint<"classId", void>("teacher", "class", "DELETE");
 
 // Task endpoints.
-export const getTask = new ParameterisedEndpoint<"taskId", Task>("teacher", "task", "GET");
+export const getTask = new ParameterisedEndpoint<"taskId", TaskSummary>("teacher", "task", "GET");
 export const newTask = new ParameterisedEndpoint<"classId" | "deckId" | "dueDate", Task>("teacher", "task", "POST");
 export const editTask = new ParameterisedEndpoint<"taskId" | "classId" | "deckId" | "dueDate", Task>("teacher", "task", "PATCH");
 export const deleteTask = new ParameterisedEndpoint<"taskId", void>("teacher", "task", "DELETE");

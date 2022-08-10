@@ -3,6 +3,7 @@ using Languages.Services;
 using Languages.ApiModels;
 using Languages.DbModels;
 using Task = Languages.DbModels.Task;
+using System.Linq;
 
 namespace Languages.Controllers;
 
@@ -21,8 +22,13 @@ public class TeacherTaskController : ControllerBase
         this.shield = shield;
     }
 
+    /// <summary>
+    /// Gets a summary of a task.
+    /// </summary>
+    /// <param name="taskId">The id of the task to inspect.</param>
+    /// <returns>The summary object.</returns>
     [HttpGet]
-    public Task Get(int taskId)
+    public TaskSummaryVm Get(int taskId)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
@@ -33,9 +39,34 @@ public class TeacherTaskController : ControllerBase
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
-        return task;
+        Deck? deck = da.Decks.ForId(task.DeckId).SingleOrDefault();
+        if (deck == null) throw new LanguagesResourceNotFound();
+
+        List<StudentProgress> students = da.StudentAttempts
+            .ProgressForTask(task.DeckId, task.ClassId);
+
+        return new TaskSummaryVm
+        {
+            TaskDetails = new TaskVm
+            {
+                Id = task.TaskId,
+                ClassId = task.ClassId,
+                DeckId = task.DeckId,
+                ClassName = cla.Name,
+                DeckName = deck.Name,
+                DueDate = task.DueDate.ToShortDateString(),
+            },
+            Students = students
+        };
     }
 
+    /// <summary>
+    /// Creates a new task.
+    /// </summary>
+    /// <param name="deckId">The id of the deck to assign.</param>
+    /// <param name="classId">The id of the class to assign the deck to.</param>
+    /// <param name="dueDate">The due date of the task in milliseconds since Unix Epoch.</param>
+    /// <returns>The newly created task (including id).</returns>
     [HttpPost]
     public Task Post(int deckId, int classId, double dueDate)
     {
@@ -61,6 +92,14 @@ public class TeacherTaskController : ControllerBase
         return task;
     }
 
+    /// <summary>
+    /// Edits a pre-existing task.
+    /// </summary>
+    /// <param name="taskId">The id of the task to edit.</param>
+    /// <param name="deckId">The new id of the task's deck.</param>
+    /// <param name="classId">The new id of the task's class.</param>
+    /// <param name="dueDate">The new due date of the task in milliseconds since the Unix Epoch.</param>
+    /// <returns>The edited task.</returns>
     [HttpPatch]
     public Task Patch(int taskId, int deckId, int classId, DateTime dueDate)
     {
@@ -89,6 +128,10 @@ public class TeacherTaskController : ControllerBase
         return task;
     }
 
+    /// <summary>
+    /// Deletes a task from the database.
+    /// </summary>
+    /// <param name="taskId">The id of the task to delete.</param>
     [HttpDelete]
     public void Delete(int taskId)
     {

@@ -38,13 +38,13 @@ export const summarySlice = createSlice({
         loadedDecks: (state, action: PayloadAction<Deck[]>) => {
             state.decks = action.payload;
         },
-        failedLoadingSummary: (state) => {
+        finishedLoading: (state) => {
             state.isLoading = false;
         }
     }
 });
 
-export const { startedLoading, loadedClasses, loadedTasks, loadedDecks, failedLoadingSummary } = summarySlice.actions;
+export const { startedLoading, loadedClasses, loadedTasks, loadedDecks, finishedLoading } = summarySlice.actions;
 
 /** Gets and saves the classes for the current user. */
 export const loadSummary = (): TypedThunk => {
@@ -63,10 +63,9 @@ export const loadSummary = (): TypedThunk => {
             dispatch(loadedClasses(response.classes));
             dispatch(loadedTasks(response.tasks));
             dispatch(loadedDecks(response.decks));
-            dispatch(failedLoadingSummary());
+            dispatch(finishedLoading());
         } catch (error) {
             errorToast(error);
-            dispatch(failedLoadingSummary());
         }
     }
 }

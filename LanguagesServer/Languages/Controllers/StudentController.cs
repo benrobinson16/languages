@@ -34,35 +34,14 @@ public class StudentController: ControllerBase
                   select new { cla.Name, cla.TeacherId, cla.ClassId };
 
         return qry.ToList();
-
     }
 
     [HttpGet("taskcards")]
-    public List<TaskCardVm> GetTaskCards()
+    public List<CardVm> GetTaskCards()
     {
         Student student = shield.AuthenticateStudent(Request);
 
-        var qry = from enr in db.Enrollments
-                  where enr.StudentId == student.StudentId
-                  join task in db.Tasks on enr.ClassId equals task.TaskId
-                  join card in db.Cards on task.DeckId equals card.DeckId
-                  select new TaskCardVm
-                  {
-                      CardId = card.CardId,
-                      EnglishTerm = card.EnglishTerm,
-                      ForeignTerm = card.ForeignTerm,
-                      DueDate = task.DueDate,
-                      LastQuestionType = (
-                          from stuAtt in db.StudentAttempts
-                          where stuAtt.StudentId == student.StudentId
-                          where stuAtt.CardId == card.CardId
-                          where stuAtt.Correct == true
-                          orderby stuAtt.AttemptDate
-                          select stuAtt.QuestionType
-                      ).FirstOrDefault()
-                  };
-
-        return qry.ToList();
+        return da.Cards.TaskVmsForStudent(student.StudentId).ToList();
     }
 
     [HttpGet("reviewcards")]

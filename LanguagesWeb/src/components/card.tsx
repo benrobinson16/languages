@@ -1,27 +1,6 @@
 import React from "react";
-import {Box, VStack} from "@chakra-ui/react";
-import {motion} from "framer-motion";
-
-const MotionBox = motion(Box);
-
-const variants = {
-    rest: {
-        scale: 1.0,
-        transition: {
-            duration: 0.5,
-            type: "tween",
-            ease: "easeOut"
-        }
-    },
-    hover: {
-        scale: 1.02,
-        transition: {
-            duration: 0.5,
-            type: "tween",
-            ease: "easeOut"
-        }
-    }
-}
+import {VStack} from "@chakra-ui/react";
+import MotionBox from "./motionBox";
 
 interface CardProps {
     children: React.ReactNode,
@@ -31,17 +10,9 @@ interface CardProps {
 }
 
 export default function Card(props: CardProps) {
-    return (
-        <MotionBox
-            initial="rest"
-            whileHover="hover"
-            animate="rest"
-            variants={variants}
-            width="100%"
-        >
+    if (props.onClick === undefined) {
+        return (
             <VStack
-                as="button"
-                onClick={props.onClick}
                 rounded="1rem"
                 width="100%"
                 align="start"
@@ -52,6 +23,24 @@ export default function Card(props: CardProps) {
             >
                 {props.children}
             </VStack>
-        </MotionBox>
-    );
+        );
+    } else {
+        return (
+            <MotionBox>
+                <VStack
+                    as="button"
+                    onClick={props.onClick}
+                    rounded="1rem"
+                    width="100%"
+                    align="start"
+                    padding={4}
+                    border="1px"
+                    borderColor={props.border ?? "gray.300"}
+                    bgColor={props.background ?? "white"}
+                >
+                    {props.children}
+                </VStack>
+            </MotionBox>
+        );
+    }
 }

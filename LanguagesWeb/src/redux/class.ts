@@ -22,7 +22,7 @@ const initialState: ClassState = {
 }
 
 export const classSlice = createSlice({
-    name: "newclass",
+    name: "class",
     initialState,
     reducers: {
         startedLoading: (state) => {

@@ -20,6 +20,11 @@ public class TeacherCardController : ControllerBase
         this.shield = shield;
     }
 
+    /// <summary>
+    /// Gets the details of a card.
+    /// </summary>
+    /// <param name="cardId">The id of the card to obtain.</param>
+    /// <returns>The card object.</returns>
     [HttpGet]
     public Card Get(int cardId)
     {
@@ -35,6 +40,13 @@ public class TeacherCardController : ControllerBase
         return card;
     }
 
+    /// <summary>
+    /// Creates a new card in the provided deck.
+    /// </summary>
+    /// <param name="deckId">The deck to add the card to.</param>
+    /// <param name="englishTerm">The English translation of the card.</param>
+    /// <param name="foreignTerm">The foreign translation of the card.</param>
+    /// <returns>The newly created card, containing the id.</returns>
     [HttpPost]
     public Card Post(int deckId, string englishTerm, string foreignTerm)
     {
@@ -58,6 +70,14 @@ public class TeacherCardController : ControllerBase
         return card;
     }
 
+    /// <summary>
+    /// Edits an already created card.
+    /// </summary>
+    /// <param name="cardId">The id of the card to edit.</param>
+    /// <param name="deckId">The id of the deck to now assign this card to.</param>
+    /// <param name="englishTerm">The new English term.</param>
+    /// <param name="foreignTerm">The new foreign translation.</param>
+    /// <returns>The newly edited card.</returns>
     [HttpPatch]
     public Card Patch(int cardId, int deckId, string englishTerm, string foreignTerm)
     {
@@ -81,11 +101,16 @@ public class TeacherCardController : ControllerBase
 
         card.EnglishTerm = englishTerm;
         card.ForeignTerm = foreignTerm;
+
         db.SaveChanges();
 
         return card;
     }
 
+    /// <summary>
+    /// Deletes a card from a deck.
+    /// </summary>
+    /// <param name="cardId">The id of the card to delete.</param>
     [HttpDelete]
     public void Delete(int cardId)
     {

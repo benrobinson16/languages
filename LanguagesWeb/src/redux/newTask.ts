@@ -96,9 +96,9 @@ export const createNewTask = (): TypedThunk => {
         try {
             const token = getState().auth.token || await authService.getToken();
             const task = await endpoints.newTask.makeRequest(token, { classId, deckId, dueDate: dueDate });
-
+            
             dispatch(finishedCreating());
-            dispatch(nav.openTask(task.taskId));
+            dispatch(nav.openTask(task.id));
         } catch (error) {
             dispatch(failedCreating());
             errorToast(error);

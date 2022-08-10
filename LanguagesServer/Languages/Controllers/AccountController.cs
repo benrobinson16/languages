@@ -21,7 +21,11 @@ public class AccountController : ControllerBase
         this.shield = shield;
     }
 
-    [HttpPost("register/student")]
+    /// <summary>
+    /// Register a new student with an account.
+    /// </summary>
+    /// <returns>The new student object (with id).</returns>
+    [HttpPost("student/register")]
     public Student RegisterStudent()
     {
         User user = shield.Authenticate(Request);
@@ -42,7 +46,13 @@ public class AccountController : ControllerBase
         return student;
     }
 
-    [HttpPost("register/teacher")]
+    /// <summary>
+    /// Register a new teacher.
+    /// </summary>
+    /// <param name="title">The title of the teacher.</param>
+    /// <param name="surname">The surname of the teacher.</param>
+    /// <returns>The new teacher object (with id).</returns>
+    [HttpPost("teacher/register")]
     public Teacher RegisterTeacher(string title, string surname)
     {
         User user = shield.Authenticate(Request);
@@ -63,17 +73,49 @@ public class AccountController : ControllerBase
         return teacher;
     }
 
-    [HttpGet("details/student")]
+    /// <summary>
+    /// Gets the details associated with a student by decoding the JWT.
+    /// </summary>
+    /// <returns>The student object.</returns>
+    [HttpGet("student/details")]
     public Student StudentDetails()
     {
         Student student = shield.AuthenticateStudent(Request);
         return student;
     }
 
-    [HttpGet("details/teacher")]
+    /// <summary>
+    /// Gets the details associated with a teacher by decoding the JWT.
+    /// </summary>
+    /// <returns>The teacher object.</returns>
+    [HttpGet("teacher/details")]
     public Teacher TeacherDetails()
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
         return teacher;
+    }
+
+    /// <summary>
+    /// Update the token associated with a student to facilitate push notifications.
+    /// </summary>
+    /// <param name="token">The device token for push notifications.</param>
+    [HttpPost("student/devicetoken")]
+    public void PostDeviceToken(string token)
+    {
+        Student student = shield.AuthenticateStudent(Request);
+        student.DeviceToken = token;
+        db.SaveChanges();
+    }
+
+    /// <summary>
+    /// Alerts the server that a student has logged out of a device and should
+    /// therefore no longer receive push notifications on that device.
+    /// </summary>
+    [HttpPost("student/devicelogout")]
+    public void PostDeviceLogout()
+    {
+        Student student = shield.AuthenticateStudent(Request);
+        student.DeviceToken = null;
+        db.SaveChanges();
     }
 }

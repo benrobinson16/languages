@@ -12,6 +12,7 @@ public class Student
 	public string FirstName { get; set; }
 	public string Surname { get; set; }
 	public string Email { get; set; }
+	public string? DeviceToken { get; set; }
 
 	public string DisplayName => FirstName + " " + Surname;
 }

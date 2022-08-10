@@ -21,6 +21,11 @@ public class TeacherClassController : ControllerBase
         this.shield = shield;
     }
 
+    /// <summary>
+    /// Creates a summary of a class with all required dashboard information.
+    /// </summary>
+    /// <param name="classId">The id of the class to inspect.</param>
+    /// <returns>The class summary.</returns>
     [HttpGet]
     public ClassSummaryVm? Get(int classId)
     {
@@ -50,6 +55,11 @@ public class TeacherClassController : ControllerBase
         return vm;
     }
 
+    /// <summary>
+    /// Creates a new class.
+    /// </summary>
+    /// <param name="name">The name to provide to this new class.</param>
+    /// <returns>The new class. Includes the id of the new class.</returns>
     [HttpPost]
     public ClassVm Post(string name)
     {
@@ -80,6 +90,12 @@ public class TeacherClassController : ControllerBase
         return ConvertClassToVm(cla);
     }
 
+    /// <summary>
+    /// Edits a pre-existing class.
+    /// </summary>
+    /// <param name="classId">The id of the class to edit.</param>
+    /// <param name="name">The new name of the class.</param>
+    /// <returns>The updated class object.</returns>
     [HttpPatch]
     public ClassVm Patch(int classId, string name)
     {
@@ -95,6 +111,10 @@ public class TeacherClassController : ControllerBase
         return ConvertClassToVm(cla);
     }
 
+    /// <summary>
+    /// Deletes a class from the database.
+    /// </summary>
+    /// <param name="classId">The id of the class to delete.</param>
     [HttpDelete]
     public void Delete(int classId)
     {

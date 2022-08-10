@@ -2,7 +2,7 @@ import { Heading, SimpleGrid, Spinner, VStack, Text, Flex, Spacer, Button } from
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import * as classActions from "../redux/class";
-import { TaskList } from "../components/entityList";
+import { StudentList, TaskList } from "../components/entityList";
 import Card from "../components/card";
 
 export default function ClassPage(props: { id: number }) {
@@ -32,17 +32,14 @@ export default function ClassPage(props: { id: number }) {
 
     return (
         <VStack width="100vw" padding={8} spacing={8}>
-            <Heading alignSelf="start">{cla?.name}</Heading>
+            <Flex width="100%">
+                <Heading alignSelf="start">{cla?.name}</Heading>
+                <Spacer />
+                <Button onClick={() => dispatch(classActions.showJoinCode())}>Show join code</Button>
+            </Flex>
             <SimpleGrid width="100%" columns={2} gap={8}>
                 <TaskList tasks={tasks} classId={cla.id} />
-                <VStack spacing={4}>
-                    <Flex width="100%">
-                        <Heading>Students</Heading>
-                        <Spacer />
-                        <Button onClick={() => dispatch(classActions.showJoinCode())}>Show join code</Button>
-                    </Flex>
-                    {studentCards}
-                </VStack>
+                <StudentList students={students} />
             </SimpleGrid>
         </VStack>
     ); 

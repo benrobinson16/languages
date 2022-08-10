@@ -1,11 +1,12 @@
 import React from "react";
-import {Class, Deck, Task} from "../api/models";
+import {Class, Deck, Task, StudentProgress} from "../api/models";
 import Card from "./card";
-import {HStack, Icon, Text} from "@chakra-ui/react";
+import {Button, Flex, HStack, Icon, Spacer, Text, VStack} from "@chakra-ui/react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
-import { useAppDispatch } from "../redux/store";
+import { TypedThunk, useAppDispatch } from "../redux/store";
 import { openClass, openDeck, openTask } from "../redux/nav";
 import { AnyAction } from "@reduxjs/toolkit";
+import { sendCongratulationsNotification, sendReminderNotification } from "../redux/task";
 
 export function ClassCard(props: {class: Class, key: number}) {
     const dispatch = useAppDispatch();
@@ -34,12 +35,13 @@ export function DeckCard(props: {deck: Deck, key: number}) {
 export function TaskCard(props: {task: Task, key: number}) {
     const dispatch = useAppDispatch();
 
+    console.log(props.task);
+
     return (
-        <Card onClick={() => dispatch(openTask(props.task.taskId))}>
+        <Card onClick={() => dispatch(openTask(props.task.id))}>
             <Text fontSize="lg" fontWeight="semibold" >{props.task.className}</Text>
             <Text fontSize="md">{props.task.deckName}</Text>
-            {/*<Text fontSize="md">Due by {props.task.dueDate?.toDateString() ?? "Oops"}</Text>*/}
-            <Text fontSize="md">{props.task.studentsComplete} students complete</Text>
+            <Text fontSize="md">Due by {props.task.dueDate}</Text>
         </Card>
     );
 }
@@ -59,4 +61,39 @@ export function NewEntityCard(props: {title: string, action: AnyAction}) {
             </HStack>
         </Card>
     )
+}
+
+export function ProgressCard(props: { studentProgress: StudentProgress, taskId: number }) {
+    const dispatch = useAppDispatch();
+
+    let color: string;
+    let buttonText: string;
+    let notification: TypedThunk<void>;
+
+    if (props.studentProgress.progress >= 95) {
+        color = "green";
+        buttonText = "👏";
+        notification = sendCongratulationsNotification(props.taskId, props.studentProgress.studentId);
+    } else if (props.studentProgress.progress >= 75) {
+        color = "orange";
+        buttonText = "🔔";
+        notification = sendReminderNotification(props.taskId, props.studentProgress.studentId);
+    } else {
+        color = "red";
+        buttonText = "🔔";
+        notification = sendReminderNotification(props.taskId, props.studentProgress.studentId);
+    }
+
+    return (
+        <Card>
+            <Flex alignItems="center" width="100%">
+                <VStack alignItems="start">
+                    <Text fontWeight="semibold">{props.studentProgress.name}</Text>
+                    <Text color={color}>{props.studentProgress.progress} %</Text>
+                </VStack>
+                <Spacer />
+                <Button onClick={() => dispatch(notification)}>{buttonText}</Button>
+            </Flex>
+        </Card>
+    );
 }

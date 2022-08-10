@@ -21,30 +21,22 @@ public class TeacherSummaryController : ControllerBase
         this.shield = shield;
     }
 
+    /// <summary>
+    /// Gets a summary of all decks, tasks and classes associated with the current teacher.
+    /// </summary>
+    /// <returns>The summary object.</returns>
     [HttpGet]
     public TeacherSummaryVm Get()
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        List<ClassVm> classVms = da.Classes
-            .ForTeacher(teacher.TeacherId)
-            .Select(cla => new ClassVm
-            {
-                Id = cla.ClassId,
-                Name = cla.Name,
-                NumActiveTasks = da.Tasks.ActiveForClass(cla.ClassId).Count(),
-                NumStudents = da.Enrollments.ForClass(cla.ClassId).Count()
-            })
-            .ToList();
-
+        List<ClassVm> classes = da.Classes.VmsForTeacher(teacher.TeacherId).ToList();
         List<TaskVm> tasks = da.Tasks.VmsForTeacher(teacher.TeacherId).ToList();
         List<Deck> decks = da.Decks.ForTeacher(teacher.TeacherId).ToList();
 
-        Console.WriteLine(decks);
-
         return new TeacherSummaryVm
         {
-            Classes = classVms.ToList(),
+            Classes = classes,
             Tasks = tasks,
             Decks = decks
         };

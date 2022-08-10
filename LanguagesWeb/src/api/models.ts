@@ -27,15 +27,16 @@ export interface Card {
 
 export interface StudentProgress {
     studentId: number,
+    name: string,
+    email: string,
     progress: number
 }
 
 export interface Task {
-    taskId: number,
-    dueDate: Date,
+    id: number,
+    dueDate: string,
     deckId: number,
     classId: number,
-    studentsComplete: number,
     className: string,
     deckName: string,
 }
@@ -65,4 +66,9 @@ export interface ClassSummary {
     classDetails: Class,
     students: string[],
     tasks: Task[]
+}
+
+export interface TaskSummary {
+    taskDetails: Task,
+    students: StudentProgress[]
 }

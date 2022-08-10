@@ -29,21 +29,15 @@ public class ClassRepository
 
     public IQueryable<ClassVm> VmsForTeacher(int teacherId)
     {
-        IQueryable<Task> activeTasks = from task in db.Tasks
-                                       where task.DueDate > DateTime.Now
-                                       select task;
-
         return from cla in db.Classes
                where cla.TeacherId == teacherId
-               join enrol in db.Enrollments on cla.ClassId equals enrol.ClassId into students
-               join task in activeTasks on cla.ClassId equals task.ClassId into tasks
+               //join enrol in db.Enrollments on cla.ClassId equals enrol.ClassId into students
+               //join task in db.Tasks.Where(t => t.DueDate > DateTime.Now) on cla.ClassId equals task.ClassId into tasks
                select new ClassVm
                {
                    Id = cla.ClassId,
                    Name = cla.Name,
                    JoinCode = cla.JoinCode,
-                   NumStudents = students.Count(),
-                   NumActiveTasks = tasks.Count()
                };
     }
 

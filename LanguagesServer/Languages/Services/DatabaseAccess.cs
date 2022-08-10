@@ -8,6 +8,7 @@ public class DatabaseAccess
     public ClassRepository Classes;
     public DeckRepository Decks;
     public EnrollmentRepository Enrollments;
+    public StudentAttemptRepository StudentAttempts;
     public StudentRepository Students;
     public TaskRepository Tasks;
     public TeacherRepository Teachers;
@@ -18,6 +19,7 @@ public class DatabaseAccess
         this.Classes = new ClassRepository(db);
         this.Decks = new DeckRepository(db);
         this.Enrollments = new EnrollmentRepository(db);
+        this.StudentAttempts = new StudentAttemptRepository(db);
         this.Students = new StudentRepository(db);
         this.Tasks = new TaskRepository(db);
         this.Teachers = new TeacherRepository(db);
