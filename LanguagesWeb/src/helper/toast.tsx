@@ -21,7 +21,7 @@ export function errorToast(error: any) {
     });
 }
 
-export function showSuccessToast(message: string) {
+export function successToast(message: string) {
     toast({
         title: "Success",
         description: message,

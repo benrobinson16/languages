@@ -69,7 +69,8 @@ app.UseGlobalExceptionHandler(opt => {
     opt.Map<LanguagesUnauthorized>().ToStatusCode(StatusCodes.Status403Forbidden);
     opt.Map<LanguagesResourceNotFound>().ToStatusCode(StatusCodes.Status404NotFound);
     opt.Map<LanguagesUnauthenticated>().ToStatusCode(StatusCodes.Status401Unauthorized);
-    opt.Map<LanguagesOperationAlreadyExecuted>().ToStatusCode(StatusCodes.Status409Conflict);
+    opt.Map<LanguagesOperationAlreadyExecuted>().ToStatusCode(StatusCodes.Status412PreconditionFailed);
+    opt.Map<LanguagesOperationNotCompleted>().ToStatusCode(StatusCodes.Status412PreconditionFailed);
     opt.Map<LanguagesInternalError>().ToStatusCode(StatusCodes.Status500InternalServerError);
 });
 

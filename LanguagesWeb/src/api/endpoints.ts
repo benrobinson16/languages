@@ -46,3 +46,7 @@ export const getCard = new ParameterisedEndpoint<"cardId", Card>("teacher", "car
 export const newCard = new ParameterisedEndpoint<"deckId" | "englishTerm" | "foreignTerm", Card>("teacher", "card", "POST");
 export const editCard = new ParameterisedEndpoint<"cardId" | "deckId" | "englishTerm" | "foreignTerm", Card>("teacher", "card", "PATCH");
 export const deleteCard = new ParameterisedEndpoint<"cardId", void>("teacher", "card", "DELETE");
+
+// Notification endpoints.
+export const reminderNotification = new ParameterisedEndpoint<"studentId" | "taskId", void>("teacher", "notification/reminder", "POST");
+export const congratsNotification = new ParameterisedEndpoint<"studentId" | "taskId", void>("teacher", "notification/congrats", "POST");

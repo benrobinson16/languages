@@ -27,4 +27,11 @@ public class StudentRepository
                orderby stu.Surname, stu.FirstName
                select stu;
     }
+
+    public IQueryable<Student> ForId(int studentId)
+    {
+        return from student in db.Students
+               where student.StudentId == studentId
+               select student;
+    }
 }

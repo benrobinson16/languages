@@ -6,7 +6,7 @@ import { HiOutlinePlusCircle } from "react-icons/hi";
 import { TypedThunk, useAppDispatch } from "../redux/store";
 import { openClass, openDeck, openTask } from "../redux/nav";
 import { AnyAction } from "@reduxjs/toolkit";
-import { sendCongratulationsNotification, sendReminderNotification } from "../redux/task";
+import { sendCongratsNotification, sendReminderNotification } from "../redux/task";
 
 export function ClassCard(props: {class: Class, key: number}) {
     const dispatch = useAppDispatch();
@@ -34,8 +34,6 @@ export function DeckCard(props: {deck: Deck, key: number}) {
 
 export function TaskCard(props: {task: Task, key: number}) {
     const dispatch = useAppDispatch();
-
-    console.log(props.task);
 
     return (
         <Card onClick={() => dispatch(openTask(props.task.id))}>
@@ -73,7 +71,7 @@ export function ProgressCard(props: { studentProgress: StudentProgress, taskId: 
     if (props.studentProgress.progress >= 95) {
         color = "green";
         buttonText = "👏";
-        notification = sendCongratulationsNotification(props.taskId, props.studentProgress.studentId);
+        notification = sendCongratsNotification(props.taskId, props.studentProgress.studentId);
     } else if (props.studentProgress.progress >= 75) {
         color = "orange";
         buttonText = "🔔";

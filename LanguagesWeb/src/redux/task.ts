@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 import { TypedThunk } from "./store";
-import { errorToast } from "../helper/toast";
+import { errorToast, successToast, toast } from "../helper/toast";
 import * as endpoints from "../api/endpoints";
 import { StudentProgress, Task, TaskSummary } from "../api/models";
 
@@ -43,7 +43,6 @@ export const loadTaskDetails = (taskId: number): TypedThunk => {
         try {
             const token = getState().auth.token || await authService.getToken();
             const response = await endpoints.getTask.makeRequest(token, { taskId })
-            console.log(response);
             dispatch(finishedLoading(response))
         } catch (error) {
             errorToast(error);
@@ -53,12 +52,24 @@ export const loadTaskDetails = (taskId: number): TypedThunk => {
 
 export const sendReminderNotification = (taskId: number, studentId: number): TypedThunk => {
     return async (dispatch, getState) => {
-        // TODO
+        try {
+            const token = getState().auth.token || await authService.getToken();
+            await endpoints.reminderNotification.makeRequest(token, { studentId, taskId });
+            successToast("Sent.");
+        } catch (error) {
+            errorToast(error);
+        }
     }
 }
 
-export const sendCongratulationsNotification = (taskId: number, studentId: number): TypedThunk => {
+export const sendCongratsNotification = (taskId: number, studentId: number): TypedThunk => {
     return async (dispatch, getState) => {
-        // TODO
+        try {
+            const token = getState().auth.token || await authService.getToken();
+            await endpoints.congratsNotification.makeRequest(token, { studentId, taskId });
+            successToast("Sent.");
+        } catch (error) {
+            errorToast(error);
+        }
     }
 }

@@ -24,3 +24,8 @@ public class LanguagesInternalError : Exception
 {
     public LanguagesInternalError() { }
 }
+
+public class LanguagesOperationNotCompleted : Exception
+{
+    public LanguagesOperationNotCompleted() { }
+}
