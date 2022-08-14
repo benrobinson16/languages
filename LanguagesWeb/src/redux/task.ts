@@ -8,13 +8,17 @@ import { StudentProgress, Task, TaskSummary } from "../api/models";
 interface TaskState {
     isLoading: boolean,
     task: Task | null,
-    students: StudentProgress[] | null
+    students: StudentProgress[] | null,
+    dueDate: number | null,
+    isSaving: boolean
 }
 
 const initialState: TaskState = {
     isLoading: false,
     task: null,
-    students: null
+    students: null,
+    dueDate: null,
+    isSaving: false
 }
 
 export const taskSlice = createSlice({
@@ -30,11 +34,26 @@ export const taskSlice = createSlice({
             state.task = action.payload.taskDetails;
             state.students = action.payload.students;
             state.isLoading = false;
+        },
+        editedDueDate: (state, action: PayloadAction<number>) => {
+            state.dueDate = action.payload;
+        },
+        startedSaving: (state) => {
+            state.isSaving = true
+        },
+        finishedSaving: (state, action: PayloadAction<TaskSummary>) => {
+            state.task = action.payload.taskDetails;
+            state.students = action.payload.students;
+            state.isLoading = false;
+            state.isSaving = false;
+        },
+        failedSaving: (state) => {
+            state.isSaving = false;
         }
     }
 });
 
-export const { startedLoading, finishedLoading } = taskSlice.actions;
+export const { startedLoading, finishedLoading, editedDueDate, startedSaving, finishedSaving, failedSaving } = taskSlice.actions;
 
 export const loadTaskDetails = (taskId: number): TypedThunk => {
     return async (dispatch, getState) => {
@@ -46,6 +65,26 @@ export const loadTaskDetails = (taskId: number): TypedThunk => {
             dispatch(finishedLoading(response))
         } catch (error) {
             errorToast(error);
+        }
+    };
+};
+
+export const saveTaskDueDate = (): TypedThunk => {
+    return async (dispatch, getState) => {
+        dispatch(startedSaving());
+        
+        const task = getState().task.task;
+        const newDueDate = getState().task.dueDate;
+        if (task === null || newDueDate === null) return;
+
+        try {
+            const token = getState().auth.token || await authService.getToken();
+            await endpoints.editTask.makeRequest(token, { taskId: task.id, deckId: task.deckId, classId: task.classId, dueDate: newDueDate });
+            const response = await endpoints.getTask.makeRequest(token, { taskId: task.id });
+            dispatch(finishedSaving(response))
+        } catch (error) {
+            errorToast(error);
+            dispatch(failedSaving());
         }
     };
 };

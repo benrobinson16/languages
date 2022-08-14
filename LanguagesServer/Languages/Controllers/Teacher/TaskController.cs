@@ -102,7 +102,7 @@ public class TeacherTaskController : ControllerBase
     /// <param name="dueDate">The new due date of the task in milliseconds since the Unix Epoch.</param>
     /// <returns>The edited task.</returns>
     [HttpPatch]
-    public Task Patch(int taskId, int deckId, int classId, DateTime dueDate)
+    public Task Patch(int taskId, int deckId, int classId, double dueDate)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
@@ -122,8 +122,11 @@ public class TeacherTaskController : ControllerBase
             task.ClassId = classId;
         }
 
+        // Convert from unix timestamp to C# DateTime.
+        DateTime dueDateAsDate = DateTime.UnixEpoch.AddMilliseconds(dueDate);
+
         task.DeckId = deckId;
-        task.DueDate = dueDate;
+        task.DueDate = dueDateAsDate;
         db.SaveChanges();
 
         return task;
