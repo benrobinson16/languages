@@ -31,13 +31,15 @@ public class ClassRepository
     {
         return from cla in db.Classes
                where cla.TeacherId == teacherId
-               //join enrol in db.Enrollments on cla.ClassId equals enrol.ClassId into students
-               //join task in db.Tasks.Where(t => t.DueDate > DateTime.Now) on cla.ClassId equals task.ClassId into tasks
+               let students = db.Enrollments.Where(e => e.ClassId == cla.ClassId).Count()
+               let tasks = db.Tasks.Where(t => t.DueDate > DateTime.Now && t.ClassId == cla.ClassId).Count()
                select new ClassVm
                {
                    Id = cla.ClassId,
                    Name = cla.Name,
                    JoinCode = cla.JoinCode,
+                   NumStudents = students,
+                   NumActiveTasks = tasks
                };
     }
 

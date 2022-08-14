@@ -38,10 +38,6 @@ export const { startedLoading, finishedLoading } = taskSlice.actions;
 
 export const loadTaskDetails = (taskId: number): TypedThunk => {
     return async (dispatch, getState) => {
-
-        
-        const isLoading = getState().task.isLoading;
-        if (isLoading) return;
         dispatch(startedLoading());
 
         try {

@@ -12,7 +12,7 @@ public class CardRepository
         this.db = db;
     }
 
-    public IQueryable<Card?> ForId(int id)
+    public IQueryable<Card> ForId(int id)
     {
         return from card in db.Cards
                where card.CardId == id
@@ -33,15 +33,20 @@ public class CardRepository
                join task in db.Tasks on enrol.ClassId equals task.ClassId
                where task.DueDate > DateTime.Now
                join card in db.Cards on task.DeckId equals card.DeckId
-               join attempt in db.StudentAttempts on card.CardId equals attempt.CardId into attempts
-               where attempts.Max(a => a.QuestionType) < (int)QuestionType.ForeignWritten
-               let latestAttempt = attempts.OrderByDescending(a => a.AttemptDate).FirstOrDefault()
-               let nextQuestionType = latestAttempt == null ?
-                    (int)QuestionType.MultipleChoice :
-                    (latestAttempt.Correct ?
-                        latestAttempt.QuestionType + 1 :
-                        latestAttempt.QuestionType - 1
-                    )
+               let latestAttemptAtCard = (
+                   from attempt in db.StudentAttempts
+                   where attempt.CardId == card.CardId
+                   where attempt.StudentId == enrol.StudentId
+                   orderby attempt.AttemptDate descending
+                   select attempt
+               ).First()
+               let nextQuestionType = latestAttemptAtCard == null ?
+                   (int)QuestionType.MultipleChoice :
+                   (latestAttemptAtCard.Correct ?
+                       latestAttemptAtCard.QuestionType + 1 :
+                       latestAttemptAtCard.QuestionType - 1
+                   )
+               where nextQuestionType <= (int)QuestionType.ForeignWritten
                orderby task.DueDate
                select new CardVm
                {
@@ -49,9 +54,7 @@ public class CardRepository
                    EnglishTerm = card.EnglishTerm,
                    ForeignTerm = card.ForeignTerm,
                    DueDate = task.DueDate,
-                   NextQuestionType = nextQuestionType < 1 ?
-                        QuestionType.MultipleChoice :
-                        (QuestionType)nextQuestionType
+                   NextQuestionType = nextQuestionType < 1 ? QuestionType.MultipleChoice : (QuestionType)nextQuestionType
                };
     }
 }

@@ -9,7 +9,7 @@ using Languages.ApiModels;
 
 namespace Languages.Services;
 
-public class Authenticator
+public class Authenticator: IAuthenticator
 {
     private readonly string keyEndpoint = "https://login.microsoftonline.com/common/discovery/keys";
     private readonly string audience = "67d7b840-45a6-480b-be53-3d93c187ed66";
