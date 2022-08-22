@@ -19,7 +19,7 @@ export interface Student {
 }
 
 export interface Card {
-    id: number,
+    cardId: number,
     englishTerm: string,
     foreignTerm: string,
     difficulty: number
@@ -44,8 +44,8 @@ export interface Task {
 export interface Deck {
     deckId: number,
     name: string,
-    cards: Card[],
-    dateModified: Date
+    numCards: number,
+    creationDate: string
 }
 
 export interface Class {
@@ -71,4 +71,9 @@ export interface ClassSummary {
 export interface TaskSummary {
     taskDetails: Task,
     students: StudentProgress[]
+}
+
+export interface DeckSummary {
+    deckDetails: Deck,
+    cards: Card[]
 }

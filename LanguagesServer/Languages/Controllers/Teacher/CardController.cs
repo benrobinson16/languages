@@ -48,7 +48,7 @@ public class TeacherCardController : ControllerBase
     /// <param name="foreignTerm">The foreign translation of the card.</param>
     /// <returns>The newly created card, containing the id.</returns>
     [HttpPost]
-    public Card Post(int deckId, string englishTerm, string foreignTerm)
+    public Card Post(int deckId, string? englishTerm, string? foreignTerm)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
@@ -59,8 +59,8 @@ public class TeacherCardController : ControllerBase
         Card card = new Card
         {
             DeckId = deckId,
-            EnglishTerm = englishTerm,
-            ForeignTerm = foreignTerm,
+            EnglishTerm = englishTerm ?? "",
+            ForeignTerm = foreignTerm ?? "",
             Difficulty = 0.5
         };
 
@@ -79,7 +79,7 @@ public class TeacherCardController : ControllerBase
     /// <param name="foreignTerm">The new foreign translation.</param>
     /// <returns>The newly edited card.</returns>
     [HttpPatch]
-    public Card Patch(int cardId, int deckId, string englishTerm, string foreignTerm)
+    public Card Patch(int cardId, int deckId, string? englishTerm, string? foreignTerm)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
@@ -99,8 +99,8 @@ public class TeacherCardController : ControllerBase
             card.DeckId = deckId;
         }
 
-        card.EnglishTerm = englishTerm;
-        card.ForeignTerm = foreignTerm;
+        card.EnglishTerm = englishTerm ?? card.EnglishTerm;
+        card.ForeignTerm = foreignTerm ?? card.ForeignTerm;
 
         db.SaveChanges();
 

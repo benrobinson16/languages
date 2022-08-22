@@ -3,7 +3,7 @@ import {Class, Deck, Task, StudentProgress} from "../api/models";
 import Card from "./card";
 import {Button, Flex, HStack, Icon, Spacer, Text, VStack} from "@chakra-ui/react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
-import { TypedThunk, useAppDispatch } from "../redux/store";
+import { AppDispatch, TypedThunk, useAppDispatch } from "../redux/store";
 import { openClass, openDeck, openTask } from "../redux/nav";
 import { AnyAction } from "@reduxjs/toolkit";
 import { sendCongratsNotification, sendReminderNotification } from "../redux/task";
@@ -26,8 +26,8 @@ export function DeckCard(props: {deck: Deck, key: number}) {
     return (
         <Card onClick={() => dispatch(openDeck(props.deck.deckId))}>
             <Text fontSize="lg" fontWeight="semibold" >{props.deck.name}</Text>
-            <Text fontSize="md">{props.deck.cards?.length ?? 0} cards</Text>
-            <Text fontSize="md">Last modified {props.deck.dateModified?.toDateString() ?? "Never"}</Text>
+            <Text fontSize="md">{props.deck.numCards ?? 0} cards</Text>
+            <Text fontSize="md">Last modified {props.deck.creationDate ?? "Never"}</Text>
         </Card>
     );
 }
@@ -44,14 +44,14 @@ export function TaskCard(props: {task: Task, key: number}) {
     );
 }
 
-export function NewEntityCard(props: {title: string, action: AnyAction}) {
+export function NewEntityCard(props: {title: string, action: (dispatch: AppDispatch) => void}) {
     const dispatch = useAppDispatch();
 
     return (
         <Card
             background="blue.50"
             border="blue.200"
-            onClick={() => dispatch(props.action)}
+            onClick={() => props.action(dispatch)}
         >
             <HStack>
                 <Icon as={HiOutlinePlusCircle} color="blue.400"/>

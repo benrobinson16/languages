@@ -28,7 +28,7 @@ public class NotificationController : ControllerBase
     /// </summary>
     /// <param name="studentId">The id of the student to remind.</param>
     /// <param name="taskId">The task to remind them about.</param>
-    [HttpPost("sendreminder/student")]
+    [HttpPost("reminder")]
     public void SendReminder(int studentId, int taskId)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
@@ -46,8 +46,8 @@ public class NotificationController : ControllerBase
     /// <param name="studentId">The id of the student to congratulate.</param>
     /// <param name="taskId">The id of the task they succeeded at.</param>
     /// <exception cref="LanguagesResourceNotFound"></exception>
-    [HttpPost("sendcongratulations")]
-    public void SendCongratulations(int studentId, int taskId)
+    [HttpPost("congrats")]
+    public void SendCongrats(int studentId, int taskId)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 

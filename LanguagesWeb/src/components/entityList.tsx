@@ -1,12 +1,15 @@
 import React from "react";
 import { ClassCard, DeckCard, NewEntityCard, ProgressCard, TaskCard } from "./dataCards";
 import { Heading, VStack, Text, Spinner, Spacer, Flex, Center, useDisclosure, Modal, ModalContent, ModalOverlay, ModalHeader, ModalCloseButton, ModalBody } from "@chakra-ui/react";
-import Card from "./card";
-import { Class, Deck, StudentProgress, Task } from "../api/models";
+import UICard from "./card";
+import { Class, Deck, StudentProgress, Task, Card } from "../api/models";
 import * as newClassActions from "../redux/newClass";
 import * as newTaskActions from "../redux/newTask";
 import * as newDeckActions from "../redux/newDeck";
 import { AnyAction } from "@reduxjs/toolkit";
+import VocabCard from "./vocabCard";
+import * as deckActions from "../redux/deck";
+import { AppDispatch } from "../redux/store";
 
 export interface EntityListProps<Entity> {
     entities: Entity[] | null,
@@ -14,7 +17,7 @@ export interface EntityListProps<Entity> {
     title: string,
     newTitle: string | null,
     information: string,
-    newEntityAction: AnyAction | null
+    newEntityAction: (dispatch: AppDispatch) => void
 }
 
 export function EntityList<Entity>(props: EntityListProps<Entity>) {
@@ -25,7 +28,7 @@ export function EntityList<Entity>(props: EntityListProps<Entity>) {
     if (props.entities == null) {
         cards = [<Spinner key="spinner" />];
     } else if (props.entities.length === 0) {
-        cards = [<Card key="emptycard"><Text>No {props.title.toLowerCase()} exist.</Text></Card>];
+        cards = [<UICard key="emptycard"><Text>No {props.title.toLowerCase()} exist.</Text></UICard>];
     } else {
         for (let i in props.entities) {
             cards.push(props.createCard(props.entities[i]));
@@ -84,7 +87,7 @@ export function ClassList(props: {classes: Class[] | null}) {
         title: "Classes",
         newTitle: "New Class",
         information: "Classes are used to group students together. Give each one a descriptive name to tell them apart. To add students to a class, click on the class and then click \"Show Join Code\" - ask your students to enter the code into the mobile app to join.",
-        newEntityAction: newClassActions.showNewClassModal()
+        newEntityAction: (dispatch: AppDispatch) => dispatch(newClassActions.showNewClassModal())
     });
 }
 
@@ -95,7 +98,7 @@ export function DeckList(props: {decks: Deck[] | null}) {
         title: "Decks",
         newTitle: "New Deck",
         information: "Decks are sets of vocabulary for students to learn. They are made up of a series of flashcards with the foreign language term and the English translation. Whilst a deck you create belongs only to you, others may use it when creating tasks for students.",
-        newEntityAction: newDeckActions.showModal()
+        newEntityAction: (dispatch: AppDispatch) => dispatch(newDeckActions.showModal())
     });
 }
 
@@ -106,7 +109,7 @@ export function TaskList(props: {tasks: Task[] | null, classId?: number}) {
         title: "Tasks",
         newTitle: "New Task",
         information: "Tasks assign a deck to a class, adding its terms to the vocabulary students will review/learn next. Tasks may use decks created by you or any other teacher. Set a due date to indicate the urgency of the task, and the in-app scheduling will ensure students complete it on time.",
-        newEntityAction: props.classId == null ? newTaskActions.showModal() : newTaskActions.showModalForClass(props.classId)
+        newEntityAction: (dispatch: AppDispatch) => dispatch(props.classId == null ? newTaskActions.showModal() : newTaskActions.showModalForClass(props.classId))
     });
 }
 
@@ -117,17 +120,28 @@ export function ProgressList(props: {students: StudentProgress[] | null, taskId:
         title: "Students",
         newTitle: null,
         information: "View student progress through the task. Percentage is a measure of how many of the cards each student has mastered.",
-        newEntityAction: null
+        newEntityAction: (dispatch: AppDispatch) => { }
     });
 }
 
 export function StudentList(props: {students: string[] | null}) {
     return EntityList({
         entities: props.students,
-        createCard: (entity: string) => <Card key={entity}><Text>{entity}</Text></Card>,
+        createCard: (entity: string) => <UICard key={entity}><Text>{entity}</Text></UICard>,
         title: "Students",
         newTitle: null,
         information: "A list of all students in the class. Students can join the class by entering the join code into the mobile app.",
-        newEntityAction: null
+        newEntityAction: (dispatch: AppDispatch) => { }
+    });
+}
+
+export function CardList(props: {cards: Card[] | null, deck: Deck | null}) {
+    return EntityList({
+        entities: props.cards,
+        createCard: (entity: Card) => <VocabCard card={entity} deck={props.deck!} />,
+        title: "Cards",
+        newTitle: "New Card",
+        information: "A list of cards in the deck. Click a term to edit it.",
+        newEntityAction: (dispatch: AppDispatch) => props.deck == null ? null : dispatch(deckActions.newCard(props.deck))
     });
 }

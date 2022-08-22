@@ -18,7 +18,7 @@ builder.Services.AddScoped<Shield>();
 // This instance is created directly, because we want the certificates to be loaded
 // in advance of the first request. Singleton is used because it does not depend
 // on the dbContext so does not need to be scoped.
-//builder.Services.AddSingleton<Authenticator>(new Authenticator());
+builder.Services.AddSingleton<Authenticator>(new Authenticator());
 
 //
 // OPTIONAL MOCKS FOR TESTING

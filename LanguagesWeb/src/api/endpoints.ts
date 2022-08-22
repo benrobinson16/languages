@@ -1,4 +1,4 @@
-import { Teacher, TeacherSummary, Class, Task, TaskSummary, Deck, Card, ClassSummary } from "./models";
+import { Teacher, TeacherSummary, Class, Task, TaskSummary, Deck, Card, ClassSummary, DeckSummary } from "./models";
 import { ApiEndpoint } from "./apiEndpoint";
 import { ParameterisedEndpoint } from "./parameterisedEndpoint";
 
@@ -36,7 +36,7 @@ export const editTask = new ParameterisedEndpoint<"taskId" | "classId" | "deckId
 export const deleteTask = new ParameterisedEndpoint<"taskId", void>("teacher", "task", "DELETE");
 
 // Deck endpoints.
-export const getDeck = new ParameterisedEndpoint<"taskId", Deck>("teacher", "deck", "GET");
+export const getDeck = new ParameterisedEndpoint<"deckId", DeckSummary>("teacher", "deck", "GET");
 export const newDeck = new ParameterisedEndpoint<"name", Deck>("teacher", "deck", "POST");
 export const editDeck = new ParameterisedEndpoint<"deckId" | "name", Deck>("teacher", "deck", "PATCH");
 export const deleteDeck = new ParameterisedEndpoint<"deckId", void>("teacher", "deck", "DELETE");

@@ -32,7 +32,7 @@ public class TeacherSummaryController : ControllerBase
 
         List<ClassVm> classes = da.Classes.VmsForTeacher(teacher.TeacherId).ToList();
         List<TaskVm> tasks = da.Tasks.VmsForTeacher(teacher.TeacherId).ToList();
-        List<Deck> decks = da.Decks.ForTeacher(teacher.TeacherId).ToList();
+        List<DeckVm> decks = da.Decks.VmsForTeacher(teacher.TeacherId).ToList();
 
         return new TeacherSummaryVm
         {

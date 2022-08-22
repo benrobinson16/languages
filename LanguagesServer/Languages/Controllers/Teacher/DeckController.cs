@@ -26,7 +26,7 @@ public class TeacherDeckController : ControllerBase
     /// <param name="deckId">The id of the deck to inspect.</param>
     /// <returns>The summary object.</returns>
     [HttpGet]
-    public Deck Get(int deckId)
+    public DeckSummaryVm Get(int deckId)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
@@ -34,7 +34,19 @@ public class TeacherDeckController : ControllerBase
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
-        return deck;
+        List<Card> cards = da.Cards.ForDeck(deckId).ToList();
+
+        return new DeckSummaryVm
+        {
+            DeckDetails = new DeckVm
+            {
+                DeckId = deck.DeckId,
+                Name = deck.Name,
+                NumCards = cards.Count(),
+                CreationDate = deck.CreationDate.ToShortDateString()
+            },
+            Cards = cards
+        };
     }
 
     /// <summary>

@@ -10,6 +10,7 @@ import { classSlice } from "./class";
 import { newTaskSlice } from "./newTask";
 import { newDeckSlice } from "./newDeck";
 import { taskSlice } from "./task";
+import { deckSlice } from "./deck";
 
 const store = configureStore({
     reducer: {
@@ -21,7 +22,8 @@ const store = configureStore({
         class: classSlice.reducer,
         newTask: newTaskSlice.reducer,
         task: taskSlice.reducer,
-        newDeck: newDeckSlice.reducer
+        newDeck: newDeckSlice.reducer,
+        deck: deckSlice.reducer
     }
 });
 
