@@ -1,4 +1,5 @@
 ﻿using Languages.DbModels;
+using Languages.ApiModels;
 
 namespace Languages.Services.Repositories;
 
@@ -23,6 +24,20 @@ public class DeckRepository
         return from deck in db.Decks
                where deck.TeacherId == teacherId
                select deck;
+    }
+
+    public IQueryable<DeckVm> VmsForTeacher(int teacherId)
+    {
+        return from deck in db.Decks
+               where deck.TeacherId == teacherId
+               let numCards = db.Cards.Where(c => c.DeckId == deck.DeckId).Count()
+               select new DeckVm
+               {
+                   DeckId = deck.DeckId,
+                   Name = deck.Name,
+                   NumCards = numCards,
+                   CreationDate = deck.CreationDate.ToShortDateString()
+               };
     }
 
     public bool OwnedByTeacher(int deckId, int teacherId)

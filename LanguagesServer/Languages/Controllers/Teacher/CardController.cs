@@ -112,7 +112,7 @@ public class TeacherCardController : ControllerBase
     /// </summary>
     /// <param name="cardId">The id of the card to delete.</param>
     [HttpDelete]
-    public void Delete(int cardId)
+    public Card Delete(int cardId)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
@@ -125,5 +125,7 @@ public class TeacherCardController : ControllerBase
 
         db.Cards.Remove(card);
         db.SaveChanges();
+
+        return card;
     }
 }

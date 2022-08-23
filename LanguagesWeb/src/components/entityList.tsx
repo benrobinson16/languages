@@ -17,7 +17,8 @@ export interface EntityListProps<Entity> {
     title: string,
     newTitle: string | null,
     information: string,
-    newEntityAction: (dispatch: AppDispatch) => void
+    newEntityAction: (dispatch: AppDispatch) => void,
+    newCardAtEnd?: boolean
 }
 
 export function EntityList<Entity>(props: EntityListProps<Entity>) {
@@ -71,11 +72,16 @@ export function EntityList<Entity>(props: EntityListProps<Entity>) {
                 </Modal>
             </Flex>
             {
-                props.newTitle == null || props.newEntityAction == null ? null : (
+                !props.newCardAtEnd && props.newTitle != null && props.newEntityAction != null ? (
                     <NewEntityCard title={props.newTitle} action={props.newEntityAction} />
-                )
+                ) : null
             }
             {cards}
+            {
+                props.newCardAtEnd && props.newTitle != null && props.newEntityAction != null ? (
+                    <NewEntityCard title={props.newTitle} action={props.newEntityAction} />
+                ) : null
+            }
         </VStack>
     );
 }
@@ -138,10 +144,11 @@ export function StudentList(props: {students: string[] | null}) {
 export function CardList(props: {cards: Card[] | null, deck: Deck | null}) {
     return EntityList({
         entities: props.cards,
-        createCard: (entity: Card) => <VocabCard card={entity} deck={props.deck!} />,
+        createCard: (entity: Card) => <VocabCard card={entity} deck={props.deck!} key={entity.cardId} />,
         title: "Cards",
         newTitle: "New Card",
         information: "A list of cards in the deck. Click a term to edit it.",
-        newEntityAction: (dispatch: AppDispatch) => props.deck == null ? null : dispatch(deckActions.newCard(props.deck))
+        newEntityAction: (dispatch: AppDispatch) => props.deck == null ? null : dispatch(deckActions.newCard(props.deck)),
+        newCardAtEnd: true
     });
 }

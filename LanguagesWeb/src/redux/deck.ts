@@ -47,9 +47,11 @@ export const deckSlice = createSlice({
         },
         addCard: (state, action: PayloadAction<Card>) => {
             if (state.cards == null) return;
-            var newArr = state.cards.slice();
-            newArr.unshift(action.payload);
-            state.cards = newArr;
+            state.cards.push(action.payload);
+            window.scrollTo(0, document.body.scrollHeight);
+        },
+        removeCard: (state, action: PayloadAction<number>) => {
+            state.cards = state.cards?.filter(c => c.cardId !== action.payload) ?? null;
         },
         startedSaving: (state) => {
             state.isSaving = true;
@@ -64,7 +66,7 @@ export const deckSlice = createSlice({
     }
 });
 
-export const { startedLoading, finishedLoading, editedCard, addCard, startedSaving, finishedSaving, failedSaving } = deckSlice.actions;
+export const { startedLoading, finishedLoading, editedCard, addCard, removeCard, startedSaving, finishedSaving, failedSaving } = deckSlice.actions;
 
 export const loadDeckDetails = (deckId: number): TypedThunk => {
     return async (dispatch, getState) => {
@@ -82,16 +84,12 @@ export const loadDeckDetails = (deckId: number): TypedThunk => {
 
 export const saveCard = (card: Card, deck: Deck): TypedThunk => {
     return async (dispatch, getState) => {
-        dispatch(startedSaving());
-
         try {
             const token = getState().auth.token || await authService.getToken();
             console.log({ deckId: deck.deckId, cardId: card.cardId, englishTerm: card.englishTerm, foreignTerm: card.foreignTerm });
             await endpoints.editCard.makeRequest(token, { deckId: deck.deckId, cardId: card.cardId, englishTerm: card.englishTerm, foreignTerm: card.foreignTerm });
-            dispatch(finishedSaving());
         } catch (error) {
             errorToast(error);
-            dispatch(failedSaving());
         }
     };
 };
@@ -102,6 +100,30 @@ export const newCard = (deck: Deck): TypedThunk => {
             const token = getState().auth.token || await authService.getToken();
             const card = await endpoints.newCard.makeRequest(token, { deckId: deck.deckId, englishTerm: "", foreignTerm: "" });
             dispatch(addCard(card));
+        } catch (error) {
+            errorToast(error);
+        }
+    };
+};
+
+export const copyCard = (card: Card, deck: Deck): TypedThunk => {
+    return async (dispatch, getState) => {
+        try {
+            const token = getState().auth.token || await authService.getToken();
+            const newCard = await endpoints.newCard.makeRequest(token, { deckId: deck.deckId, englishTerm: card.englishTerm, foreignTerm: card.foreignTerm });
+            dispatch(addCard(newCard));
+        } catch (error) {
+            errorToast(error);
+        }
+    };
+};
+
+export const deleteCard = (cardId: number): TypedThunk => {
+    return async (dispatch, getState) => {
+        try {
+            const token = getState().auth.token || await authService.getToken();
+            await endpoints.deleteCard.makeRequest(token, { cardId });
+            dispatch(removeCard(cardId));
         } catch (error) {
             errorToast(error);
         }
