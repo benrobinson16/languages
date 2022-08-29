@@ -3,6 +3,7 @@ using Languages.Services;
 using Languages.DbModels;
 using Languages.ApiModels;
 using Task = Languages.DbModels.Task;
+using System.Linq;
 
 namespace Languages.Controllers;
 
@@ -13,12 +14,14 @@ public class StudentController: ControllerBase
     DatabaseContext db;
     DatabaseAccess da;
     Shield shield;
+    MemoryModel mm;
 
-    public StudentController(DatabaseContext db, DatabaseAccess da, Shield shield)
+    public StudentController(DatabaseContext db, DatabaseAccess da, Shield shield, MemoryModel mm)
     {
         this.db = db;
         this.da = da;
         this.shield = shield;
+        this.mm = mm;
     }
 
     [HttpGet("summary")]
@@ -34,20 +37,48 @@ public class StudentController: ControllerBase
                   select new { cla.Name, cla.TeacherId, cla.ClassId };
 
         return qry.ToList();
+
+        List<TaskVm> taskVms = da.Tasks.VmsForStudent(student.StudentId).ToList();
+
+        List<TaskVm> incompleteOverdue = taskVms
+            .Where(t => DateTime.Parse(t.DueDate) < DateTime.Now)
+            .Where(t => !da.StudentAttempts.HasCompletedTask(student.StudentId, t.DeckId))
+            .ToList();
+
+        string message = "";
+        if (incompleteOverdue.Count() == 1)
+        {
+            TaskVm taskVm = incompleteOverdue.Single();
+            message = taskVm.DeckName + " for " + taskVm.ClassName + " is overdue. Start now to complete it.";
+        }
+        else if (incompleteOverdue.Count() > 1)
+        {
+            message = "You have " + incompleteOverdue.Count() + " tasks overdue. Start now to complete them.";
+        }
+
+        return new StudentSummaryVm
+        {
+            StreakHistory = da.StudentAttempts.StreakHistoryForStudent(student.StudentId),
+            StreakLength = da.StudentAttempts.StreakLengthForStudent(student.StudentId),
+            Tasks = taskVms,
+            DailyPercentage = 100.0, // FIXME: NEED TO IMPLEMENT SCHEDULING ALGORITHM
+            OverdueMessage = message,
+            StudentName = student.FirstName
+        };
     }
 
     [HttpGet("taskcards")]
     public List<CardVm> GetTaskCards()
     {
         Student student = shield.AuthenticateStudent(Request);
-
         return da.Cards.TaskVmsForStudent(student.StudentId).ToList();
     }
 
     [HttpGet("reviewcards")]
-    public string GetReviewCards()
+    public List<Card> GetReviewCards()
     {
-        return "Not yet implemented";
+        Student student = shield.AuthenticateStudent(Request);
+        return mm.NextCardsToReview(student.StudentId);
     }
 
     [HttpGet("taskdetails")]

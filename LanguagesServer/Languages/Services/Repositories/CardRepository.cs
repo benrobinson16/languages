@@ -57,4 +57,13 @@ public class CardRepository
                    NextQuestionType = nextQuestionType < 1 ? QuestionType.MultipleChoice : (QuestionType)nextQuestionType
                };
     }
+
+    public IQueryable<Card> RandomSampleForStudent(int studentId)
+    {
+        return from enr in db.Enrollments
+               join task in db.Tasks on enr.ClassId equals task.ClassId
+               join card in db.Cards on task.DeckId equals card.DeckId
+               orderby Guid.NewGuid() // random order
+               select card;
+    }
 }

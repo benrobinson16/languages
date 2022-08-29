@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddScoped<DatabaseAccess>();
 builder.Services.AddScoped<Shield>();
+builder.Services.AddScoped<MemoryModel>();
 
 // This instance is created directly, because we want the certificates to be loaded
 // in advance of the first request. Singleton is used because it does not depend
