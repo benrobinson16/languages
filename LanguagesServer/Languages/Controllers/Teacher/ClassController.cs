@@ -27,7 +27,7 @@ public class TeacherClassController : ControllerBase
     /// <param name="classId">The id of the class to inspect.</param>
     /// <returns>The class summary.</returns>
     [HttpGet]
-    public ClassSummaryVm? Get(int classId)
+    public ClassSummaryVm Get(int classId)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 

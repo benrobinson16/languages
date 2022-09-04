@@ -25,18 +25,9 @@ public class StudentController: ControllerBase
     }
 
     [HttpGet("summary")]
-    public object GetSummary()
+    public StudentSummaryVm Summary()
     {
         Student student = shield.AuthenticateStudent(Request);
-
-        // TODO: Decide what is needed in the summary
-
-        var qry = from enr in db.Enrollments
-                  join cla in db.Classes on enr.ClassId equals cla.ClassId
-                  where enr.StudentId == student.StudentId
-                  select new { cla.Name, cla.TeacherId, cla.ClassId };
-
-        return qry.ToList();
 
         List<TaskVm> taskVms = da.Tasks.VmsForStudent(student.StudentId).ToList();
 
@@ -68,21 +59,21 @@ public class StudentController: ControllerBase
     }
 
     [HttpGet("taskcards")]
-    public List<CardVm> GetTaskCards()
+    public List<CardVm> TaskCards()
     {
         Student student = shield.AuthenticateStudent(Request);
         return da.Cards.TaskVmsForStudent(student.StudentId).ToList();
     }
 
     [HttpGet("reviewcards")]
-    public List<Card> GetReviewCards()
+    public List<Card> ReviewCards()
     {
         Student student = shield.AuthenticateStudent(Request);
         return mm.NextCardsToReview(student.StudentId);
     }
 
     [HttpGet("taskdetails")]
-    public Task GetTaskDetails(int taskId)
+    public Task TaskDetails(int taskId)
     {
         Student student = shield.AuthenticateStudent(Request);
 
@@ -114,7 +105,7 @@ public class StudentController: ControllerBase
     }
 
     [HttpPost("joinClass")]
-    public void PostJoinClass(string joinCode)
+    public void JoinClass(string joinCode)
     {
         Student student = shield.AuthenticateStudent(Request);
 

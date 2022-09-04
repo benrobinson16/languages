@@ -74,33 +74,11 @@ public class AccountController : ControllerBase
     }
 
     /// <summary>
-    /// Gets the details associated with a student by decoding the JWT.
-    /// </summary>
-    /// <returns>The student object.</returns>
-    [HttpGet("student/details")]
-    public Student StudentDetails()
-    {
-        Student student = shield.AuthenticateStudent(Request);
-        return student;
-    }
-
-    /// <summary>
-    /// Gets the details associated with a teacher by decoding the JWT.
-    /// </summary>
-    /// <returns>The teacher object.</returns>
-    [HttpGet("teacher/details")]
-    public Teacher TeacherDetails()
-    {
-        Teacher teacher = shield.AuthenticateTeacher(Request);
-        return teacher;
-    }
-
-    /// <summary>
     /// Update the token associated with a student to facilitate push notifications.
     /// </summary>
     /// <param name="token">The device token for push notifications.</param>
     [HttpPost("student/devicetoken")]
-    public void PostDeviceToken(string token)
+    public void RegisterDeviceToken(string token)
     {
         Student student = shield.AuthenticateStudent(Request);
         student.DeviceToken = token;
@@ -112,7 +90,7 @@ public class AccountController : ControllerBase
     /// therefore no longer receive push notifications on that device.
     /// </summary>
     [HttpPost("student/devicelogout")]
-    public void PostDeviceLogout()
+    public void RemoveRegisteredDevice()
     {
         Student student = shield.AuthenticateStudent(Request);
         student.DeviceToken = null;
