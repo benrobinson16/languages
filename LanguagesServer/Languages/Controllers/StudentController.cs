@@ -102,6 +102,8 @@ public class StudentController: ControllerBase
 
         db.StudentAttempts.Add(attempt);
         db.SaveChanges();
+
+        da.Cards.UpdateDifficulty(cardId);
     }
 
     [HttpPost("joinClass")]

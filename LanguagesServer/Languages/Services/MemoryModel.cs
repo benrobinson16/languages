@@ -38,7 +38,7 @@ public class MemoryModel
 
     private double ModelCard(Card card, int studentId)
     {
-        double summation = -card.Difficulty * this.difficultyWeight;
+        double summation = -card.Difficulty * difficultyWeight;
         foreach (TimeWindow window in GetTimeWindows(DateTime.Now))
         {
             int numCorrect = da.StudentAttempts.CorrectAttemptsInWindow(studentId, card.CardId, window.Start, window.End).Count();

@@ -66,4 +66,15 @@ public class CardRepository
                orderby Guid.NewGuid() // random order
                select card;
     }
+
+    public void UpdateDifficulty(int cardId)
+    {
+        int numCorrect = db.StudentAttempts.Where(a => a.CardId == cardId && a.Correct).Count();
+        int numIncorrect = db.StudentAttempts.Where(a => a.CardId == cardId && !a.Correct).Count();
+        double difficulty = (numCorrect + 7) / (numIncorrect + numCorrect + 10);
+
+        Card card = ForId(cardId).Single();
+        card.Difficulty = difficulty;
+        db.SaveChanges();
+    }
 }
