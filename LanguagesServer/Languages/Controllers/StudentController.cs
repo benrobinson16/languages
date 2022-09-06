@@ -73,17 +73,23 @@ public class StudentController: ControllerBase
     }
 
     [HttpGet("taskdetails")]
-    public Task TaskDetails(int taskId)
+    public StudentTaskSummaryVm TaskDetails(int taskId)
     {
         Student student = shield.AuthenticateStudent(Request);
 
-        Task? task = da.Tasks.ForId(taskId).SingleOrDefault();
+        TaskVm? task = da.Tasks.VmForId(taskId).SingleOrDefault();
         if (task == null) throw new LanguagesResourceNotFound();
 
         bool studentAssignedTask = da.Tasks.AssignedToStudent(taskId, student.StudentId);
         if (!studentAssignedTask) throw new LanguagesUnauthorized();
 
-        return task;
+        List<Card> deck = da.Cards.ForDeck(task.DeckId).ToList();
+
+        return new StudentTaskSummaryVm
+        {
+            TaskDetails = task,
+            Cards = deck
+        };
     }
 
     [HttpPost("didAnswer")]

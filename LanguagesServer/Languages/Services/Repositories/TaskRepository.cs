@@ -21,6 +21,23 @@ public class TaskRepository
                select task;
     }
 
+    public IQueryable<TaskVm> VmForId(int id)
+    {
+        return from task in db.Tasks
+               where task.TaskId == id
+               join deck in db.Decks on task.DeckId equals deck.DeckId
+               join cla in db.Classes on task.ClassId equals cla.ClassId
+               select new TaskVm
+               {
+                   Id = task.TaskId,
+                   ClassId = cla.ClassId,
+                   DeckId = deck.DeckId,
+                   ClassName = cla.Name,
+                   DeckName = deck.Name,
+                   DueDate = task.DueDate.ToShortDateString()
+               };
+    }
+
     public IQueryable<Task> ForStudent(int studentId)
     {
         return from enrollment in db.Enrollments

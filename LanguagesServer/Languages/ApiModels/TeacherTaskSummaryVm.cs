@@ -1,9 +1,7 @@
-﻿using System;
-namespace Languages.ApiModels;
+﻿namespace Languages.ApiModels;
 
-public class TaskSummaryVm
+public class TeacherTaskSummaryVm
 {
     public TaskVm TaskDetails { get; set; }
     public List<StudentProgress> Students { get; set; }
 }
-

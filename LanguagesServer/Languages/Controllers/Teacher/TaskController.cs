@@ -28,35 +28,20 @@ public class TeacherTaskController : ControllerBase
     /// <param name="taskId">The id of the task to inspect.</param>
     /// <returns>The summary object.</returns>
     [HttpGet]
-    public TaskSummaryVm Get(int taskId)
+    public TeacherTaskSummaryVm Get(int taskId)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        Task? task = da.Tasks.ForId(taskId).SingleOrDefault();
+        TaskVm? task = da.Tasks.VmForId(taskId).SingleOrDefault();
         if (task == null) throw new LanguagesResourceNotFound();
-
-        Class? cla = da.Classes.ForId(task.ClassId).SingleOrDefault();
-        if (cla == null) throw new LanguagesResourceNotFound();
-        if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
-
-        Deck? deck = da.Decks.ForId(task.DeckId).SingleOrDefault();
-        if (deck == null) throw new LanguagesResourceNotFound();
 
         List<StudentProgress> students = da.StudentAttempts
             .ProgressForTask(task.DeckId, task.ClassId)
             .ToList();
 
-        return new TaskSummaryVm
+        return new TeacherTaskSummaryVm
         {
-            TaskDetails = new TaskVm
-            {
-                Id = task.TaskId,
-                ClassId = task.ClassId,
-                DeckId = task.DeckId,
-                ClassName = cla.Name,
-                DeckName = deck.Name,
-                DueDate = task.DueDate.ToShortDateString(),
-            },
+            TaskDetails = task,
             Students = students
         };
     }
