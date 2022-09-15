@@ -36,6 +36,7 @@ export default function ClassPage(props: { id: number }) {
                 <Heading alignSelf="start">{cla?.name}</Heading>
                 <Spacer />
                 <Button onClick={() => dispatch(classActions.showJoinCode())}>Show join code</Button>
+                <Button onClick={() => dispatch(classActions.deleteClass(props.id))} marginLeft={2}>Delete</Button>
             </Flex>
             <SimpleGrid width="100%" columns={2} gap={8}>
                 <TaskList tasks={tasks} classId={cla.id} />

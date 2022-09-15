@@ -49,8 +49,8 @@ export function EntityList<Entity>(props: EntityListProps<Entity>) {
             >
                 <Heading>{props.title}</Heading>
                 <Spacer />
-                <Center 
-                    as="a" 
+                <Center
+                    as="button" 
                     onClick={onOpen}
                     bgColor="gray.200" 
                     rounded="full" 

@@ -4,6 +4,7 @@ import { TypedThunk } from "./store";
 import { errorToast } from "../helper/toast";
 import * as endpoints from "../api/endpoints";
 import { Class, ClassSummary, Task } from "../api/models";
+import * as navActions from "./nav";
 
 interface ClassState {
     isLoading: boolean,
@@ -57,10 +58,30 @@ export const loadClassDetails = (classId: number): TypedThunk => {
 
         try {
             const token = getState().auth.token || await authService.getToken();
-            const response = await endpoints.getClass.makeRequest(token, { classId })
-            dispatch(finishedLoading(response))
+            const response = await endpoints.getClass.makeRequest(token, { classId });
+            console.log(response);
+            dispatch(finishedLoading(response));
         } catch (error) {
             errorToast(error);
         }
     };
 };
+
+export const deleteClass = (classId: number): TypedThunk => {
+    return async (dispatch, getState) => {
+        const deleteText = "Are you sure you would like to delete this class?";
+        const confirmed = window.confirm(deleteText);
+
+        if (confirmed) {
+            try {
+                const token = getState().auth.token || await authService.getToken();
+                await endpoints.deleteClass.makeRequestVoid(token, { classId });
+                dispatch(navActions.back());
+            } catch (error) {
+                errorToast(error);
+            }
+        } else {
+            
+        }
+    }
+}

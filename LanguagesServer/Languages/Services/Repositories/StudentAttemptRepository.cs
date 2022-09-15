@@ -65,7 +65,9 @@ public class StudentAttemptRepository
             });
         }
 
-        return progresses;
+        return progresses
+            .OrderByDescending(stu => stu.Progress)
+            .ToList();
     }
 
     // Is faster that calculating progress and comparing to 100%.
@@ -151,6 +153,28 @@ public class StudentAttemptRepository
         }
 
         return numDays;
+    }
+
+    public IQueryable<StudentAttempt> AttemptsForCard(int cardId)
+    {
+        return from attempt in db.StudentAttempts
+               where attempt.CardId == cardId
+               select attempt;
+    }
+
+    public void RemoveForCard(int cardId)
+    {
+        IQueryable<StudentAttempt> attempts = AttemptsForCard(cardId);
+        db.StudentAttempts.RemoveRange(attempts);
+    }
+
+    public void RemoveForDeck(int deckId)
+    {
+        List<Card> cards = db.Cards.Where(c => c.DeckId == deckId).ToList();
+        foreach (Card card in cards)
+        {
+            RemoveForCard(card.CardId);
+        }
     }
 }
 

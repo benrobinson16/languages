@@ -77,7 +77,7 @@ public class AccountController : ControllerBase
     /// Update the token associated with a student to facilitate push notifications.
     /// </summary>
     /// <param name="token">The device token for push notifications.</param>
-    [HttpPost("student/devicetoken")]
+    [HttpPost("student/registerdevice")]
     public void RegisterDeviceToken(string token)
     {
         Student student = shield.AuthenticateStudent(Request);
@@ -89,7 +89,7 @@ public class AccountController : ControllerBase
     /// Alerts the server that a student has logged out of a device and should
     /// therefore no longer receive push notifications on that device.
     /// </summary>
-    [HttpPost("student/devicelogout")]
+    [HttpPost("student/removedevice")]
     public void RemoveRegisteredDevice()
     {
         Student student = shield.AuthenticateStudent(Request);

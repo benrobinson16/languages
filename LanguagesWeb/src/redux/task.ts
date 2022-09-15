@@ -4,6 +4,7 @@ import { TypedThunk } from "./store";
 import { errorToast, successToast, toast } from "../helper/toast";
 import * as endpoints from "../api/endpoints";
 import { StudentProgress, Task, TaskSummary } from "../api/models";
+import * as navActions from "./nav";
 
 interface TaskState {
     isLoading: boolean,
@@ -109,6 +110,23 @@ export const sendCongratsNotification = (taskId: number, studentId: number): Typ
             successToast("Sent.");
         } catch (error) {
             errorToast(error);
+        }
+    }
+}
+
+export const deleteTask = (taskId: number): TypedThunk => {
+    return async (dispatch, getState) => {
+        const deleteText = "Are you sure you would like to delete this task?";
+        const confirmed = window.confirm(deleteText);
+
+        if (confirmed) {
+            try {
+                const token = getState().auth.token || await authService.getToken();
+                await endpoints.deleteTask.makeRequestVoid(token, { taskId });
+                dispatch(navActions.back());
+            } catch (error) {
+                errorToast(error);
+            }
         }
     }
 }

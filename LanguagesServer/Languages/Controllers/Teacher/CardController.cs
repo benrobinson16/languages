@@ -124,6 +124,7 @@ public class TeacherCardController : ControllerBase
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
         db.Cards.Remove(card);
+        da.StudentAttempts.RemoveForCard(cardId);
         db.SaveChanges();
 
         return card;

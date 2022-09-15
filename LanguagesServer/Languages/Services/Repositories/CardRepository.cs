@@ -77,4 +77,10 @@ public class CardRepository
         card.Difficulty = difficulty;
         db.SaveChanges();
     }
+
+    public void RemoveForDeck(int deckId)
+    {
+        IQueryable<Card> cards = ForDeck(deckId);
+        db.Cards.RemoveRange(cards);
+    }
 }

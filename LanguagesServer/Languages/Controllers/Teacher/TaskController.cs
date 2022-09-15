@@ -54,13 +54,16 @@ public class TeacherTaskController : ControllerBase
     /// <param name="dueDate">The due date of the task in milliseconds since Unix Epoch.</param>
     /// <returns>The newly created task (including id).</returns>
     [HttpPost]
-    public Task Post(int deckId, int classId, double dueDate)
+    public TaskVm Post(int deckId, int classId, double dueDate)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
         Class? cla = da.Classes.ForId(classId).SingleOrDefault();
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
+
+        Deck? deck = da.Decks.ForId(deckId).SingleOrDefault();
+        if (deck == null) throw new LanguagesResourceNotFound();
 
         // Convert from unix timestamp to C# DateTime.
         DateTime dueDateAsDate = DateTime.UnixEpoch.AddMilliseconds(dueDate);
@@ -75,7 +78,15 @@ public class TeacherTaskController : ControllerBase
         db.Tasks.Add(task);
         db.SaveChanges();
 
-        return task;
+        return new TaskVm
+        {
+            Id = task.TaskId,
+            ClassId = classId,
+            ClassName = cla.Name,
+            DeckId = deckId,
+            DeckName = deck.Name,
+            DueDate = task.DueDate.ToShortDateString()
+        };
     }
 
     /// <summary>

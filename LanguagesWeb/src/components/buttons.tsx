@@ -30,6 +30,21 @@ export function AppButton(props: AppButtonProps) {
     );
 }
 
+export function DestructiveButton(props: AppButtonProps) {
+    return (
+        <Button 
+            onClick={props.onClick} 
+            isLoading={props.isLoading} 
+            leftIcon={props.icon} 
+            loadingText={props.loadingText}
+            colorScheme="red" 
+            variant="solid"
+        >
+            {props.children}
+        </Button>
+    );
+}
+
 export function SignInWithMicrosoftButton() {
     const dispatch = useAppDispatch();
 

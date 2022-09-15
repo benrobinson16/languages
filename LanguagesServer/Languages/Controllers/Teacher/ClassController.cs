@@ -35,7 +35,7 @@ public class TeacherClassController : ControllerBase
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
-        List<Task> tasks = da.Tasks.ForClass(classId).ToList();
+        List<TaskVm> tasks = da.Tasks.VmsForClass(classId).ToList();
         List<string> students = da.Students.ForClass(classId).Select(stu => stu.DisplayName).ToList();
 
         ClassSummaryVm vm = new ClassSummaryVm
@@ -44,7 +44,7 @@ public class TeacherClassController : ControllerBase
             {
                 Id = cla.ClassId,
                 Name = cla.Name,
-                NumActiveTasks = tasks.Where(t => t.DueDate > DateTime.Now).Count(),
+                NumActiveTasks = tasks.Count(),
                 NumStudents = students.Count(),
                 JoinCode = cla.JoinCode
             },
@@ -125,6 +125,7 @@ public class TeacherClassController : ControllerBase
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
         db.Classes.Remove(cla);
+        da.Tasks.RemoveForClass(cla);
         db.SaveChanges();
     }
 

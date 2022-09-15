@@ -64,6 +64,13 @@ public class PushNotifier
 
     private void SendNotification(string title, string body, List<int> students)
     {
+        List<string> tokens = students
+            .Select(stu => da.Students.ForId(stu).SingleOrDefault())
+            .Where(result => result != null)
+            .Select(result => result!.DeviceToken)
+            .Where(token => token != null)
+            .Select(token => token!)
+            .ToList();
 
         // TODO: Send a notification to the device via Apple's servers
     }

@@ -107,6 +107,9 @@ public class TeacherDeckController : ControllerBase
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
         db.Decks.Remove(deck);
+        da.Tasks.RemoveForDeck(deckId);
+        da.StudentAttempts.RemoveForDeck(deckId);
+        da.Cards.RemoveForDeck(deckId);
         db.SaveChanges();
     }
 }

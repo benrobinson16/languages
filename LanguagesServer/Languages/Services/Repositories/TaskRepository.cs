@@ -102,6 +102,32 @@ public class TaskRepository
                select task;
     }
 
+    public IQueryable<TaskVm> VmsForClass(int classId)
+    {
+        return from task in db.Tasks
+               where task.ClassId == classId
+               join deck in db.Decks on task.DeckId equals deck.DeckId
+               join cla in db.Classes on task.ClassId equals cla.ClassId
+               orderby task.DueDate descending
+               select new TaskVm
+               {
+                   Id = task.TaskId,
+                   ClassId = cla.ClassId,
+                   DeckId = deck.DeckId,
+                   ClassName = cla.Name,
+                   DeckName = deck.Name,
+                   DueDate = task.DueDate.ToShortDateString()
+               };
+    }
+
+    public IQueryable<Task> ForDeck(int deckId)
+    {
+        return from task in db.Tasks
+               where task.DeckId == deckId
+               orderby task.DueDate descending
+               select task;
+    }
+
     public bool OwnedByTeacher(int taskId, int teacherId)
     {
         var classQry = from task in db.Tasks
@@ -129,5 +155,17 @@ public class TaskRepository
                where task.ClassId == classId
                where task.DueDate > DateTime.Now
                select task;
+    }
+
+    public void RemoveForCass(int classId)
+    {
+        IQueryable<Task> tasks = ForClass(classId);
+        db.Tasks.RemoveRange(tasks);
+    }
+
+    public void RemoveForDeck(int deckId)
+    {
+        IQueryable<Task> tasks = ForDeck(deckId);
+        db.Tasks.RemoveRange(tasks);
     }
 }

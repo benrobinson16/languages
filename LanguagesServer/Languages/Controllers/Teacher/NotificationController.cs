@@ -33,11 +33,8 @@ public class NotificationController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        (Task task, _, Deck deck) = TaskDetailsAndVerify(taskId, teacher.TeacherId);
-        string? token = da.Students.ForId(studentId).SingleOrDefault()?.DeviceToken;
-        if (token == null) throw new LanguagesResourceNotFound();
-
-        push.SendReminder(teacher.DisplayName, deck.Name, task.DueDate, token);
+        (Task task, _, Deck deck) = TaskDetailsAndVerify(taskId, teacher.TeacherId, studentId);
+        push.SendReminder(teacher.DisplayName, deck.Name, task.DueDate, studentId);
     }
 
     /// <summary>
@@ -51,20 +48,20 @@ public class NotificationController : ControllerBase
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
-        (_, _, Deck deck) = TaskDetailsAndVerify(taskId, teacher.TeacherId);
-        string? token = da.Students.ForId(studentId).SingleOrDefault()?.DeviceToken;
-        if (token == null) throw new LanguagesResourceNotFound();
-
-        push.SendCongrats(teacher.DisplayName, deck.Name, token);
+        (_, _, Deck deck) = TaskDetailsAndVerify(taskId, teacher.TeacherId, studentId);
+        push.SendCongrats(teacher.DisplayName, deck.Name, studentId);
     }
 
     // Helper method to extract Task, Class and Deck from taskId. Does not fall
     // under DatabaseAccess service because it is across objects, and also requires
     // ownership checks that can throw to fail the entire request.
-    private (Task, Class, Deck) TaskDetailsAndVerify(int taskId, int teacherId)
+    private (Task, Class, Deck) TaskDetailsAndVerify(int taskId, int teacherId, int studentId)
     {
         Task? task = da.Tasks.ForId(taskId).SingleOrDefault();
         if (task == null) throw new LanguagesResourceNotFound();
+
+        bool assignedToStudent = da.Tasks.AssignedToStudent(taskId, studentId);
+        if (!assignedToStudent) throw new LanguagesUnauthorized();
 
         Class? cla = da.Classes.ForId(task.ClassId).SingleOrDefault();
         if (cla == null) throw new LanguagesResourceNotFound();
