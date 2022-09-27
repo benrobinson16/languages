@@ -21,8 +21,7 @@ export interface Student {
 export interface Card {
     cardId: number,
     englishTerm: string,
-    foreignTerm: string,
-    difficulty: number
+    foreignTerm: string
 }
 
 export interface StudentProgress {

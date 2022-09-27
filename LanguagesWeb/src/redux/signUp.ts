@@ -9,15 +9,13 @@ import { registerTeacher } from "../api/endpoints";
 interface SignUpState {
     title: string,
     surname: string,
-    isLoading: boolean,
-    errorMessage: string | null
+    isLoading: boolean
 }
 
 const initialState: SignUpState = {
     title: "",
     surname: "",
-    isLoading: false,
-    errorMessage: null
+    isLoading: false
 };
 
 export const signUpSlice = createSlice({
@@ -44,11 +42,15 @@ export const signUpSlice = createSlice({
 export const { changeSurname, changeTitle, startedCreatingAccount, failedCreatingAccount } = signUpSlice.actions;
 
 /** Creates an account for a new teacher, using the provided title and surname. */
-export const createAccount = (title: string, surname: string): TypedThunk => {
+export const createAccount = (): TypedThunk => {
     return async (dispatch, getState): Promise<void> => {
 
         // Start the loading animation.
         store.dispatch(startedCreatingAccount());
+
+        const state = getState();
+        const title = state.signUp.title;
+        const surname = state.signUp.surname;
 
         // Perform title validation.
         if (title == null || title === "") {
