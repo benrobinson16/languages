@@ -258,6 +258,16 @@ public class LinkedList<T> {
         }
     }
     
+    public func filter(condition: (T) -> Bool) -> LinkedList<T> {
+        let outputList = LinkedList<T>()
+        self.forEach { value in
+            if condition(value) {
+                outputList.append(value)
+            }
+        }
+        return outputList
+    }
+    
     public func forEach(perform: (T) -> Void) {
         var next = first
         while let this = next {
@@ -270,6 +280,10 @@ public class LinkedList<T> {
         let outputList = LinkedList<X>()
         self.forEach { outputList.append(transform($0)) }
         return outputList
+    }
+    
+    public func copy() -> LinkedList<T> {
+        return self.map { $0 }
     }
     
     public func flatMap<X>(transform: (T) -> [X]) -> LinkedList<X> {
@@ -304,6 +318,16 @@ extension LinkedList where T: Equatable {
     /// - Parameter value: The value to match against and remove.
     public func removeAll(ofValue value: T) {
         removeWhere { $0 == value }
+    }
+    
+    public func contains(_ value: T) -> Bool {
+        var didContain = false
+        forEach { v in
+            if v == value {
+                didContain = true
+            }
+        }
+        return didContain
     }
 }
 

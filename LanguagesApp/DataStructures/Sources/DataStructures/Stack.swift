@@ -1,6 +1,6 @@
 /// A stack abstraction using a ``LinkedList`` implementation.
 public class Stack<T> {
-    private let list: LinkedList<T>
+    internal let list: LinkedList<T>
     
     /// Creates a new, empty stack.
     public init() {

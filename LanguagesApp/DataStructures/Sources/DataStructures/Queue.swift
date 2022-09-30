@@ -1,6 +1,6 @@
 /// A queue abstraction using a ``LinkedList`` implementation.
 public class Queue<T> {
-    private let list: LinkedList<T>
+    internal let list: LinkedList<T>
     
     /// Creates a new, empty queue.
     public init() {
