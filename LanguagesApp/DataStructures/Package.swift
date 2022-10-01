@@ -19,5 +19,9 @@ let package = Package(
             name: "DataStructures",
             dependencies: []
         ),
+        .testTarget(
+            name: "DataStructuresTests",
+            dependencies: ["DataStructures"]
+        ),
     ]
 )

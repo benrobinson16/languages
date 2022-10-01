@@ -28,7 +28,7 @@ public class HashTable<Key, Value>: Sequence where Key: Hashable {
     ///   - value: The new value to set.
     ///   - key: The key. May already be in the hash table or not.
     public func set(_ value: Value, forKey key: Key) {
-        let hash = key.hashValue % numBins
+        let hash = abs(key.hashValue) % numBins
         let bin = arr[hash]
         bin.removeWhere { $0.key == key }
         
@@ -39,7 +39,7 @@ public class HashTable<Key, Value>: Sequence where Key: Hashable {
     }
     
     public func remove(key: Key) {
-        let hash = key.hashValue % numBins
+        let hash = abs(key.hashValue) % numBins
         let bin = arr[hash]
         bin.removeWhere { $0.key == key }
     }
@@ -48,7 +48,7 @@ public class HashTable<Key, Value>: Sequence where Key: Hashable {
     /// - Parameter key: The key to use.
     /// - Returns: The value found (if any).
     public func value(forKey key: Key) -> Value? {
-        let hash = key.hashValue % numBins
+        let hash = abs(key.hashValue) % numBins
         let bin = arr[hash]
         let matches = bin.filter { $0.key == key }
         

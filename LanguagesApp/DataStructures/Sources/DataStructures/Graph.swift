@@ -13,10 +13,6 @@ public class Graph<T> where T: Hashable {
     
     public func insert(_ value: T, connections: LinkedList<T>) {
         adjacencyLists[value] = connections
-        
-        connections.forEach { v in
-            adjacencyLists[v].append(value)
-        }
     }
     
     public func insert(_ value: T, connections: [T]) {
@@ -29,8 +25,8 @@ public class Graph<T> where T: Hashable {
     }
     
     public func remove(_ value: T) {
-        adjacencyLists[value].forEach { c in
-            adjacencyLists[c].removeAll(ofValue: value)
+        for (_, connectionList) in adjacencyLists {
+            connectionList.removeAll(ofValue: value)
         }
         adjacencyLists.remove(key: value)
     }
@@ -51,8 +47,8 @@ public class Graph<T> where T: Hashable {
                 .filter { !visited.contains($0) }
                 .forEach { newNode in
                     let path = node.path.copy()
-                    path.append(node.value)
-                    queue.enqueue((node.value, path))
+                    path.append(newNode)
+                    queue.enqueue((newNode, path))
                 }
         }
         

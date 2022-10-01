@@ -42,7 +42,7 @@ fileprivate class Node<T>: Identifiable, Equatable {
 }
 
 /// A doubly-linked list implementation.
-public class LinkedList<T> {
+public class LinkedList<T>: Sequence {
     private var first: Node<T>?
     private var last: Node<T>?
     
@@ -310,6 +310,34 @@ public class LinkedList<T> {
             values.append(this.value)
         }
         return values
+    }
+    
+    // MARK: - Sequence conformance
+    
+    // This allows the dictionary keys and values to be accessed in a for (k, v) in hashTable syntax.
+    
+    public func makeIterator() -> LinkedListIterator<T> {
+        return LinkedListIterator(startNode: first)
+    }
+    
+    public struct LinkedListIterator<T>: IteratorProtocol {
+        public typealias Element = T
+        
+        fileprivate var currentNode: Node<T>?
+        
+        fileprivate init(startNode: Node<T>?) {
+            self.currentNode = startNode
+        }
+        
+        public mutating func next() -> T? {
+            if let currentNode {
+                let nextNode = currentNode.next
+                self.currentNode = nextNode
+                return nextNode?.value
+            } else {
+                return nil
+            }
+        }
     }
 }
 

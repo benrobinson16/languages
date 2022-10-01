@@ -6,8 +6,7 @@ class WeightedEditDistance {
     private var memo: [StringCombo: Int] = [:]
     
     init() {
-        let path = Bundle.main.path(forResource: "keyboard", ofType: "json")!
-        let url = URL(fileURLWithPath: path)
+        let url = Bundle.module.url(forResource: "keyboard", withExtension: "json")!
         
         do {
             let data = try Data(contentsOf: url)
@@ -37,8 +36,9 @@ class WeightedEditDistance {
             
         case .substitution(let a, let b):
             if a.isLetter && b.isLetter {
-                let distance = keyboard.bfs(startPos: a, target: b)!.count - 1
-                return max(distance, 3)
+                let path = keyboard.bfs(startPos: a, target: b)!
+                let distance = path.count - 1
+                return min(distance, 3)
             } else {
                 return 3
             }
@@ -50,8 +50,12 @@ class WeightedEditDistance {
     }
         
     func calculate(from start: String, to end: String) -> Int {
-        if start.isEmpty || end.isEmpty {
-            return max(start.count, end.count)
+        if start == end {
+            return 0
+        } else if start.isEmpty {
+            return calculate(from: start, to: end.dropLast(1)) + weightedEditScore(.insertion(end.last!))
+        } else if end.isEmpty {
+            return calculate(from: start.dropLast(1), to: end) + weightedEditScore(.deletion(start.last!))
         }
         
         // Check memo
