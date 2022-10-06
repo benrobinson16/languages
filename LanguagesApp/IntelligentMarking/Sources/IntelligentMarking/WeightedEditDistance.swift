@@ -1,11 +1,20 @@
 import DataStructures
 import Foundation
 
-class WeightedEditDistance {
+fileprivate enum EditType {
+    case insertion(Character)
+    case deletion(Character)
+    case substitution(Character, Character)
+}
+
+public struct WeightedEditDistance: TypoDetecting {
     private let keyboard: Graph<Character>
-    private var memo: [StringCombo: Int] = [:]
+    private var memo: HashTable<StringCombo, Int> = .init()
+    private let threshold: Double
     
-    init() {
+    init(threshold: Double) {
+        self.threshold = threshold
+        
         let url = Bundle.module.url(forResource: "keyboard", withExtension: "json")!
         
         do {
@@ -26,23 +35,8 @@ class WeightedEditDistance {
         }
     }
     
-    private func weightedEditScore(_ editType: EditType) -> Int {
-        switch editType {
-        case .insertion(_):
-            return 3
-            
-        case .deletion(_):
-            return 3
-            
-        case .substitution(let a, let b):
-            if a.isLetter && b.isLetter {
-                let path = keyboard.bfs(startPos: a, target: b)!
-                let distance = path.count - 1
-                return min(distance, 3)
-            } else {
-                return 3
-            }
-        }
+    public func isOnlyTypo(source: String, target: String) -> Bool {
+        return Double(calculate(from: source, to: target)) <= threshold * Double(target.count)
     }
     
     func calculate(from start: any StringProtocol, to end: any StringProtocol) -> Int {
@@ -78,10 +72,23 @@ class WeightedEditDistance {
         memo[combo] = editDistance
         return editDistance
     }
-}
-
-enum EditType {
-    case insertion(Character)
-    case deletion(Character)
-    case substitution(Character, Character)
+    
+    private func weightedEditScore(_ editType: EditType) -> Int {
+        switch editType {
+        case .insertion(_):
+            return 3
+            
+        case .deletion(_):
+            return 3
+            
+        case .substitution(let a, let b):
+            if a.isLetter && b.isLetter {
+                let path = keyboard.bfs(startPos: a, target: b)!
+                let distance = path.count - 1
+                return min(distance, 3)
+            } else {
+                return 3
+            }
+        }
+    }
 }

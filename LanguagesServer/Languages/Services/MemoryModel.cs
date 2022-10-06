@@ -1,4 +1,5 @@
 ﻿using System;
+using Languages.ApiModels;
 using Languages.DbModels;
 
 namespace Languages.Services;
@@ -15,7 +16,7 @@ public class MemoryModel
         this.da = da;
     }
 
-    public List<Card> NextCardsToReview(int studentId, int sampleSize = 100, int outputSize = 10)
+    public List<CardVm> NextCardsToReview(int studentId, int sampleSize = 100, int outputSize = 10)
     {
         List<Card> cardSample = da.Cards
             .RandomSampleForStudent(studentId)
@@ -33,6 +34,14 @@ public class MemoryModel
             .OrderBy(pair => pair.Item2)
             .Take(outputSize)
             .Select(pair => pair.Item1)
+            .Select(c => new CardVm
+            {
+                CardId = c.CardId,
+                DueDate = null,
+                NextQuestionType = null,
+                EnglishTerm = c.EnglishTerm,
+                ForeignTerm = c.ForeignTerm
+            })
             .ToList();
     }
 

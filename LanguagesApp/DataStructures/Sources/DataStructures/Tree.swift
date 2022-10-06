@@ -55,7 +55,7 @@ public class TreeNode<T>: Equatable, Identifiable {
                 return node
             }
             
-            node.children.forEach { child in
+            for child in node.children {
                 queue.append(child)
             }
         }
@@ -190,7 +190,7 @@ public class TreeNode<T>: Equatable, Identifiable {
         while let node = queue.popFirst() {
             output.append(node)
             
-            node.children.forEach { child in
+            for child in node.children {
                 queue.append(child)
             }
         }

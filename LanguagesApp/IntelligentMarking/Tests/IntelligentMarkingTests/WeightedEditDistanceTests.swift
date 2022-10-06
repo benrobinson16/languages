@@ -2,7 +2,7 @@ import XCTest
 @testable import IntelligentMarking
 
 final class WeightedEditDistanceTests: XCTestCase {
-    let editDistance = WeightedEditDistance()
+    let editDistance = WeightedEditDistance(threshold: 3)
     
     let testCases: [(start: String, end: String, distance: Int)] = [
         ("q", "r", 3),

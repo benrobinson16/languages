@@ -7,20 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		524C5AB728E2FACA00A4BDD1 /* LanguagesAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524C5AB628E2FACA00A4BDD1 /* LanguagesAppApp.swift */; };
+		524C5AB728E2FACA00A4BDD1 /* LanguagesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524C5AB628E2FACA00A4BDD1 /* LanguagesApp.swift */; };
 		524C5AB928E2FACA00A4BDD1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524C5AB828E2FACA00A4BDD1 /* ContentView.swift */; };
 		524C5ABB28E2FACF00A4BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 524C5ABA28E2FACF00A4BDD1 /* Assets.xcassets */; };
 		524C5ABE28E2FACF00A4BDD1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 524C5ABD28E2FACF00A4BDD1 /* Preview Assets.xcassets */; };
+		524D5A8B28EEC69200035DB6 /* MSAL in Frameworks */ = {isa = PBXBuildFile; productRef = 524D5A8A28EEC69200035DB6 /* MSAL */; };
+		524D5A8F28EED13E00035DB6 /* MSAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D5A8E28EED13E00035DB6 /* MSAuthManager.swift */; };
+		524D5A9128EED16D00035DB6 /* UIApplication+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D5A9028EED16D00035DB6 /* UIApplication+EXT.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		522712DC28ED8FFE0098719F /* LanguagesAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LanguagesAPI; sourceTree = "<group>"; };
 		524C5AB328E2FACA00A4BDD1 /* LanguagesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LanguagesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		524C5AB628E2FACA00A4BDD1 /* LanguagesAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesAppApp.swift; sourceTree = "<group>"; };
+		524C5AB628E2FACA00A4BDD1 /* LanguagesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesApp.swift; sourceTree = "<group>"; };
 		524C5AB828E2FACA00A4BDD1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		524C5ABA28E2FACF00A4BDD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		524C5ABD28E2FACF00A4BDD1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		524C5AC428E2FB0700A4BDD1 /* DataStructures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DataStructures; sourceTree = "<group>"; };
 		524C5AC528E3015100A4BDD1 /* IntelligentMarking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = IntelligentMarking; sourceTree = "<group>"; };
+		524D5A8C28EEC78100035DB6 /* LanguagesApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LanguagesApp.entitlements; sourceTree = "<group>"; };
+		524D5A8D28EEC79A00035DB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		524D5A8E28EED13E00035DB6 /* MSAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSAuthManager.swift; sourceTree = "<group>"; };
+		524D5A9028EED16D00035DB6 /* UIApplication+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+EXT.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				524D5A8B28EEC69200035DB6 /* MSAL in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +46,7 @@
 		524C5AAA28E2FAC900A4BDD1 = {
 			isa = PBXGroup;
 			children = (
+				522712DC28ED8FFE0098719F /* LanguagesAPI */,
 				524C5AC428E2FB0700A4BDD1 /* DataStructures */,
 				524C5AC528E3015100A4BDD1 /* IntelligentMarking */,
 				524C5AB528E2FACA00A4BDD1 /* LanguagesApp */,
@@ -55,10 +65,14 @@
 		524C5AB528E2FACA00A4BDD1 /* LanguagesApp */ = {
 			isa = PBXGroup;
 			children = (
-				524C5AB628E2FACA00A4BDD1 /* LanguagesAppApp.swift */,
+				524D5A8D28EEC79A00035DB6 /* Info.plist */,
+				524D5A8C28EEC78100035DB6 /* LanguagesApp.entitlements */,
+				524C5AB628E2FACA00A4BDD1 /* LanguagesApp.swift */,
 				524C5AB828E2FACA00A4BDD1 /* ContentView.swift */,
 				524C5ABA28E2FACF00A4BDD1 /* Assets.xcassets */,
 				524C5ABC28E2FACF00A4BDD1 /* Preview Content */,
+				524D5A8E28EED13E00035DB6 /* MSAuthManager.swift */,
+				524D5A9028EED16D00035DB6 /* UIApplication+EXT.swift */,
 			);
 			path = LanguagesApp;
 			sourceTree = "<group>";
@@ -87,6 +101,9 @@
 			dependencies = (
 			);
 			name = LanguagesApp;
+			packageProductDependencies = (
+				524D5A8A28EEC69200035DB6 /* MSAL */,
+			);
 			productName = LanguagesApp;
 			productReference = 524C5AB328E2FACA00A4BDD1 /* LanguagesApp.app */;
 			productType = "com.apple.product-type.application";
@@ -115,6 +132,9 @@
 				Base,
 			);
 			mainGroup = 524C5AAA28E2FAC900A4BDD1;
+			packageReferences = (
+				524D5A8928EEC69200035DB6 /* XCRemoteSwiftPackageReference "microsoft-authentication-library-for-objc" */,
+			);
 			productRefGroup = 524C5AB428E2FACA00A4BDD1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -141,8 +161,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				524D5A9128EED16D00035DB6 /* UIApplication+EXT.swift in Sources */,
 				524C5AB928E2FACA00A4BDD1 /* ContentView.swift in Sources */,
-				524C5AB728E2FACA00A4BDD1 /* LanguagesAppApp.swift in Sources */,
+				524D5A8F28EED13E00035DB6 /* MSAuthManager.swift in Sources */,
+				524C5AB728E2FACA00A4BDD1 /* LanguagesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,12 +290,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LanguagesApp/LanguagesApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LanguagesApp/Preview Content\"";
 				DEVELOPMENT_TEAM = QARY953TUQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LanguagesApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -297,12 +321,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LanguagesApp/LanguagesApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LanguagesApp/Preview Content\"";
 				DEVELOPMENT_TEAM = QARY953TUQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LanguagesApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -343,6 +369,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		524D5A8928EEC69200035DB6 /* XCRemoteSwiftPackageReference "microsoft-authentication-library-for-objc" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AzureAD/microsoft-authentication-library-for-objc";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		524D5A8A28EEC69200035DB6 /* MSAL */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 524D5A8928EEC69200035DB6 /* XCRemoteSwiftPackageReference "microsoft-authentication-library-for-objc" */;
+			productName = MSAL;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 524C5AAB28E2FAC900A4BDD1 /* Project object */;
 }

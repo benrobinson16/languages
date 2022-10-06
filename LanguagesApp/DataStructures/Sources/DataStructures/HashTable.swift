@@ -12,11 +12,9 @@ public class HashTable<Key, Value>: Sequence where Key: Hashable {
         }
     }
     
-    public subscript(key: Key) -> Value {
+    public subscript(key: Key) -> Value? {
         get {
-            // Asking for a key that does not exist stops the program.
-            // Use the value(forKey:) method to get optional value instead.
-            return value(forKey: key)!
+            return value(forKey: key)
         }
         set {
             set(newValue, forKey: key)
@@ -27,7 +25,12 @@ public class HashTable<Key, Value>: Sequence where Key: Hashable {
     /// - Parameters:
     ///   - value: The new value to set.
     ///   - key: The key. May already be in the hash table or not.
-    public func set(_ value: Value, forKey key: Key) {
+    public func set(_ value: Value?, forKey key: Key) {
+        guard let value else {
+            remove(key: key)
+            return
+        }
+        
         let hash = abs(key.hashValue) % numBins
         let bin = arr[hash]
         bin.removeWhere { $0.key == key }

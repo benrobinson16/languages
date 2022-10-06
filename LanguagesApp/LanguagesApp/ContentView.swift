@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  LanguagesApp
-//
-//  Created by Ben Robinson on 27/09/2022.
-//
-
 import SwiftUI
 
 struct ContentView: View {

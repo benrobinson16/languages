@@ -2,7 +2,7 @@ import XCTest
 @testable import IntelligentMarking
 
 final class EditDistanceTests: XCTestCase {
-    let editDistance = EditDistance()
+    let editDistance = EditDistance(threshold: 2)
     
     let testCases: [(start: String, end: String, distance: Int)] = [
         ("a", "b", 1),

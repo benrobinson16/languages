@@ -288,7 +288,7 @@ public class LinkedList<T>: Sequence {
     
     public func flatMap<X>(transform: (T) -> [X]) -> LinkedList<X> {
         let outputList = LinkedList<X>()
-        self.forEach { t in
+        for t in self {
             transform(t).forEach { x in
                 outputList.append(x)
             }

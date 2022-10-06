@@ -20,8 +20,8 @@ public class Graph<T> where T: Hashable {
     }
     
     public func connect(_ v1: T, and v2: T) {
-        adjacencyLists[v1].append(v2)
-        adjacencyLists[v2].append(v1)
+        adjacencyLists[v1]?.append(v2)
+        adjacencyLists[v2]?.append(v1)
     }
     
     public func remove(_ value: T) {
@@ -43,7 +43,7 @@ public class Graph<T> where T: Hashable {
                 return node
             }
             
-            adjacencyLists[node.value]
+            adjacencyLists[node.value]?
                 .filter { !visited.contains($0) }
                 .forEach { newNode in
                     let path = node.path.copy()
@@ -66,8 +66,10 @@ public class Graph<T> where T: Hashable {
                 return (current, stack.list)
             }
             
-            let connections = adjacencyLists[current]
+            let connections = adjacencyLists[current]?
                 .filter { !visited.contains($0) }
+            
+            guard let connections else { continue }
             
             if connections.count > 0 {
                 stack.push(current)

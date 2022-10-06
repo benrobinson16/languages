@@ -66,7 +66,7 @@ public class StudentController: ControllerBase
     }
 
     [HttpGet("reviewcards")]
-    public List<Card> ReviewCards()
+    public List<CardVm> ReviewCards()
     {
         Student student = shield.AuthenticateStudent(Request);
         return mm.NextCardsToReview(student.StudentId);

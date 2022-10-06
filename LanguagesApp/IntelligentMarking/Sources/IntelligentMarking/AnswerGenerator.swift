@@ -1,6 +1,10 @@
 import Foundation
 import DataStructures
 
+public protocol AnswerGenerating {
+    func generate(answer: String) -> [String]
+}
+
 fileprivate enum SyntaxNode: Equatable {
     case concatenated
     case spaceSeparated
@@ -30,14 +34,14 @@ fileprivate enum SyntaxNode: Equatable {
     }
 }
 
-struct AnswerGenerator {
-    let articles: [String]
+public struct AnswerGenerator: AnswerGenerating {
+    private let articles: [String]
     
-    init(articles: [String]) {
+    public init(articles: [String]) {
         self.articles = articles
     }
     
-    public func possibilities(answer: String) -> [String] {
+    public func generate(answer: String) -> [String] {
         let ast = produceAST(answer: answer)
         let answersWithArticles = permutationsOfAST(ast: ast)
         let answersWithoutArticles = removePrefixArticles(answersWithArticles, articles: articles)
