@@ -157,7 +157,7 @@ public class TaskRepository
                select task;
     }
 
-    public void RemoveForCass(int classId)
+    public void RemoveForClass(int classId)
     {
         IQueryable<Task> tasks = ForClass(classId);
         db.Tasks.RemoveRange(tasks);

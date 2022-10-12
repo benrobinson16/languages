@@ -1,5 +1,5 @@
 /// A queue abstraction using a ``LinkedList`` implementation.
-public class Queue<T> {
+public class Queue<T>: Queueing {
     internal let list: LinkedList<T>
     
     /// Creates a new, empty queue.
@@ -41,3 +41,4 @@ public class Queue<T> {
         return list.isEmpty
     }
 }
+

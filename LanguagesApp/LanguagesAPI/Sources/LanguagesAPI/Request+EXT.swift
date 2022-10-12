@@ -1,9 +1,9 @@
 import Foundation
 
-let baseUrl = URL(string: "http://localhost:7098/student")!
+let baseUrl = URL(string: "https://localhost:7255/student")!
 
 extension Request {
-    static func summary(token: String) -> Request<StudentSummary> {
+    public static func summary(token: String) -> Request<StudentSummary> {
         return .init(
             method: .get,
             url: baseUrl.appending(path: "summary"),
@@ -12,7 +12,7 @@ extension Request {
         )
     }
     
-    static func taskCards(token: String) -> Request<[Card]> {
+    public static func taskCards(token: String) -> Request<[Card]> {
         return .init(
             method: .get,
             url: baseUrl.appending(path: "taskcards"),
@@ -21,7 +21,7 @@ extension Request {
         )
     }
     
-    static func reviewCards(token: String) -> Request<[Card]> {
+    public static func reviewCards(token: String) -> Request<[Card]> {
         return .init(
             method: .get,
             url: baseUrl.appending(path: "taskcards"),
@@ -30,7 +30,7 @@ extension Request {
         )
     }
     
-    static func taskDetails(id: Int, token: String) -> Request<TaskSummary> {
+    public static func taskDetails(id: Int, token: String) -> Request<TaskSummary> {
         return .init(
             method: .get,
             url: baseUrl.appending(path: "taskSummary"),
@@ -39,7 +39,7 @@ extension Request {
         )
     }
     
-    static func didAnswer(cardId: Int, correct: Bool, questionType: QuestionType, token: String) -> Request<Int> {
+    public static func didAnswer(cardId: Int, correct: Bool, questionType: QuestionType, token: String) -> Request<Int> {
         return .init(
             method: .post,
             url: baseUrl.appending(path: "didanswer"),
@@ -48,7 +48,7 @@ extension Request {
         )
     }
     
-    static func joinClass(joinCode: String, token: String) -> Request<Int> {
+    public static func joinClass(joinCode: String, token: String) -> Request<Int> {
         return .init(
             method: .post,
             url: baseUrl.appending(path: "joinclass"),

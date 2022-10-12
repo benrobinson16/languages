@@ -1,5 +1,5 @@
 /// Implementation of a noisy queue which has probability noiseFactor of popping the item from each position.
-public class NoisyQueue<T> {
+public class NoisyQueue<T>: Queueing {
     private let list: LinkedList<T>
     private let noiseFactor: Double
     

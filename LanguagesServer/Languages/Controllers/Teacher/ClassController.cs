@@ -124,8 +124,8 @@ public class TeacherClassController : ControllerBase
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
+        da.Tasks.RemoveForClass(cla.ClassId);
         db.Classes.Remove(cla);
-        da.Tasks.RemoveForClass(cla);
         db.SaveChanges();
     }
 

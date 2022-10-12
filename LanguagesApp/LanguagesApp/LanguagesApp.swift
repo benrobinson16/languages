@@ -5,25 +5,18 @@ import MSAL
 @main
 struct LanguagesApp: App {
     @Environment(\.scenePhase) var scenePhase
-    @StateObject private var msal = MSAuthManager()!
+    @StateObject var appState = AppState()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .onAppear {
-                    guard let vc = UIApplication.shared.topViewController else { return }
-                    msal.connectToViewController(vc: vc)
-                    msal.detachedAcquireToken()
-                }
-                .onChange(of: scenePhase) { scenePhase in
-                    if scenePhase == .active {
-                        msal.detachedAcquireToken()
-                    }
-                }
-                .onOpenURL { url in
-                    msal.openUrl(url: url)
-                }
-                .environmentObject(msal)
+            RootNav()
+                .environmentObject(appState)
+                .environment(\.interactors, Interactors(appState: appState))
+//                .onChange(of: scenePhase) { scenePhase in
+//                    if scenePhase == .active {
+//                        msal.detachedAcquireToken()
+//                    }
+//                }
         }
     }
 }

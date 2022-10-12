@@ -7,8 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5202A75128F6C15700FAD9F6 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5202A75028F6C15700FAD9F6 /* HomeInteractor.swift */; };
+		5202A75328F6C19400FAD9F6 /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5202A75228F6C19400FAD9F6 /* HomeState.swift */; };
+		522D98FD28F4187300D17239 /* SignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D98FC28F4187300D17239 /* SignInButton.swift */; };
+		523E0A5C28F574F700B505F0 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523E0A5B28F574F700B505F0 /* HomeScreen.swift */; };
+		523E0A6228F5759300B505F0 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523E0A6128F5759300B505F0 /* SplashScreen.swift */; };
+		523E0A6428F5760D00B505F0 /* TaskScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523E0A6328F5760D00B505F0 /* TaskScreen.swift */; };
+		523E0A6628F5761600B505F0 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523E0A6528F5761600B505F0 /* SettingsScreen.swift */; };
+		523E0A6828F5762000B505F0 /* LearningScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523E0A6728F5762000B505F0 /* LearningScreen.swift */; };
+		523E0A6B28F5768100B505F0 /* DataStructures in Frameworks */ = {isa = PBXBuildFile; productRef = 523E0A6A28F5768100B505F0 /* DataStructures */; };
+		523E0A6D28F5768400B505F0 /* IntelligentMarking in Frameworks */ = {isa = PBXBuildFile; productRef = 523E0A6C28F5768400B505F0 /* IntelligentMarking */; };
+		523E0A6F28F5768700B505F0 /* LanguagesAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 523E0A6E28F5768700B505F0 /* LanguagesAPI */; };
+		52465CCF28F6A0DB00B798E4 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52465CCE28F6A0DB00B798E4 /* AppState.swift */; };
+		52465CD128F6A0F100B798E4 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52465CD028F6A0F100B798E4 /* AuthState.swift */; };
+		52465CD328F6A10400B798E4 /* NavRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52465CD228F6A10400B798E4 /* NavRoute.swift */; };
+		52465CD628F6A12C00B798E4 /* Interactors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52465CD528F6A12C00B798E4 /* Interactors.swift */; };
+		52465CD828F6A14A00B798E4 /* NavInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52465CD728F6A14A00B798E4 /* NavInteractor.swift */; };
+		52465CDA28F6A1B500B798E4 /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52465CD928F6A1B500B798E4 /* AuthInteractor.swift */; };
 		524C5AB728E2FACA00A4BDD1 /* LanguagesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524C5AB628E2FACA00A4BDD1 /* LanguagesApp.swift */; };
-		524C5AB928E2FACA00A4BDD1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524C5AB828E2FACA00A4BDD1 /* ContentView.swift */; };
+		524C5AB928E2FACA00A4BDD1 /* RootNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524C5AB828E2FACA00A4BDD1 /* RootNav.swift */; };
 		524C5ABB28E2FACF00A4BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 524C5ABA28E2FACF00A4BDD1 /* Assets.xcassets */; };
 		524C5ABE28E2FACF00A4BDD1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 524C5ABD28E2FACF00A4BDD1 /* Preview Assets.xcassets */; };
 		524D5A8B28EEC69200035DB6 /* MSAL in Frameworks */ = {isa = PBXBuildFile; productRef = 524D5A8A28EEC69200035DB6 /* MSAL */; };
@@ -17,10 +34,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5202A75028F6C15700FAD9F6 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
+		5202A75228F6C19400FAD9F6 /* HomeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		522712DC28ED8FFE0098719F /* LanguagesAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LanguagesAPI; sourceTree = "<group>"; };
+		522D98FC28F4187300D17239 /* SignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButton.swift; sourceTree = "<group>"; };
+		523E0A5B28F574F700B505F0 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		523E0A6128F5759300B505F0 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		523E0A6328F5760D00B505F0 /* TaskScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskScreen.swift; sourceTree = "<group>"; };
+		523E0A6528F5761600B505F0 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		523E0A6728F5762000B505F0 /* LearningScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningScreen.swift; sourceTree = "<group>"; };
+		52465CCE28F6A0DB00B798E4 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		52465CD028F6A0F100B798E4 /* AuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
+		52465CD228F6A10400B798E4 /* NavRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavRoute.swift; sourceTree = "<group>"; };
+		52465CD528F6A12C00B798E4 /* Interactors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactors.swift; sourceTree = "<group>"; };
+		52465CD728F6A14A00B798E4 /* NavInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavInteractor.swift; sourceTree = "<group>"; };
+		52465CD928F6A1B500B798E4 /* AuthInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInteractor.swift; sourceTree = "<group>"; };
 		524C5AB328E2FACA00A4BDD1 /* LanguagesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LanguagesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		524C5AB628E2FACA00A4BDD1 /* LanguagesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesApp.swift; sourceTree = "<group>"; };
-		524C5AB828E2FACA00A4BDD1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		524C5AB828E2FACA00A4BDD1 /* RootNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNav.swift; sourceTree = "<group>"; };
 		524C5ABA28E2FACF00A4BDD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		524C5ABD28E2FACF00A4BDD1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		524C5AC428E2FB0700A4BDD1 /* DataStructures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DataStructures; sourceTree = "<group>"; };
@@ -36,6 +67,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				523E0A6B28F5768100B505F0 /* DataStructures in Frameworks */,
+				523E0A6F28F5768700B505F0 /* LanguagesAPI in Frameworks */,
+				523E0A6D28F5768400B505F0 /* IntelligentMarking in Frameworks */,
 				524D5A8B28EEC69200035DB6 /* MSAL in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,6 +77,72 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		523E0A5D28F574FB00B505F0 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				524C5AB828E2FACA00A4BDD1 /* RootNav.swift */,
+				523E0A5B28F574F700B505F0 /* HomeScreen.swift */,
+				523E0A6128F5759300B505F0 /* SplashScreen.swift */,
+				523E0A6328F5760D00B505F0 /* TaskScreen.swift */,
+				523E0A6528F5761600B505F0 /* SettingsScreen.swift */,
+				523E0A6728F5762000B505F0 /* LearningScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		523E0A5E28F5750100B505F0 /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				522D98FC28F4187300D17239 /* SignInButton.swift */,
+			);
+			path = ViewComponents;
+			sourceTree = "<group>";
+		};
+		523E0A6928F5768100B505F0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		523E0A7028F5793E00B505F0 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				524D5A8E28EED13E00035DB6 /* MSAuthManager.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		523E0A7128F5794A00B505F0 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				524D5A9028EED16D00035DB6 /* UIApplication+EXT.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		52465CCD28F6A0C500B798E4 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				52465CCE28F6A0DB00B798E4 /* AppState.swift */,
+				52465CD028F6A0F100B798E4 /* AuthState.swift */,
+				52465CD228F6A10400B798E4 /* NavRoute.swift */,
+				5202A75228F6C19400FAD9F6 /* HomeState.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		52465CD428F6A11B00B798E4 /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				52465CD528F6A12C00B798E4 /* Interactors.swift */,
+				52465CD728F6A14A00B798E4 /* NavInteractor.swift */,
+				52465CD928F6A1B500B798E4 /* AuthInteractor.swift */,
+				5202A75028F6C15700FAD9F6 /* HomeInteractor.swift */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
 		524C5AAA28E2FAC900A4BDD1 = {
 			isa = PBXGroup;
 			children = (
@@ -51,6 +151,7 @@
 				524C5AC528E3015100A4BDD1 /* IntelligentMarking */,
 				524C5AB528E2FACA00A4BDD1 /* LanguagesApp */,
 				524C5AB428E2FACA00A4BDD1 /* Products */,
+				523E0A6928F5768100B505F0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,14 +166,17 @@
 		524C5AB528E2FACA00A4BDD1 /* LanguagesApp */ = {
 			isa = PBXGroup;
 			children = (
+				52465CD428F6A11B00B798E4 /* Interactors */,
+				52465CCD28F6A0C500B798E4 /* State */,
+				523E0A7128F5794A00B505F0 /* Helper */,
+				523E0A7028F5793E00B505F0 /* Repository */,
+				523E0A5E28F5750100B505F0 /* ViewComponents */,
+				523E0A5D28F574FB00B505F0 /* Screens */,
 				524D5A8D28EEC79A00035DB6 /* Info.plist */,
 				524D5A8C28EEC78100035DB6 /* LanguagesApp.entitlements */,
 				524C5AB628E2FACA00A4BDD1 /* LanguagesApp.swift */,
-				524C5AB828E2FACA00A4BDD1 /* ContentView.swift */,
 				524C5ABA28E2FACF00A4BDD1 /* Assets.xcassets */,
 				524C5ABC28E2FACF00A4BDD1 /* Preview Content */,
-				524D5A8E28EED13E00035DB6 /* MSAuthManager.swift */,
-				524D5A9028EED16D00035DB6 /* UIApplication+EXT.swift */,
 			);
 			path = LanguagesApp;
 			sourceTree = "<group>";
@@ -103,6 +207,9 @@
 			name = LanguagesApp;
 			packageProductDependencies = (
 				524D5A8A28EEC69200035DB6 /* MSAL */,
+				523E0A6A28F5768100B505F0 /* DataStructures */,
+				523E0A6C28F5768400B505F0 /* IntelligentMarking */,
+				523E0A6E28F5768700B505F0 /* LanguagesAPI */,
 			);
 			productName = LanguagesApp;
 			productReference = 524C5AB328E2FACA00A4BDD1 /* LanguagesApp.app */;
@@ -161,9 +268,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				522D98FD28F4187300D17239 /* SignInButton.swift in Sources */,
+				523E0A6628F5761600B505F0 /* SettingsScreen.swift in Sources */,
 				524D5A9128EED16D00035DB6 /* UIApplication+EXT.swift in Sources */,
-				524C5AB928E2FACA00A4BDD1 /* ContentView.swift in Sources */,
+				523E0A6228F5759300B505F0 /* SplashScreen.swift in Sources */,
+				5202A75128F6C15700FAD9F6 /* HomeInteractor.swift in Sources */,
+				523E0A5C28F574F700B505F0 /* HomeScreen.swift in Sources */,
+				52465CD128F6A0F100B798E4 /* AuthState.swift in Sources */,
+				523E0A6828F5762000B505F0 /* LearningScreen.swift in Sources */,
+				524C5AB928E2FACA00A4BDD1 /* RootNav.swift in Sources */,
+				52465CCF28F6A0DB00B798E4 /* AppState.swift in Sources */,
 				524D5A8F28EED13E00035DB6 /* MSAuthManager.swift in Sources */,
+				52465CD628F6A12C00B798E4 /* Interactors.swift in Sources */,
+				52465CD328F6A10400B798E4 /* NavRoute.swift in Sources */,
+				52465CDA28F6A1B500B798E4 /* AuthInteractor.swift in Sources */,
+				5202A75328F6C19400FAD9F6 /* HomeState.swift in Sources */,
+				523E0A6428F5760D00B505F0 /* TaskScreen.swift in Sources */,
+				52465CD828F6A14A00B798E4 /* NavInteractor.swift in Sources */,
 				524C5AB728E2FACA00A4BDD1 /* LanguagesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,6 +503,18 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		523E0A6A28F5768100B505F0 /* DataStructures */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DataStructures;
+		};
+		523E0A6C28F5768400B505F0 /* IntelligentMarking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IntelligentMarking;
+		};
+		523E0A6E28F5768700B505F0 /* LanguagesAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LanguagesAPI;
+		};
 		524D5A8A28EEC69200035DB6 /* MSAL */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 524D5A8928EEC69200035DB6 /* XCRemoteSwiftPackageReference "microsoft-authentication-library-for-objc" */;

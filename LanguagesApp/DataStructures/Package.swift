@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "DataStructures",
+    platforms: [
+        .iOS(.v16)
+    ],
     products: [
         .library(
             name: "DataStructures",
