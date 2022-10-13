@@ -10,7 +10,7 @@ public class DatabaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        string connectionString = "server=localhost; port=3306; database=Languages; user=root; password=password";
+        string connectionString = "server=languages-db.cozrjn0fmjmy.eu-west-2.rds.amazonaws.com; port=3306; database=Languages; user=admin; password=zPiQoF7aboqjygvaTeyS";
         options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     }
 

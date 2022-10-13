@@ -15,8 +15,7 @@ export default function VocabCard(props: { card: Card, deck: Deck }) {
         dispatch(deckActions.saveCard({
             cardId: props.card.cardId, 
             englishTerm: englishTerm, 
-            foreignTerm: foreignTerm,
-            difficulty: props.card.difficulty
+            foreignTerm: foreignTerm
         }, props.deck));
     };
 

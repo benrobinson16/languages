@@ -24,6 +24,12 @@ public class StudentController: ControllerBase
         this.mm = mm;
     }
 
+    [HttpGet("test")]
+    public string Test()
+    {
+        return "Connected to LanguagesAPI.";
+    }
+
     [HttpGet("summary")]
     public StudentSummaryVm Summary()
     {

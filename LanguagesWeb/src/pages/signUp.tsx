@@ -21,7 +21,7 @@ export default function SignUpPage() {
                 onTitleChange={(newTitle) => dispatch(signUpActions.changeTitle(newTitle))}
                 onSurnameChange={(newName) => dispatch(signUpActions.changeSurname(newName))}
             />
-            <AppButton onClick={() => dispatch(signUpActions.createAccount(title, surname))}>Mr.</AppButton>
+            <AppButton onClick={() => dispatch(signUpActions.createAccount())}>Mr.</AppButton>
         </CenteredCard>
     )
 }
