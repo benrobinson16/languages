@@ -4,6 +4,7 @@ using Languages.Services;
 using Languages.ApiModels;
 using Languages.Services.MockServices;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +76,11 @@ app.UseGlobalExceptionHandler(opt => {
     opt.Map<LanguagesInternalError>().ToStatusCode(StatusCodes.Status500InternalServerError);
 });
 
-app.UseHttpsRedirection();
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
+
+// app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
