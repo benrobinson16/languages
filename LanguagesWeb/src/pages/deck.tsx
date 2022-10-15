@@ -1,9 +1,6 @@
-import { VStack, Heading, SimpleGrid, Spinner, Input, UnorderedList, Text, ListItem } from "@chakra-ui/react";
+import { VStack, Heading, SimpleGrid, Spinner, UnorderedList, Text, ListItem } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { AppButton } from "../components/buttons";
-import { CardList, EntityList, ProgressList } from "../components/entityList";
-import MotionBox from "../components/motionBox";
-import * as nav from "../redux/nav";
+import { CardList } from "../components/entityList";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import * as deckActions from "../redux/deck";
 import UICard from "../components/card";
@@ -12,7 +9,6 @@ export default function DeckPage(props: { id: number }) {
     const dispatch = useAppDispatch();
 
     const isLoading = useAppSelector(state => state.deck.isLoading);
-    const isSaving = useAppSelector(state => state.deck.isSaving);
     
     const deck = useAppSelector(state => state.deck.deck);
     const cards = useAppSelector(state => state.deck.cards);

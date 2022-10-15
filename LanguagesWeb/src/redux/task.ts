@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 import { TypedThunk } from "./store";
-import { errorToast, successToast, toast } from "../helper/toast";
+import { errorToast, successToast } from "../helper/toast";
 import * as endpoints from "../api/endpoints";
 import { StudentProgress, Task, TaskSummary } from "../api/models";
 import * as navActions from "./nav";

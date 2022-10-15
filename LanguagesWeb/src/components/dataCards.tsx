@@ -5,7 +5,6 @@ import {Button, Flex, HStack, Icon, Spacer, Text, VStack} from "@chakra-ui/react
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { AppDispatch, TypedThunk, useAppDispatch } from "../redux/store";
 import { openClass, openDeck, openTask } from "../redux/nav";
-import { AnyAction } from "@reduxjs/toolkit";
 import { sendCongratsNotification, sendReminderNotification } from "../redux/task";
 
 export function ClassCard(props: {class: Class, key: number}) {

@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 import { TypedThunk } from "./store";
-import { errorToast, successToast, toast } from "../helper/toast";
+import { errorToast } from "../helper/toast";
 import * as endpoints from "../api/endpoints";
-import { Card, Deck, DeckSummary, StudentProgress, Task, TaskSummary } from "../api/models";
+import { Card, Deck, DeckSummary } from "../api/models";
 
 interface DeckState {
     isLoading: boolean,
