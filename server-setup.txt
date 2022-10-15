@@ -97,6 +97,7 @@ WantedBy=multi-user.target
 
 # Enable the service
 sudo systemctl enable kestrel-languages.service
+sudo systemctl restart kestrel-languages
 
 # Configure the SSL certificate
 sudo yum install mod_ssl
@@ -106,3 +107,10 @@ sudo /opt/certbot/bin/pip install --upgrade pip
 sudo /opt/certbot/bin/pip install certbot certbot-apache
 sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 sudo certbot --apache
+
+# Restarting the server with a new version
+cd nea
+git pull
+cd
+sudo dotnet publish ./nea/LanguagesServer/Languages --configuration Release -o /var/www/languages
+sudo systemctl restart kestrel-languages
