@@ -2,6 +2,7 @@
   "name": "languagesweb",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://languages.benrobinson.dev",
   "dependencies": {
     "@azure/msal-browser": "^2.26.0",
     "@azure/msal-react": "^1.4.2",

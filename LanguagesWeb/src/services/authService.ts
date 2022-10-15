@@ -4,7 +4,7 @@ const options: Configuration = {
     auth: {
         clientId: '67d7b840-45a6-480b-be53-3d93c187ed66',
         authority: "https://login.microsoftonline.com/common",
-        redirectUri: "http://localhost:3000/"
+        redirectUri: "https://languages.benrobinson.dev/"
     }
 }
 
