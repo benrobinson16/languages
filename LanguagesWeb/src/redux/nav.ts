@@ -20,9 +20,6 @@ export const navSlice = createSlice({
         openHome: (state) => {
             state.navStack.push({ id: "home", data: null });
         },
-        openSignUp: (state) => {
-            state.navStack.push({ id: "signup", data: null });
-        },
         openClass: (state, action: PayloadAction<number>) => {
             state.navStack.push({ id: "class", data: action.payload });
         },
@@ -47,4 +44,4 @@ export const navSlice = createSlice({
     }
 });
 
-export const { openHome, openSignUp, openClass, openDeck, openTask, back, popToHome } = navSlice.actions;
+export const { openHome, openClass, openDeck, openTask, back, popToHome } = navSlice.actions;

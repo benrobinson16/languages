@@ -96,4 +96,26 @@ public class AccountController : ControllerBase
         student.DeviceToken = null;
         db.SaveChanges();
     }
+
+    /// <summary>
+    /// Checks if a teacher has already been registered using the OAUTH token.
+    /// </summary>
+    /// <returns>Whether the teacher is already registered.</returns>
+    [HttpPost("teacher/exists")]
+    public bool TeacherExists()
+    {
+        User user = shield.Authenticate(Request);
+        return da.Teachers.ForEmail(user.Email).Any();
+    }
+
+    /// <summary>
+    /// Checks if a student has already been registered using the OAUTH token.
+    /// </summary>
+    /// <returns>Whether the student is already registered.</returns>
+    [HttpPost("student/exists")]
+    public bool StudentExists()
+    {
+        User user = shield.Authenticate(Request);
+        return da.Students.ForEmail(user.Email).Any();
+    }
 }

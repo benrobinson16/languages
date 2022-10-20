@@ -10,7 +10,6 @@ import authService from "../services/authService";
 export default function LogInPage() {
     const dispatch = useAppDispatch();
     const token = useAppSelector(state => state.auth.token);
-    const user = useAppSelector(state => state.auth.user);
 
     useEffect(() => {
         authService.registerLoginCallback(token => {
@@ -21,14 +20,6 @@ export default function LogInPage() {
             dispatch(authActions.getToken(true));
         }
     });
-
-    if (token != null && user != null) {
-        // Signed in and account already exists.
-        dispatch(navActions.openHome());
-    } else if (token != null) {
-        // Signed in but account does not exist.
-        dispatch(navActions.openSignUp());
-    }
 
     return (
         <CenteredCard>

@@ -53,9 +53,8 @@ export const loadSummary = (): TypedThunk => {
 
         try {
             const token = getState().auth.token || await authService.getToken();
-            const userId = getState().auth.user?.id;
 
-            if (token == null || userId == null) {
+            if (token == null) {
                 throw new Error("Authentication has failed.");
             }
 

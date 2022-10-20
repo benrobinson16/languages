@@ -11,6 +11,7 @@ import JoinCodeModal from "../modals/joinCode";
 import NewClassModal from "../modals/newClass";
 import NewTaskModal from "../modals/newTask";
 import NewDeckModal from "../modals/newDeck";
+import SignUpDrawer from "../modals/signUp";
 
 export default function Nav() {
     const currentPage = useAppSelector(state => state.nav.navStack[state.nav.navStack.length - 1]);
@@ -18,8 +19,6 @@ export default function Nav() {
     if (currentPage === undefined) {
         return <LogInPage />;
     }
-
-    console.log(currentPage);
 
     return (
         <Layout>
@@ -41,6 +40,7 @@ export default function Nav() {
             <NewClassModal />
             <NewTaskModal />
             <NewDeckModal />
+            <SignUpDrawer />
         </Layout>
     );
 }

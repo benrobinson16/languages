@@ -3,17 +3,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 import { AppDispatch, AppState } from "./store";
 import * as nav from "./nav";
+import * as signUp from "./signUp";
 import { errorToast } from "../helper/toast";
+import { teacherExists } from "../api/endpoints";
 
 interface AuthState {
     token: string | null,
-    user: Teacher | null,
     isAuthenticating: boolean
 }
 
 const initialState: AuthState = {
     token: null,
-    user: null,
     isAuthenticating: false
 }
 
@@ -24,13 +24,11 @@ export const authSlice = createSlice({
         startedAuthenticating: (state) => {
             state.isAuthenticating = true;
             state.token = null;
-            state.user = null;
         },
         gotToken: (state, action: PayloadAction<string>) => {
             state.token = action.payload;
         },
-        gotUserInfo: (state, action: PayloadAction<Teacher>) => {
-            state.user = action.payload;
+        finishedAuthenticating: (state) => {
             state.isAuthenticating = false;
         },
         encounteredError: (state) => {
@@ -39,7 +37,7 @@ export const authSlice = createSlice({
     }
 });
 
-export const { startedAuthenticating, gotToken, gotUserInfo, encounteredError } = authSlice.actions;
+export const { startedAuthenticating, gotToken, finishedAuthenticating, encounteredError } = authSlice.actions;
 
 /** Gets a token by authenticating with MSAL. Will not redirect so should only be used once the user is signed in. */
 export const getToken = (redirectToHome: boolean = false) => {
@@ -51,14 +49,13 @@ export const getToken = (redirectToHome: boolean = false) => {
             const token = await authService.getToken();
             dispatch(gotToken(token));
 
-            //const userInfo = await apiService.getUserDetails(token);
-            //dispatch(gotUserInfo(userInfo));
+            const isRegistered = await teacherExists.makeRequest(token);
+            dispatch(finishedAuthenticating());
 
-            const userInfo: Teacher = {id: 1, title: "Mr.", surname: "Robinson", email: "k037047@eltham-college.org.uk"};
-            dispatch(gotUserInfo(userInfo));
-
-            if (redirectToHome) {
+            if (isRegistered && redirectToHome) {
                 dispatch(nav.openHome());
+            } else if (!isRegistered) {
+                dispatch(signUp.showSignUp());
             }
         } catch (error) {
             errorToast(error);
@@ -89,11 +86,14 @@ export const saveTokenAndRedirect = (token: string) => {
         dispatch(gotToken(token));
 
         try {
-            //const userInfo = apiService.getUserDetails(token);
-            const userInfo: Teacher = { id: 0, title: "Mr.", surname: "Smith", email: "smith@example.com" };
-            dispatch(gotUserInfo(userInfo));
+            const isRegistered = await teacherExists.makeRequest(token);
+            dispatch(finishedAuthenticating());
 
-            dispatch(nav.openHome());
+            if (isRegistered) {
+                dispatch(nav.openHome());
+            } else {
+                dispatch(signUp.showSignUp());
+            }
         } catch (error) {
             errorToast(error);
             dispatch(encounteredError());

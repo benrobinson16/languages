@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 import store, { TypedThunk } from "./store";
-import { gotUserInfo } from "./auth";
 import { openHome } from "./nav";
 import { errorToast } from "../helper/toast";
 import { registerTeacher } from "../api/endpoints";
@@ -9,19 +8,27 @@ import { registerTeacher } from "../api/endpoints";
 interface SignUpState {
     title: string,
     surname: string,
-    isLoading: boolean
+    isLoading: boolean,
+    showDrawer: boolean
 }
 
 const initialState: SignUpState = {
     title: "",
     surname: "",
-    isLoading: false
+    isLoading: false,
+    showDrawer: false
 };
 
 export const signUpSlice = createSlice({
     name: "signup",
     initialState,
     reducers: {
+        showSignUp: (state) => {
+            state.showDrawer = true;
+        },
+        hideSignUp: (state) => {
+            state.showDrawer = false;
+        },
         changeSurname: (state, action: PayloadAction<string>) => {
             if (state.isLoading) return;
             state.surname = action.payload;
@@ -39,7 +46,7 @@ export const signUpSlice = createSlice({
     }
 });
 
-export const { changeSurname, changeTitle, startedCreatingAccount, failedCreatingAccount } = signUpSlice.actions;
+export const { showSignUp, hideSignUp, changeSurname, changeTitle, startedCreatingAccount, failedCreatingAccount } = signUpSlice.actions;
 
 /** Creates an account for a new teacher, using the provided title and surname. */
 export const createAccount = (): TypedThunk => {
@@ -73,9 +80,8 @@ export const createAccount = (): TypedThunk => {
             if (!token) throw new Error("Authentication has failed.");
 
             // Create the account and store user details.
-            const user = await registerTeacher.makeRequest(token, { title, surname });
-            dispatch(gotUserInfo(user));
-
+            await registerTeacher.makeRequest(token, { title, surname });
+            
             // Open the home screen now that we have all account user information.
             dispatch(openHome());
 
