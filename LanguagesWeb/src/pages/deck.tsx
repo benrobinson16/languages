@@ -1,4 +1,4 @@
-import { VStack, Heading, SimpleGrid, Spinner, UnorderedList, Text, ListItem } from "@chakra-ui/react";
+import { VStack, Heading, SimpleGrid, Spinner, UnorderedList, Text, ListItem, Flex, Button, Spacer } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { CardList } from "../components/entityList";
 import { useAppDispatch, useAppSelector } from "../redux/store";
@@ -23,7 +23,11 @@ export default function DeckPage(props: { id: number }) {
 
     return (
         <VStack width={"100%"} padding={8} spacing={8}>
-            <Heading width="100%" textAlign="left">{deck.name}</Heading>
+            <Flex width="100%">
+                <Heading alignSelf="start">{deck.name}</Heading>
+                <Spacer />
+                <Button onClick={() => dispatch(deckActions.deleteDeck(props.id))} marginLeft={2}>Delete</Button>
+            </Flex>
             <SimpleGrid width="100%" columns={2} gap={8}>
                 <CardList cards={cards} deck={deck} />
                 <div>

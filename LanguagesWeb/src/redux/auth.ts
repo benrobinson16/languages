@@ -1,4 +1,3 @@
-import { Teacher } from "../api/models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 import { AppDispatch, AppState } from "./store";

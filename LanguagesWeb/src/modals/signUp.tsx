@@ -1,37 +1,50 @@
 import React from "react";
-import { Text, Drawer, DrawerBody, DrawerContent, DrawerFooter, DrawerOverlay, DrawerHeader, Button } from "@chakra-ui/react";
-import { TitleSurnameTextField } from "../components/titleSurnameTextField";
+import { Text, Drawer, DrawerBody, DrawerContent, DrawerFooter, DrawerOverlay, Button, VStack, RadioGroup, Input, Radio, Divider, Heading } from "@chakra-ui/react";
 import * as signUpActions from "../redux/signUp";
 import { useAppDispatch, useAppSelector } from "../redux/store";
-import authService from "../services/authService";
 
-export default function SignUpPage() {
+export default function SignUpDrawer() {
     const dispatch = useAppDispatch();
+    const isOpen = useAppSelector(state => state.signUp.showDrawer);
     const title = useAppSelector(state => state.signUp.title);
     const surname = useAppSelector(state => state.signUp.surname);
 
-    const close = () => authService.logOutRedirect();
+    const close = () => dispatch(signUpActions.hideSignUp());
     const save = () => dispatch(signUpActions.createAccount());
-    const isOpen = useAppSelector(state => state.signUp.showDrawer);
+    const onSurnameChange = (newSurname: string) => dispatch(signUpActions.changeSurname(newSurname));
+    const onTitleChange = (newTitle: string) => dispatch(signUpActions.changeTitle(newTitle));
 
     return (
         <Drawer
             isOpen={isOpen}
             placement="right"
             onClose={close}
+            size="md"
         >
             <DrawerOverlay />
             <DrawerContent>
-                <DrawerHeader>New Teacher Account</DrawerHeader>
-
                 <DrawerBody>
-                    <Text>Please provide us with a few details to get started.</Text>
-                    <TitleSurnameTextField 
-                        title={title}
-                        surname={surname}
-                        onTitleChange={(newTitle) => dispatch(signUpActions.changeTitle(newTitle))}
-                        onSurnameChange={(newName) => dispatch(signUpActions.changeSurname(newName))}
-                    />
+                    <VStack spacing="4" alignItems="left" mt={4}>
+                        <Heading size="md">New Teacher Account</Heading>
+                        <Text>Please provide us with a few details to get started.</Text>
+                        <Divider />
+                        <Text size="md" fontWeight="semibold">Title:</Text>
+                        <RadioGroup onChange={onTitleChange} value={title}>
+                            <VStack alignItems="left">
+                                <Radio value="Mr.">Mr.</Radio>
+                                <Radio value="Mrs.">Mrs.</Radio>
+                                <Radio value="Ms.">Ms.</Radio>
+                                <Radio value="Mx.">Mx.</Radio>
+                            </VStack>
+                        </RadioGroup>
+                        <Divider />
+                        <Text size="md" fontWeight="semibold">Surname:</Text>
+                        <Input
+                            onChange={(event) => onSurnameChange(event.target.value)}
+                            value={surname}
+                            placeholder="Surname"
+                        />
+                    </VStack>
                 </DrawerBody>
 
                 <DrawerFooter>

@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 import { TypedThunk } from "./store";
-import { errorToast } from "../helper/toast";
+import { errorToast, successToast } from "../helper/toast";
+import * as nav from "./nav";
 import * as endpoints from "../api/endpoints";
 import { Card, Deck, DeckSummary } from "../api/models";
 
@@ -81,6 +82,24 @@ export const loadDeckDetails = (deckId: number): TypedThunk => {
         }
     };
 };
+
+export const deleteDeck = (deckId: number): TypedThunk => {
+    return async (dispatch, getState) => {
+        const deleteText = "Are you sure you would like to delete this deck? All tasks associated with this deck will be deleted as well.";
+        const confirmed = window.confirm(deleteText);
+
+        if (confirmed) {
+            try {
+                const token = getState().auth.token || await authService.getToken();
+                await endpoints.deleteDeck.makeRequestVoid(token, { deckId });
+                dispatch(nav.back());
+                successToast("Deck deleted.");
+            } catch (error) {
+                errorToast(error);
+            }
+        }
+    }
+}
 
 export const saveCard = (card: Card, deck: Deck): TypedThunk => {
     return async (dispatch, getState) => {

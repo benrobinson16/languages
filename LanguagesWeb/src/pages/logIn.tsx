@@ -3,13 +3,12 @@ import React, { useEffect } from "react";
 import CenteredCard from "../components/centeredCard";
 import { SignInWithMicrosoftButton } from "../components/buttons";
 import * as authActions from "../redux/auth";
-import * as navActions from "../redux/nav";
-import { useAppDispatch, useAppSelector } from "../redux/store";
+import { useAppDispatch } from "../redux/store";
 import authService from "../services/authService";
+import SignUpDrawer from "../modals/signUp";
 
 export default function LogInPage() {
     const dispatch = useAppDispatch();
-    const token = useAppSelector(state => state.auth.token);
 
     useEffect(() => {
         authService.registerLoginCallback(token => {
@@ -22,17 +21,21 @@ export default function LogInPage() {
     });
 
     return (
-        <CenteredCard>
-            <VStack
-                padding={8}
-                spacing={8}
-                align="center"
-                textAlign="center"
-            >
-                <Heading>Languages</Heading>
-                <Text>A teacher platform to assign vocabularly learning homework to classes. Please sign in to continue.</Text>
-                <SignInWithMicrosoftButton />
-            </VStack>
-        </CenteredCard>
+        <>
+            <CenteredCard>
+                <VStack
+                    padding={8}
+                    spacing={8}
+                    align="center"
+                    textAlign="center"
+                >
+                    <Heading>Languages</Heading>
+                    <Text>A teacher platform to assign vocabularly learning homework to classes. Please sign in to continue.</Text>
+                    <SignInWithMicrosoftButton />
+                </VStack>
+            </CenteredCard>
+
+            <SignUpDrawer />
+        </>
     );
 }

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 import { TypedThunk } from "./store";
-import { errorToast } from "../helper/toast";
+import { errorToast, successToast } from "../helper/toast";
 import * as endpoints from "../api/endpoints";
 import { Class, ClassSummary, Task } from "../api/models";
 import * as navActions from "./nav";
@@ -77,11 +77,10 @@ export const deleteClass = (classId: number): TypedThunk => {
                 const token = getState().auth.token || await authService.getToken();
                 await endpoints.deleteClass.makeRequestVoid(token, { classId });
                 dispatch(navActions.back());
+                successToast("Class deleted.");
             } catch (error) {
                 errorToast(error);
             }
-        } else {
-            
         }
     }
 }
