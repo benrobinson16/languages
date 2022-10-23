@@ -4,11 +4,8 @@ struct TitleGreeting: View {
     let name: String
     
     var body: some View {
-        if name.trimmingCharacters(in: .whitespaces).isEmpty {
-            Text(getGreeting() + "!")
-                .font(.appTitle)
-        } else {
-            VStack {
+        ZStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 Text(getGreeting() + ",")
                     .font(.appTitle)
                 
@@ -16,6 +13,18 @@ struct TitleGreeting: View {
                     .font(.appTitle)
                     .foregroundColor(.appAccent)
             }
+            
+            HStack {
+                Spacer()
+                WavingHand()
+            }
+            .offset(y: 36)
+        }
+        if name.trimmingCharacters(in: .whitespaces).isEmpty {
+            Text(getGreeting() + "!")
+                .font(.appTitle)
+        } else {
+            
         }
     }
     
@@ -32,4 +41,3 @@ struct TitleGreeting: View {
         }
     }
 }
-

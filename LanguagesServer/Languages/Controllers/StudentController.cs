@@ -58,7 +58,7 @@ public class StudentController: ControllerBase
             StreakHistory = da.StudentAttempts.StreakHistoryForStudent(student.StudentId),
             StreakLength = da.StudentAttempts.StreakLengthForStudent(student.StudentId),
             Tasks = taskVms,
-            DailyPercentage = 100.0, // FIXME: NEED TO IMPLEMENT SCHEDULING ALGORITHM
+            DailyPercentage = 0.5, // FIXME: NEED TO IMPLEMENT SCHEDULING ALGORITHM
             OverdueMessage = message,
             StudentName = student.FirstName
         };

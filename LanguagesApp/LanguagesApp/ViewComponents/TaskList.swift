@@ -6,12 +6,23 @@ struct TaskList: View {
     let selected: (Int) -> Void
     
     var body: some View {
-        VStack {
-            Text("Upcoming Tasks")
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Upcoming Tasks:")
                 .font(.appSubheading)
             
-            ForEach(tasks) { task in
-                TaskItem(task: task, selected: selected)
+            if tasks.isEmpty {
+                Panel {
+                    HStack {
+                        Spacer()
+                        Text("No upcoming tasks. 🎉")
+                            .font(.appSubheading)
+                        Spacer()
+                    }
+                }
+            } else {
+                ForEach(tasks) { task in
+                    TaskItem(task: task, selected: selected)
+                }
             }
         }
     }

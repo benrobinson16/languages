@@ -40,6 +40,8 @@
 		52C28F7F2905C1390088593B /* StreaksPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F7E2905C1390088593B /* StreaksPanel.swift */; };
 		52C28F812905C4EA0088593B /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F802905C4EA0088593B /* TaskList.swift */; };
 		52C28F832905C7BD0088593B /* FootnoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F822905C7BD0088593B /* FootnoteButton.swift */; };
+		52C28F852905F0810088593B /* CyclicTimelineSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F842905F0810088593B /* CyclicTimelineSchedule.swift */; };
+		52C28F872905F0AE0088593B /* WavingHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F862905F0AE0088593B /* WavingHand.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +80,8 @@
 		52C28F7E2905C1390088593B /* StreaksPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreaksPanel.swift; sourceTree = "<group>"; };
 		52C28F802905C4EA0088593B /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		52C28F822905C7BD0088593B /* FootnoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootnoteButton.swift; sourceTree = "<group>"; };
+		52C28F842905F0810088593B /* CyclicTimelineSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclicTimelineSchedule.swift; sourceTree = "<group>"; };
+		52C28F862905F0AE0088593B /* WavingHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavingHand.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +123,7 @@
 				52C28F7E2905C1390088593B /* StreaksPanel.swift */,
 				52C28F802905C4EA0088593B /* TaskList.swift */,
 				52C28F822905C7BD0088593B /* FootnoteButton.swift */,
+				52C28F862905F0AE0088593B /* WavingHand.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 				524D5A9028EED16D00035DB6 /* UIApplication+EXT.swift */,
 				52C28F722905BAA10088593B /* Color+EXT.swift */,
 				52C28F7A2905BE9E0088593B /* Font+EXT.swift */,
+				52C28F842905F0810088593B /* CyclicTimelineSchedule.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -321,6 +327,8 @@
 				5202A75328F6C19400FAD9F6 /* HomeState.swift in Sources */,
 				523E0A6428F5760D00B505F0 /* TaskScreen.swift in Sources */,
 				52465CD828F6A14A00B798E4 /* NavInteractor.swift in Sources */,
+				52C28F872905F0AE0088593B /* WavingHand.swift in Sources */,
+				52C28F852905F0810088593B /* CyclicTimelineSchedule.swift in Sources */,
 				524C5AB728E2FACA00A4BDD1 /* LanguagesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,11 +2,15 @@ struct NavInteractor {
     let appState: AppState
     
     func goHome() {
-        appState.page = .home
+        Task { @MainActor in
+            appState.page = .home
+        }
     }
     
     func navigateTo(_ newPage: NavRoute) {
-        appState.page = newPage
+        Task { @MainActor in
+            appState.page = newPage
+        }
     }
 }
 

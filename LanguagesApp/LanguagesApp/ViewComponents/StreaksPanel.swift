@@ -7,23 +7,25 @@ struct StreaksPanel: View {
     
     var body: some View {
         Panel {
-            VStack(alignment: .center) {
+            VStack(alignment: .center, spacing: 16) {
                 Text("\(streakLength) day streak")
                     .font(.appTitle)
                     .foregroundColor(.appSecondaryAccent)
                 
                 HStack {
                     ForEach(streakHistory, id: \.date) { history in
+                        Spacer()
                         ZStack {
                             Circle()
-                                .frame(width: 20, height: 20)
+                                .frame(height: 42)
                                 .foregroundColor(history.didAttempt ? .appAccent : .panelSecondary)
                             
                             Text(getDayLetter(date: history.date))
-                                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                                .font(.system(size: 20, weight: .semibold, design: .rounded))
                                 .foregroundColor(history.didAttempt ? .white : .primary)
                         }
                     }
+                    Spacer()
                 }
             }
         }

@@ -5,9 +5,9 @@ struct Panel<Content>: View where Content: View {
     
     var body: some View {
         content()
-            .padding(4)
+            .padding(16)
             .background(
-                RoundedRectangle(cornerRadius: 15, style: .continuous)
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .foregroundColor(.panelBackground)
             )
     }

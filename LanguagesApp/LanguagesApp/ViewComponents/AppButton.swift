@@ -4,24 +4,21 @@ struct AppButton: View {
     let title: String
     let action: () -> Void
     
-    @State private var touchDown = false
-    
     var body: some View {
         Button(action: action) {
-            RoundedRectangle(cornerRadius: 6, style: .continuous)
-                .foregroundColor(.appAccent)
-                .overlay(
-                    Text(title)
-                        .font(.appButton)
-                        .foregroundColor(.white)
-                        .padding(4)
-                )
-                .scaleEffect(touchDown ? 0.75 : 1.0)
+            HStack {
+                Spacer()
+                Text(title)
+                    .font(.appButton)
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            .padding(8)
+            .background(
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .foregroundColor(.appAccent)
+            )
         }
-        .gesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in touchDown = true }
-                .onEnded { _ in touchDown = false }
-        )
+        .buttonStyle(ScaleButtonStyle())
     }
 }

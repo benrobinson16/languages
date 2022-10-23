@@ -8,16 +8,27 @@ struct HomeScreen: View {
     var body: some View {
         ScrollView {
             if let summary = appState.home.summary {
-                VStack {
+                VStack(alignment: .leading, spacing: 16) {
+                    Spacer(minLength: 50)
                     TitleGreeting(name: summary.studentName)
+                    Spacer(minLength: 50)
                     DailyCompletionPanel(percentage: summary.dailyPercentage) { interactors.nav.navigateTo(.learning) }
                     StreaksPanel(streakHistory: summary.streakHistory, streakLength: summary.streakLength)
+                    Spacer(minLength: 30)
                     TaskList(tasks: summary.tasks) { interactors.nav.navigateTo(.task($0)) }
-                    FootnoteButton(title: "Settings") { interactors.nav.navigateTo(.settings) }
+                    Spacer(minLength: 30)
+                    HStack {
+                        Spacer()
+                        FootnoteButton(title: "Settings") { interactors.nav.navigateTo(.settings) }
+                        Spacer()
+                    }
                 }
-                .padding(4)
+                .padding(16)
             } else {
-                ProgressView()
+                VStack {
+                    Spacer(minLength: 400)
+                    ProgressView()
+                }
             }
         }
         .onAppear(perform: loadData)

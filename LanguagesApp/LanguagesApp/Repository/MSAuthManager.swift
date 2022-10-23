@@ -8,11 +8,20 @@ class MSAuthManager {
         self.msal = application
     }
     
+    private let accountIdKey = "msal.auth.account.id"
     private let clientId = "67d7b840-45a6-480b-be53-3d93c187ed66"
     private let scopes = ["api://67d7b840-45a6-480b-be53-3d93c187ed66/API.Access"]
-    private var accountId: String?
     private var viewController: UIViewController?
     private let msal: MSALPublicClientApplication
+    
+    private var accountId: String? {
+        get {
+            return UserDefaults.standard.string(forKey: accountIdKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: accountIdKey)
+        }
+    }
     
     func openUrl(url: URL) {
         MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: nil)

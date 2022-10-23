@@ -6,7 +6,7 @@ extension Font {
     }
     
     static var appSecondary: Font {
-        return .system(size: 14, weight: .regular, design: .rounded)
+        return .system(size: 20, weight: .regular, design: .rounded)
     }
     
     static var appSubheading: Font {

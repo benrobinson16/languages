@@ -15,7 +15,6 @@ struct HomeInteractor {
                 if isNewStudent {
                     appState.page = .onboarding
                 }
-                print(appState.home.summary)
             } catch {
                 print(error)
                 appState.error = "Failed to load student data."
