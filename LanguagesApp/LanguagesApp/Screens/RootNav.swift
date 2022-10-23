@@ -29,6 +29,12 @@ struct RootNav: View {
                     )) {
                         SettingsScreen()
                     }
+                    .sheet(isPresented: .init(
+                        get: { appState.page == .onboarding },
+                        set: { _ in interactors.nav.goHome() }
+                    )) {
+                        Text("Onboarding")
+                    }
             }
         }
         .onOpenURL { url in
