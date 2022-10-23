@@ -128,7 +128,7 @@ public class StudentAttemptRepository
 
             streakDays.Add(new StreakDay
             {
-                Date = date.ToShortDateString(),
+                Date = date,
                 DidAttempt = didAttempt
             });
 
