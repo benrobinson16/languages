@@ -1,11 +1,13 @@
 import Foundation
 
-public struct Card: Codable {
+public struct Card: Codable, Identifiable {
     public let cardId: Int
     public let englishTerm: String
     public let foreignTerm: String
     public let dueDate: Date?
     public let nextQuestionType: QuestionType?
+    
+    public var id: Int { return cardId }
 }
 
 public enum QuestionType: Int, Codable {
@@ -14,7 +16,6 @@ public enum QuestionType: Int, Codable {
     case englishWritten = 2
     case foreignWritten = 3
 }
-
 
 public struct StudentSummary: Codable {
     public let streakHistory: [StreakDay]
@@ -25,18 +26,20 @@ public struct StudentSummary: Codable {
     public let studentName: String
 }
 
-public struct StreakDay: Codable {
-    public let date: String
+public struct StreakDay: Codable, Identifiable {
+    public let date: Date
     public let didAttempt: Bool
+    
+    public var id: Date { return date }
 }
 
-public struct TaskVm: Codable {
+public struct TaskVm: Codable, Identifiable {
     public let id: Int
     public let classId: Int
     public let deckId: Int
     public let className: String
     public let deckName: String
-    public let dueDate: String
+    public let dueDate: Date
 }
 
 public struct TaskSummary: Codable {

@@ -1,17 +1,25 @@
 import SwiftUI
 
 struct SignInButton: View {
-    @Environment(\.interactors) var interactors
+    let action: () -> Void
+    
+    @State private var touchDown = false
     
     var body: some View {
-        Image("sign_in_light")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: UIScreen.main.bounds.width * 0.8)
-            .onTapGesture {
-                guard let vc = UIApplication.shared.topViewController else { return }
-                interactors.auth.connectToViewController(vc: vc)
-                interactors.auth.signIn()
-            }
+        Button (action: action) {
+            Image("sign_in_light")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: UIScreen.main.bounds.width * 0.75)
+        }
+        .buttonStyle(ScaleButtonStyle())
+    }
+}
+
+struct ScaleButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.85 : 1.0)
+            .animation(.interactiveSpring(), value: configuration.isPressed)
     }
 }

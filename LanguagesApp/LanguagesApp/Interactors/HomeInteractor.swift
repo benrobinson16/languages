@@ -9,9 +9,12 @@ struct HomeInteractor {
         appState.home.isLoading = true
         
         Task { @MainActor in
-            print("running")
             do {
+                let isNewStudent = try await LanguagesAPI.makeRequest(.isNewStudent(token: token))
                 appState.home.summary = try await LanguagesAPI.makeRequest(.summary(token: token))
+                if isNewStudent {
+                    appState.page = .onboarding
+                }
                 print(appState.home.summary)
             } catch {
                 print(error)

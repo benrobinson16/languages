@@ -77,24 +77,27 @@ public class AccountController : ControllerBase
     /// Update the token associated with a student to facilitate push notifications.
     /// </summary>
     /// <param name="token">The device token for push notifications.</param>
-    [HttpPost("student/registerdevice")]
-    public void RegisterDeviceToken(string token)
+    [HttpPost("registerdevice")]
+    public string RegisterDeviceToken(string token)
     {
         Student student = shield.AuthenticateStudent(Request);
         student.DeviceToken = token;
         db.SaveChanges();
+        return token;
     }
 
     /// <summary>
     /// Alerts the server that a student has logged out of a device and should
     /// therefore no longer receive push notifications on that device.
     /// </summary>
-    [HttpPost("student/removedevice")]
-    public void RemoveRegisteredDevice()
+    [HttpPost("removedevice")]
+    public string RemoveRegisteredDevice()
     {
         Student student = shield.AuthenticateStudent(Request);
+        string token = student.DeviceToken ?? "";
         student.DeviceToken = null;
         db.SaveChanges();
+        return token;
     }
 
     /// <summary>
@@ -110,12 +113,29 @@ public class AccountController : ControllerBase
 
     /// <summary>
     /// Checks if a student has already been registered using the OAUTH token.
+    /// Will create the student with the OAUTH data if doesn't already exist.
     /// </summary>
-    /// <returns>Whether the student is already registered.</returns>
-    [HttpPost("student/exists")]
-    public bool StudentExists()
+    /// <returns>Whether the student is a new student.</returns>
+    [HttpPost("student/isnewstudent")]
+    public bool IsNewStudent()
     {
         User user = shield.Authenticate(Request);
-        return da.Students.ForEmail(user.Email).Any();
+        bool isNew = da.Students.ForEmail(user.Email).Any();
+
+        if (isNew)
+        {
+            Student student = new Student
+            {
+                FirstName = user.FirstName,
+                Surname = user.Surname,
+                Email = user.Email,
+                DeviceToken = null
+            };
+
+            db.Students.Add(student);
+            db.SaveChanges();
+        }
+
+        return isNew;
     }
 }

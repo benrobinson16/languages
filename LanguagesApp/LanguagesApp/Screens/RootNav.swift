@@ -34,6 +34,11 @@ struct RootNav: View {
         .onOpenURL { url in
             interactors.auth.openUrl(url: url)
         }
+        .onAppear {
+            guard let vc = UIApplication.shared.topViewController else { return }
+            interactors.auth.connectToViewController(vc: vc)
+            interactors.auth.signInSilently()
+        }
     }
 }
 

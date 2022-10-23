@@ -6,10 +6,19 @@ struct HomeScreen: View {
     @Environment(\.interactors) var interactors
     
     var body: some View {
-        VStack {
-            Button("Learning") { interactors.nav.navigateTo(.home) }
-            Button("Task") { interactors.nav.navigateTo(.task(0)) }
-            Button("Settings") { interactors.nav.navigateTo(.settings) }
+        ScrollView {
+            if let summary = appState.home.summary {
+                VStack {
+                    TitleGreeting(name: summary.studentName)
+                    DailyCompletionPanel(percentage: summary.dailyPercentage) { interactors.nav.navigateTo(.learning) }
+                    StreaksPanel(streakHistory: summary.streakHistory, streakLength: summary.streakLength)
+                    TaskList(tasks: summary.tasks) { interactors.nav.navigateTo(.task($0)) }
+                    FootnoteButton(title: "Settings") { interactors.nav.navigateTo(.settings) }
+                }
+                .padding(4)
+            } else {
+                ProgressView()
+            }
         }
         .onAppear(perform: loadData)
     }

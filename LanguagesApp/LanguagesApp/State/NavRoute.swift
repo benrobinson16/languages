@@ -3,6 +3,7 @@ enum NavRoute: Equatable {
     case task(Int)
     case learning
     case settings
+    case onboarding
     
     func isTask() -> Bool {
         if case .task(_) = self {
