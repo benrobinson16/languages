@@ -4,8 +4,8 @@ public struct Card: Codable, Identifiable {
     public let cardId: Int
     public let englishTerm: String
     public let foreignTerm: String
+    public var nextQuestionType: QuestionType
     public let dueDate: Date?
-    public let nextQuestionType: QuestionType?
     
     public var id: Int { return cardId }
 }

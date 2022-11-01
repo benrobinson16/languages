@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SplashScreen: View {
-    @Environment(\.interactors) var interactors
+    @StateObject private var controller = SplashController()
     
     var body: some View {
         ZStack(alignment: .center) {
@@ -15,16 +15,10 @@ struct SplashScreen: View {
                 .offset(y: 500)
                 .ignoresSafeArea()
                 .overlay(
-                    SignInButton(action: signInAction)
+                    SignInButton(action: controller.signIn)
                         .offset(y: 250)
                 )
         }
         .padding()
-    }
-    
-    func signInAction() {
-        guard let vc = UIApplication.shared.topViewController else { return }
-        interactors.auth.connectToViewController(vc: vc)
-        interactors.auth.signIn()
     }
 }

@@ -8,7 +8,7 @@ public class LearningLQN<T>: LeitnerQueueNetwork<T> where T: Identifiable {
     private let minCards = 6
     private let insertionProb = 0.5
     
-    override func dequeue(fromQueue queueIndex: Int) -> (value: T, queue: Int)? {
+    public override func dequeue(fromQueue queueIndex: Int) -> (value: T, queue: Int)? {
         guard let value = queues[queueIndex].dequeue() else { return nil }
         
         self.lastValue = value.id
@@ -17,7 +17,7 @@ public class LearningLQN<T>: LeitnerQueueNetwork<T> where T: Identifiable {
         return (value, queueIndex)
     }
     
-    func dequeueWithLearningHeuristic() -> (value: T, queue: Int)? {
+    public func dequeueWithLearningHeuristic() -> (value: T, queue: Int)? {
         let indices = Array(0..<queues.count).filter { !queues[$0].isEmpty }
         let totalCardsBeyondInput = queues.dropFirst(1).reduce(0) { $0 + $1.count }
         

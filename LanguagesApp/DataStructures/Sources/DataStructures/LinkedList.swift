@@ -229,6 +229,11 @@ public class LinkedList<T>: Sequence {
         }
     }
     
+    public func clear() {
+        first = nil
+        last = nil
+    }
+    
     // MARK: - Higher order functions
     
     /// Removes all elements in the array that

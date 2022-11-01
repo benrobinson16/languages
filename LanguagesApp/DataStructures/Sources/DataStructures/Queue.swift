@@ -31,6 +31,10 @@ public class Queue<T>: Queueing {
         return list.popFirst()
     }
     
+    public func clear() {
+        list.clear()
+    }
+    
     /// The number of elements in the queue.
     public var count: Int {
         return list.count

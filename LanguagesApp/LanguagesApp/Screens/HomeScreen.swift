@@ -2,24 +2,24 @@ import SwiftUI
 import LanguagesAPI
 
 struct HomeScreen: View {
-    @EnvironmentObject var appState: AppState
-    @Environment(\.interactors) var interactors
+    @StateObject private var controller = HomeController()
+    @ObservedObject private var nav = Navigator.shared
     
     var body: some View {
         ScrollView {
-            if let summary = appState.home.summary {
+            if let summary = controller.summary {
                 VStack(alignment: .leading, spacing: 16) {
                     Spacer(minLength: 50)
                     TitleGreeting(name: summary.studentName)
                     Spacer(minLength: 50)
-                    DailyCompletionPanel(percentage: summary.dailyPercentage) { interactors.nav.navigateTo(.learning) }
+                    DailyCompletionPanel(percentage: summary.dailyPercentage) { nav.open(.learning) }
                     StreaksPanel(streakHistory: summary.streakHistory, streakLength: summary.streakLength)
                     Spacer(minLength: 30)
-                    TaskList(tasks: summary.tasks) { interactors.nav.navigateTo(.task($0)) }
+                    TaskList(tasks: summary.tasks) { nav.open(.task($0)) }
                     Spacer(minLength: 30)
                     HStack {
                         Spacer()
-                        FootnoteButton(title: "Settings") { interactors.nav.navigateTo(.settings) }
+                        FootnoteButton(title: "Settings") { nav.open(.settings) }
                         Spacer()
                     }
                 }
@@ -31,10 +31,8 @@ struct HomeScreen: View {
                 }
             }
         }
-        .onAppear(perform: loadData)
-    }
-    
-    func loadData() {
-        interactors.home.loadSummary()
+        .onAppear {
+            controller.loadSummary()
+        }
     }
 }

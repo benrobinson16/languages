@@ -1,13 +1,7 @@
 import Foundation
 import MSAL
 
-class MSAuthManager {
-    init() {
-        let config = MSALPublicClientApplicationConfig(clientId: clientId)
-        let application = try! MSALPublicClientApplication(configuration: config)
-        self.msal = application
-    }
-    
+class Authenticator: ObservableObject {
     private let accountIdKey = "msal.auth.account.id"
     private let clientId = "67d7b840-45a6-480b-be53-3d93c187ed66"
     private let scopes = ["api://67d7b840-45a6-480b-be53-3d93c187ed66/API.Access"]
@@ -23,6 +17,17 @@ class MSAuthManager {
         }
     }
     
+    @Published var token: String?
+    
+    // Use a singleton instance because same token needed everywhere.
+    static let shared = Authenticator()
+    
+    private init() {
+        let config = MSALPublicClientApplicationConfig(clientId: clientId)
+        let application = try! MSALPublicClientApplication(configuration: config)
+        self.msal = application
+    }
+    
     func openUrl(url: URL) {
         MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: nil)
     }
@@ -31,21 +36,36 @@ class MSAuthManager {
         self.viewController = vc
     }
     
-    func acquireToken() async throws -> String {
-        if accountId != nil {
-            do {
-                return try await silentlyAcquireToken()
-            } catch {
-                print(error)
-                // Continue below to try interactively
-            }
+    func getToken(useCache: Bool = true) async throws -> String {
+        if useCache, let token = token {
+            return token
         }
         
         return try await interactivelyAcquireToken()
     }
     
+    func signInDetached() {
+        Task {
+            do {
+                _ = try await interactivelyAcquireToken()
+            } catch {
+                // FIXME: Error handling
+            }
+        }
+    }
+    
+    func signInSilentlyDetached() {
+        Task {
+            do {
+                _ = try await silentlyAcquireToken()
+            } catch {
+                // FIXME: Error handling
+            }
+        }
+    }
+    
     @MainActor
-    func interactivelyAcquireToken() async throws -> String {
+    private func interactivelyAcquireToken() async throws -> String {
         guard let viewController else { throw AuthError.noViewController }
         let webviewParameters = MSALWebviewParameters(authPresentationViewController: viewController)
         let interactiveParameters = MSALInteractiveTokenParameters(scopes: scopes, webviewParameters: webviewParameters)
@@ -53,12 +73,13 @@ class MSAuthManager {
         guard let idToken = result.idToken else { throw AuthError.noIdToken }
         
         self.accountId = result.account.identifier
+        self.token = idToken
         
         return idToken
     }
     
     @MainActor
-    func silentlyAcquireToken() async throws -> String {
+    private func silentlyAcquireToken() async throws -> String {
         guard let accountId else { throw AuthError.noAccount }
         
         let account = try msal.account(forIdentifier: accountId)
@@ -66,9 +87,12 @@ class MSAuthManager {
         let result = try await msal.acquireTokenSilent(with: silentParameters)
         guard let idToken = result.idToken else { throw AuthError.noIdToken }
         
+        self.token = idToken
+        
         return idToken
     }
     
+    @MainActor
     func signOut() async throws {
         guard let accountId else { throw AuthError.noAccount }
         let account = try msal.account(forIdentifier: accountId)
@@ -82,6 +106,7 @@ class MSAuthManager {
         guard success else { throw AuthError.failedToSignOut }
         
         self.accountId = nil
+        self.token = nil
     }
     
     enum AuthError: Error {

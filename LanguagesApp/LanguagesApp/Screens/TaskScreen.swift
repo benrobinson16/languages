@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct TaskScreen: View {
-    @Environment(\.interactors) var interactors
+    @ObservedObject private var nav = Navigator.shared
     
     var body: some View {
-        Button("Close") { interactors.nav.goHome() }
+        Button("Close") { nav.goHome() }
     }
 }

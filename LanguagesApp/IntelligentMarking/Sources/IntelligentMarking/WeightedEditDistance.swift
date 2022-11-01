@@ -12,7 +12,7 @@ public struct WeightedEditDistance: TypoDetecting {
     private var memo: HashTable<StringCombo, Int> = .init()
     private let threshold: Double
     
-    init(threshold: Double) {
+    public init(perCharacterThreshold threshold: Double) {
         self.threshold = threshold
         
         let url = Bundle.module.url(forResource: "keyboard", withExtension: "json")!
