@@ -26,13 +26,11 @@ class ReviewLearningSession: LearningSession {
     }
     
     override func startSession() async {
-        guard let token = token else { return }
+        guard let token = Authenticator.shared.token else { return }
         
-        do {
+        await ErrorHandler.shared.wrapAsync {
             let newCards = try await LanguagesAPI.makeRequest(.reviewCards(token: token))
             questionQueue = Queue(newCards)
-        } catch {
-            // FIXME: Error handling
         }
     }
 }

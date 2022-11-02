@@ -8,8 +8,8 @@ fileprivate let articles = ["le ", "la ", "les ", "l'", "un ", "une ", "de ", "d
 class LearningQuestion: ObservableObject {
     private let answerGenerator = AnswerGenerator(articles: articles)
     private let editDistanceCalculator = WeightedEditDistance(perCharacterThreshold: 0.2)
-    private let card: Card
     
+    let card: Card
     @Published var correct: Bool? = nil
     @Published var feedback: String? = nil
     

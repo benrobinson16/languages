@@ -23,7 +23,7 @@ struct HomeScreen: View {
                         Spacer()
                     }
                 }
-                .padding(16)
+                .padding()
             } else {
                 VStack {
                     Spacer(minLength: 400)

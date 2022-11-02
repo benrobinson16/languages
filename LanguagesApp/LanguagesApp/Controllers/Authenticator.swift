@@ -45,22 +45,14 @@ class Authenticator: ObservableObject {
     }
     
     func signInDetached() {
-        Task {
-            do {
-                _ = try await interactivelyAcquireToken()
-            } catch {
-                // FIXME: Error handling
-            }
+        ErrorHandler.shared.detachAsync {
+            _ = try await self.interactivelyAcquireToken()
         }
     }
     
     func signInSilentlyDetached() {
-        Task {
-            do {
-                _ = try await silentlyAcquireToken()
-            } catch {
-                // FIXME: Error handling
-            }
+        ErrorHandler.shared.detachAsync {
+            _ = try await self.silentlyAcquireToken()
         }
     }
     

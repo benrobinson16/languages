@@ -46,4 +46,3 @@ fileprivate struct Hand: View {
         index = (index + 1) % keyframes.count
     }
 }
-

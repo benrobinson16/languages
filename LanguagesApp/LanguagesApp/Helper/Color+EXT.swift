@@ -10,7 +10,7 @@ extension Color {
     }
     
     public static var panelBackground: Color  {
-        return Color(red: 241.0 / 255.0, green: 241.0 / 255.0, blue: 241.0 / 255.0)
+        return Color(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0)
     }
     
     public static var panelSecondary: Color  {

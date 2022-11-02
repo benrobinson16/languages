@@ -49,15 +49,13 @@ class TaskLearningSession: LearningSession {
     }
     
     override func startSession() async {
-        guard let token = token else { return }
+        guard let token = Authenticator.shared.token else { return }
         
-        do {
+        await ErrorHandler.shared.wrapAsync {
             let cards = try await LanguagesAPI.makeRequest(.taskCards(token: token))
             for c in cards {
                 lqn.enqueue(c, intoQueue: c.nextQuestionType.rawValue)
             }
-        } catch {
-            // FIXME: Handle error
         }
     }
 }

@@ -5,10 +5,11 @@ struct Panel<Content>: View where Content: View {
     
     var body: some View {
         content()
-            .padding(16)
+            .padding()
             .background(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .foregroundColor(.panelBackground)
+                    .shadow(radius: 2.0)
             )
     }
 }
