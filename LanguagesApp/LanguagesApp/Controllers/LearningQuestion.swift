@@ -24,19 +24,15 @@ class LearningQuestion: ObservableObject {
         let correct = markCard(answer: answer, correctAnswer: correctAnswer)
         
         // Update the server
-        Task {
-            do {
-                _ = try await LanguagesAPI.makeRequest(
-                    .didAnswer(
-                        cardId: card.cardId,
-                        correct: correct,
-                        questionType: card.nextQuestionType,
-                        token: token
-                    )
+        ErrorHandler.shared.detachAsync {
+            _ = try await LanguagesAPI.makeRequest(
+                .didAnswer(
+                    cardId: self.card.cardId,
+                    correct: correct,
+                    questionType: self.card.nextQuestionType,
+                    token: token
                 )
-            } catch {
-                // error = "Couldn't connect to the server."
-            }
+            )
         }
     }
     

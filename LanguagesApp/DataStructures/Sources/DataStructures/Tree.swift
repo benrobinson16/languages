@@ -125,7 +125,7 @@ public class TreeNode<T>: Equatable, Identifiable {
     
     public func removeNode() {
         if parent == nil {
-            fatalError("Cannot remove root node from tree")
+            fatalError("Cannot remove root node from tree.")
         }
         
         parent?.children = children
@@ -133,7 +133,7 @@ public class TreeNode<T>: Equatable, Identifiable {
     
     public func removeNodeAndChildren() {
         if parent == nil {
-            fatalError("Cannot remove root node from tree")
+            fatalError("Cannot remove root node from tree.")
         }
         
         parent?.children = LinkedList<TreeNode<T>>()

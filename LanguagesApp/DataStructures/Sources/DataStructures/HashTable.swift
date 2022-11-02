@@ -59,10 +59,6 @@ public class HashTable<Key, Value>: Sequence where Key: Hashable {
             return nil
         }
         
-        if matches.count > 1 {
-            print("DEBUG ERROR: Multiple values with same key found")
-        }
-        
         return matches[0].value
     }
     

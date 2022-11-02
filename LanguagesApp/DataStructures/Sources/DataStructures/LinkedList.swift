@@ -76,7 +76,7 @@ public class LinkedList<T>: Sequence {
             if let node = first?.nodeAtIndex(index: position) {
                 return node.value
             } else {
-                fatalError("Index out of bounds")
+                fatalError("Index out of bounds.")
             }
         }
         
@@ -143,7 +143,7 @@ public class LinkedList<T>: Sequence {
             first = newNode
             last = newNode
         } else {
-            fatalError("Index out of range")
+            fatalError("Index out of bounds.")
         }
     }
     
@@ -186,7 +186,7 @@ public class LinkedList<T>: Sequence {
             remove(node: node)
             return node.value
         } else {
-            fatalError("Index out of bounds")
+            fatalError("Index out of bounds.")
         }
     }
     
