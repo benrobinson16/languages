@@ -8,7 +8,9 @@ struct LanguagesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootNav()
+            AlertWrapper {
+                RootNav()
+            }
         }
     }
 }

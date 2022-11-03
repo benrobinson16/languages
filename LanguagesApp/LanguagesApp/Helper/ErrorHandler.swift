@@ -1,6 +1,7 @@
 import Foundation
 
 class ErrorHandler: ObservableObject {
+    @Published var showAlert = false
     @Published var errorMessage: String? = nil
     
     private init() { }
@@ -10,17 +11,23 @@ class ErrorHandler: ObservableObject {
         do {
             try operation()
         } catch {
-            errorMessage = error.localizedDescription
+            DispatchQueue.main.async {
+                self.errorMessage = error.localizedDescription
+                self.showAlert = true
+            }
         }
     }
     
+    @MainActor
     func wrapAsync(_ operation: () async throws -> Void) async {
         do {
             try await operation()
         } catch let error as AppError {
             errorMessage = error.description
+            showAlert = true
         } catch {
             errorMessage = error.localizedDescription
+            showAlert = true
         }
     }
     

@@ -47,6 +47,7 @@
 		52C28F832905C7BD0088593B /* FootnoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F822905C7BD0088593B /* FootnoteButton.swift */; };
 		52C28F852905F0810088593B /* CyclicTimelineSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F842905F0810088593B /* CyclicTimelineSchedule.swift */; };
 		52C28F872905F0AE0088593B /* WavingHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F862905F0AE0088593B /* WavingHand.swift */; };
+		52D6DE852913ADAD0069B1E3 /* AlertWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6DE842913ADAD0069B1E3 /* AlertWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		52C28F822905C7BD0088593B /* FootnoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootnoteButton.swift; sourceTree = "<group>"; };
 		52C28F842905F0810088593B /* CyclicTimelineSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclicTimelineSchedule.swift; sourceTree = "<group>"; };
 		52C28F862905F0AE0088593B /* WavingHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavingHand.swift; sourceTree = "<group>"; };
+		52D6DE842913ADAD0069B1E3 /* AlertWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				52C28F862905F0AE0088593B /* WavingHand.swift */,
 				527AD2A029116599001A1AD5 /* LearningCardView.swift */,
 				527AD2A2291165B9001A1AD5 /* LearningMessageView.swift */,
+				52D6DE842913ADAD0069B1E3 /* AlertWrapper.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				524D5A8F28EED13E00035DB6 /* Authenticator.swift in Sources */,
 				527ACFA62911B3450008147A /* AppError.swift in Sources */,
 				52465CD328F6A10400B798E4 /* NavRoute.swift in Sources */,
+				52D6DE852913ADAD0069B1E3 /* AlertWrapper.swift in Sources */,
 				52C28F812905C4EA0088593B /* TaskList.swift in Sources */,
 				523E0A6428F5760D00B505F0 /* TaskScreen.swift in Sources */,
 				527ACFA82911B7160008147A /* HomeController.swift in Sources */,
