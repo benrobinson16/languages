@@ -6,7 +6,7 @@ public struct LanguagesAPI {
         
         print("Starting request to \(urlRequest.url?.description ?? "[NO URL]")")
         let response = try await URLSession.shared.data(for: urlRequest)
-        print("Received response")
+        print("Received response: " + (String(data: response.0, encoding: .utf8) ?? "[null]"))
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601

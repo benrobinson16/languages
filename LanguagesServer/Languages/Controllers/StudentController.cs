@@ -119,7 +119,7 @@ public class StudentController: ControllerBase
     }
 
     [HttpPost("joinClass")]
-    public string JoinClass(string joinCode)
+    public StatusResponse JoinClass(string joinCode)
     {
         Student student = shield.AuthenticateStudent(Request);
 
@@ -128,14 +128,24 @@ public class StudentController: ControllerBase
                        select cla;
 
         Class? foundClass = classQry.FirstOrDefault();
-        if (foundClass == null) return "Class does not exist. Please check your join code.";
+        if (foundClass == null) {
+            return new StatusResponse
+            {
+                Message = "Class does not exist. Please check your join code.",
+                Success = false
+            };
+        }
 
         var enrollmentQry = from enrol in db.Enrollments
                             where enrol.ClassId == foundClass.ClassId && enrol.StudentId == student.StudentId
                             select enrol;
 
         bool existingEnrollment = enrollmentQry.Any();
-        if (existingEnrollment) return "You are already a member of this class.";
+        if (existingEnrollment) return new StatusResponse
+        {
+            Message = "You are already enrolled in this class.",
+            Success = false
+        };
 
         Enrollment newEnrollment = new Enrollment
         {
@@ -146,6 +156,9 @@ public class StudentController: ControllerBase
         db.Enrollments.Add(newEnrollment);
         db.SaveChanges();
 
-        return "You have succesfully been added to class " + foundClass.Name + ".";
+        return new StatusResponse {
+            Message = "You have succesfully been added to class " + foundClass.Name + ".",
+            Success = true
+        };
     }
 }

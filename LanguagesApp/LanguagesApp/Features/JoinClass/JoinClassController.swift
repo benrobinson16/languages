@@ -18,8 +18,12 @@ class JoinClassController: ObservableObject {
         
         ErrorHandler.shared.detachAsync {
             guard let token = Authenticator.shared.token else { throw AppError.notAuthenticated }
-            let message = try await LanguagesAPI.makeRequest(.joinClass(joinCode: self.joinCode, token: token))
-            AlertHandler.shared.show("Join Code", body: message)
+            let response = try await LanguagesAPI.makeRequest(.joinClass(joinCode: self.joinCode, token: token))
+            if response.success {
+                AlertHandler.shared.show("Success!", body: response.message ?? "You have been added to the class.")
+            } else {
+                AlertHandler.shared.show("Error", body: response.message ?? "An error ocurred when adding you to the class.")
+            }
         }
     }
 }

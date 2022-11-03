@@ -58,7 +58,7 @@ extension Request {
         )
     }
     
-    public static func joinClass(joinCode: String, token: String) -> Request<String> {
+    public static func joinClass(joinCode: String, token: String) -> Request<StatusResponse> {
         return .init(
             method: .post,
             url: studentUrl.appending(path: "joinclass"),

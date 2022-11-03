@@ -1,4 +1,12 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
+using JWT;
+using JWT.Algorithms;
+using JWT.Serializers;
+using JWT.Builder;
+using Newtonsoft.Json.Linq;
+using System.Net;
+
 namespace Languages.Services;
 
 public class PushNotifier
@@ -15,6 +23,7 @@ public class PushNotifier
         SendNotification(
             "Congratulations",
             "Well done for your work on " + deckName + ". - " + teacherName,
+            "CONGRATS",
             new List<int> { student }
         );
     }
@@ -33,6 +42,7 @@ public class PushNotifier
             SendNotification(
                 "Don't forget!",
                 "Remember to do your homework on " + deckName + ". It is due " + strDateDue + "! - " + teacherName,
+                "FUTURE_REMINDER",
                 new List<int> { student }
             );
         }
@@ -48,6 +58,7 @@ public class PushNotifier
             SendNotification(
                 "Don't forget!",
                 "Remember to do your homework on " + deckName + ". It was due " + strDateDue + "! - " + teacherName,
+                "PAST_REMINDER",
                 new List<int> { student }
             );
         }
@@ -58,11 +69,12 @@ public class PushNotifier
         SendNotification(
             "New Task",
             teacherName + " has set a new task for " + className + ". Complete " + deckName + " by " + dueDate.ToShortDateString() + ".",
+            "NEW_TASK",
             students
         );
     }
 
-    private void SendNotification(string title, string body, List<int> students)
+    private void SendNotification(string title, string body, string category, List<int> students)
     {
         List<string> tokens = students
             .Select(stu => da.Students.ForId(stu).SingleOrDefault())
@@ -72,6 +84,75 @@ public class PushNotifier
             .Select(token => token!)
             .ToList();
 
-        // TODO: Send a notification to the device via Apple's servers
+        foreach (string t in tokens)
+        {
+            SendPayloadToApple(t, title, body, category);
+        }
+    }
+
+    private const string kid = "";
+    private const string iss = "";
+    private const string baseUrl = "https://api.sandbox.push.apple.com:443";
+    private const string bundleId = "dev.benrobinson.languages";
+    private const string pathToKey = "/constants/apns_key.pem";
+
+    private string? providerToken = null;
+    private DateTime lastGenerated = DateTime.UnixEpoch;
+
+    private void GenerateAPNsToken()
+    {
+        string keyContents = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory.ToString() + pathToKey);
+        byte[] rawCertificate = Convert.FromBase64String(keyContents);
+        X509Certificate2 cert = new X509Certificate2(rawCertificate);
+
+        lastGenerated = DateTime.Now;
+        providerToken = JwtBuilder.Create()
+            .WithAlgorithm(new ES256Algorithm(cert))
+            .AddClaim("alg", "ES256")
+            .AddClaim("iss", DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+            .AddClaim("kid", kid)
+            .AddClaim("iss", iss)
+            .Encode();
+    }
+
+    private void SendPayloadToApple(string deviceToken, string title, string body, string category)
+    {
+        if (providerToken == null || lastGenerated.AddMinutes(45) < DateTime.Now)
+        {
+            GenerateAPNsToken();
+        }
+
+        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, baseUrl);
+
+        request.Headers.Add(":path", "/3/device/" + deviceToken);
+        request.Headers.Add("authorization", "bearer " + providerToken);
+        request.Headers.Add("apns-push-type", "alert");
+        request.Headers.Add("apns-topic", bundleId);
+
+        var payload = new
+        {
+            Aps = new
+            {
+                Alert = new
+                {
+                    Title = title,
+                    Body = body
+                },
+                Category = category
+            }
+        };
+        request.Content = JsonContent.Create(payload);
+
+        HttpClient client = new HttpClient();
+        HttpResponseMessage response = client.Send(request);
+
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            // Success
+        }
+        else
+        {
+            // Failure
+        }
     }
 }

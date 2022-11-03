@@ -46,3 +46,8 @@ public struct TaskSummary: Codable {
     public let taskDetails: TaskVm
     public let cards: [Card]
 }
+
+public struct StatusResponse: Codable {
+    public let success: Bool
+    public let message: String?
+}

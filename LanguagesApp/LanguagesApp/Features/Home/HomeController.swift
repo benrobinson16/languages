@@ -9,7 +9,7 @@ class HomeController: ObservableObject {
         guard !isLoading else { return }
         isLoading = true
         
-        ErrorHandler.shared.detachAsync {
+        ErrorHandler.shared.detachAsync { @MainActor in
             guard let token = Authenticator.shared.token else { throw AppError.notAuthenticated }
             let isNewStudent = try await LanguagesAPI.makeRequest(.isNewStudent(token: token))
             self.summary = try await LanguagesAPI.makeRequest(.summary(token: token))

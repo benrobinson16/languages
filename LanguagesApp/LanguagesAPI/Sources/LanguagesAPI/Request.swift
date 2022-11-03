@@ -14,19 +14,10 @@ public struct Request<Response> where Response: Decodable {
     }
     
     func makeUrlRequest() throws -> URLRequest {
-        var request = URLRequest(url: url)
+        let qryItems = data.map { URLQueryItem(name: $0.key, value: $0.value) }
+        let fullUrl = url.appending(queryItems: qryItems)
         
-        switch method {
-        case .get:
-            let qryItems = data.map { URLQueryItem(name: $0.key, value: $0.value) }
-            let fullUrl = url.appending(queryItems: qryItems)
-            request = URLRequest(url: fullUrl)
-            
-        case .post, .patch, .delete:
-            let encodedData = try JSONEncoder().encode(data)
-            request.httpBody = encodedData
-        }
-        
+        var request = URLRequest(url: fullUrl)
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = headers
         return request
