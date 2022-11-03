@@ -14,6 +14,7 @@ class ErrorHandler: ObservableObject {
             DispatchQueue.main.async {
                 self.errorMessage = error.localizedDescription
                 self.showAlert = true
+                print(error.localizedDescription)
             }
         }
     }
@@ -28,11 +29,12 @@ class ErrorHandler: ObservableObject {
         } catch {
             errorMessage = error.localizedDescription
             showAlert = true
+            print(error.localizedDescription)
         }
     }
     
     func detachAsync(_ operation: @escaping () async throws -> Void) {
-        Task {
+        Task { @MainActor in
             await wrapAsync(operation)
         }
     }

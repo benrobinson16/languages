@@ -46,3 +46,26 @@ fileprivate struct Hand: View {
         index = (index + 1) % keyframes.count
     }
 }
+
+struct WavingHand2: View {
+    var body: some View {
+        TimelineView(.periodic(from: .now, by: 10.0)) { timeline in
+            Hand2(date: timeline.date)
+        }
+    }
+}
+
+fileprivate struct Hand2: View {
+    let date: Date
+    
+    @State private var count = 0
+    
+    var body: some View {
+        Text("👋")
+            .font(.system(size: 52))
+            .padding(.trailing, 16)
+            .modifier(RotationShakeEffect(animatableData: CGFloat(count)))
+            .animation(.default, value: count)
+            .onChange(of: date) { _ in count += 1 }
+    }
+}

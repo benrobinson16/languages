@@ -32,8 +32,8 @@ class TaskLearningSession: LearningSession {
                 currentMessage = .init(
                     title: "Well Done!",
                     body: "You've completed all your task cards.",
-                    option1: "Continue reviewing",
-                    option2: "Exit"
+                    option1: .init(name: "Continue reviewing", action: { }),
+                    option2: .init(name: "Exit", action: Navigator.shared.goHome)
                 )
                 currentCard = nil
             } else {

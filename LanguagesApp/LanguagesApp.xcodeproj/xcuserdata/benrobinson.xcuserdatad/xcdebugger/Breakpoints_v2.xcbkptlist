@@ -52,5 +52,164 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BF9E4214-3AC4-4D6A-9ADF-86B3478288FF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LanguagesApp/Screens/LearningScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "BF9E4214-3AC4-4D6A-9ADF-86B3478288FF - f5fb27a71454fcdd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 () -&gt; () in LanguagesApp.LearningScreen.body.getter : some"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/Screens/LearningScreen.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "BF9E4214-3AC4-4D6A-9ADF-86B3478288FF - df5da3b9a462b3b2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) await resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 () -&gt; () in LanguagesApp.LearningScreen.body.getter : some"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/Screens/LearningScreen.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "BF9E4214-3AC4-4D6A-9ADF-86B3478288FF - c87a49140b8db0df"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 () -&gt; () in LanguagesApp.LearningScreen.body.getter : some"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/Screens/LearningScreen.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F30D1880-4E46-44FB-A606-3B8BE2590D96"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DataStructures/Sources/DataStructures/LearningLQN.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "dequeueWithLearningHeuristic()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F30D1880-4E46-44FB-A606-3B8BE2590D96 - 6080daba40987469"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DataStructures.LearningLQN.dequeueWithLearningHeuristic() -&gt; Swift.Optional&lt;(value: &#x3c4;_0_0, queue: Swift.Int)&gt;"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/DataStructures/Sources/DataStructures/LearningLQN.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "840">
+               </Location>
+               <Location
+                  uuid = "F30D1880-4E46-44FB-A606-3B8BE2590D96 - dc1fad000cf9fea1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Int) -&gt; Swift.Bool in DataStructures.LearningLQN.dequeueWithLearningHeuristic() -&gt; Swift.Optional&lt;(value: &#x3c4;_0_0, queue: Swift.Int)&gt;"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/DataStructures/Sources/DataStructures/LearningLQN.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "72">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "50DAAD77-D56C-48C5-AE02-B4DA0619A303"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LanguagesApp/Controllers/TaskLearningSession.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "nextQuestion()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0F4E56C5-A690-4C66-ADB5-24C11AF9F319"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LanguagesApp/Screens/LearningScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "moveToReview()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DD05BF02-E065-4F9B-B17B-D3AEB0DE3F78"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LanguagesApp/Screens/LearningScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

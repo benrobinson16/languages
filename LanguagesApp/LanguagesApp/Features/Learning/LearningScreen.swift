@@ -12,7 +12,7 @@ struct LearningScreenWrapper: View {
     }
     
     func moveToReview() {
-        isReviewing = false
+        isReviewing = true
     }
 }
 
@@ -28,6 +28,12 @@ struct LearningScreen: View {
                 LearningMessageView(message: message)
             } else {
                 ProgressView()
+            }
+        }
+        .onAppear {
+            Task {
+                await session.startSession()
+                await session.nextQuestion()
             }
         }
     }

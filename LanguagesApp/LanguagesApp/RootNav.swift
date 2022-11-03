@@ -35,6 +35,12 @@ struct RootNav: View {
                     )) {
                         Text("Onboarding")
                     }
+                    .alert("Join Class", isPresented: .init(
+                        get: { nav.state == .joinClass },
+                        set: { _ in nav.goHome() }
+                    )) {
+                        JoinClassAlert() // FIXME: Define view
+                    }
             }
         }
         .onOpenURL { url in

@@ -48,6 +48,10 @@
 		52C28F852905F0810088593B /* CyclicTimelineSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F842905F0810088593B /* CyclicTimelineSchedule.swift */; };
 		52C28F872905F0AE0088593B /* WavingHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F862905F0AE0088593B /* WavingHand.swift */; };
 		52D6DE852913ADAD0069B1E3 /* AlertWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6DE842913ADAD0069B1E3 /* AlertWrapper.swift */; };
+		52D6DE872913B2920069B1E3 /* ShakeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6DE862913B2920069B1E3 /* ShakeEffect.swift */; };
+		52FB8AFF291427CA0086C6A1 /* JoinClassAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB8AFE291427CA0086C6A1 /* JoinClassAlert.swift */; };
+		52FB8B0129142A1F0086C6A1 /* AlertHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB8B0029142A1F0086C6A1 /* AlertHandler.swift */; };
+		52FB8B0329142EB30086C6A1 /* JoinClassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB8B0229142EB30086C6A1 /* JoinClassController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +98,10 @@
 		52C28F842905F0810088593B /* CyclicTimelineSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclicTimelineSchedule.swift; sourceTree = "<group>"; };
 		52C28F862905F0AE0088593B /* WavingHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavingHand.swift; sourceTree = "<group>"; };
 		52D6DE842913ADAD0069B1E3 /* AlertWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWrapper.swift; sourceTree = "<group>"; };
+		52D6DE862913B2920069B1E3 /* ShakeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeEffect.swift; sourceTree = "<group>"; };
+		52FB8AFE291427CA0086C6A1 /* JoinClassAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinClassAlert.swift; sourceTree = "<group>"; };
+		52FB8B0029142A1F0086C6A1 /* AlertHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHandler.swift; sourceTree = "<group>"; };
+		52FB8B0229142EB30086C6A1 /* JoinClassController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinClassController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,33 +119,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		523E0A5D28F574FB00B505F0 /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				524C5AB828E2FACA00A4BDD1 /* RootNav.swift */,
-				523E0A5B28F574F700B505F0 /* HomeScreen.swift */,
-				523E0A6128F5759300B505F0 /* SplashScreen.swift */,
-				523E0A6328F5760D00B505F0 /* TaskScreen.swift */,
-				523E0A6528F5761600B505F0 /* SettingsScreen.swift */,
-				523E0A6728F5762000B505F0 /* LearningScreen.swift */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
 		523E0A5E28F5750100B505F0 /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
 				522D98FC28F4187300D17239 /* SignInButton.swift */,
-				52C28F742905BB4D0088593B /* TitleGreeting.swift */,
 				52C28F762905BC010088593B /* Panel.swift */,
-				52C28F782905BD0A0088593B /* DailyCompletionPanel.swift */,
 				52C28F7C2905BF840088593B /* AppButton.swift */,
-				52C28F7E2905C1390088593B /* StreaksPanel.swift */,
-				52C28F802905C4EA0088593B /* TaskList.swift */,
-				52C28F822905C7BD0088593B /* FootnoteButton.swift */,
-				52C28F862905F0AE0088593B /* WavingHand.swift */,
-				527AD2A029116599001A1AD5 /* LearningCardView.swift */,
-				527AD2A2291165B9001A1AD5 /* LearningMessageView.swift */,
 				52D6DE842913ADAD0069B1E3 /* AlertWrapper.swift */,
 			);
 			path = ViewComponents;
@@ -158,7 +145,7 @@
 				52C28F722905BAA10088593B /* Color+EXT.swift */,
 				52C28F7A2905BE9E0088593B /* Font+EXT.swift */,
 				52C28F842905F0810088593B /* CyclicTimelineSchedule.swift */,
-				527ACFA22911B2100008147A /* ErrorHandler.swift */,
+				52D6DE862913B2920069B1E3 /* ShakeEffect.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -186,11 +173,12 @@
 		524C5AB528E2FACA00A4BDD1 /* LanguagesApp */ = {
 			isa = PBXGroup;
 			children = (
-				527AD2A729116642001A1AD5 /* Controllers */,
+				52FB8B0829142F370086C6A1 /* GlobalControllers */,
 				527AD2A4291165D3001A1AD5 /* Model */,
 				523E0A7128F5794A00B505F0 /* Helper */,
 				523E0A5E28F5750100B505F0 /* ViewComponents */,
-				523E0A5D28F574FB00B505F0 /* Screens */,
+				52FB8B0429142EC50086C6A1 /* Features */,
+				524C5AB828E2FACA00A4BDD1 /* RootNav.swift */,
 				524D5A8D28EEC79A00035DB6 /* Info.plist */,
 				524D5A8C28EEC78100035DB6 /* LanguagesApp.entitlements */,
 				524C5AB628E2FACA00A4BDD1 /* LanguagesApp.swift */,
@@ -217,19 +205,91 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		527AD2A729116642001A1AD5 /* Controllers */ = {
+		52FB8B0429142EC50086C6A1 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				524D5A8E28EED13E00035DB6 /* Authenticator.swift */,
+				52FB8B0B29142F820086C6A1 /* Task */,
+				52FB8B0A29142F790086C6A1 /* Settings */,
+				52FB8B0929142F4B0086C6A1 /* Splash */,
+				52FB8B0729142F000086C6A1 /* Home */,
+				52FB8B0629142EDF0086C6A1 /* Learning */,
+				52FB8B0529142ECA0086C6A1 /* JoinClass */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		52FB8B0529142ECA0086C6A1 /* JoinClass */ = {
+			isa = PBXGroup;
+			children = (
+				52FB8B0229142EB30086C6A1 /* JoinClassController.swift */,
+				52FB8AFE291427CA0086C6A1 /* JoinClassAlert.swift */,
+			);
+			path = JoinClass;
+			sourceTree = "<group>";
+		};
+		52FB8B0629142EDF0086C6A1 /* Learning */ = {
+			isa = PBXGroup;
+			children = (
 				527AD2A829116656001A1AD5 /* LearningSession.swift */,
 				527AD2AA29116662001A1AD5 /* ReviewLearningSession.swift */,
 				527AD2AC29116670001A1AD5 /* TaskLearningSession.swift */,
-				527ACF9E2911A6260008147A /* Navigator.swift */,
 				527ACFA02911A75D0008147A /* LearningQuestion.swift */,
-				527ACFA72911B7160008147A /* HomeController.swift */,
-				527ACFA92911B8960008147A /* SplashController.swift */,
+				527AD2A029116599001A1AD5 /* LearningCardView.swift */,
+				527AD2A2291165B9001A1AD5 /* LearningMessageView.swift */,
+				523E0A6728F5762000B505F0 /* LearningScreen.swift */,
 			);
-			path = Controllers;
+			path = Learning;
+			sourceTree = "<group>";
+		};
+		52FB8B0729142F000086C6A1 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				527ACFA72911B7160008147A /* HomeController.swift */,
+				523E0A5B28F574F700B505F0 /* HomeScreen.swift */,
+				52C28F742905BB4D0088593B /* TitleGreeting.swift */,
+				52C28F782905BD0A0088593B /* DailyCompletionPanel.swift */,
+				52C28F7E2905C1390088593B /* StreaksPanel.swift */,
+				52C28F802905C4EA0088593B /* TaskList.swift */,
+				52C28F822905C7BD0088593B /* FootnoteButton.swift */,
+				52C28F862905F0AE0088593B /* WavingHand.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		52FB8B0829142F370086C6A1 /* GlobalControllers */ = {
+			isa = PBXGroup;
+			children = (
+				524D5A8E28EED13E00035DB6 /* Authenticator.swift */,
+				527ACF9E2911A6260008147A /* Navigator.swift */,
+				527ACFA22911B2100008147A /* ErrorHandler.swift */,
+				52FB8B0029142A1F0086C6A1 /* AlertHandler.swift */,
+			);
+			path = GlobalControllers;
+			sourceTree = "<group>";
+		};
+		52FB8B0929142F4B0086C6A1 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				527ACFA92911B8960008147A /* SplashController.swift */,
+				523E0A6128F5759300B505F0 /* SplashScreen.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		52FB8B0A29142F790086C6A1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				523E0A6528F5761600B505F0 /* SettingsScreen.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		52FB8B0B29142F820086C6A1 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				523E0A6328F5760D00B505F0 /* TaskScreen.swift */,
+			);
+			path = Task;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,6 +377,7 @@
 				52C28F832905C7BD0088593B /* FootnoteButton.swift in Sources */,
 				52C28F752905BB4D0088593B /* TitleGreeting.swift in Sources */,
 				527AD2A6291165DD001A1AD5 /* Message.swift in Sources */,
+				52FB8B0329142EB30086C6A1 /* JoinClassController.swift in Sources */,
 				52C28F792905BD0A0088593B /* DailyCompletionPanel.swift in Sources */,
 				523E0A6628F5761600B505F0 /* SettingsScreen.swift in Sources */,
 				52C28F7B2905BE9E0088593B /* Font+EXT.swift in Sources */,
@@ -328,9 +389,11 @@
 				52C28F7F2905C1390088593B /* StreaksPanel.swift in Sources */,
 				527AD2AD29116670001A1AD5 /* TaskLearningSession.swift in Sources */,
 				523E0A6828F5762000B505F0 /* LearningScreen.swift in Sources */,
+				52D6DE872913B2920069B1E3 /* ShakeEffect.swift in Sources */,
 				52C28F732905BAA10088593B /* Color+EXT.swift in Sources */,
 				527ACF9F2911A6260008147A /* Navigator.swift in Sources */,
 				524C5AB928E2FACA00A4BDD1 /* RootNav.swift in Sources */,
+				52FB8AFF291427CA0086C6A1 /* JoinClassAlert.swift in Sources */,
 				527AD2A129116599001A1AD5 /* LearningCardView.swift in Sources */,
 				527AD2A929116656001A1AD5 /* LearningSession.swift in Sources */,
 				527ACFA32911B2100008147A /* ErrorHandler.swift in Sources */,
@@ -344,6 +407,7 @@
 				527ACFA82911B7160008147A /* HomeController.swift in Sources */,
 				52C28F872905F0AE0088593B /* WavingHand.swift in Sources */,
 				52C28F852905F0810088593B /* CyclicTimelineSchedule.swift in Sources */,
+				52FB8B0129142A1F0086C6A1 /* AlertHandler.swift in Sources */,
 				524C5AB728E2FACA00A4BDD1 /* LanguagesApp.swift in Sources */,
 				527ACFAA2911B8960008147A /* SplashController.swift in Sources */,
 			);

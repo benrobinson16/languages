@@ -9,7 +9,6 @@ struct Panel<Content>: View where Content: View {
             .background(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .foregroundColor(.panelBackground)
-                    .shadow(radius: 2.0)
             )
     }
 }

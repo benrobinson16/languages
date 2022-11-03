@@ -16,7 +16,7 @@ struct TitleGreeting: View {
             
             HStack {
                 Spacer()
-                WavingHand()
+                WavingHand2()
             }
             .offset(y: 36)
         }

@@ -41,11 +41,9 @@ export const newTaskSlice = createSlice({
             state.classId = action.payload;
         },
         selectedDeck: (state, action: PayloadAction<number | null>) => {
-            console.log(action.payload);
             state.deckId = action.payload;
         },
         changedDate: (state, action: PayloadAction<number>) => {
-            console.log("Changed date to: " + action.payload);
             state.dueDate = action.payload;
         },
         startedCreating: (state) => {

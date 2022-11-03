@@ -25,7 +25,6 @@ struct LearningCardView: View {
                     question.answerQuestion(answer: answer)
                 }
             }
-            
         }
     }
     

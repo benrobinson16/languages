@@ -20,6 +20,7 @@ struct HomeScreen: View {
                     HStack {
                         Spacer()
                         FootnoteButton(title: "Settings") { nav.open(.settings) }
+                        FootnoteButton(title: "Join Class") { nav.open(.joinClass) }
                         Spacer()
                     }
                 }

@@ -34,7 +34,7 @@ extension Request {
     public static func reviewCards(token: String) -> Request<[Card]> {
         return .init(
             method: .get,
-            url: studentUrl.appending(path: "taskcards"),
+            url: studentUrl.appending(path: "reviewCards"),
             headers: ["Authorization": token],
             data: [:]
         )
@@ -58,7 +58,7 @@ extension Request {
         )
     }
     
-    public static func joinClass(joinCode: String, token: String) -> Request<Int> {
+    public static func joinClass(joinCode: String, token: String) -> Request<String> {
         return .init(
             method: .post,
             url: studentUrl.appending(path: "joinclass"),
