@@ -1,8 +1,6 @@
 import SwiftUI
 import LanguagesAPI
 
-
-
 struct JoinClassAlert: View {
     @StateObject private var controller = JoinClassController()
     

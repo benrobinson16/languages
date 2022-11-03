@@ -39,7 +39,9 @@ struct RootNav: View {
                         get: { nav.state == .joinClass },
                         set: { _ in nav.goHome() }
                     )) {
-                        JoinClassAlert() // FIXME: Define view
+                        JoinClassAlert()
+                    } message: {
+                        Text("To join a class, ask your teacher for the class join code.")
                     }
             }
         }

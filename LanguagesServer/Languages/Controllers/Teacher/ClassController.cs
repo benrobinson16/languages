@@ -71,9 +71,14 @@ public class TeacherClassController : ControllerBase
         do
         {
             long num = random.NextInt64() % 1_0000_0000;
-            long firstHalf = num / 1_0000;
-            long secondHalf = num % 1_0000;
-            code = Convert.ToString(firstHalf) + "-" + Convert.ToString(secondHalf);
+
+            string firstHalf = Convert.ToString(num / 1_0000);
+            while (firstHalf.Length < 4) firstHalf = "0" + firstHalf;
+
+            string secondHalf = Convert.ToString(num % 1_0000);
+            while (secondHalf.Length < 4) secondHalf = "0" + secondHalf;
+
+            code = firstHalf + "-" + secondHalf;
         }
         while (da.Classes.JoinCodeExists(code));
 
