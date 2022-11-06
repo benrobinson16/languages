@@ -8,10 +8,14 @@ class Navigator: ObservableObject {
     static let shared = Navigator()
     
     func goHome() {
-        state = .home
+        Task { @MainActor in
+            state = .home
+        }
     }
     
     func open(_ route: NavRoute) {
-        state = route
+        Task { @MainActor in
+            state = route
+        }
     }
 }

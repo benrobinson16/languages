@@ -24,8 +24,16 @@ struct AlertWrapper<Content>: View where Content: View {
                 isPresented: $alerts.showAlert,
                 presenting: alerts.alertMessage
             ) { _ in
-                Button("OK") {
-                    Navigator.shared.goHome()
+                if let opt1 = alerts.option1 {
+                    Button(opt1.name, action: opt1.action)
+                    
+                    if let opt2 = alerts.option2 {
+                        Button(opt2.name, action: opt2.action)
+                    }
+                } else {
+                    Button("OK") {
+                        Navigator.shared.goHome()
+                    }
                 }
             } message: { message in
                 Text(message)

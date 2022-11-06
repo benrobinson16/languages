@@ -11,12 +11,14 @@ struct HomeScreen: View {
                 VStack(alignment: .leading, spacing: 16) {
                     Spacer(minLength: 50)
                     TitleGreeting(name: summary.studentName)
-                    Spacer(minLength: 50)
+                        .padding(.bottom, 50)
                     DailyCompletionPanel(percentage: summary.dailyPercentage) { nav.open(.learning) }
                     StreaksPanel(streakHistory: summary.streakHistory, streakLength: summary.streakLength)
-                    Spacer(minLength: 30)
+                        .padding(.bottom, 30)
                     TaskList(tasks: summary.tasks) { nav.open(.task($0)) }
-                    Spacer(minLength: 30)
+                        .padding(.bottom, 30)
+                    ClassList(classes: summary.enrollments, joinClass: controller.joinClass, deleteEnrollment: controller.leaveClass)
+                        .padding(.bottom, 30)
                     HStack {
                         Spacer()
                         FootnoteButton(title: "Settings") { nav.open(.settings) }

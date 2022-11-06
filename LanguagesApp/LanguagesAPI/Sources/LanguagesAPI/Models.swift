@@ -21,6 +21,7 @@ public struct StudentSummary: Codable {
     public let streakHistory: [StreakDay]
     public let streakLength: Int
     public let tasks: [TaskVm]
+    public let enrollments: [EnrollmentVm]
     public let dailyPercentage: Double
     public let overdueMessage: String
     public let studentName: String
@@ -50,4 +51,12 @@ public struct TaskSummary: Codable {
 public struct StatusResponse: Codable {
     public let success: Bool
     public let message: String?
+}
+
+public struct EnrollmentVm: Codable, Identifiable {
+    public let classId: Int
+    public let className: String
+    public let teacherName: String
+    
+    public var id: Int { return classId }
 }

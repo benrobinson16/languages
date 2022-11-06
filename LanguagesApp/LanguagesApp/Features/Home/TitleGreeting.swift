@@ -6,25 +6,25 @@ struct TitleGreeting: View {
     var body: some View {
         ZStack(alignment: .leading) {
             VStack(alignment: .leading) {
-                Text(getGreeting() + ",")
-                    .font(.appTitle)
+                if name.trimmingCharacters(in: .whitespaces).isEmpty {
+                    Text(getGreeting() + "!")
+                        .font(.appTitle)
+                } else {
+                    Text(getGreeting() + ",")
+                        .font(.appTitle)
+                    
+                    Text(name)
+                        .font(.appTitle)
+                        .foregroundColor(.appAccent)
+                }
                 
-                Text(name)
-                    .font(.appTitle)
-                    .foregroundColor(.appAccent)
             }
             
             HStack {
                 Spacer()
-                WavingHand2()
+                WavingHand()
             }
             .offset(y: 36)
-        }
-        if name.trimmingCharacters(in: .whitespaces).isEmpty {
-            Text(getGreeting() + "!")
-                .font(.appTitle)
-        } else {
-            
         }
     }
     

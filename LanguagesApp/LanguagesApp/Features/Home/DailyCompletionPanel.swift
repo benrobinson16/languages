@@ -6,28 +6,29 @@ struct DailyCompletionPanel: View {
     
     var body: some View {
         Panel {
-            VStack(alignment: .center, spacing: 16) {
-                Text(percentage.formatted(.percent))
-                    .font(.appTitle)
-                
-                Text("of today's cards completed")
-                    .font(.appSecondary)
-                    .foregroundColor(.secondary)
-                
-                ZStack(alignment: .leading) {
-                    Rectangle()
-                        .foregroundColor(.panelSecondary)
-                        .cornerRadius(8)
-                        .frame(height: 24)
+            GeometryReader { geom in
+                VStack(alignment: .center, spacing: 16) {
+                    Text(percentage.formatted(.percent))
+                        .font(.appTitle)
                     
-                    Rectangle()
-                        .scaleEffect(x: percentage)
-                        .foregroundColor(.appSecondaryAccent)
-                        .cornerRadius(8)
-                        .frame(height: 24)
+                    Text("of today's cards completed")
+                        .font(.appSecondary)
+                        .foregroundColor(.secondary)
+                    
+                    ZStack(alignment: .leading) {
+                        Rectangle()
+                            .foregroundColor(.panelSecondary)
+                            .frame(height: 24)
+                            .cornerRadius(8)
+                        
+                        Rectangle()
+                            .foregroundColor(.appSecondaryAccent)
+                            .frame(width: geom.size.width * percentage, height: 24)
+                            .cornerRadius(8)
+                    }
+                    
+                    AppButton(title: "Continue learning", action: continueLearning)
                 }
-                
-                AppButton(title: "Continue learning", action: continueLearning)
             }
         }
     }

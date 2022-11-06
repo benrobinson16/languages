@@ -58,6 +58,7 @@ public class StudentController: ControllerBase
             StreakHistory = da.StudentAttempts.StreakHistoryForStudent(student.StudentId),
             StreakLength = da.StudentAttempts.StreakLengthForStudent(student.StudentId),
             Tasks = taskVms,
+            Enrollments = da.Enrollments.VmsForStudent(student.StudentId).ToList(),
             DailyPercentage = 0.5, // FIXME: NEED TO IMPLEMENT SCHEDULING ALGORITHM
             OverdueMessage = message,
             StudentName = student.FirstName
@@ -158,6 +159,31 @@ public class StudentController: ControllerBase
 
         return new StatusResponse {
             Message = "You have succesfully been added to class " + foundClass.Name + ".",
+            Success = true
+        };
+    }
+
+    [HttpPost("leaveClass")]
+    public StatusResponse LeaveClass(int classId)
+    {
+        Student student = shield.AuthenticateStudent(Request);
+
+        Enrollment? enrollment = da.Enrollments.ById(classId, student.StudentId).FirstOrDefault();
+        if (enrollment == null)
+        {
+            return new StatusResponse
+            {
+                Success = false,
+                Message = "You are not enrolled in that class."
+            };
+        }
+
+        db.Remove(enrollment);
+        db.SaveChanges();
+
+        return new StatusResponse
+        {
+            Message = null,
             Success = true
         };
     }

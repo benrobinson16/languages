@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SplashScreen: View {
     @StateObject private var controller = SplashController()
+    @State private var shown = false
     
     var body: some View {
         ZStack(alignment: .center) {
@@ -20,5 +21,9 @@ struct SplashScreen: View {
                 )
         }
         .padding()
+        .opacity(shown ? 1.0 : 0.0)
+        .animation(.easeInOut(duration: 1.0), value: shown)
+        .onAppear { shown = true }
+        .onDisappear { shown = false }
     }
 }

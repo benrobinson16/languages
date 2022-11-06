@@ -67,6 +67,15 @@ extension Request {
         )
     }
     
+    public static func leaveClass(classId: Int, token: String) -> Request<StatusResponse> {
+        return .init(
+            method: .post,
+            url: studentUrl.appending(path: "leaveclass"),
+            headers: ["Authorization": token],
+            data: ["classId": String(classId)]
+        )
+    }
+    
     public static func registerDevice(device: String, token: String) -> Request<String> {
         return .init(
             method: .post,

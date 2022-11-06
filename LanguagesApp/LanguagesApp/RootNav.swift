@@ -16,6 +16,7 @@ struct RootNav: View {
                         set: { _ in nav.goHome() }
                     )) {
                         LearningScreenWrapper()
+                            .interactiveDismissDisabled()
                     }
                     .sheet(isPresented: .init(
                         get: { nav.state.isTask() },
@@ -30,16 +31,25 @@ struct RootNav: View {
                         SettingsScreen()
                     }
                     .sheet(isPresented: .init(
-                        get: { nav.state == .onboarding },
+                        get: { nav.state == .onboarding || nav.state == .firstJoinClass },
                         set: { _ in nav.goHome() }
                     )) {
-                        Text("Onboarding")
+                        OnboardingScreen()
+                            .interactiveDismissDisabled()
+                            .alert("Join Class", isPresented: .init(
+                                get: { nav.state == .firstJoinClass },
+                                set: { _ in }
+                            )) {
+                                JoinClassAlert(firstJoin: true)
+                            } message: {
+                                Text("To join a class, ask your teacher for the class join code.")
+                            }
                     }
                     .alert("Join Class", isPresented: .init(
                         get: { nav.state == .joinClass },
-                        set: { _ in nav.goHome() }
+                        set: { _ in }
                     )) {
-                        JoinClassAlert()
+                        JoinClassAlert(firstJoin: false)
                     } message: {
                         Text("To join a class, ask your teacher for the class join code.")
                     }

@@ -5,6 +5,7 @@ enum NavRoute: Equatable {
     case settings
     case onboarding
     case joinClass
+    case firstJoinClass
     
     func isTask() -> Bool {
         if case .task(_) = self {
