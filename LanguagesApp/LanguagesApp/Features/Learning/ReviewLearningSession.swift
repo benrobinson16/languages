@@ -5,6 +5,7 @@ import DataStructures
 class ReviewLearningSession: LearningSession {
     private var questionQueue = Queue<Card>()
     
+    @MainActor
     override func nextQuestion() async {
         if questionQueue.isEmpty {
             if currentCard != nil {

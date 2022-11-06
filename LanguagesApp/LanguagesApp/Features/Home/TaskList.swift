@@ -13,10 +13,10 @@ struct TaskList: View {
             if tasks.isEmpty {
                 Panel {
                     HStack {
-                        Spacer()
+                        Spacer(minLength: 0)
                         Text("No upcoming tasks. 🎉")
                             .font(.appSubheading)
-                        Spacer()
+                        Spacer(minLength: 0)
                     }
                 }
             } else {

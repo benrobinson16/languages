@@ -16,16 +16,19 @@ struct ClassList: View {
                 
                 Button(action: joinClass) {
                     Image(systemName: "plus.circle")
+                        .font(.appSubheading)
+                        .foregroundColor(.primary)
                 }
             }
             
             if classes.isEmpty {
                 Panel {
                     HStack {
-                        Spacer()
+                        Spacer(minLength: 0)
                         Text("You're not a member of any classes yet.")
                             .font(.appSubheading)
-                        Spacer()
+                            .multilineTextAlignment(.center)
+                        Spacer(minLength: 0)
                     }
                 }
             } else {

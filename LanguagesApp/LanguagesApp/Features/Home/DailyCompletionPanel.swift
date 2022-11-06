@@ -6,7 +6,6 @@ struct DailyCompletionPanel: View {
     
     var body: some View {
         Panel {
-            GeometryReader { geom in
                 VStack(alignment: .center, spacing: 16) {
                     Text(percentage.formatted(.percent))
                         .font(.appTitle)
@@ -15,21 +14,23 @@ struct DailyCompletionPanel: View {
                         .font(.appSecondary)
                         .foregroundColor(.secondary)
                     
-                    ZStack(alignment: .leading) {
-                        Rectangle()
-                            .foregroundColor(.panelSecondary)
-                            .frame(height: 24)
-                            .cornerRadius(8)
+                    GeometryReader { geom in
+                        ZStack(alignment: .leading) {
+                            Rectangle()
+                                .foregroundColor(.panelSecondary)
+                                .frame(height: 24)
                         
-                        Rectangle()
-                            .foregroundColor(.appSecondaryAccent)
-                            .frame(width: geom.size.width * percentage, height: 24)
-                            .cornerRadius(8)
+                            Rectangle()
+                                .foregroundColor(.appSecondaryAccent)
+                                .frame(width: geom.size.width * percentage, height: 24)
+                                .cornerRadius(8)
+                        }
+                        .cornerRadius(8)
                     }
+                    .frame(height: 24)
                     
                     AppButton(title: "Continue learning", action: continueLearning)
                 }
             }
-        }
     }
 }

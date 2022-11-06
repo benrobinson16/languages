@@ -9,7 +9,15 @@ struct HomeScreen: View {
         ScrollView {
             if let summary = controller.summary {
                 VStack(alignment: .leading, spacing: 16) {
-                    Spacer(minLength: 50)
+                    HStack {
+                        Spacer()
+                        Button(action: controller.signOut) {
+                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                                .font(.appSubheading)
+                                .foregroundColor(.primary)
+                        }
+                    }
+                    Spacer(minLength: 40)
                     TitleGreeting(name: summary.studentName)
                         .padding(.bottom, 50)
                     DailyCompletionPanel(percentage: summary.dailyPercentage) { nav.open(.learning) }

@@ -46,4 +46,10 @@ class HomeController: ObservableObject {
     func joinClass() {
         Navigator.shared.open(.joinClass)
     }
+    
+    func signOut() {
+        ErrorHandler.shared.detachAsync {
+            try await Authenticator.shared.signOut()
+        }
+    }
 }
