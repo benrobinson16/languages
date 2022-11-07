@@ -53,13 +53,21 @@ public class StudentController: ControllerBase
             message = "You have " + incompleteOverdue.Count() + " tasks overdue. Start now to complete them.";
         }
 
+        int expectedQuestions = da.StudentAttempts.ExpectedQuestionsToday(student.StudentId);
+        int completedQuestions = da.StudentAttempts.CardsAnsweredToday(student.StudentId);
+        int minRemainingQuestions = da.StudentAttempts.MinRemainingQuestionsToday(student.StudentId);
+        int effectiveCompleted = Math.Min(completedQuestions, expectedQuestions - minRemainingQuestions);
+        double percentage = effectiveCompleted / expectedQuestions;
+        if (percentage < 0) percentage = 0.0;
+        if (percentage > 1) percentage = 1.0;
+
         return new StudentSummaryVm
         {
             StreakHistory = da.StudentAttempts.StreakHistoryForStudent(student.StudentId),
             StreakLength = da.StudentAttempts.StreakLengthForStudent(student.StudentId),
             Tasks = taskVms,
             Enrollments = da.Enrollments.VmsForStudent(student.StudentId).ToList(),
-            DailyPercentage = 0.5, // FIXME: NEED TO IMPLEMENT SCHEDULING ALGORITHM
+            DailyPercentage = percentage,
             OverdueMessage = message,
             StudentName = student.FirstName
         };

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Card: Codable, Identifiable {
+public struct Card: Codable, Identifiable, Equatable {
     public let cardId: Int
     public let englishTerm: String
     public let foreignTerm: String
@@ -10,14 +10,14 @@ public struct Card: Codable, Identifiable {
     public var id: Int { return cardId }
 }
 
-public enum QuestionType: Int, Codable {
+public enum QuestionType: Int, Codable, Equatable {
     case none = 0
     case multipleChoice = 1
     case englishWritten = 2
     case foreignWritten = 3
 }
 
-public struct StudentSummary: Codable {
+public struct StudentSummary: Codable, Equatable {
     public let streakHistory: [StreakDay]
     public let streakLength: Int
     public let tasks: [TaskVm]
@@ -27,14 +27,14 @@ public struct StudentSummary: Codable {
     public let studentName: String
 }
 
-public struct StreakDay: Codable, Identifiable {
+public struct StreakDay: Codable, Identifiable, Equatable {
     public let date: Date
     public let didAttempt: Bool
     
     public var id: Date { return date }
 }
 
-public struct TaskVm: Codable, Identifiable {
+public struct TaskVm: Codable, Identifiable, Equatable {
     public let id: Int
     public let classId: Int
     public let deckId: Int
@@ -43,17 +43,17 @@ public struct TaskVm: Codable, Identifiable {
     public let dueDate: Date
 }
 
-public struct TaskSummary: Codable {
+public struct TaskSummary: Codable, Equatable {
     public let taskDetails: TaskVm
     public let cards: [Card]
 }
 
-public struct StatusResponse: Codable {
+public struct StatusResponse: Codable, Equatable {
     public let success: Bool
     public let message: String?
 }
 
-public struct EnrollmentVm: Codable, Identifiable {
+public struct EnrollmentVm: Codable, Identifiable, Equatable {
     public let classId: Int
     public let className: String
     public let teacherName: String

@@ -176,5 +176,64 @@ public class StudentAttemptRepository
             RemoveForCard(card.CardId);
         }
     }
+
+    public int ExpectedQuestionsToday(int studentId)
+    {
+        var qry = from enrol in db.Enrollments
+                  where enrol.StudentId == studentId
+                  join task in db.Tasks on enrol.ClassId equals task.ClassId
+                  join card in db.Cards on task.DeckId equals card.DeckId
+                  let greatestAttemptAtCard = (
+                      from attempt in db.StudentAttempts
+                      where attempt.CardId == card.CardId
+                      where attempt.StudentId == enrol.StudentId
+                      where attempt.AttemptDate.Date < DateTime.Now.Date
+                      where attempt.Correct
+                      orderby attempt.QuestionType descending
+                      select attempt.QuestionType
+                  ).First()
+                  where greatestAttemptAtCard <= (int)QuestionType.ForeignWritten
+                  let questionsRequired = (int)QuestionType.ForeignWritten - greatestAttemptAtCard
+                  let questionsPerDay = task.DueDate > DateTime.Now ?
+                        questionsRequired / Math.Ceiling((task.DueDate - DateTime.Now).TotalDays) :
+                        questionsRequired
+                  select questionsPerDay;
+
+        return (int)qry.Sum();
+    }
+
+    public int MinRemainingQuestionsToday(int studentId)
+    {
+        var qry = from enrol in db.Enrollments
+                  where enrol.StudentId == studentId
+                  join task in db.Tasks on enrol.ClassId equals task.ClassId
+                  where task.DueDate.Date == DateTime.Now.Date
+                      || task.DueDate.Date == DateTime.Now.AddDays(1).Date
+                  join card in db.Cards on task.DeckId equals card.DeckId
+                  let greatestAttemptAtCard = (
+                      from attempt in db.StudentAttempts
+                      where attempt.CardId == card.CardId
+                      where attempt.StudentId == enrol.StudentId
+                      where attempt.Correct
+                      orderby attempt.QuestionType descending
+                      select attempt.QuestionType
+                  ).First()
+                  where greatestAttemptAtCard <= (int)QuestionType.ForeignWritten
+                  let questionsRequired = (int)QuestionType.ForeignWritten - greatestAttemptAtCard
+                  select questionsRequired;
+
+        return (int)qry.Sum();
+    }
+
+    public int CardsAnsweredToday(int studentId)
+    {
+        var qry = from attempt in db.StudentAttempts
+                  where attempt.StudentId == studentId
+                  where attempt.AttemptDate.Date == DateTime.Now.Date
+                  where attempt.Correct
+                  select attempt;
+
+        return qry.Count();
+    }
 }
 

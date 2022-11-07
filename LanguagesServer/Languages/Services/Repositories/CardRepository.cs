@@ -31,7 +31,6 @@ public class CardRepository
         return from enrol in db.Enrollments
                where enrol.StudentId == studentId
                join task in db.Tasks on enrol.ClassId equals task.ClassId
-               where task.DueDate > DateTime.Now
                join card in db.Cards on task.DeckId equals card.DeckId
                let latestAttemptAtCard = (
                    from attempt in db.StudentAttempts

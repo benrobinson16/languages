@@ -4,6 +4,7 @@ import LanguagesAPI
 struct HomeScreen: View {
     @StateObject private var controller = HomeController()
     @ObservedObject private var nav = Navigator.shared
+    @State private var opacity = 0.0
     
     var body: some View {
         ScrollView {
@@ -35,6 +36,8 @@ struct HomeScreen: View {
                     }
                 }
                 .padding()
+                .opacity(opacity)
+                .animation(.default, value: opacity)
             } else {
                 VStack {
                     Spacer(minLength: 400)
@@ -42,8 +45,13 @@ struct HomeScreen: View {
                 }
             }
         }
-        .onAppear {
-            controller.loadSummary()
+        .onAppear(perform: controller.loadSummary)
+        .onChange(of: controller.summary) { newValue in
+            if let newValue {
+                opacity = 1.0
+            } else {
+                opacity = 0.0
+            }
         }
     }
 }
