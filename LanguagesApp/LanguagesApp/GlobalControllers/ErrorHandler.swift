@@ -1,4 +1,5 @@
 import Foundation
+import LanguagesAPI
 
 class ErrorHandler: ObservableObject {
     @Published var showAlert = false
@@ -6,6 +7,16 @@ class ErrorHandler: ObservableObject {
     
     private init() { }
     public static let shared = ErrorHandler()
+    
+    func handleResponse(_ response: StatusResponse) {
+        if !response.success {
+            if let message = response.message {
+                errorMessage = message
+            } else {
+                errorMessage = "An unexpected error occured."
+            }
+        }
+    }
     
     func wrap(_ operation: () throws -> Void) {
         do {

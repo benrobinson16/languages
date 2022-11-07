@@ -22,7 +22,7 @@ class JoinClassController: ObservableObject {
             if response.success {
                 AlertHandler.shared.show("Success!", body: response.message ?? "You have been added to the class.")
             } else {
-                AlertHandler.shared.show("Error", body: response.message ?? "An error ocurred when adding you to the class.")
+                ErrorHandler.shared.handleResponse(response)
             }
         }
     }

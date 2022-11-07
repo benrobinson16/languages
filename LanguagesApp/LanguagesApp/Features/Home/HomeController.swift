@@ -33,10 +33,7 @@ class HomeController: ObservableObject {
                     ErrorHandler.shared.detachAsync {
                         guard let token = Authenticator.shared.token else { return }
                         let response = try await LanguagesAPI.makeRequest(.leaveClass(classId: classId, token: token))
-                        // FIXME: Error Handling
-//                        if !response.success, let message = response.message {
-//
-//                        }
+                        ErrorHandler.shared.handleResponse(response)
                         self.loadSummary()
                     }
                 }

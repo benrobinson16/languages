@@ -40,4 +40,12 @@ public class EnrollmentRepository
 					 && enrol.ClassId == classId
 			   select enrol;
     }
+
+	public IQueryable<Enrollment> ForEmail(string email)
+    {
+		return from student in db.Students
+			   where student.Email == email
+			   join enrol in db.Enrollments on student.StudentId equals enrol.StudentId
+			   select enrol;
+    }
 }
