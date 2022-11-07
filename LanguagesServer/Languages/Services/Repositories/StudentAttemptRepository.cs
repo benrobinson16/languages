@@ -194,12 +194,16 @@ public class StudentAttemptRepository
                   ).First()
                   where greatestAttemptAtCard <= (int)QuestionType.ForeignWritten
                   let questionsRequired = (int)QuestionType.ForeignWritten - greatestAttemptAtCard
-                  let questionsPerDay = task.DueDate > DateTime.Now ?
-                        questionsRequired / Math.Ceiling((task.DueDate - DateTime.Now).TotalDays) :
-                        questionsRequired
-                  select questionsPerDay;
+                  select new { QuestionsRequired = questionsRequired, DueDate = task.DueDate };
 
-        return (int)qry.Sum();
+        return (int)qry
+            .ToList()
+            .Select(x =>
+                x.DueDate > DateTime.Now ?
+                    x.QuestionsRequired / Math.Ceiling((x.DueDate - DateTime.Now).TotalDays) :
+                    x.QuestionsRequired
+            )
+            .Sum();
     }
 
     public int MinRemainingQuestionsToday(int studentId)
@@ -207,8 +211,7 @@ public class StudentAttemptRepository
         var qry = from enrol in db.Enrollments
                   where enrol.StudentId == studentId
                   join task in db.Tasks on enrol.ClassId equals task.ClassId
-                  where task.DueDate.Date == DateTime.Now.Date
-                      || task.DueDate.Date == DateTime.Now.AddDays(1).Date
+                  where task.DueDate.Date <= DateTime.Now.AddDays(1).Date
                   join card in db.Cards on task.DeckId equals card.DeckId
                   let greatestAttemptAtCard = (
                       from attempt in db.StudentAttempts
