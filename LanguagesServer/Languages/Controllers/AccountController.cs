@@ -120,7 +120,7 @@ public class AccountController : ControllerBase
     public bool IsNewStudent()
     {
         User user = shield.Authenticate(Request);
-        bool isNew = !(da.Students.ForEmail(user.Email).Any() && da.Enrollments.ForEmail(user.Email).Any());
+        bool isNew = !da.Students.ForEmail(user.Email).Any();
 
         if (isNew)
         {
