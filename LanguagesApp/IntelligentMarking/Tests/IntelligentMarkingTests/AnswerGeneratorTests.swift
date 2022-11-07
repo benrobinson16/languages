@@ -67,7 +67,7 @@ final class AnswerGeneratorTests: XCTestCase {
     
     func testAnswerGeneration() {
         for testCase in testCases {
-            let answers = generator.possibilities(answer: testCase.answer)
+            let answers = generator.generate(answer: testCase.answer)
             compareArrays(arr1: testCase.expectedAnswers, arr2: answers)
         }
     }

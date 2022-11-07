@@ -51,8 +51,8 @@ class Authenticator: ObservableObject {
     }
     
     func signInSilentlyDetached() {
-        ErrorHandler.shared.detachAsync {
-            _ = try await self.silentlyAcquireToken()
+        Task {
+            _ = try? await self.silentlyAcquireToken()
         }
     }
     

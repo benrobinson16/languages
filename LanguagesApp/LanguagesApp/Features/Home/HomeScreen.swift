@@ -18,16 +18,22 @@ struct HomeScreen: View {
                                 .foregroundColor(.primary)
                         }
                     }
-                    Spacer(minLength: 40)
+                    .padding(.bottom, 40)
+                    
                     TitleGreeting(name: summary.studentName)
                         .padding(.bottom, 50)
+                    
                     DailyCompletionPanel(percentage: summary.dailyPercentage) { nav.open(.learning) }
+                    
                     StreaksPanel(streakHistory: summary.streakHistory, streakLength: summary.streakLength)
                         .padding(.bottom, 30)
+                    
                     TaskList(tasks: summary.tasks) { nav.open(.task($0)) }
                         .padding(.bottom, 30)
+                    
                     ClassList(classes: summary.enrollments, joinClass: controller.joinClass, deleteEnrollment: controller.leaveClass)
                         .padding(.bottom, 30)
+                    
                     HStack {
                         Spacer()
                         FootnoteButton(title: "Settings") { nav.open(.settings) }
@@ -47,7 +53,7 @@ struct HomeScreen: View {
         }
         .onAppear(perform: controller.loadSummary)
         .onChange(of: controller.summary) { newValue in
-            if let newValue {
+            if newValue != nil {
                 opacity = 1.0
             } else {
                 opacity = 0.0

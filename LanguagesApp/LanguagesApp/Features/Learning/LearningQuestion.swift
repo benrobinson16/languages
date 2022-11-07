@@ -2,12 +2,9 @@ import Foundation
 import LanguagesAPI
 import IntelligentMarking
 
-// FIXME: Dynamically load articles
-fileprivate let articles = ["le ", "la ", "les ", "l'", "un ", "une ", "de ", "du ", "des "]
-
 class LearningQuestion: ObservableObject {
-    private let answerGenerator = AnswerGenerator(articles: articles)
     private let editDistanceCalculator = WeightedEditDistance(perCharacterThreshold: 0.2)
+    private let answerGenerator: AnswerGenerator
     
     let card: Card
     @Published var correct: Bool? = nil
@@ -15,6 +12,15 @@ class LearningQuestion: ObservableObject {
     
     init(card: Card) {
         self.card = card
+        
+        if let articles = FileController.shared.articles {
+            self.answerGenerator = AnswerGenerator(articles: articles)
+        } else if let articles = FileController.shared.readArticles(languageCode: "fr") { // only French supported
+            self.answerGenerator = AnswerGenerator(articles: articles)
+        } else {
+            // Will continue silently, without providing the article ignoring feature.
+            self.answerGenerator = AnswerGenerator(articles: [])
+        }
     }
     
     func answerQuestion(answer: String) {

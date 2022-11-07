@@ -9,6 +9,10 @@ extension Font {
         return .system(size: 20, weight: .regular, design: .rounded)
     }
     
+    static var appTitle2: Font {
+        return .system(size: 24, weight: .semibold, design: .rounded)
+    }
+    
     static var appSubheading: Font {
         return .system(size: 20, weight: .medium, design: .rounded)
     }
