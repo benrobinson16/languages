@@ -57,7 +57,7 @@ public class StudentController: ControllerBase
         int completedQuestions = da.StudentAttempts.CardsAnsweredToday(student.StudentId);
         int minRemainingQuestions = da.StudentAttempts.MinRemainingQuestionsToday(student.StudentId);
         int effectiveCompleted = Math.Min(completedQuestions, expectedQuestions - minRemainingQuestions);
-        double percentage = effectiveCompleted / expectedQuestions;
+        double percentage = expectedQuestions > 0 ? effectiveCompleted / expectedQuestions : 1.0;
         if (percentage < 0) percentage = 0.0;
         if (percentage > 1) percentage = 1.0;
 
