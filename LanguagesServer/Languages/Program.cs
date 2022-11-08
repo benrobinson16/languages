@@ -9,7 +9,12 @@ using Microsoft.AspNetCore.HttpOverrides;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add API controllers.
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateConverter());
+    });
 
 // Add service layer. Scoped to ensure no concurrent access to dbContext.
 builder.Services.AddDbContext<DatabaseContext>();
@@ -21,24 +26,6 @@ builder.Services.AddScoped<MemoryModel>();
 // in advance of the first request. Singleton is used because it does not depend
 // on the dbContext so does not need to be scoped.
 builder.Services.AddSingleton<Authenticator>(new Authenticator());
-
-//
-// OPTIONAL MOCKS FOR TESTING
-//
-
-/*
-User constantUser = new User {
-    FirstName = "Ben",
-    Surname = "Robinson",
-    Email = "k037047@eltham-college.org.uk"
-};
-
-builder.Services.AddSingleton<Authenticator>(new MockAuthenticator(constantUser));
-*/
-
-//
-// END OPTIONAL MOCKS
-//
 
 // Generate documentation site.
 builder.Services.AddEndpointsApiExplorer();
