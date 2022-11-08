@@ -16,6 +16,8 @@ class HomeController: ObservableObject {
                 Navigator.shared.open(.onboarding)
             }
             self.summary = try await LanguagesAPI.makeRequest(.summary(token: token))
+        } finally: {
+            self.isLoading = false
         }
     }
     

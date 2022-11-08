@@ -11,10 +11,12 @@ class AlertHandler: ObservableObject {
     public static let shared = AlertHandler()
     
     func show(_ title: String, body: String? = nil, option1: MessageOption? = nil, option2: MessageOption? = nil) {
-        self.alertTitle = title
-        self.alertMessage = body
-        self.option1 = option1
-        self.option2 = option2
-        self.showAlert = true
+        DispatchQueue.main.async {
+            self.alertTitle = title
+            self.alertMessage = body
+            self.option1 = option1
+            self.option2 = option2
+            self.showAlert = true
+        }
     }
 }

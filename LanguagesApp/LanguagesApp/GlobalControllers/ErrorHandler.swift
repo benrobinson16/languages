@@ -18,7 +18,7 @@ class ErrorHandler: ObservableObject {
         }
     }
     
-    func wrap(_ operation: () throws -> Void) {
+    func wrap(_ operation: () throws -> Void, finally: (() -> Void)? = nil) {
         do {
             try operation()
         } catch {
@@ -28,10 +28,12 @@ class ErrorHandler: ObservableObject {
                 print(error.localizedDescription)
             }
         }
+        
+        finally?()
     }
     
     @MainActor
-    func wrapAsync(_ operation: () async throws -> Void) async {
+    func wrapAsync(_ operation: () async throws -> Void, finally: (() -> Void)? = nil) async {
         do {
             try await operation()
         } catch let error as AppError {
@@ -42,11 +44,13 @@ class ErrorHandler: ObservableObject {
             showAlert = true
             print(error.localizedDescription)
         }
+        
+        finally?()
     }
     
-    func detachAsync(_ operation: @escaping () async throws -> Void) {
+    func detachAsync(_ operation: @escaping () async throws -> Void, finally: (() -> Void)? = nil) {
         Task { @MainActor in
-            await wrapAsync(operation)
+            await wrapAsync(operation, finally: finally)
         }
     }
 }

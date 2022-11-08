@@ -85,7 +85,7 @@ public class TeacherTaskController : ControllerBase
             ClassName = cla.Name,
             DeckId = deckId,
             DeckName = deck.Name,
-            DueDate = task.DueDate.ToShortDateString()
+            DueDate = task.DueDate
         };
     }
 

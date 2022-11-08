@@ -7,5 +7,5 @@ public class TaskVm
     public int DeckId { get; set; }
     public string ClassName { get; set; }
     public string DeckName { get; set; }
-    public string DueDate { get; set; }
+    public DateTime DueDate { get; set; }
 }

@@ -38,7 +38,7 @@ public class StudentController: ControllerBase
         List<TaskVm> taskVms = da.Tasks.VmsForStudent(student.StudentId).ToList();
 
         List<TaskVm> incompleteOverdue = taskVms
-            .Where(t => DateTime.Parse(t.DueDate) < DateTime.Now)
+            .Where(t => t.DueDate < DateTime.Now)
             .Where(t => !da.StudentAttempts.HasCompletedTask(student.StudentId, t.DeckId))
             .ToList();
 

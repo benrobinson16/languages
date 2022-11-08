@@ -38,6 +38,7 @@ struct HomeScreen: View {
                         Spacer()
                         FootnoteButton(title: "Settings") { nav.open(.settings) }
                         FootnoteButton(title: "Join Class") { nav.open(.joinClass) }
+                        FootnoteButton(title: "Refresh") { controller.loadSummary() }
                         Spacer()
                     }
                 }
