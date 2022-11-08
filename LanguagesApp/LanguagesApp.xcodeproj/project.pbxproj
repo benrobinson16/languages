@@ -43,6 +43,8 @@
 		52AEE46929199CB500B65EB5 /* FileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEE46829199CB500B65EB5 /* FileController.swift */; };
 		52AEE46D2919A15E00B65EB5 /* hellos.json in Resources */ = {isa = PBXBuildFile; fileRef = 52AEE46C2919A15E00B65EB5 /* hellos.json */; };
 		52AEE46F2919A1C700B65EB5 /* articles.json in Resources */ = {isa = PBXBuildFile; fileRef = 52AEE46E2919A1C700B65EB5 /* articles.json */; };
+		52BDFDC8291A6D1100BEC3F6 /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BDFDC7291A6D1100BEC3F6 /* TaskController.swift */; };
+		52BDFDCA291A6D1B00BEC3F6 /* TaskCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BDFDC9291A6D1B00BEC3F6 /* TaskCardView.swift */; };
 		52C28F732905BAA10088593B /* Color+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F722905BAA10088593B /* Color+EXT.swift */; };
 		52C28F752905BB4D0088593B /* TitleGreeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F742905BB4D0088593B /* TitleGreeting.swift */; };
 		52C28F772905BC010088593B /* Panel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F762905BC010088593B /* Panel.swift */; };
@@ -100,6 +102,8 @@
 		52AEE46829199CB500B65EB5 /* FileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileController.swift; sourceTree = "<group>"; };
 		52AEE46C2919A15E00B65EB5 /* hellos.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hellos.json; sourceTree = "<group>"; };
 		52AEE46E2919A1C700B65EB5 /* articles.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = articles.json; sourceTree = "<group>"; };
+		52BDFDC7291A6D1100BEC3F6 /* TaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
+		52BDFDC9291A6D1B00BEC3F6 /* TaskCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCardView.swift; sourceTree = "<group>"; };
 		52C28F722905BAA10088593B /* Color+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+EXT.swift"; sourceTree = "<group>"; };
 		52C28F742905BB4D0088593B /* TitleGreeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleGreeting.swift; sourceTree = "<group>"; };
 		52C28F762905BC010088593B /* Panel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Panel.swift; sourceTree = "<group>"; };
@@ -326,6 +330,8 @@
 			isa = PBXGroup;
 			children = (
 				523E0A6328F5760D00B505F0 /* TaskScreen.swift */,
+				52BDFDC7291A6D1100BEC3F6 /* TaskController.swift */,
+				52BDFDC9291A6D1B00BEC3F6 /* TaskCardView.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -430,6 +436,7 @@
 				52C28F7F2905C1390088593B /* StreaksPanel.swift in Sources */,
 				5274EAF02918623400B808DF /* ClassList.swift in Sources */,
 				527AD2AD29116670001A1AD5 /* TaskLearningSession.swift in Sources */,
+				52BDFDC8291A6D1100BEC3F6 /* TaskController.swift in Sources */,
 				523E0A6828F5762000B505F0 /* LearningScreen.swift in Sources */,
 				52D6DE872913B2920069B1E3 /* ShakeEffect.swift in Sources */,
 				52C28F732905BAA10088593B /* Color+EXT.swift in Sources */,
@@ -451,6 +458,7 @@
 				527ACFA82911B7160008147A /* HomeController.swift in Sources */,
 				52C28F872905F0AE0088593B /* WavingHand.swift in Sources */,
 				52C28F852905F0810088593B /* CyclicTimelineSchedule.swift in Sources */,
+				52BDFDCA291A6D1B00BEC3F6 /* TaskCardView.swift in Sources */,
 				52FB8B0129142A1F0086C6A1 /* AlertHandler.swift in Sources */,
 				52AEE46429198CB900B65EB5 /* Carousel.swift in Sources */,
 				524C5AB728E2FACA00A4BDD1 /* LanguagesApp.swift in Sources */,
