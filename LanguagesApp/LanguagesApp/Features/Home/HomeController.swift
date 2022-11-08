@@ -1,13 +1,27 @@
 import Foundation
 import LanguagesAPI
+import Combine
+
+
 
 class HomeController: ObservableObject {
     @Published private(set) var summary: StudentSummary? = nil
     private var isLoading = false
+    private var subscription: AnyCancellable? = nil
+    
+    private func subscribe() {
+        subscription = NotificationCenter.default
+            .publisher(for: .refreshData)
+            .sink { _ in
+                self.loadSummary()
+            }
+    }
     
     func loadSummary() {
         guard !isLoading else { return }
         isLoading = true
+        
+        if subscription == nil { subscribe() }
         
         ErrorHandler.shared.detachAsync { @MainActor in
             guard let token = Authenticator.shared.token else { throw AppError.notAuthenticated }

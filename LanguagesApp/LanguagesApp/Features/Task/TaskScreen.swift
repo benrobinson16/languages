@@ -23,10 +23,7 @@ struct TaskScreen: View {
                             }
                         }
                         
-                        TaskDetailsCards(details: summary.taskDetails)
-                        
-//                        Text("Cards:")
-//                            .font(.appSubheading)
+                        TaskDetailCards(details: summary.taskDetails)
                         
                         ForEach(summary.cards) { card in
                             TaskCardView(card: card)
@@ -42,5 +39,3 @@ struct TaskScreen: View {
         .onAppear(perform: controller.loadSummary)
     }
 }
-
-

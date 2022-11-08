@@ -1,7 +1,7 @@
 import SwiftUI
 import LanguagesAPI
 
-struct TaskDetailsCards: View {
+struct TaskDetailCards: View {
     let details: TaskVm
     
     var body: some View {
