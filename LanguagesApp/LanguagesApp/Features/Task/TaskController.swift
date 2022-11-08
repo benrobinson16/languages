@@ -13,6 +13,7 @@ class TaskController: ObservableObject {
             guard let token = Authenticator.shared.token else { throw AppError.notAuthenticated }
             guard case .task(let taskId) = Navigator.shared.state else { throw AppError.unexpected }
             self.summary = try await LanguagesAPI.makeRequest(.taskDetails(id: taskId, token: token))
+        } finally: {
             self.isLoading = false
         }
     }

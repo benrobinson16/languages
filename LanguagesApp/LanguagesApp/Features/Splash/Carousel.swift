@@ -14,7 +14,7 @@ struct Carousel: View  {
     }
     
     var body: some View {
-        TimelineView(.periodic(from: .now.addingTimeInterval(-delay), by: 7.0)) { timeline in
+        TimelineView(.periodic(from: .now.addingTimeInterval(-delay), by: 6.0)) { timeline in
             WordList(date: timeline.date, words: $words, font: font, moveLeft: moveLeft)
         }
     }

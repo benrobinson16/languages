@@ -56,7 +56,7 @@ class TaskLearningSession: LearningSession {
         await ErrorHandler.shared.wrapAsync {
             let cards = try await LanguagesAPI.makeRequest(.taskCards(token: token))
             for c in cards {
-                lqn.enqueue(c, intoQueue: c.nextQuestionType.rawValue)
+                lqn.enqueue(c, intoQueue: c.nextQuestionType?.rawValue ?? 0)
             }
         }
     }

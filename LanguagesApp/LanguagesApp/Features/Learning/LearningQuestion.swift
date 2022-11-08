@@ -35,7 +35,7 @@ class LearningQuestion: ObservableObject {
                 .didAnswer(
                     cardId: self.card.cardId,
                     correct: correct,
-                    questionType: self.card.nextQuestionType,
+                    questionType: self.card.nextQuestionType ?? .multipleChoice,
                     token: token
                 )
             )

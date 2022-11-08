@@ -15,7 +15,7 @@ struct LearningCardView: View {
                 Text(getQuestionString())
                 
                 switch question.card.nextQuestionType {
-                case .none, .multipleChoice:
+                case nil, .unspecified, .multipleChoice:
                     MultipleChoiceGrid(choices: ["1", "2", "3", "4"], answer: $answer)
                 case .englishWritten, .foreignWritten:
                     WrittenResponse(answer: $answer)
@@ -29,11 +29,10 @@ struct LearningCardView: View {
     }
     
     func getQuestionString() -> String {
-        switch question.card.nextQuestionType {
-        case .none, .multipleChoice, .foreignWritten:
-            return question.card.englishTerm
-        case .englishWritten:
+        if question.card.nextQuestionType == .englishWritten {
             return question.card.foreignTerm
+        } else {
+            return question.card.englishTerm
         }
     }
 }

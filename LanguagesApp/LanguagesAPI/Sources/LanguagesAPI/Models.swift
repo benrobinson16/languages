@@ -4,14 +4,14 @@ public struct Card: Codable, Identifiable, Equatable {
     public let cardId: Int
     public let englishTerm: String
     public let foreignTerm: String
-    public var nextQuestionType: QuestionType
-    public let dueDate: Date?
+    public var nextQuestionType: QuestionType? // Only included when needed
+    public let dueDate: Date? // Only included when needed
     
     public var id: Int { return cardId }
 }
 
 public enum QuestionType: Int, Codable, Equatable {
-    case none = 0
+    case unspecified = 0
     case multipleChoice = 1
     case englishWritten = 2
     case foreignWritten = 3
@@ -41,6 +41,7 @@ public struct TaskVm: Codable, Identifiable, Equatable {
     public let className: String
     public let deckName: String
     public let dueDate: Date
+    public var completion: Double? = nil // Only included when needed
 }
 
 public struct TaskSummary: Codable, Equatable {
@@ -50,7 +51,7 @@ public struct TaskSummary: Codable, Equatable {
 
 public struct StatusResponse: Codable, Equatable {
     public let success: Bool
-    public let message: String?
+    public let message: String? // Only included when needed
 }
 
 public struct EnrollmentVm: Codable, Identifiable, Equatable {

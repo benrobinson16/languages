@@ -6,7 +6,7 @@ struct TaskCardView: View {
     
     var body: some View {
         Panel {
-            VStack {
+            VStack(alignment: .leading) {
                 Text(card.englishTerm)
                 Divider()
                 Text(card.foreignTerm)

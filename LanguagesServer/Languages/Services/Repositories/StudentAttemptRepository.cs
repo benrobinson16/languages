@@ -22,8 +22,6 @@ public class StudentAttemptRepository
                             where card.DeckId == deckId
                             select card).ToList();
 
-        int expectedQuestions = cards.Count() * (int)QuestionType.ForeignWritten;
-
         List<Student> students = (from enrol in db.Enrollments
                                   where enrol.ClassId == classId
                                   join student in db.Students on enrol.StudentId equals student.StudentId
@@ -32,42 +30,48 @@ public class StudentAttemptRepository
         List<StudentProgress> progresses = new List<StudentProgress>();
         foreach (Student student in students)
         {
-            int numCompleted = 0;
-
-            foreach (Card card in cards)
-            {
-                StudentAttempt? latestAttempt = (from attempt in db.StudentAttempts
-                                                 where attempt.StudentId == student.StudentId
-                                                 where attempt.CardId == card.CardId
-                                                 orderby attempt.AttemptDate descending
-                                                 select attempt).FirstOrDefault();
-
-                if (latestAttempt == null)
-                {
-                    numCompleted += 0;
-                }
-                else if (latestAttempt.Correct)
-                {
-                    numCompleted += latestAttempt.QuestionType;
-                }
-                else
-                {
-                    numCompleted += Math.Max(latestAttempt.QuestionType - 1, 0);
-                }
-            }
-
             progresses.Add(new StudentProgress
             {
+                Email = student.Email,
                 StudentId = student.StudentId,
                 Name = student.DisplayName,
-                Email = student.Email,
-                Progress = expectedQuestions == 0 ? 100 : (int)Math.Floor(100.0 * numCompleted / expectedQuestions)
+                Progress = StudentProgress(cards, student.StudentId)
             });
         }
 
         return progresses
             .OrderByDescending(stu => stu.Progress)
             .ToList();
+    }
+
+    public int StudentProgress(List<Card> cards, int studentId)
+    {
+        int numCompleted = 0;
+        int expectedQuestions = cards.Count() * (int)QuestionType.ForeignWritten;
+
+        foreach (Card card in cards)
+        {
+            StudentAttempt? latestAttempt = (from attempt in db.StudentAttempts
+                                             where attempt.StudentId == studentId
+                                             where attempt.CardId == card.CardId
+                                             orderby attempt.AttemptDate descending
+                                             select attempt).FirstOrDefault();
+
+            if (latestAttempt == null)
+            {
+                numCompleted += 0;
+            }
+            else if (latestAttempt.Correct)
+            {
+                numCompleted += latestAttempt.QuestionType;
+            }
+            else
+            {
+                numCompleted += Math.Max(latestAttempt.QuestionType - 1, 0);
+            }
+        }
+
+        return expectedQuestions == 0 ? 100 : (int)Math.Floor(100.0 * numCompleted / expectedQuestions);
     }
 
     // Is faster that calculating progress and comparing to 100%.

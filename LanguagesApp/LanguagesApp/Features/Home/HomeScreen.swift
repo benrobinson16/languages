@@ -10,7 +10,7 @@ struct HomeScreen: View {
         ScrollView {
             if let summary = controller.summary {
                 VStack(alignment: .leading, spacing: 16) {
-                    HStack {
+                    HStack(spacing: 8) {
                         Spacer()
                         Button(action: controller.signOut) {
                             Image(systemName: "rectangle.portrait.and.arrow.right")
@@ -37,7 +37,6 @@ struct HomeScreen: View {
                     HStack {
                         Spacer()
                         FootnoteButton(title: "Settings") { nav.open(.settings) }
-                        FootnoteButton(title: "Join Class") { nav.open(.joinClass) }
                         FootnoteButton(title: "Refresh") { controller.loadSummary() }
                         Spacer()
                     }

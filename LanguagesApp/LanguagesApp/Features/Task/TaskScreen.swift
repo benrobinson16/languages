@@ -1,38 +1,46 @@
 import SwiftUI
+import LanguagesAPI
 
 struct TaskScreen: View {
     @StateObject private var controller = TaskController()
     
     var body: some View {
-        if let summary = controller.summary {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    HStack(alignment: .top) {
-                        Text(summary.taskDetails.deckName)
-                            .font(.appTitle)
+        Group {
+            if let summary = controller.summary {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        HStack(alignment: .top) {
+                            Text(summary.taskDetails.deckName)
+                                .font(.appTitle)
+                                .padding(.top)
+                            
+                            Spacer(minLength: 0)
+                            
+                            Button(action: controller.dismiss) {
+                                Image(systemName: "xmark")
+                                    .font(.appSubheading)
+                                    .foregroundColor(.primary)
+                            }
+                        }
                         
-                        Spacer(minLength: 0)
+                        TaskDetailsCards(details: summary.taskDetails)
                         
-                        Button(action: controller.dismiss) {
-                            Image(systemName: "xmark")
-                                .font(.appSubheading)
+//                        Text("Cards:")
+//                            .font(.appSubheading)
+                        
+                        ForEach(summary.cards) { card in
+                            TaskCardView(card: card)
                         }
                     }
-                    
-                    Text(summary.taskDetails.className)
-                        .font(.appSubheading)
-                    
-                    Text("Due by: " + summary.taskDetails.dueDate.formatted(date: .abbreviated, time: .omitted))
-                        .font(.appSubheading)
-                    
-                    ForEach(summary.cards) { card in
-                        TaskCardView(card: card)
-                    }
+                    .padding()
                 }
+                .transition(.opacity)
+            } else {
+                ProgressView()
             }
-            .transition(.opacity)
-        } else {
-            ProgressView()
         }
+        .onAppear(perform: controller.loadSummary)
     }
 }
+
+

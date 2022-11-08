@@ -14,20 +14,7 @@ struct DailyCompletionPanel: View {
                         .font(.appSecondary)
                         .foregroundColor(.secondary)
                     
-                    GeometryReader { geom in
-                        ZStack(alignment: .leading) {
-                            Rectangle()
-                                .foregroundColor(.panelSecondary)
-                                .frame(height: 24)
-                        
-                            Rectangle()
-                                .foregroundColor(.appSecondaryAccent)
-                                .frame(width: geom.size.width * percentage, height: 24)
-                                .cornerRadius(8)
-                        }
-                        .cornerRadius(8)
-                    }
-                    .frame(height: 24)
+                    CompletionBar(percentage: percentage)
                     
                     AppButton(title: "Continue learning", action: continueLearning)
                 }

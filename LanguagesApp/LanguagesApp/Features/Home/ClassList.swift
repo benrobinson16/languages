@@ -47,7 +47,7 @@ fileprivate struct ClassItem: View {
     var body: some View {
         Panel {
             HStack {
-                VStack {
+                VStack(alignment: .leading, spacing: 8.0) {
                     Text(enrollment.className)
                         .font(.appSubheading)
                     

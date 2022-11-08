@@ -8,9 +8,12 @@ struct StreaksPanel: View {
     var body: some View {
         Panel {
             VStack(alignment: .center, spacing: 16) {
-                Text("\(streakLength) day streak")
+                Text("\(streakLength) day")
                     .font(.appTitle)
-                    .foregroundColor(.appSecondaryAccent)
+                
+                Text("continuous practice streak")
+                    .font(.appSecondary)
+                    .foregroundColor(.secondary)
                 
                 HStack {
                     ForEach(streakHistory, id: \.date) { history in

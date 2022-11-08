@@ -43,7 +43,7 @@ extension Request {
     public static func taskDetails(id: Int, token: String) -> Request<TaskSummary> {
         return .init(
             method: .get,
-            url: studentUrl.appending(path: "taskSummary"),
+            url: studentUrl.appending(path: "taskDetails"),
             headers: ["Authorization": token],
             data: ["taskId": String(id)]
         )

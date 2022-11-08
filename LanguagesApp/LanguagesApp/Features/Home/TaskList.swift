@@ -35,11 +35,11 @@ fileprivate struct TaskItem: View {
     var body: some View {
         Panel {
             HStack {
-                VStack {
+                VStack(alignment: .leading, spacing: 8.0) {
                     Text(task.deckName)
                         .font(.appSubheading)
                     
-                    Text("\(task.className) - Due by \(task.dueDate.formatted())")
+                    Text("\(task.className) - Due by \(task.dueDate.appFormat())")
                 }
                 
                 Spacer()

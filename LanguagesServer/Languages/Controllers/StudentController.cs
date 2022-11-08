@@ -99,6 +99,7 @@ public class StudentController: ControllerBase
         if (!studentAssignedTask) throw new LanguagesUnauthorized();
 
         List<Card> deck = da.Cards.ForDeck(task.DeckId).ToList();
+        task.Completion = da.StudentAttempts.StudentProgress(deck, student.StudentId);
 
         return new StudentTaskSummaryVm
         {

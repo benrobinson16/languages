@@ -9,7 +9,7 @@ public struct LanguagesAPI {
         print("Received response: " + (String(data: response.0, encoding: .utf8) ?? "[null]"))
         
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .
+        decoder.dateDecodingStrategy = .iso8601
         
         do {
             let decoded = try decoder.decode(Response.self, from: response.0)
