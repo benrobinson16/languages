@@ -33,7 +33,7 @@ export interface StudentProgress {
 
 export interface Task {
     id: number,
-    dueDate: string,
+    dueDate: Date,
     deckId: number,
     classId: number,
     className: string,

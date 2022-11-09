@@ -38,7 +38,7 @@ export function TaskCard(props: {task: Task, key: number}) {
         <Card onClick={() => dispatch(openTask(props.task.id))}>
             <Text fontSize="lg" fontWeight="semibold" >{props.task.className}</Text>
             <Text fontSize="md">{props.task.deckName}</Text>
-            <Text fontSize="md">Due by {props.task.dueDate}</Text>
+            <Text fontSize="md">Due by {props.task.dueDate.toDateString()}</Text>
         </Card>
     );
 }

@@ -9,19 +9,7 @@ struct TaskScreen: View {
             if let summary = controller.summary {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
-                        HStack(alignment: .top) {
-                            Text(summary.taskDetails.deckName)
-                                .font(.appTitle)
-                                .padding(.top)
-                            
-                            Spacer(minLength: 0)
-                            
-                            Button(action: controller.dismiss) {
-                                Image(systemName: "xmark")
-                                    .font(.appSubheading)
-                                    .foregroundColor(.primary)
-                            }
-                        }
+                        SheetHeading(title: summary.taskDetails.deckName, dismiss: controller.dismiss)
                         
                         TaskDetailCards(details: summary.taskDetails)
                         
