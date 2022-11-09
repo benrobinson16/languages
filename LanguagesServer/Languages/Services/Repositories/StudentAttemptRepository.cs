@@ -201,15 +201,6 @@ public class StudentAttemptRepository
                   let questionsRequired = (int)QuestionType.ForeignWritten - greatestAttemptAtCard
                   select new { QuestionsRequired = questionsRequired, DueDate = task.DueDate };
 
-        var lst = qry.ToList();
-
-        foreach (var x in lst)
-        {
-            Console.WriteLine();
-            Console.WriteLine(x.QuestionsRequired);
-            Console.WriteLine(x.DueDate);
-        }
-
         return (int)qry
             .ToList()
             .Select(x =>
