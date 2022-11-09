@@ -196,7 +196,7 @@ public class StudentAttemptRepository
                       where attempt.Correct
                       orderby attempt.QuestionType descending
                       select attempt.QuestionType
-                  ).First()
+                  ).FirstOrDefault()
                   where greatestAttemptAtCard <= (int)QuestionType.ForeignWritten
                   let questionsRequired = (int)QuestionType.ForeignWritten - greatestAttemptAtCard
                   select new { QuestionsRequired = questionsRequired, DueDate = task.DueDate };
@@ -235,7 +235,7 @@ public class StudentAttemptRepository
                       where attempt.Correct
                       orderby attempt.QuestionType descending
                       select attempt.QuestionType
-                  ).First()
+                  ).FirstOrDefault()
                   where greatestAttemptAtCard <= (int)QuestionType.ForeignWritten
                   let questionsRequired = (int)QuestionType.ForeignWritten - greatestAttemptAtCard
                   select questionsRequired;
