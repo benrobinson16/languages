@@ -54,6 +54,7 @@ public class TaskRepository
                where enrollment.StudentId == studentId
                join cla in db.Classes on enrollment.ClassId equals cla.ClassId
                join task in db.Tasks on cla.ClassId equals task.ClassId
+               where enrollment.JoinDate >= task.DueDate
                join deck in db.Decks on task.DeckId equals deck.DeckId
                orderby task.DueDate descending
                select new TaskVm

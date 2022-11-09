@@ -61,6 +61,12 @@ public class StudentController: ControllerBase
         if (percentage < 0) percentage = 0.0;
         if (percentage > 1) percentage = 1.0;
 
+        Console.WriteLine("ExpectedQuestions: " + expectedQuestions);
+        Console.WriteLine("CompletedQuestions: " + completedQuestions);
+        Console.WriteLine("MinRemainingQuestions: " + minRemainingQuestions);
+        Console.WriteLine("EffectiveCompleted: " + effectiveCompleted);
+        Console.WriteLine("Percentage: " + percentage);
+
         return new StudentSummaryVm
         {
             StreakHistory = da.StudentAttempts.StreakHistoryForStudent(student.StudentId),

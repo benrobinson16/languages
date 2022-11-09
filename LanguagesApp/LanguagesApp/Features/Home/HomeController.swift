@@ -2,8 +2,6 @@ import Foundation
 import LanguagesAPI
 import Combine
 
-
-
 class HomeController: ObservableObject {
     @Published private(set) var summary: StudentSummary? = nil
     private var isLoading = false
