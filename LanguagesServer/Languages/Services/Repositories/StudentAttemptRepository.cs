@@ -186,7 +186,7 @@ public class StudentAttemptRepository
         var qry = from enrol in db.Enrollments
                   where enrol.StudentId == studentId
                   join task in db.Tasks on enrol.ClassId equals task.ClassId
-                  where enrol.JoinDate >= task.DueDate
+                  where enrol.JoinDate <= task.DueDate
                   join card in db.Cards on task.DeckId equals card.DeckId
                   let greatestAttemptAtCard = (
                       from attempt in db.StudentAttempts
@@ -225,7 +225,7 @@ public class StudentAttemptRepository
         var qry = from enrol in db.Enrollments
                   where enrol.StudentId == studentId
                   join task in db.Tasks on enrol.ClassId equals task.ClassId
-                  where enrol.JoinDate >= task.DueDate
+                  where enrol.JoinDate <= task.DueDate
                   where task.DueDate.Date <= DateTime.Now.AddDays(1).Date
                   join card in db.Cards on task.DeckId equals card.DeckId
                   let greatestAttemptAtCard = (
