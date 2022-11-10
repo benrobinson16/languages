@@ -27,7 +27,7 @@ export default function ClassPage(props: { id: number }) {
 
     let studentCards = students.map(stu => <Card><Text>{stu}</Text></Card>);
     if (studentCards.length === 0) {
-        studentCards = [<Card key="emptycard"><Text>No students have joined the class.</Text></Card>];
+        studentCards = [<Card key="emptycard"><Text textAlign="left">No students have joined the class.</Text></Card>];
     }
 
     return (

@@ -26,9 +26,9 @@ export default function SignUpDrawer() {
                 <DrawerBody>
                     <VStack spacing="4" alignItems="left" mt={4}>
                         <Heading size="md">New Teacher Account</Heading>
-                        <Text>Please provide us with a few details to get started.</Text>
+                        <Text textAlign="left">Please provide us with a few details to get started.</Text>
                         <Divider />
-                        <Text size="md" fontWeight="semibold">Title:</Text>
+                        <Text textAlign="left" size="md" fontWeight="semibold">Title:</Text>
                         <RadioGroup onChange={onTitleChange} value={title}>
                             <VStack alignItems="left">
                                 <Radio value="Mr.">Mr.</Radio>
@@ -38,7 +38,7 @@ export default function SignUpDrawer() {
                             </VStack>
                         </RadioGroup>
                         <Divider />
-                        <Text size="md" fontWeight="semibold">Surname:</Text>
+                        <Text textAlign="left" size="md" fontWeight="semibold">Surname:</Text>
                         <Input
                             onChange={(event) => onSurnameChange(event.target.value)}
                             value={surname}

@@ -32,7 +32,7 @@ export default function DeckPage(props: { id: number }) {
                 <CardList cards={cards} deck={deck} />
                 <div>
                     <UICard>
-                            <Text width="100%" textAlign="left">Creating multiple valid responses for a card is easy. Simply follow the following rules:</Text>
+                            <Text textAlign="left" width="100%">Creating multiple valid responses for a card is easy. Simply follow the following rules:</Text>
                             <UnorderedList paddingLeft="1.25rem" spacing={2}>
                                 <ListItem>Separate different responses with a slash, for example "3 / three".</ListItem>
                                 <ListItem>Provide optional content in brackets, for example "vert(e)".</ListItem>

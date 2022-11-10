@@ -16,7 +16,7 @@ export default function NewTaskModal() {
     if (classEditable) {
         classField = (
             <>
-                <Text>Class:</Text>
+                <Text textAlign="left">Class:</Text>
                 <ClassField 
                     name="Class"
                     onChange={(id) => dispatch(newTaskActions.selectedClass(id))}
@@ -35,13 +35,13 @@ export default function NewTaskModal() {
                 <ModalBody>
                     <VStack spacing={2} width="100%" alignItems="start">
                         {classField}
-                        <Text>Deck:</Text>
+                        <Text textAlign="left">Deck:</Text>
                         <DeckField 
                             name="Deck"
                             onChange={(id) => dispatch(newTaskActions.selectedDeck(id))}
                         />
                         <br />
-                        <Text>Due Date:</Text>
+                        <Text textAlign="left">Due Date:</Text>
                         <Input
                             placeholder="Select Date and Time"
                             size="md"

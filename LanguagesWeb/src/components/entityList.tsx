@@ -28,7 +28,7 @@ export function EntityList<Entity>(props: EntityListProps<Entity>) {
     if (props.entities == null) {
         cards = [<Spinner key="spinner" />];
     } else if (props.entities.length === 0) {
-        cards = [<UICard key="emptycard"><Text>No {props.title.toLowerCase()} exist.</Text></UICard>];
+        cards = [<UICard key="emptycard"><Text textAlign="left">No {props.title.toLowerCase()} exist.</Text></UICard>];
     } else {
         for (let i in props.entities) {
             cards.push(props.createCard(props.entities[i]));
@@ -65,7 +65,7 @@ export function EntityList<Entity>(props: EntityListProps<Entity>) {
                         <ModalHeader>{props.title}</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody marginBottom={2}>
-                            <Text>{props.information}</Text>
+                            <Text textAlign="left">{props.information}</Text>
                         </ModalBody>
                     </ModalContent>
                 </Modal>
@@ -132,7 +132,7 @@ export function ProgressList(props: {students: StudentProgress[] | null, taskId:
 export function StudentList(props: {students: string[] | null}) {
     return EntityList({
         entities: props.students,
-        createCard: (entity: string) => <UICard key={entity}><Text>{entity}</Text></UICard>,
+        createCard: (entity: string) => <UICard key={entity}><Text textAlign="left">{entity}</Text></UICard>,
         title: "Students",
         newTitle: null,
         information: "A list of all students in the class. Students can join the class by entering the join code into the mobile app.",

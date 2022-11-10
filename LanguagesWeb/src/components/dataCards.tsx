@@ -12,9 +12,9 @@ export function ClassCard(props: {class: Class, key: number}) {
 
     return (
         <Card onClick={() => dispatch(openClass(props.class.id))}>
-            <Text fontSize="lg" fontWeight="semibold" >{props.class.name}</Text>
-            <Text fontSize="md">{props.class.numActiveTasks} active tasks</Text>
-            <Text fontSize="md">{props.class.numStudents} students</Text>
+            <Text textAlign="left" fontSize="lg" fontWeight="semibold" >{props.class.name}</Text>
+            <Text textAlign="left" fontSize="md">{props.class.numActiveTasks} active tasks</Text>
+            <Text textAlign="left" fontSize="md">{props.class.numStudents} students</Text>
         </Card>
     );
 }
@@ -26,9 +26,9 @@ export function DeckCard(props: {deck: Deck, key: number}) {
 
     return (
         <Card onClick={() => dispatch(openDeck(props.deck.deckId))}>
-            <Text fontSize="lg" fontWeight="semibold" >{props.deck.name}</Text>
-            <Text fontSize="md">{props.deck.numCards ?? 0} cards</Text>
-            <Text fontSize="md">Created {dateStr}</Text>
+            <Text textAlign="left" fontSize="lg" fontWeight="semibold" >{props.deck.name}</Text>
+            <Text textAlign="left" fontSize="md">{props.deck.numCards ?? 0} cards</Text>
+            <Text textAlign="left" fontSize="md">Created {dateStr}</Text>
         </Card>
     );
 }
@@ -40,9 +40,9 @@ export function TaskCard(props: {task: Task, key: number}) {
 
     return (
         <Card onClick={() => dispatch(openTask(props.task.id))}>
-            <Text fontSize="lg" fontWeight="semibold" >{props.task.className}</Text>
-            <Text fontSize="md">{props.task.deckName}</Text>
-            <Text fontSize="md">Due by {dateStr}</Text>
+            <Text textAlign="left" fontSize="lg" fontWeight="semibold" >{props.task.className}</Text>
+            <Text textAlign="left" fontSize="md">{props.task.deckName}</Text>
+            <Text textAlign="left" fontSize="md">Due by {dateStr}</Text>
         </Card>
     );
 }
@@ -58,7 +58,7 @@ export function NewEntityCard(props: {title: string, action: (dispatch: AppDispa
         >
             <HStack>
                 <Icon as={HiOutlinePlusCircle} color="blue.400"/>
-                <Text color="blue.400">{props.title}</Text>
+                <Text textAlign="left" color="blue.400">{props.title}</Text>
             </HStack>
         </Card>
     )
@@ -89,8 +89,8 @@ export function ProgressCard(props: { studentProgress: StudentProgress, taskId: 
         <Card>
             <Flex alignItems="center" width="100%">
                 <VStack alignItems="start">
-                    <Text fontWeight="semibold">{props.studentProgress.name}</Text>
-                    <Text color={color}>{props.studentProgress.progress} %</Text>
+                    <Text textAlign="left" fontWeight="semibold">{props.studentProgress.name}</Text>
+                    <Text textAlign="left" color={color}>{props.studentProgress.progress} %</Text>
                 </VStack>
                 <Spacer />
                 <Button onClick={() => dispatch(notification)}>{buttonText}</Button>
