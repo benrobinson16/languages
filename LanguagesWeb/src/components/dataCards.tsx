@@ -22,13 +22,13 @@ export function ClassCard(props: {class: Class, key: number}) {
 export function DeckCard(props: {deck: Deck, key: number}) {
     const dispatch = useAppDispatch();
 
-    console.log(props.deck.creationDate);
+    const dateStr = props.deck.creationDate ? new Date(props.deck.creationDate).toDateString() : "Never";
 
     return (
         <Card onClick={() => dispatch(openDeck(props.deck.deckId))}>
             <Text fontSize="lg" fontWeight="semibold" >{props.deck.name}</Text>
             <Text fontSize="md">{props.deck.numCards ?? 0} cards</Text>
-            <Text fontSize="md">Created {props.deck.creationDate?.toDateString() ?? "Never"}</Text>
+            <Text fontSize="md">Created {dateStr}</Text>
         </Card>
     );
 }
@@ -36,13 +36,13 @@ export function DeckCard(props: {deck: Deck, key: number}) {
 export function TaskCard(props: {task: Task, key: number}) {
     const dispatch = useAppDispatch();
 
-    console.log(props.task.dueDate);
+    const dateStr = props.task.dueDate ? new Date(props.task.dueDate).toDateString() : "Error";
 
     return (
         <Card onClick={() => dispatch(openTask(props.task.id))}>
             <Text fontSize="lg" fontWeight="semibold" >{props.task.className}</Text>
             <Text fontSize="md">{props.task.deckName}</Text>
-            <Text fontSize="md">Due by {props.task.dueDate.toDateString()}</Text>
+            <Text fontSize="md">Due by {dateStr}</Text>
         </Card>
     );
 }
