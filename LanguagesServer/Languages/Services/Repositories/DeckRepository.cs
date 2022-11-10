@@ -36,7 +36,7 @@ public class DeckRepository
                    DeckId = deck.DeckId,
                    Name = deck.Name,
                    NumCards = numCards,
-                   CreationDate = deck.CreationDate.ToShortDateString()
+                   CreationDate = deck.CreationDate
                };
     }
 

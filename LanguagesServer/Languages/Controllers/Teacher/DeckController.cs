@@ -43,7 +43,7 @@ public class TeacherDeckController : ControllerBase
                 DeckId = deck.DeckId,
                 Name = deck.Name,
                 NumCards = cards.Count(),
-                CreationDate = deck.CreationDate.ToShortDateString()
+                CreationDate = deck.CreationDate
             },
             Cards = cards
         };

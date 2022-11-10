@@ -26,7 +26,7 @@ export function DeckCard(props: {deck: Deck, key: number}) {
         <Card onClick={() => dispatch(openDeck(props.deck.deckId))}>
             <Text fontSize="lg" fontWeight="semibold" >{props.deck.name}</Text>
             <Text fontSize="md">{props.deck.numCards ?? 0} cards</Text>
-            <Text fontSize="md">Last modified {props.deck.creationDate ?? "Never"}</Text>
+            <Text fontSize="md">Created {props.deck.creationDate?.toDateString() ?? "Never"}</Text>
         </Card>
     );
 }

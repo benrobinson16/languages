@@ -44,7 +44,7 @@ export interface Deck {
     deckId: number,
     name: string,
     numCards: number,
-    creationDate: string
+    creationDate: Date
 }
 
 export interface Class {
