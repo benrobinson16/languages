@@ -3,5 +3,4 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
 // Note that https is required for connecting to the endpoint.
 // Asp.net rejects any unencrypted connections transmitting JWTs.
-// export const baseUrl = "https://api.languages.benrobinson.dev";
-export const baseUrl = "http://localhost:5002";
+export const baseUrl = "https://api.languages.benrobinson.dev";
