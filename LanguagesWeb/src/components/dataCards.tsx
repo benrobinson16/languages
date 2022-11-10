@@ -22,6 +22,8 @@ export function ClassCard(props: {class: Class, key: number}) {
 export function DeckCard(props: {deck: Deck, key: number}) {
     const dispatch = useAppDispatch();
 
+    console.log(props.deck.creationDate);
+
     return (
         <Card onClick={() => dispatch(openDeck(props.deck.deckId))}>
             <Text fontSize="lg" fontWeight="semibold" >{props.deck.name}</Text>
@@ -33,6 +35,8 @@ export function DeckCard(props: {deck: Deck, key: number}) {
 
 export function TaskCard(props: {task: Task, key: number}) {
     const dispatch = useAppDispatch();
+
+    console.log(props.task.dueDate);
 
     return (
         <Card onClick={() => dispatch(openTask(props.task.id))}>
