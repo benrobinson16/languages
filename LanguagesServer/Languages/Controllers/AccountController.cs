@@ -94,7 +94,6 @@ public class AccountController : ControllerBase
     public StatusResponse RemoveRegisteredDevice()
     {
         Student student = shield.AuthenticateStudent(Request);
-        string token = student.DeviceToken ?? "";
         student.DeviceToken = null;
         db.SaveChanges();
         return new StatusResponse { Success = true };
