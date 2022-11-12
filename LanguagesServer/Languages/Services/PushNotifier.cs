@@ -2,6 +2,11 @@
 using JWT.Builder;
 using System.Net;
 using System.Security.Cryptography;
+using RestSharp;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Net.Http.Headers;
+using System.Dynamic;
 
 namespace Languages.Services;
 
@@ -86,8 +91,8 @@ public class PushNotifier
         }
     }
 
-    private const string kid = "QARY953TUQ";
-    private const string iss = "6J3TF84B5K";
+    private const string kid = "6J3TF84B5K";
+    private const string iss = "QARY953TUQ";
     private const string baseUrl = "https://api.sandbox.push.apple.com:443";
     private const string bundleId = "dev.benrobinson.LanguagesApp";
     private const string pathToKey = "/Constants/apns-key.p8";
@@ -100,7 +105,9 @@ public class PushNotifier
         string keyContents = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory.ToString() + pathToKey);
         string cleanedContents = keyContents
             .Replace("-----BEGIN PRIVATE KEY-----", "")
-            .Replace("-----END PRIVATE KEY-----", "");
+            .Replace("-----END PRIVATE KEY-----", "")
+            .Replace("\r", "");
+            //.Replace("\n", "");
         byte[] keyBytes = Convert.FromBase64String(cleanedContents);
 
         ECDsa key = ECDsa.Create();
@@ -109,14 +116,13 @@ public class PushNotifier
         lastGenerated = DateTime.Now;
         return JwtBuilder.Create()
             .WithAlgorithm(new ES256Algorithm(key, key))
-            .AddClaim("alg", "ES256")
             .AddClaim("iat", DateTimeOffset.UtcNow.ToUnixTimeSeconds())
-            .AddClaim("kid", kid)
             .AddClaim("iss", iss)
+            .AddHeader("kid", kid)
             .Encode();
     }
 
-    private void SendPayloadToApple(string deviceToken, string title, string body, string category)
+    private async void SendPayloadToApple(string deviceToken, string title, string body, string category)
     {
         if (providerToken == null || lastGenerated.AddMinutes(45) < DateTime.Now)
         {
@@ -124,28 +130,24 @@ public class PushNotifier
         }
 
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, baseUrl + "/3/device/" + deviceToken);
-
-        request.Headers.Add("authorization", "bearer " + providerToken);
-        request.Headers.Add("apns-push-type", "alert");
+        request.Version = new Version(2, 0);
         request.Headers.Add("apns-topic", bundleId);
+        request.Headers.Add("apns-push-type", "alert");
+        request.Headers.Authorization = new AuthenticationHeaderValue("bearer", providerToken);
 
-        var payload = new
+        dynamic payload = new ExpandoObject();
+        payload.aps = new ExpandoObject();
+        payload.aps.alert = new
         {
-            Aps = new
-            {
-                Alert = new
-                {
-                    Title = title,
-                    Body = body
-                },
-                Category = category
-            }
+            title = title,
+            body = body
         };
+
         request.Content = JsonContent.Create(payload);
 
         HttpClient client = new HttpClient();
-        HttpResponseMessage response = client.Send(request);
-
+        HttpResponseMessage response = await client.SendAsync(request);
+            
         if (response.StatusCode == HttpStatusCode.OK)
         {
             // Success

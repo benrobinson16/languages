@@ -47,7 +47,7 @@ app.UseCors((opt) =>
     opt.AllowCredentials();
     opt.AllowAnyHeader();
     opt.AllowAnyMethod();
-    opt.WithOrigins("http://localhost:3000", "https://languages.benrobinson.dev", "*");
+    opt.WithOrigins("http://localhost:3000", "https://languages.benrobinson.dev", "*", "https://api.sandbox.push.apple.com");
 });
 
 app.UseGlobalExceptionHandler(opt => {

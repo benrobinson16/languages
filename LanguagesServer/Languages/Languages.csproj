@@ -22,6 +22,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.6" />
     <PackageReference Include="JWT" Version="9.0.3" />
     <PackageReference Include="GlobalExceptionHandler" Version="4.0.2" />
+    <PackageReference Include="RestSharp" Version="108.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +42,7 @@
     <None Remove="Services\MockServices\" />
     <None Remove="Constants\" />
     <None Remove="Constants\apns-key.p8" />
+    <None Remove="RestSharp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DbModels\" />
