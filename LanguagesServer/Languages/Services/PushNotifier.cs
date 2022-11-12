@@ -93,7 +93,7 @@ public class PushNotifier
     private const string kid = "";
     private const string iss = "";
     private const string baseUrl = "https://api.sandbox.push.apple.com:443";
-    private const string bundleId = "dev.benrobinson.languages";
+    private const string bundleId = "dev.benrobinson.LanguagesApp";
     private const string pathToKey = "/constants/apns-key.p8";
 
     private string? providerToken = null;
