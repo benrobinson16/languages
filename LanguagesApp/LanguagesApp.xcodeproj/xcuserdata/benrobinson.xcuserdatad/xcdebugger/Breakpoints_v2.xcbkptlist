@@ -372,7 +372,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "67A60D1D-5EEE-4146-9793-2D9881C9C3D0"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LanguagesApp/GlobalControllers/AppDelegate.swift"

@@ -103,16 +103,8 @@ public class PushNotifier
             .Replace("-----END PRIVATE KEY-----", "");
         byte[] keyBytes = Convert.FromBase64String(cleanedContents);
 
-        ECDsa key = ECDsa.Create(new ECParameters
-        {
-            Curve = ECCurve.NamedCurves.nistP256,
-            D = keyBytes,
-            Q = new ECPoint
-            {
-                X = keyBytes.Skip(1).Take(32).ToArray(),
-                Y = keyBytes.Skip(33).ToArray()
-            }
-        });
+        ECDsa key = ECDsa.Create();
+        key.ImportPkcs8PrivateKey(keyBytes, out _);
 
         lastGenerated = DateTime.Now;
         return JwtBuilder.Create()
