@@ -231,7 +231,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "61BEE71B-F396-4AEC-946F-05F42BBC9C3C"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LanguagesApp/GlobalControllers/AppDelegate.swift"
@@ -241,6 +241,179 @@
             endingLineNumber = "11"
             landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "61BEE71B-F396-4AEC-946F-05F42BBC9C3C - 72bca66ca45de1e7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LanguagesApp.AppDelegate.application(_: __C.UIApplication, didRegisterForRemoteNotificationsWithDeviceToken: Foundation.Data) -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/GlobalControllers/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "61BEE71B-F396-4AEC-946F-05F42BBC9C3C - 4c20ce655e93151c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.UInt8) -&gt; Swift.String in LanguagesApp.AppDelegate.application(_: __C.UIApplication, didRegisterForRemoteNotificationsWithDeviceToken: Foundation.Data) -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/GlobalControllers/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5ED3D80D-53A6-4C98-BD17-52FB8AC8D39A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LanguagesApp/GlobalControllers/Notifier.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "askForPermissionIfNeeded()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5ED3D80D-53A6-4C98-BD17-52FB8AC8D39A - 111c0b4816beef21"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 () async throws -&gt; () in LanguagesApp.Notifier.askForPermissionIfNeeded() async -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/GlobalControllers/Notifier.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "5ED3D80D-53A6-4C98-BD17-52FB8AC8D39A - 49b2948ad60d5022"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 () async throws -&gt; () in LanguagesApp.Notifier.askForPermissionIfNeeded() async -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/GlobalControllers/Notifier.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "5ED3D80D-53A6-4C98-BD17-52FB8AC8D39A - 805724c5959c3123"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #1 () async throws -&gt; () in LanguagesApp.Notifier.askForPermissionIfNeeded() async -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/GlobalControllers/Notifier.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "5ED3D80D-53A6-4C98-BD17-52FB8AC8D39A - b8f5b40455ea9224"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for closure #1 () async throws -&gt; () in LanguagesApp.Notifier.askForPermissionIfNeeded() async -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/GlobalControllers/Notifier.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "5ED3D80D-53A6-4C98-BD17-52FB8AC8D39A - f7aac44715797325"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for closure #1 () async throws -&gt; () in LanguagesApp.Notifier.askForPermissionIfNeeded() async -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/GlobalControllers/Notifier.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "67A60D1D-5EEE-4146-9793-2D9881C9C3D0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LanguagesApp/GlobalControllers/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "67A60D1D-5EEE-4146-9793-2D9881C9C3D0 - 72bca66ca45de184"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LanguagesApp.AppDelegate.application(_: __C.UIApplication, didRegisterForRemoteNotificationsWithDeviceToken: Foundation.Data) -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/GlobalControllers/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "252">
+               </Location>
+               <Location
+                  uuid = "67A60D1D-5EEE-4146-9793-2D9881C9C3D0 - 8c64a926d0980d91"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () async throws -&gt; () in LanguagesApp.AppDelegate.application(_: __C.UIApplication, didRegisterForRemoteNotificationsWithDeviceToken: Foundation.Data) -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/GlobalControllers/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "0">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

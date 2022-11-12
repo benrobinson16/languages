@@ -76,7 +76,7 @@ extension Request {
         )
     }
     
-    public static func registerDevice(device: String, token: String) -> Request<String> {
+    public static func registerDevice(device: String, token: String) -> Request<StatusResponse> {
         return .init(
             method: .post,
             url: accountUrl.appending(path: "registerDevice"),
@@ -85,7 +85,7 @@ extension Request {
         )
     }
     
-    public static func removeRegisteredDevice(token: String) -> Request<String> {
+    public static func removeRegisteredDevice(token: String) -> Request<StatusResponse> {
         return .init(
             method: .post,
             url: accountUrl.appending(path: "removeDevice"),

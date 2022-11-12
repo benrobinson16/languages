@@ -78,12 +78,12 @@ public class AccountController : ControllerBase
     /// </summary>
     /// <param name="token">The device token for push notifications.</param>
     [HttpPost("registerdevice")]
-    public string RegisterDeviceToken(string token)
+    public StatusResponse RegisterDeviceToken(string token)
     {
         Student student = shield.AuthenticateStudent(Request);
         student.DeviceToken = token;
         db.SaveChanges();
-        return token;
+        return new StatusResponse { Success = true };
     }
 
     /// <summary>
@@ -91,13 +91,13 @@ public class AccountController : ControllerBase
     /// therefore no longer receive push notifications on that device.
     /// </summary>
     [HttpPost("removedevice")]
-    public string RemoveRegisteredDevice()
+    public StatusResponse RemoveRegisteredDevice()
     {
         Student student = shield.AuthenticateStudent(Request);
         string token = student.DeviceToken ?? "";
         student.DeviceToken = null;
         db.SaveChanges();
-        return token;
+        return new StatusResponse { Success = true };
     }
 
     /// <summary>

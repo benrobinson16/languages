@@ -86,6 +86,8 @@ class Authenticator: ObservableObject {
     
     @MainActor
     func signOut() async throws {
+        try await Notifier.shared.removeDeviceToken()
+        
         guard let accountId else { throw AuthError.noAccount }
         let account = try msal.account(forIdentifier: accountId)
         

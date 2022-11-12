@@ -3,11 +3,17 @@ import UIKit
 import UserNotifications
 import LanguagesAPI
 
-// Can be a struct because it does not need to store state.
-struct Notifier {
-    private init() { }
+class Notifier {
+    private var lastDeviceToken: String? = nil
     
-    static func askForPermissionIfNeeded() async {
+    private init() { }
+    static let shared = Notifier()
+    
+    func registerForPushNotifications() {
+        UIApplication.shared.registerForRemoteNotifications()
+    }
+    
+    func askForPermissionIfNeeded() async {
         let status = await checkPermissionStatus()
         
         if status == .notDetermined {
@@ -21,7 +27,7 @@ struct Notifier {
         }
     }
     
-    private static func checkPermissionStatus() async -> UNAuthorizationStatus {
+    private func checkPermissionStatus() async -> UNAuthorizationStatus {
         return await withCheckedContinuation { continuation in
             UNUserNotificationCenter.current().getNotificationSettings { settings in
                 continuation.resume(with: .success(settings.authorizationStatus))
@@ -29,13 +35,18 @@ struct Notifier {
         }
     }
     
-    static func updateDeviceToken(_ deviceToken: String) async throws {
+    func updateDeviceToken(_ deviceToken: String) async throws {
+        // Avoid updating to an identical token
+        guard deviceToken != lastDeviceToken else { return }
+        lastDeviceToken = deviceToken
+        
         guard let token = Authenticator.shared.token else { throw AppError.notAuthenticated }
         _ = try await LanguagesAPI.makeRequest(.registerDevice(device: deviceToken, token: token))
     }
     
-    static func removeDeviceToken() async throws {
+    func removeDeviceToken() async throws {
         guard let token = Authenticator.shared.token else { throw AppError.notAuthenticated }
         _ = try await LanguagesAPI.makeRequest(.removeRegisteredDevice(token: token))
+        lastDeviceToken = nil
     }
 }

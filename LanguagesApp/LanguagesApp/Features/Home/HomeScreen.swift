@@ -52,6 +52,7 @@ struct HomeScreen: View {
             }
         }
         .onAppear(perform: controller.loadSummary)
+        .onAppear(perform: Notifier.shared.registerForPushNotifications)
         .onChange(of: controller.summary) { newValue in
             if newValue != nil {
                 opacity = 1.0

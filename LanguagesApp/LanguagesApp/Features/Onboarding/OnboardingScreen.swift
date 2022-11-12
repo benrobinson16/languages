@@ -35,9 +35,12 @@ struct OnboardingScreen: View {
     }
     
     func joinFirstClass() {
-        Navigator.shared.goHome()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            Navigator.shared.open(.joinClass)
+        Task {
+            await Notifier.shared.askForPermissionIfNeeded()
+            Navigator.shared.goHome()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                Navigator.shared.open(.joinClass)
+            }
         }
     }
 }
