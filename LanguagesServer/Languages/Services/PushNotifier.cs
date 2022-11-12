@@ -102,7 +102,11 @@ public class PushNotifier
     private void GenerateAPNsToken()
     {
         string keyContents = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory.ToString() + pathToKey);
-        byte[] rawCertificate = Convert.FromBase64String(keyContents);
+        string cleanedContents = keyContents
+            .Replace("-----BEGIN PRIVATE KEY-----", "")
+            .Replace("-----END PRIVATE KEY-----", "");
+
+        byte[] rawCertificate = Convert.FromBase64String(cleanedContents);
         X509Certificate2 cert = new X509Certificate2(rawCertificate);
 
         lastGenerated = DateTime.Now;
