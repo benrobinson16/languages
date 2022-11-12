@@ -94,7 +94,7 @@ public class PushNotifier
     private const string iss = "";
     private const string baseUrl = "https://api.sandbox.push.apple.com:443";
     private const string bundleId = "dev.benrobinson.languages";
-    private const string pathToKey = "/constants/apns_key.pem";
+    private const string pathToKey = "/constants/apns-key.p8";
 
     private string? providerToken = null;
     private DateTime lastGenerated = DateTime.UnixEpoch;
@@ -149,10 +149,14 @@ public class PushNotifier
         if (response.StatusCode == HttpStatusCode.OK)
         {
             // Success
+            Console.WriteLine("Success");
         }
         else
         {
             // Failure
+            Console.WriteLine("FAILURE");
+            Console.WriteLine(response.StatusCode);
+            Console.WriteLine(response.Content.ToString());
         }
     }
 }

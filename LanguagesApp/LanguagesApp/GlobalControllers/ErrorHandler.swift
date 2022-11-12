@@ -18,6 +18,14 @@ class ErrorHandler: ObservableObject {
         }
     }
     
+    func report(_ error: Error?) {
+        if let error {
+            errorMessage = error.localizedDescription
+        } else {
+            errorMessage = "An unexpected error occured."
+        }
+    }
+    
     func wrap(_ operation: () throws -> Void, finally: (() -> Void)? = nil) {
         do {
             try operation()

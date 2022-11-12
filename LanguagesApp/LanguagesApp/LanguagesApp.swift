@@ -4,7 +4,7 @@ import MSAL
 
 @main
 struct LanguagesApp: App {
-    @Environment(\.scenePhase) var scenePhase
+    @UIApplicationDelegateAdaptor private var delegate = AppDelegate()
     
     var body: some Scene {
         WindowGroup {

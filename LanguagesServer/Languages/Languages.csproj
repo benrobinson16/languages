@@ -39,6 +39,8 @@
     <None Remove="Controllers\Teacker\" />
     <None Remove="ApiModels\" />
     <None Remove="Services\MockServices\" />
+    <None Remove="Constants\" />
+    <None Remove="Constants\apns-key.p8" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DbModels\" />
@@ -46,8 +48,14 @@
     <Folder Include="Controllers\Teacher\" />
     <Folder Include="ApiModels\" />
     <Folder Include="Services\MockServices\" />
+    <Folder Include="Constants\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Constants\apns-key.p8">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
