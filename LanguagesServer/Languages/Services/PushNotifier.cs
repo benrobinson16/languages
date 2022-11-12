@@ -123,9 +123,8 @@ public class PushNotifier
             providerToken = GenerateAPNsToken();
         }
 
-        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, baseUrl);
+        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, baseUrl + "/3/device/" + deviceToken);
 
-        request.Headers.Add(":path", "/3/device/" + deviceToken);
         request.Headers.Add("authorization", "bearer " + providerToken);
         request.Headers.Add("apns-push-type", "alert");
         request.Headers.Add("apns-topic", bundleId);
