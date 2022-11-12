@@ -110,7 +110,7 @@ public class PushNotifier
         return JwtBuilder.Create()
             .WithAlgorithm(new ES256Algorithm(key, key))
             .AddClaim("alg", "ES256")
-            .AddClaim("iss", DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+            .AddClaim("iat", DateTimeOffset.UtcNow.ToUnixTimeSeconds())
             .AddClaim("kid", kid)
             .AddClaim("iss", iss)
             .Encode();
