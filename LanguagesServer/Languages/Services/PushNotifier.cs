@@ -1,11 +1,7 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using JWT;
-using JWT.Algorithms;
-using JWT.Serializers;
+﻿using JWT.Algorithms;
 using JWT.Builder;
-using Newtonsoft.Json.Linq;
 using System.Net;
+using System.Security.Cryptography;
 
 namespace Languages.Services;
 
@@ -99,19 +95,28 @@ public class PushNotifier
     private string? providerToken = null;
     private DateTime lastGenerated = DateTime.UnixEpoch;
 
-    private void GenerateAPNsToken()
+    private string GenerateAPNsToken()
     {
         string keyContents = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory.ToString() + pathToKey);
         string cleanedContents = keyContents
             .Replace("-----BEGIN PRIVATE KEY-----", "")
             .Replace("-----END PRIVATE KEY-----", "");
+        byte[] keyBytes = Convert.FromBase64String(cleanedContents);
 
-        byte[] rawCertificate = Convert.FromBase64String(cleanedContents);
-        X509Certificate2 cert = new X509Certificate2(rawCertificate);
+        ECDsa key = ECDsa.Create(new ECParameters
+        {
+            Curve = ECCurve.NamedCurves.nistP256,
+            D = keyBytes,
+            Q = new ECPoint
+            {
+                X = keyBytes.Skip(1).Take(32).ToArray(),
+                Y = keyBytes.Skip(33).ToArray()
+            }
+        });
 
         lastGenerated = DateTime.Now;
-        providerToken = JwtBuilder.Create()
-            .WithAlgorithm(new ES256Algorithm(cert))
+        return JwtBuilder.Create()
+            .WithAlgorithm(new ES256Algorithm(key, key))
             .AddClaim("alg", "ES256")
             .AddClaim("iss", DateTimeOffset.UtcNow.ToUnixTimeSeconds())
             .AddClaim("kid", kid)
@@ -123,7 +128,7 @@ public class PushNotifier
     {
         if (providerToken == null || lastGenerated.AddMinutes(45) < DateTime.Now)
         {
-            GenerateAPNsToken();
+            providerToken = GenerateAPNsToken();
         }
 
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, baseUrl);
