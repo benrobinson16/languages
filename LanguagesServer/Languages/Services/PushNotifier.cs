@@ -148,6 +148,8 @@ public class PushNotifier
         HttpClient client = new HttpClient();
         HttpResponseMessage response = await client.SendAsync(request);
 
+        Console.WriteLine(JsonSerializer.Serialize(payload));
+        Console.WriteLine(deviceToken);
         Console.WriteLine(response.StatusCode);
         Console.WriteLine(await response.Content.ReadAsStringAsync());
 
