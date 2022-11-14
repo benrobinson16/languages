@@ -147,7 +147,10 @@ public class PushNotifier
 
         HttpClient client = new HttpClient();
         HttpResponseMessage response = await client.SendAsync(request);
-            
+
+        Console.WriteLine(response.StatusCode);
+        Console.WriteLine(response.Content.ToString());
+
         if (response.StatusCode == HttpStatusCode.OK)
         {
             // Success
@@ -157,8 +160,6 @@ public class PushNotifier
         {
             // Failure
             Console.WriteLine("FAILURE");
-            Console.WriteLine(response.StatusCode);
-            Console.WriteLine(response.Content.ToString());
         }
     }
 }

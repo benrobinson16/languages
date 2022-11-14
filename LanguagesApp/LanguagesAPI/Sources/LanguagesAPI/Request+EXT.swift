@@ -1,13 +1,13 @@
 import Foundation
 
 let studentUrl = URL(string: "https://api.languages.benrobinson.dev/student")!
-let accountUrl = URL(string: "https://api.languages.benrobinson.dev/account")!
+let accountUrl = URL(string: "https://api.languages.benrobinson.dev/account/student")!
 
 extension Request {
     public static func isNewStudent(token: String) -> Request<Bool> {
         return .init(
             method: .post,
-            url: accountUrl.appending(path: "student/isNewStudent"),
+            url: accountUrl.appending(path: "isNew"),
             headers: ["Authorization": token],
             data: [:]
         )

@@ -22,31 +22,6 @@ public class AccountController : ControllerBase
     }
 
     /// <summary>
-    /// Register a new student with an account.
-    /// </summary>
-    /// <returns>The new student object (with id).</returns>
-    [HttpPost("student/register")]
-    public Student RegisterStudent()
-    {
-        User user = shield.Authenticate(Request);
-
-        bool existingStudent = da.Students.ForEmail(user.Email).Any();
-        if (existingStudent) throw new LanguagesOperationAlreadyExecuted();
-
-        Student student = new Student
-        {
-            FirstName = user.FirstName,
-            Surname = user.Surname,
-            Email = user.Email,
-        };
-
-        db.Students.Add(student);
-        db.SaveChanges();
-
-        return student;
-    }
-
-    /// <summary>
     /// Register a new teacher.
     /// </summary>
     /// <param name="title">The title of the teacher.</param>
@@ -103,8 +78,8 @@ public class AccountController : ControllerBase
     /// Checks if a teacher has already been registered using the OAUTH token.
     /// </summary>
     /// <returns>Whether the teacher is already registered.</returns>
-    [HttpPost("teacher/exists")]
-    public bool TeacherExists()
+    [HttpPost("teacher/isnew")]
+    public bool IsNewTeacher()
     {
         User user = shield.Authenticate(Request);
         return da.Teachers.ForEmail(user.Email).Any();
@@ -115,7 +90,7 @@ public class AccountController : ControllerBase
     /// Will create the student with the OAUTH data if doesn't already exist.
     /// </summary>
     /// <returns>Whether the student is a new student.</returns>
-    [HttpPost("student/isnewstudent")]
+    [HttpPost("student/isnew")]
     public bool IsNewStudent()
     {
         User user = shield.Authenticate(Request);
@@ -137,6 +112,4 @@ public class AccountController : ControllerBase
 
         return isNew;
     }
-
-
 }
