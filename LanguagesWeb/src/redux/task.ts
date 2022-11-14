@@ -94,7 +94,7 @@ export const sendReminderNotification = (taskId: number, studentId: number): Typ
     return async (dispatch, getState) => {
         try {
             const token = getState().auth.token || await authService.getToken();
-            await endpoints.reminderNotification.makeRequest(token, { studentId, taskId });
+            await endpoints.reminderNotification.makeRequestVoid(token, { studentId, taskId });
             successToast("Sent.");
         } catch (error) {
             errorToast(error);
@@ -106,7 +106,7 @@ export const sendCongratsNotification = (taskId: number, studentId: number): Typ
     return async (dispatch, getState) => {
         try {
             const token = getState().auth.token || await authService.getToken();
-            await endpoints.congratsNotification.makeRequest(token, { studentId, taskId });
+            await endpoints.congratsNotification.makeRequestVoid(token, { studentId, taskId });
             successToast("Sent.");
         } catch (error) {
             errorToast(error);

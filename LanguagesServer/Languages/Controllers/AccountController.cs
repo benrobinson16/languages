@@ -49,32 +49,6 @@ public class AccountController : ControllerBase
     }
 
     /// <summary>
-    /// Update the token associated with a student to facilitate push notifications.
-    /// </summary>
-    /// <param name="token">The device token for push notifications.</param>
-    [HttpPost("registerdevice")]
-    public StatusResponse RegisterDeviceToken(string token)
-    {
-        Student student = shield.AuthenticateStudent(Request);
-        student.DeviceToken = token;
-        db.SaveChanges();
-        return new StatusResponse { Success = true };
-    }
-
-    /// <summary>
-    /// Alerts the server that a student has logged out of a device and should
-    /// therefore no longer receive push notifications on that device.
-    /// </summary>
-    [HttpPost("removedevice")]
-    public StatusResponse RemoveRegisteredDevice()
-    {
-        Student student = shield.AuthenticateStudent(Request);
-        student.DeviceToken = null;
-        db.SaveChanges();
-        return new StatusResponse { Success = true };
-    }
-
-    /// <summary>
     /// Checks if a teacher has already been registered using the OAUTH token.
     /// </summary>
     /// <returns>Whether the teacher is already registered.</returns>
@@ -111,5 +85,31 @@ public class AccountController : ControllerBase
         }
 
         return isNew;
+    }
+
+    /// <summary>
+    /// Update the token associated with a student to facilitate push notifications.
+    /// </summary>
+    /// <param name="token">The device token for push notifications.</param>
+    [HttpPost("student/registerdevice")]
+    public StatusResponse RegisterDeviceToken(string token)
+    {
+        Student student = shield.AuthenticateStudent(Request);
+        student.DeviceToken = token;
+        db.SaveChanges();
+        return new StatusResponse { Success = true };
+    }
+
+    /// <summary>
+    /// Alerts the server that a student has logged out of a device and should
+    /// therefore no longer receive push notifications on that device.
+    /// </summary>
+    [HttpPost("student/removeDevice")]
+    public StatusResponse RemoveRegisteredDevice()
+    {
+        Student student = shield.AuthenticateStudent(Request);
+        student.DeviceToken = null;
+        db.SaveChanges();
+        return new StatusResponse { Success = true };
     }
 }
