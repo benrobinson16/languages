@@ -160,7 +160,8 @@ public class StudentController: ControllerBase
         Enrollment newEnrollment = new Enrollment
         {
             ClassId = foundClass.ClassId,
-            StudentId = student.StudentId
+            StudentId = student.StudentId,
+            JoinDate = DateTime.Now
         };
 
         db.Enrollments.Add(newEnrollment);
