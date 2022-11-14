@@ -149,7 +149,7 @@ public class PushNotifier
         HttpResponseMessage response = await client.SendAsync(request);
 
         Console.WriteLine(response.StatusCode);
-        Console.WriteLine(response.Content.ToString());
+        Console.WriteLine(await response.Content.ReadAsStringAsync());
 
         if (response.StatusCode == HttpStatusCode.OK)
         {
