@@ -82,7 +82,7 @@ public class AccountController : ControllerBase
     public bool IsNewTeacher()
     {
         User user = shield.Authenticate(Request);
-        return da.Teachers.ForEmail(user.Email).Any();
+        return !da.Teachers.ForEmail(user.Email).Any();
     }
 
     /// <summary>

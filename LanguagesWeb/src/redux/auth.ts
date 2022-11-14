@@ -4,7 +4,7 @@ import { AppDispatch, AppState } from "./store";
 import * as nav from "./nav";
 import * as signUp from "./signUp";
 import { errorToast } from "../helper/toast";
-import { teacherExists } from "../api/endpoints";
+import { teacherIsNew } from "../api/endpoints";
 
 interface AuthState {
     token: string | null,
@@ -48,12 +48,12 @@ export const getToken = (redirectToHome: boolean = false) => {
             const token = await authService.getToken();
             dispatch(gotToken(token));
 
-            const isRegistered = await teacherExists.makeRequest(token);
+            const isNew = await teacherIsNew.makeRequest(token);
             dispatch(finishedAuthenticating());
 
-            if (isRegistered && redirectToHome) {
+            if (!isNew && redirectToHome) {
                 dispatch(nav.openHome());
-            } else if (!isRegistered) {
+            } else if (isNew) {
                 dispatch(signUp.showSignUp());
             }
         } catch (error) {
@@ -85,10 +85,10 @@ export const saveTokenAndRedirect = (token: string) => {
         dispatch(gotToken(token));
 
         try {
-            const isRegistered = await teacherExists.makeRequest(token);
+            const isNew = await teacherIsNew.makeRequest(token);
             dispatch(finishedAuthenticating());
 
-            if (isRegistered) {
+            if (!isNew) {
                 dispatch(nav.openHome());
             } else {
                 dispatch(signUp.showSignUp());
