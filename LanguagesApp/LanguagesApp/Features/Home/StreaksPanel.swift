@@ -16,7 +16,7 @@ struct StreaksPanel: View {
                     .foregroundColor(.secondary)
                 
                 HStack {
-                    ForEach(streakHistory, id: \.date) { history in
+                    ForEach(streakHistory.reversed(), id: \.date) { history in
                         Spacer()
                         ZStack {
                             Circle()

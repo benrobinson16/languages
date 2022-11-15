@@ -4,6 +4,7 @@ import DataStructures
 
 class ReviewLearningSession: LearningSession {
     private var questionQueue = Queue<Card>()
+    override var mode: String { get { "Review" } }
     
     @MainActor
     override func nextQuestion() async {
@@ -20,9 +21,11 @@ class ReviewLearningSession: LearningSession {
             } else {
                 await startSession()
                 currentCard = questionQueue.dequeue()
+                completion = 0.0
             }
         } else {
             currentCard = questionQueue.dequeue()
+            completion += 0.1 // FIXME: Actual completion
         }
     }
     

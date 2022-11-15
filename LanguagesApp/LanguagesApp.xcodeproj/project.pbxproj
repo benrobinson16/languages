@@ -26,6 +26,7 @@
 		524D5A8B28EEC69200035DB6 /* MSAL in Frameworks */ = {isa = PBXBuildFile; productRef = 524D5A8A28EEC69200035DB6 /* MSAL */; };
 		524D5A8F28EED13E00035DB6 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D5A8E28EED13E00035DB6 /* Authenticator.swift */; };
 		524D5A9128EED16D00035DB6 /* UIApplication+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524D5A9028EED16D00035DB6 /* UIApplication+EXT.swift */; };
+		52534ABF2923AE3400F5FCC8 /* LearningProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52534ABE2923AE3400F5FCC8 /* LearningProgressBar.swift */; };
 		526230DF291B0E29009B158C /* Date+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526230DE291B0E29009B158C /* Date+EXT.swift */; };
 		526230E1291B1197009B158C /* CompletionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526230E0291B1197009B158C /* CompletionBar.swift */; };
 		526230E3291B17D2009B158C /* TaskDetailsCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526230E2291B17D2009B158C /* TaskDetailsCards.swift */; };
@@ -92,6 +93,7 @@
 		524D5A8D28EEC79A00035DB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		524D5A8E28EED13E00035DB6 /* Authenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
 		524D5A9028EED16D00035DB6 /* UIApplication+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+EXT.swift"; sourceTree = "<group>"; };
+		52534ABE2923AE3400F5FCC8 /* LearningProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningProgressBar.swift; sourceTree = "<group>"; };
 		526230DE291B0E29009B158C /* Date+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+EXT.swift"; sourceTree = "<group>"; };
 		526230E0291B1197009B158C /* CompletionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionBar.swift; sourceTree = "<group>"; };
 		526230E2291B17D2009B158C /* TaskDetailsCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsCards.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 				527AD2A029116599001A1AD5 /* LearningCardView.swift */,
 				527AD2A2291165B9001A1AD5 /* LearningMessageView.swift */,
 				523E0A6728F5762000B505F0 /* LearningScreen.swift */,
+				52534ABE2923AE3400F5FCC8 /* LearningProgressBar.swift */,
 			);
 			path = Learning;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				52FB8B0129142A1F0086C6A1 /* AlertHandler.swift in Sources */,
 				52AEE46429198CB900B65EB5 /* Carousel.swift in Sources */,
 				524C5AB728E2FACA00A4BDD1 /* LanguagesApp.swift in Sources */,
+				52534ABF2923AE3400F5FCC8 /* LearningProgressBar.swift in Sources */,
 				527ACFAA2911B8960008147A /* SplashController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

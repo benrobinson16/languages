@@ -26,6 +26,8 @@ class HomeController: ObservableObject {
             let isNewStudent = try await LanguagesAPI.makeRequest(.isNewStudent(token: token))
             if isNewStudent {
                 Navigator.shared.open(.onboarding)
+            } else {
+                await Notifier.shared.askForPermissionIfNeeded()
             }
             self.summary = try await LanguagesAPI.makeRequest(.summary(token: token))
         } finally: {

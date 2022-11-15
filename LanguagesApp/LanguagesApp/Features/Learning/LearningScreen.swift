@@ -21,7 +21,7 @@ struct LearningScreen: View {
     
     var body: some View {
         VStack {
-            Rectangle() // Top bar
+            LearningProgressBar(completion: session.completion, mode: session.mode, dismiss: Navigator.shared.goHome)
             if let card = session.currentCard {
                 LearningCardView(question: LearningQuestion(card: card))
             } else if let message = session.currentMessage {

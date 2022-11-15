@@ -19,12 +19,14 @@ class TaskLearningSession: LearningSession {
     ]))
     
     private static let noiseFactor = 0.5
+    override var mode: String { get { "Tasks" } }
     
     init(onCompletion: @escaping () -> Void) {
         self.onCompletion = onCompletion
         super.init()
     }
     
+    @MainActor
     override func nextQuestion() async {
         if lqn.isEmpty {
             if currentCard != nil {
@@ -47,6 +49,8 @@ class TaskLearningSession: LearningSession {
             newCard.nextQuestionType = QuestionType(rawValue: nextCardData.queue)!
             currentCard = newCard
             currentMessage = nil
+            
+            completion += 0.1 // FIXME: Actual completion
         }
     }
     

@@ -8,6 +8,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("REGISTERED FOR REMOTE NOTIFICATIONS")
         let tokenStr = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         ErrorHandler.shared.detachAsync {
             try await Notifier.shared.updateDeviceToken(tokenStr)

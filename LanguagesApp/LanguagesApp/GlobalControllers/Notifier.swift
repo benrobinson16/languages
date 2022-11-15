@@ -3,14 +3,15 @@ import UIKit
 import UserNotifications
 import LanguagesAPI
 
-class Notifier {
+class Notifier: NSObject, UNUserNotificationCenterDelegate {
     private var lastDeviceToken: String? = nil
     
-    private init() { }
+    private override init() { }
     static let shared = Notifier()
     
     func registerForPushNotifications() {
         UIApplication.shared.registerForRemoteNotifications()
+        UNUserNotificationCenter.current().delegate = self
     }
     
     func askForPermissionIfNeeded() async {
@@ -48,5 +49,10 @@ class Notifier {
         guard let token = Authenticator.shared.token else { throw AppError.notAuthenticated }
         _ = try await LanguagesAPI.makeRequest(.removeRegisteredDevice(token: token))
         lastDeviceToken = nil
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        // Still present the alert when in the foreground
+        completionHandler([.banner, .sound])
     }
 }

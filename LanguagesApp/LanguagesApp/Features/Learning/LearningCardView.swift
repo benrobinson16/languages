@@ -6,13 +6,17 @@ struct LearningCardView: View {
     @State private var answer = ""
     
     var body: some View {
-        Panel {
             VStack {
-                Text("TRANSLATE:")
+                Spacer(minLength: 0)
+                
+                Text("TRANSLATE")
                     .font(.appSecondary)
                     .foregroundColor(.secondary)
                 
                 Text(getQuestionString())
+                    .font(.title2)
+                
+                Spacer(minLength: 0)
                 
                 switch question.card.nextQuestionType {
                 case nil, .unspecified, .multipleChoice:
@@ -21,11 +25,13 @@ struct LearningCardView: View {
                     WrittenResponse(answer: $answer)
                 }
                 
+                Spacer(minLength: 0)
+                
                 AppButton(enabled: !answer.isEmpty, title: "Submit") {
                     question.answerQuestion(answer: answer)
                 }
             }
-        }
+            .padding()
     }
     
     func getQuestionString() -> String {
@@ -66,7 +72,11 @@ struct ChoiceCard: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
-                .stroke(answer == choice ? Color.appAccent : Color.gray, style: .init(lineWidth: 3.0))
+                .stroke(
+                    answer == choice ? Color.appAccent : Color.gray.opacity(0.75),
+                    style: .init(lineWidth: answer == choice ? 4.0 : 2.0)
+                )
+                .animation(.spring(), value: answer)
             
             Text(choice)
                 .font(.appSubheading)
@@ -75,6 +85,7 @@ struct ChoiceCard: View {
         .onTapGesture {
             answer = choice
         }
+        .aspectRatio(1.0, contentMode: .fit)
     }
 }
 

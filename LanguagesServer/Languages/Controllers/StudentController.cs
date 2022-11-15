@@ -109,7 +109,7 @@ public class StudentController: ControllerBase
     }
 
     [HttpPost("didAnswer")]
-    public void PostDidAnswer(int cardId, bool correct, int questionType)
+    public StatusResponse PostDidAnswer(int cardId, bool correct, int questionType)
     {
         Student student = shield.AuthenticateStudent(Request);
 
@@ -126,6 +126,8 @@ public class StudentController: ControllerBase
         db.SaveChanges();
 
         da.Cards.UpdateDifficulty(cardId);
+
+        return new StatusResponse { Success = true };
     }
 
     [HttpPost("joinClass")]
