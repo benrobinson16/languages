@@ -218,7 +218,7 @@ public class StudentController: ControllerBase
         {
             Console.WriteLine("Loop 1");
             int index = random.Next() % siblingCards.Count();
-            selectedCards.Append(siblingCards[index]);
+            selectedCards.Add(siblingCards[index]);
             siblingCards.RemoveAt(index);
         }
 
@@ -227,13 +227,10 @@ public class StudentController: ControllerBase
 
         while (selectedCards.Count() < 3)
         {
-            Console.WriteLine("Loop 2");
             Card newCard = da.Cards.RandomCard();
-            Console.WriteLine(newCard.ForeignTerm);
             if (!selectedCards.Any(c => c.CardId == newCard.CardId))
             {
-                Console.WriteLine("Append");
-                selectedCards.Append(newCard);
+                selectedCards.Add(newCard);
             }
         }
 
