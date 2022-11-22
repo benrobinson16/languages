@@ -46,6 +46,7 @@
 		527AD2A929116656001A1AD5 /* LearningSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527AD2A829116656001A1AD5 /* LearningSession.swift */; };
 		527AD2AB29116662001A1AD5 /* ReviewLearningSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527AD2AA29116662001A1AD5 /* ReviewLearningSession.swift */; };
 		527AD2AD29116670001A1AD5 /* TaskLearningSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527AD2AC29116670001A1AD5 /* TaskLearningSession.swift */; };
+		5296A2D1292CE7C8007672FA /* OverdueMessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5296A2D0292CE7C8007672FA /* OverdueMessageCard.swift */; };
 		52AEE46429198CB900B65EB5 /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEE46329198CB900B65EB5 /* Carousel.swift */; };
 		52AEE46929199CB500B65EB5 /* FileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEE46829199CB500B65EB5 /* FileController.swift */; };
 		52AEE46D2919A15E00B65EB5 /* hellos.json in Resources */ = {isa = PBXBuildFile; fileRef = 52AEE46C2919A15E00B65EB5 /* hellos.json */; };
@@ -113,6 +114,7 @@
 		527AD2A829116656001A1AD5 /* LearningSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningSession.swift; sourceTree = "<group>"; };
 		527AD2AA29116662001A1AD5 /* ReviewLearningSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLearningSession.swift; sourceTree = "<group>"; };
 		527AD2AC29116670001A1AD5 /* TaskLearningSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLearningSession.swift; sourceTree = "<group>"; };
+		5296A2D0292CE7C8007672FA /* OverdueMessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverdueMessageCard.swift; sourceTree = "<group>"; };
 		52AEE46329198CB900B65EB5 /* Carousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
 		52AEE46829199CB500B65EB5 /* FileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileController.swift; sourceTree = "<group>"; };
 		52AEE46C2919A15E00B65EB5 /* hellos.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hellos.json; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				52C28F822905C7BD0088593B /* FootnoteButton.swift */,
 				52C28F862905F0AE0088593B /* WavingHand.swift */,
 				5274EAEF2918623400B808DF /* ClassList.swift */,
+				5296A2D0292CE7C8007672FA /* OverdueMessageCard.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 				526230E3291B17D2009B158C /* TaskDetailsCards.swift in Sources */,
 				524D49B6291FE6400097B3AF /* AppDelegate.swift in Sources */,
 				52C28F792905BD0A0088593B /* DailyCompletionPanel.swift in Sources */,
+				5296A2D1292CE7C8007672FA /* OverdueMessageCard.swift in Sources */,
 				523E0A6628F5761600B505F0 /* SettingsScreen.swift in Sources */,
 				52C28F7B2905BE9E0088593B /* Font+EXT.swift in Sources */,
 				524D5A9128EED16D00035DB6 /* UIApplication+EXT.swift in Sources */,

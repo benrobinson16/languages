@@ -23,6 +23,10 @@ struct HomeScreen: View {
                     TitleGreeting(name: summary.studentName)
                         .padding(.bottom, 50)
                     
+                    if !summary.overdueMessage.isEmpty {
+                        OverdueMessageCard(message: summary.overdueMessage)
+                    }
+                    
                     DailyCompletionPanel(percentage: summary.dailyPercentage) { nav.open(.learning) }
                     
                     StreaksPanel(streakHistory: summary.streakHistory, streakLength: summary.streakLength)

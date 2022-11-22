@@ -132,7 +132,7 @@ struct Popup: View {
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 16.0)
-                    .foregroundColor(correct ? .green.opacity(0.3) : .red.opacity(0.3))
+                    .foregroundColor(correct ? .backgroundGreen : .backgroundRed)
                     .edgesIgnoringSafeArea(.bottom)
             )
             .background(

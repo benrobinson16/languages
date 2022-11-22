@@ -52,7 +52,12 @@ class TaskLearningSession: LearningSession {
             
             if newCard.nextQuestionType == .multipleChoice {
                 guard let token = Authenticator.shared.token else { Navigator.shared.goHome(); return }
-                newCard.options = await LanguagesAPI.makeRequest(.distractors(cardId: newCard.cardId, token: token))
+                do {
+                    newCard.options = try await LanguagesAPI.makeRequest(.distractors(cardId: newCard.cardId, token: token))
+                } catch {
+                    ErrorHandler.shared.report(error)
+                    Navigator.shared.goHome()
+                }
             }
             
             completion += 0.1 // FIXME: Actual completion

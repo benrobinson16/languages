@@ -91,4 +91,11 @@ public class CardRepository
                where sibling.CardId != cardId
                select sibling;
     }
+
+    public Card RandomCard()
+    {
+        int maxSkip = db.Cards.Count();
+        int skip = new Random().Next() % maxSkip;
+        return db.Cards.Skip(skip).First();
+    }
 }

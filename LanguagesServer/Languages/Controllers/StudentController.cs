@@ -201,20 +201,30 @@ public class StudentController: ControllerBase
     }
 
     [HttpGet("distractors")]
-    public string[] GetDistractors(int classId)
+    public List<string> GetDistractors(int cardId)
     {
         Student student = shield.AuthenticateStudent(Request);
 
         List<Card> siblingCards = da.Cards.SiblingsForCard(cardId).ToList();
+        List<Card> selectedCards = new List<Card>();
+        Random random = new Random();
 
-        if (siblingCards.Count() < 3)
+        while (selectedCards.Count < 3 && siblingCards.Count >= 1)
         {
-
+            int index = random.Next() % siblingCards.Count();
+            selectedCards.Append(siblingCards[index]);
+            siblingCards.RemoveAt(index);
         }
-        else
+
+        while (selectedCards.Count < 3)
         {
-            return siblingCards.Random
+            Card newCard = da.Cards.RandomCard();
+            if (!selectedCards.Any(c => c.CardId == newCard.CardId))
+            {
+                selectedCards.Append(newCard);
+            }
         }
 
+        return selectedCards.Select(c => c.ForeignTerm).ToList();
     }
 }

@@ -16,4 +16,12 @@ extension Color {
     public static var panelSecondary: Color  {
         return Color(red: 229.0 / 255.0, green: 229.0 / 255.0, blue: 229.0 / 255.0)
     }
+    
+    public static var backgroundRed: Color {
+        return .red.opacity(0.3)
+    }
+    
+    public static var backgroundGreen: Color {
+        return .green.opacity(0.3)
+    }
 }

@@ -99,7 +99,7 @@ extension Request {
             method: .get,
             url: studentUrl.appending(path: "distractors"),
             headers: ["Authorization": token],
-            data: ["cardId": String(cardId), "token": token]
+            data: ["cardId": String(cardId)]
         )
     }
 }
