@@ -214,7 +214,7 @@ public class StudentController: ControllerBase
         Console.WriteLine("Sibling cards");
         Console.WriteLine(siblingCards.Select(x => x.ForeignTerm).Aggregate("", (x, y) => x + ", " + y));
 
-        while (selectedCards.Count() < 3 && siblingCards.Count >= 1)
+        while (selectedCards.Count() < 3 && siblingCards.Count() >= 1)
         {
             Console.WriteLine("Loop 1");
             int index = random.Next() % siblingCards.Count();
@@ -232,6 +232,7 @@ public class StudentController: ControllerBase
             Console.WriteLine(newCard.ForeignTerm);
             if (!selectedCards.Any(c => c.CardId == newCard.CardId))
             {
+                Console.WriteLine("Append");
                 selectedCards.Append(newCard);
             }
         }
