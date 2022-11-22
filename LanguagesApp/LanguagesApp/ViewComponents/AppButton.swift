@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AppButton: View {
     var enabled: Bool = true
+    var color: Color = .appAccent
     let title: String
     let action: () -> Void
     
@@ -17,7 +18,7 @@ struct AppButton: View {
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .foregroundColor(.appAccent)
+                    .foregroundColor(color)
             )
         }
         .buttonStyle(ScaleButtonStyle())

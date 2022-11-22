@@ -12,7 +12,7 @@ import DataStructures
 class TaskLearningSession: LearningSession {
     private let onCompletion: () -> Void
     private let lqn = LearningLQN<Card>(queues: .init(array: [
-        Queue<Card>(), // Input --> Multiple choice
+        Queue<Card>(),
         NoisyQueue<Card>(noiseFactor: TaskLearningSession.noiseFactor), // Input --> Multiple choice
         NoisyQueue<Card>(noiseFactor: TaskLearningSession.noiseFactor), // Multiple choice --> English written
         NoisyQueue<Card>(noiseFactor: TaskLearningSession.noiseFactor), // English written --> Foreign written
@@ -49,6 +49,11 @@ class TaskLearningSession: LearningSession {
             newCard.nextQuestionType = QuestionType(rawValue: nextCardData.queue)!
             currentCard = newCard
             currentMessage = nil
+            
+            if newCard.nextQuestionType == .multipleChoice {
+                guard let token = Authenticator.shared.token else { Navigator.shared.goHome(); return }
+                newCard.options = await LanguagesAPI.makeRequest(.distractors(cardId: newCard.cardId, token: token))
+            }
             
             completion += 0.1 // FIXME: Actual completion
         }

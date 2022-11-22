@@ -6,6 +6,7 @@ public struct Card: Codable, Identifiable, Equatable {
     public let foreignTerm: String
     public var nextQuestionType: QuestionType? // Only included when needed
     public let dueDate: Date? // Only included when needed
+    public var options: [String]? // Only included when needed
     
     public var id: Int { return cardId }
 }

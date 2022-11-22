@@ -49,7 +49,7 @@ extension Request {
         )
     }
     
-    public static func didAnswer(cardId: Int, correct: Bool, questionType: QuestionType, token: String) -> Request<Int> {
+    public static func didAnswer(cardId: Int, correct: Bool, questionType: QuestionType, token: String) -> Request<StatusResponse> {
         return .init(
             method: .post,
             url: studentUrl.appending(path: "didanswer"),
@@ -91,6 +91,15 @@ extension Request {
             url: accountUrl.appending(path: "removeDevice"),
             headers: ["Authorization": token],
             data: [:]
+        )
+    }
+    
+    public static func distractors(cardId: Int, token: String) -> Request<[String]> {
+        return .init(
+            method: .get,
+            url: studentUrl.appending(path: "distractors"),
+            headers: ["Authorization": token],
+            data: ["cardId": String(cardId), "token": token]
         )
     }
 }

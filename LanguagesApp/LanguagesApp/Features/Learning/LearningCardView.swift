@@ -4,34 +4,41 @@ import LanguagesAPI
 struct LearningCardView: View {
     @ObservedObject var question: LearningQuestion
     @State private var answer = ""
+    let next: () -> Void
     
     var body: some View {
-            VStack {
-                Spacer(minLength: 0)
-                
-                Text("TRANSLATE")
-                    .font(.appSecondary)
-                    .foregroundColor(.secondary)
-                
-                Text(getQuestionString())
-                    .font(.title2)
-                
-                Spacer(minLength: 0)
-                
-                switch question.card.nextQuestionType {
-                case nil, .unspecified, .multipleChoice:
-                    MultipleChoiceGrid(choices: ["1", "2", "3", "4"], answer: $answer)
-                case .englishWritten, .foreignWritten:
-                    WrittenResponse(answer: $answer)
-                }
-                
-                Spacer(minLength: 0)
-                
-                AppButton(enabled: !answer.isEmpty, title: "Submit") {
-                    question.answerQuestion(answer: answer)
-                }
+        VStack {
+            Spacer(minLength: 0)
+            
+            Text("TRANSLATE")
+                .font(.appSecondary)
+                .foregroundColor(.secondary)
+            
+            Text(getQuestionString())
+                .font(.title2)
+            
+            Spacer(minLength: 0)
+            
+            switch question.card.nextQuestionType {
+            case nil, .unspecified, .multipleChoice:
+                MultipleChoiceGrid(choices: ["1", "2", "3", "4"], answer: $answer)
+            case .englishWritten, .foreignWritten:
+                WrittenResponse(answer: $answer)
             }
-            .padding()
+            
+            Spacer(minLength: 0)
+            
+            AppButton(enabled: !answer.isEmpty, title: "Submit") {
+                question.answerQuestion(answer: answer)
+            }
+        }
+        .padding()
+        .overlay {
+            if let correct = question.correct {
+                Popup(correct: correct, feedback: question.feedback, next: next)
+            }
+        }
+        .animation(.spring(dampingFraction: 0.8), value: question.correct)
     }
     
     func getQuestionString() -> String {
@@ -95,5 +102,45 @@ struct WrittenResponse: View {
     var body: some View {
         TextField("Translation:", text: $answer)
             .textFieldStyle(RoundedBorderTextFieldStyle())
+    }
+}
+
+struct Popup: View {
+    let correct: Bool
+    let feedback: String?
+    let next: () -> Void
+    
+    var body: some View {
+        VStack {
+            Spacer(minLength: 0)
+            
+            VStack(alignment: .leading) {
+                Text(correct ? "Correct" : "Incorrect")
+                    .font(.appTitle)
+                
+                if let feedback {
+                    Text(feedback)
+                        .font(.appSubheading)
+                }
+                
+                AppButton(
+                    enabled: true,
+                    title: "Continue",
+                    action: next
+                )
+            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 16.0)
+                    .foregroundColor(correct ? .green.opacity(0.3) : .red.opacity(0.3))
+                    .edgesIgnoringSafeArea(.bottom)
+            )
+            .background(
+                RoundedRectangle(cornerRadius: 16.0)
+                    .foregroundColor(.init(uiColor: .systemBackground))
+                    .edgesIgnoringSafeArea(.bottom)
+            )
+        }
+        .transition(.move(edge: .bottom))
     }
 }

@@ -199,4 +199,22 @@ public class StudentController: ControllerBase
             Success = true
         };
     }
+
+    [HttpGet("distractors")]
+    public string[] GetDistractors(int classId)
+    {
+        Student student = shield.AuthenticateStudent(Request);
+
+        List<Card> siblingCards = da.Cards.SiblingsForCard(cardId).ToList();
+
+        if (siblingCards.Count() < 3)
+        {
+
+        }
+        else
+        {
+            return siblingCards.Random
+        }
+
+    }
 }

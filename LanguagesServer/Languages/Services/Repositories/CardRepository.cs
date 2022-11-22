@@ -82,4 +82,13 @@ public class CardRepository
         IQueryable<Card> cards = ForDeck(deckId);
         db.Cards.RemoveRange(cards);
     }
+
+    public IQueryable<Card> SiblingsForCard(int cardId)
+    {
+        return from card in db.Cards
+               where card.CardId == cardId
+               join sibling in db.Cards on card.DeckId equals sibling.DeckId
+               where sibling.CardId != cardId
+               select sibling;
+    }
 }
