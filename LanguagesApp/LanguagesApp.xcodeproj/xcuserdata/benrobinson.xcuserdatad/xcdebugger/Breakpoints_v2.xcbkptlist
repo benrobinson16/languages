@@ -420,7 +420,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "ACB6078A-C2B9-4A5E-ACB5-D6D375AA9CC8"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LanguagesApp/Features/Learning/TaskLearningSession.swift"
@@ -430,6 +430,132 @@
             endingLineNumber = "51"
             landmarkName = "nextQuestion()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "56050ACB-0760-4079-9903-EE956269D456"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LanguagesApp/Features/Learning/TaskLearningSession.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "nextQuestion()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "56050ACB-0760-4079-9903-EE956269D456 - 190d24d397eba191"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for LanguagesApp.TaskLearningSession.nextQuestion() async -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/Features/Learning/TaskLearningSession.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "2772">
+               </Location>
+               <Location
+                  uuid = "56050ACB-0760-4079-9903-EE956269D456 - 6cbef991ac474d7f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for LanguagesApp.TaskLearningSession.nextQuestion() async -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/Features/Learning/TaskLearningSession.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "348">
+               </Location>
+               <Location
+                  uuid = "56050ACB-0760-4079-9903-EE956269D456 - 396668f0d6169b76"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for LanguagesApp.TaskLearningSession.nextQuestion() async -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/Features/Learning/TaskLearningSession.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "480">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "22663D5E-A6EE-4C2F-87A1-30C597D6460A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LanguagesApp/Features/Learning/TaskLearningSession.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "nextQuestion()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "22663D5E-A6EE-4C2F-87A1-30C597D6460A - 190d24d397eba1b0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for LanguagesApp.TaskLearningSession.nextQuestion() async -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/Features/Learning/TaskLearningSession.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "2696">
+               </Location>
+               <Location
+                  uuid = "22663D5E-A6EE-4C2F-87A1-30C597D6460A - 6cbef991ac474d5e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for LanguagesApp.TaskLearningSession.nextQuestion() async -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/Features/Learning/TaskLearningSession.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "268">
+               </Location>
+               <Location
+                  uuid = "22663D5E-A6EE-4C2F-87A1-30C597D6460A - 396668f0d6169b57"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for LanguagesApp.TaskLearningSession.nextQuestion() async -&gt; ()"
+                  moduleName = "LanguagesApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/Features/Learning/TaskLearningSession.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "400">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -216,6 +216,7 @@ public class StudentController: ControllerBase
 
         while (selectedCards.Count() < 3 && siblingCards.Count >= 1)
         {
+            Console.WriteLine("Loop 1");
             int index = random.Next() % siblingCards.Count();
             selectedCards.Append(siblingCards[index]);
             siblingCards.RemoveAt(index);
@@ -226,7 +227,9 @@ public class StudentController: ControllerBase
 
         while (selectedCards.Count() < 3)
         {
+            Console.WriteLine("Loop 2");
             Card newCard = da.Cards.RandomCard();
+            Console.WriteLine(newCard.ForeignTerm);
             if (!selectedCards.Any(c => c.CardId == newCard.CardId))
             {
                 selectedCards.Append(newCard);
