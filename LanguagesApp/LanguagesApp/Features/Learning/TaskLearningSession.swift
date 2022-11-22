@@ -47,8 +47,6 @@ class TaskLearningSession: LearningSession {
             
             var newCard = nextCardData.value
             newCard.nextQuestionType = QuestionType(rawValue: nextCardData.queue)!
-            currentCard = newCard
-            currentMessage = nil
             
             if newCard.nextQuestionType == .multipleChoice {
                 guard let token = Authenticator.shared.token else { Navigator.shared.goHome(); return }
@@ -59,6 +57,9 @@ class TaskLearningSession: LearningSession {
                     Navigator.shared.goHome()
                 }
             }
+            
+            currentCard = newCard
+            currentMessage = nil
             
             completion += 0.1 // FIXME: Actual completion
         }
