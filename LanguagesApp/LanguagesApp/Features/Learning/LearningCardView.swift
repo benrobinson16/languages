@@ -21,7 +21,9 @@ struct LearningCardView: View {
             
             switch question.card.nextQuestionType {
             case nil, .unspecified, .multipleChoice:
-                MultipleChoiceGrid(choices: ["1", "2", "3", "4"], answer: $answer)
+                if let options = question.options {
+                    MultipleChoiceGrid(choices: options, answer: $answer)
+                }
             case .englishWritten, .foreignWritten:
                 WrittenResponse(answer: $answer)
             }
