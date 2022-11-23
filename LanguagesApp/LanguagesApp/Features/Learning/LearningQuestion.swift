@@ -9,11 +9,9 @@ class LearningQuestion: ObservableObject {
     let card: Card
     @Published var correct: Bool? = nil
     @Published var feedback: String? = nil
-    @Published var options: [String]? = nil
     
-    init(card: Card, options: [String]? = nil) {
+    init(card: Card) {
         self.card = card
-        self.options = options
         
         if let articles = FileController.shared.articles {
             self.answerGenerator = AnswerGenerator(articles: articles)

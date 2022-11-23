@@ -8,6 +8,7 @@
 import Foundation
 import LanguagesAPI
 import DataStructures
+import IntelligentMarking
 
 class TaskLearningSession: LearningSession {
     private let onCompletion: () -> Void
@@ -51,7 +52,10 @@ class TaskLearningSession: LearningSession {
             if newCard.nextQuestionType == .multipleChoice {
                 guard let token = Authenticator.shared.token else { Navigator.shared.goHome(); return }
                 do {
-                    newCard.options = try await LanguagesAPI.makeRequest(.distractors(cardId: newCard.cardId, token: token))
+                    let distractors = try await LanguagesAPI.makeRequest(.distractors(cardId: newCard.cardId, token: token))
+                    let gen = AnswerGenerator(articles: []) // Intentionally disable article removal
+                    let answers = distractors + [newCard.foreignTerm]
+                    newCard.options = answers.map { gen.generate(answer: $0).randomElement() ?? "NO ANSWERS" }
                 } catch {
                     ErrorHandler.shared.report(error)
                     Navigator.shared.goHome()

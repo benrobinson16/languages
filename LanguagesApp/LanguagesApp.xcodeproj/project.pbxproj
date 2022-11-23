@@ -95,11 +95,11 @@
 		524D5A8E28EED13E00035DB6 /* Authenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
 		524D5A9028EED16D00035DB6 /* UIApplication+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+EXT.swift"; sourceTree = "<group>"; };
 		52534ABE2923AE3400F5FCC8 /* LearningProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningProgressBar.swift; sourceTree = "<group>"; };
+		525F9073292E310A0041F4A1 /* SplashKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SplashKit; sourceTree = "<group>"; };
 		526230DE291B0E29009B158C /* Date+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+EXT.swift"; sourceTree = "<group>"; };
 		526230E0291B1197009B158C /* CompletionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionBar.swift; sourceTree = "<group>"; };
 		526230E2291B17D2009B158C /* TaskDetailsCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsCards.swift; sourceTree = "<group>"; };
 		526230E6291B1AD2009B158C /* Notification+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+EXT.swift"; sourceTree = "<group>"; };
-		5274EAE92918568800B808DF /* SplashKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SplashKit; path = ../../../Coding/SplashKit; sourceTree = "<group>"; };
 		5274EAED291857B000B808DF /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
 		5274EAEF2918623400B808DF /* ClassList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassList.swift; sourceTree = "<group>"; };
 		527ACF9E2911A6260008147A /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
@@ -194,7 +194,7 @@
 		524C5AAA28E2FAC900A4BDD1 = {
 			isa = PBXGroup;
 			children = (
-				5274EAE92918568800B808DF /* SplashKit */,
+				525F9073292E310A0041F4A1 /* SplashKit */,
 				522712DC28ED8FFE0098719F /* LanguagesAPI */,
 				524C5AC428E2FB0700A4BDD1 /* DataStructures */,
 				524C5AC528E3015100A4BDD1 /* IntelligentMarking */,

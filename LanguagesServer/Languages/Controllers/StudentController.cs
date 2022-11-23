@@ -203,27 +203,18 @@ public class StudentController: ControllerBase
     [HttpGet("distractors")]
     public List<string> GetDistractors(int cardId)
     {
-        Console.WriteLine("Distractors call");
-
         Student student = shield.AuthenticateStudent(Request);
 
         List<Card> siblingCards = da.Cards.SiblingsForCard(cardId).ToList();
         List<Card> selectedCards = new List<Card>();
         Random random = new Random();
 
-        Console.WriteLine("Sibling cards");
-        Console.WriteLine(siblingCards.Select(x => x.ForeignTerm).Aggregate("", (x, y) => x + ", " + y));
-
         while (selectedCards.Count() < 3 && siblingCards.Count() >= 1)
         {
-            Console.WriteLine("Loop 1");
             int index = random.Next() % siblingCards.Count();
             selectedCards.Add(siblingCards[index]);
             siblingCards.RemoveAt(index);
         }
-
-        Console.WriteLine("Selected cards");
-        Console.WriteLine(selectedCards.Select(x => x.ForeignTerm).Aggregate("", (x, y) => x + ", " + y));
 
         while (selectedCards.Count() < 3)
         {
@@ -233,10 +224,6 @@ public class StudentController: ControllerBase
                 selectedCards.Add(newCard);
             }
         }
-
-
-        Console.WriteLine("Selected cards 2");
-        Console.WriteLine(selectedCards.Select(x => x.ForeignTerm).Aggregate("", (x, y) => x + ", " + y));
 
         return selectedCards.Select(c => c.ForeignTerm).ToList();
     }
