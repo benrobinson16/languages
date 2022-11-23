@@ -14,6 +14,6 @@ class LearningSession: ObservableObject {
     @Published var completion: Double = 0.0
     var mode: String { get { "" } }
     
-    func nextQuestion() async { }
+    func nextQuestion(wasCorrect: Bool? = nil) async { }
     func startSession() async { }
 }

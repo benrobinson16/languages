@@ -43,15 +43,18 @@ class LearningQuestion: ObservableObject {
     }
     
     private func markCard(answer: String, correctAnswer: String) -> Bool {
-        let possibleAnswers = answerGenerator.generate(answer: correctAnswer)
+        let lowerAnswer = answer.lowercased()
+        let lowerCorrect = answer.lowercased()
         
-        if possibleAnswers.contains(answer) {
+        let possibleAnswers = answerGenerator.generate(answer: lowerCorrect)
+        
+        if possibleAnswers.contains(lowerAnswer) {
             correct = true
             return true
         }
         
         for possibleAnswer in possibleAnswers {
-            if editDistanceCalculator.isOnlyTypo(source: possibleAnswer, target: answer) {
+            if editDistanceCalculator.isOnlyTypo(source: possibleAnswer, target: lowerAnswer) {
                 correct = true
                 feedback = "You have a typo. It should be: \(possibleAnswer)"
                 return true

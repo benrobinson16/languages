@@ -44,5 +44,8 @@ public class Queue<T>: Queueing {
     public var isEmpty: Bool {
         return list.isEmpty
     }
+    
+    public var values: LinkedList<T> {
+        return list.copy()
+    }
 }
-

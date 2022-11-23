@@ -4,7 +4,7 @@ import LanguagesAPI
 struct LearningCardView: View {
     @ObservedObject var question: LearningQuestion
     @State private var answer = ""
-    let next: () -> Void
+    let next: (Bool) -> Void
     
     var body: some View {
         VStack {
@@ -31,16 +31,20 @@ struct LearningCardView: View {
             Spacer(minLength: 0)
             
             AppButton(enabled: !answer.isEmpty, title: "Submit") {
+                UIApplication.shared.keyboard
                 question.answerQuestion(answer: answer)
             }
         }
         .padding()
         .overlay {
             if let correct = question.correct {
-                Popup(correct: correct, feedback: question.feedback, next: next)
+                Popup(correct: correct, feedback: question.feedback, next: { next(correct) })
             }
         }
         .animation(.spring(dampingFraction: 0.8), value: question.correct)
+        .onChange(of: question.card) { _ in
+            answer = ""
+        }
     }
     
     func getQuestionString() -> String {

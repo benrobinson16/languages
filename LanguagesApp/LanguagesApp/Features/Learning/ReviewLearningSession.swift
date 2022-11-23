@@ -7,7 +7,7 @@ class ReviewLearningSession: LearningSession {
     override var mode: String { get { "Review" } }
     
     @MainActor
-    override func nextQuestion() async {
+    override func nextQuestion(wasCorrect: Bool? = nil) async {
         if questionQueue.isEmpty {
             if currentCard != nil {
                 // Display success

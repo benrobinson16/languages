@@ -68,4 +68,8 @@ public class NoisyQueue<T>: Queueing {
     public var isEmpty: Bool {
         return list.isEmpty
     }
+    
+    public var values: LinkedList<Value> {
+        return list.copy()
+    }
 }

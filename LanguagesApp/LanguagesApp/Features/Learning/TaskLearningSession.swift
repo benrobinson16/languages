@@ -13,14 +13,18 @@ import IntelligentMarking
 class TaskLearningSession: LearningSession {
     private let onCompletion: () -> Void
     private let lqn = LearningLQN<Card>(queues: .init(array: [
-        Queue<Card>(),
+        Queue<Card>(), // Input
         NoisyQueue<Card>(noiseFactor: TaskLearningSession.noiseFactor), // Input --> Multiple choice
         NoisyQueue<Card>(noiseFactor: TaskLearningSession.noiseFactor), // Multiple choice --> English written
         NoisyQueue<Card>(noiseFactor: TaskLearningSession.noiseFactor), // English written --> Foreign written
+        Queue<Card>() // Output
     ]))
     
     private static let noiseFactor = 0.5
     override var mode: String { get { "Tasks" } }
+    
+    private var lastCard: Card? = nil
+    private var lastQueue: Int? = nil
     
     init(onCompletion: @escaping () -> Void) {
         self.onCompletion = onCompletion
@@ -28,7 +32,12 @@ class TaskLearningSession: LearningSession {
     }
     
     @MainActor
-    override func nextQuestion() async {
+    override func nextQuestion(wasCorrect: Bool? = nil) async {
+        if let lastCard = lastCard, let lastQueue = lastQueue, let wasCorrect = wasCorrect {
+            let newQueue = wasCorrect ? lastQueue + 1 : lastQueue - 1
+            lqn.enqueue(lastCard, intoQueue: max(newQueue, 1))
+        }
+        
         if lqn.isEmpty {
             if currentCard != nil {
                 // Display success

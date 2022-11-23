@@ -7,4 +7,5 @@ public protocol Queueing<Value> {
     func dequeue() -> Value?
     var count: Int { get }
     var isEmpty: Bool { get }
+    var values: LinkedList<Value> { get }
 }

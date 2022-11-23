@@ -229,6 +229,20 @@ public class LinkedList<T>: Sequence {
         }
     }
     
+    public func dropFirst() -> LinkedList<T> {
+        let newList = LinkedList<T>()
+        newList.first = self.first?.next
+        newList.last = self.last
+        return newList
+    }
+    
+    public func dropLast() -> LinkedList<T> {
+        let newList = LinkedList<T>()
+        newList.first = self.first
+        newList.last = self.last?.last
+        return newList
+    }
+    
     public func clear() {
         first = nil
         last = nil
@@ -291,7 +305,7 @@ public class LinkedList<T>: Sequence {
         return self.map { $0 }
     }
     
-    public func flatMap<X>(transform: (T) -> [X]) -> LinkedList<X> {
+    public func flatMap<X>(transform: (T) -> some Sequence<X>) -> LinkedList<X> {
         let outputList = LinkedList<X>()
         for t in self {
             transform(t).forEach { x in
@@ -305,6 +319,19 @@ public class LinkedList<T>: Sequence {
         var output = initial
         self.forEach { output = nextPartialResult($0, output) }
         return output
+    }
+    
+    public func enumerated() -> LinkedList<(index: Int, value: T)> {
+        var i = -1
+        return self.map { value in
+            i += 1
+            return (index: i, value: value)
+        }
+    }
+    
+    public func randomElement() -> T? {
+        let index = Int.random(in: 0..<self.count)
+        return first?.nodeAtIndex(index: index)?.value
     }
     
     public func toArray() -> [T] {

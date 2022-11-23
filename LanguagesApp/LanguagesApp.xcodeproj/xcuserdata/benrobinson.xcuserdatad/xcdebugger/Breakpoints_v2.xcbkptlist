@@ -118,54 +118,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F30D1880-4E46-44FB-A606-3B8BE2590D96"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DataStructures/Sources/DataStructures/LearningLQN.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "dequeueWithLearningHeuristic()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F30D1880-4E46-44FB-A606-3B8BE2590D96 - 6080daba40987469"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DataStructures.LearningLQN.dequeueWithLearningHeuristic() -&gt; Swift.Optional&lt;(value: &#x3c4;_0_0, queue: Swift.Int)&gt;"
-                  moduleName = "LanguagesApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/DataStructures/Sources/DataStructures/LearningLQN.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "840">
-               </Location>
-               <Location
-                  uuid = "F30D1880-4E46-44FB-A606-3B8BE2590D96 - dc1fad000cf9fea1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Int) -&gt; Swift.Bool in DataStructures.LearningLQN.dequeueWithLearningHeuristic() -&gt; Swift.Optional&lt;(value: &#x3c4;_0_0, queue: Swift.Int)&gt;"
-                  moduleName = "LanguagesApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/DataStructures/Sources/DataStructures/LearningLQN.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "72">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "50DAAD77-D56C-48C5-AE02-B4DA0619A303"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -426,9 +378,9 @@
             filePath = "LanguagesApp/Features/Learning/TaskLearningSession.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "nextQuestion()"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "nextQuestion(wasCorrect:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -442,9 +394,9 @@
             filePath = "LanguagesApp/Features/Learning/TaskLearningSession.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "nextQuestion()"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "nextQuestion(wasCorrect:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -505,9 +457,9 @@
             filePath = "LanguagesApp/Features/Learning/TaskLearningSession.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "nextQuestion()"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "nextQuestion(wasCorrect:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -562,15 +514,31 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "6BE46370-0924-4686-B600-3F41A5DA1957"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LanguagesApp/Features/Learning/TaskLearningSession.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "nextQuestion()"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "nextQuestion(wasCorrect:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2C3E8A16-0F96-47D9-9967-430D395CE8F5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DataStructures/Sources/DataStructures/LearningLQN.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "dequeueWithLearningHeuristic()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
