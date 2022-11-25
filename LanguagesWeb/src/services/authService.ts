@@ -27,7 +27,7 @@ class AuthService {
         
         // Provide information to Microsoft so that they can handle the request.
         const request = {
-            scopes: ["api://67d7b840-45a6-480b-be53-3d93c187ed66/API.Access"],
+            scopes: ["api://" + options.auth.clientId + "/API.Access"],
             account: account
         };
 
@@ -44,7 +44,7 @@ class AuthService {
         }
 
         const request = {
-            scopes: ["api://67d7b840-45a6-480b-be53-3d93c187ed66/API.Access"],
+            scopes: ["api://" + options.auth.clientId + "/API.Access"],
         };
 
         this.instance.loginRedirect(request);

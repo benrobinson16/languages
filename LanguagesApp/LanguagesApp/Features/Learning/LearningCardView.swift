@@ -31,7 +31,6 @@ struct LearningCardView: View {
             Spacer(minLength: 0)
             
             AppButton(enabled: !answer.isEmpty, title: "Submit") {
-                UIApplication.shared.keyboard
                 question.answerQuestion(answer: answer)
             }
         }
