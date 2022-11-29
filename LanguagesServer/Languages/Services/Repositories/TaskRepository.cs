@@ -65,7 +65,8 @@ public class TaskRepository
                    DeckId = deck.DeckId,
                    ClassName = cla.Name,
                    DeckName = deck.Name,
-                   DueDate = task.DueDate
+                   DueDate = task.DueDate,
+                   SetDate = task.SetDate
                };
     }
 
@@ -92,7 +93,8 @@ public class TaskRepository
                    DeckId = deck.DeckId,
                    ClassName = cla.Name,
                    DeckName = deck.Name,
-                   DueDate = task.DueDate
+                   DueDate = task.DueDate,
+                   SetDate = task.SetDate
                };
     }
 
@@ -118,7 +120,8 @@ public class TaskRepository
                    DeckId = deck.DeckId,
                    ClassName = cla.Name,
                    DeckName = deck.Name,
-                   DueDate = task.DueDate
+                   DueDate = task.DueDate,
+                   SetDate = task.SetDate
                };
     }
 

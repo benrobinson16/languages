@@ -36,7 +36,7 @@ public class TeacherTaskController : ControllerBase
         if (task == null) throw new LanguagesResourceNotFound();
 
         List<StudentProgress> students = da.StudentAttempts
-            .ProgressForTask(task.DeckId, task.ClassId)
+            .ProgressForTask(task.DeckId, task.ClassId, task.SetDate)
             .ToList();
 
         return new TeacherTaskSummaryVm

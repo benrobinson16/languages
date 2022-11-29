@@ -39,7 +39,7 @@ public class StudentController: ControllerBase
 
         List<TaskVm> incompleteOverdue = taskVms
             .Where(t => t.DueDate < DateTime.Now)
-            .Where(t => !da.StudentAttempts.HasCompletedTask(student.StudentId, t.DeckId))
+            .Where(t => !da.StudentAttempts.HasCompletedTask(student.StudentId, t.DeckId, t.SetDate))
             .ToList();
 
         string message = "";
@@ -99,7 +99,7 @@ public class StudentController: ControllerBase
         if (!studentAssignedTask) throw new LanguagesUnauthorized();
 
         List<Card> deck = da.Cards.ForDeck(task.DeckId).ToList();
-        task.Completion = da.StudentAttempts.StudentProgress(deck, student.StudentId);
+        task.Completion = da.StudentAttempts.StudentProgress(deck, student.StudentId, task.SetDate);
 
         return new StudentTaskSummaryVm
         {

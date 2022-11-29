@@ -21,7 +21,7 @@ class TaskLearningSession: LearningSession {
     ]))
     
     private static let noiseFactor = 0.5
-    override var mode: String { get { "Tasks" } }
+    override var mode: String { "Tasks" }
     
     private var lastCard: Card? = nil
     private var lastQueue: Int? = nil

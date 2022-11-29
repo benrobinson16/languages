@@ -8,5 +8,6 @@ public class TaskVm
     public string ClassName { get; set; }
     public string DeckName { get; set; }
     public DateTime DueDate { get; set; }
+    public DateTime SetDate { get; set; }
     public double? Completion { get; set; }
 }
