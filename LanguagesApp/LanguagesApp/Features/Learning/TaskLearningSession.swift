@@ -38,23 +38,7 @@ class TaskLearningSession: LearningSession {
             lqn.enqueue(lastCard, intoQueue: max(newQueue, 1))
         }
         
-        if lqn.isEmpty {
-            if currentCard != nil {
-                // Display success
-                currentMessage = .init(
-                    title: "Well Done!",
-                    body: "You've completed all your task cards.",
-                    option1: .init(name: "Continue reviewing", action: { }),
-                    option2: .init(name: "Exit", action: Navigator.shared.goHome)
-                )
-                currentCard = nil
-            } else {
-                // Alert the view a new learning session should be created
-                onCompletion()
-            }
-        } else {
-            guard let nextCardData = lqn.dequeueWithLearningHeuristic() else { return }
-            
+        if let nextCardData = lqn.dequeueWithLearningHeuristic() {
             lastCard = nextCardData.value
             lastQueue = nextCardData.queue
             
@@ -78,6 +62,18 @@ class TaskLearningSession: LearningSession {
             currentMessage = nil
             
             completion += 0.1 // FIXME: Actual completion
+        } else if currentCard != nil {
+            // Display success
+            currentMessage = .init(
+                title: "Well Done!",
+                body: "You've completed all your task cards.",
+                option1: .init(name: "Continue reviewing", action: { }),
+                option2: .init(name: "Exit", action: Navigator.shared.goHome)
+            )
+            currentCard = nil
+        } else {
+            // Alert the view a new learning session should be created
+            onCompletion()
         }
     }
     

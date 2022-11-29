@@ -37,17 +37,26 @@ public class CardRepository
                    from attempt in db.StudentAttempts
                    where attempt.CardId == card.CardId
                    where attempt.StudentId == enrol.StudentId
-                   where attempt.AttemptDate > task.SetDate
+                   where attempt.AttemptDate >= task.SetDate
+                   where attempt.Correct
                    orderby attempt.QuestionType descending
+                   select attempt.QuestionType
+               ).FirstOrDefault()
+               let latestAttemptAtCard = (
+                   from attempt in db.StudentAttempts
+                   where attempt.CardId == card.CardId
+                   where attempt.StudentId == enrol.StudentId
+                   where attempt.AttemptDate >= task.SetDate
+                   orderby attempt.AttemptDate descending
                    select attempt
-               ).First()
-               let nextQuestionType = greatestAttemptAtCard == null ?
+               ).FirstOrDefault()
+               let nextQuestionType = latestAttemptAtCard == null ?
                    (int)QuestionType.MultipleChoice :
-                   (greatestAttemptAtCard.Correct ?
-                       greatestAttemptAtCard.QuestionType + 1 :
-                       greatestAttemptAtCard.QuestionType - 1
+                   (latestAttemptAtCard.Correct ?
+                       latestAttemptAtCard.QuestionType + 1 :
+                       latestAttemptAtCard.QuestionType - 1
                    )
-               where nextQuestionType <= (int)QuestionType.ForeignWritten
+               where greatestAttemptAtCard < (int)QuestionType.ForeignWritten
                orderby task.DueDate
                select new CardVm
                {
