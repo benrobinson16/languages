@@ -204,6 +204,7 @@ public class LinkedList<T>: Sequence {
     
     /// Acesses and removes the first element of the list.
     /// - Returns: The (ex) first element of the list, or `nil` if empty.
+    @discardableResult
     public func popFirst() -> T? {
         if let oldFirst = first {
             remove(node: oldFirst)
@@ -221,7 +222,7 @@ public class LinkedList<T>: Sequence {
     /// - Returns: The (ex) last element of the list, or `nil` if empty.
     @discardableResult
     public func popLast() -> T? {
-        if let oldLast = first {
+        if let oldLast = last {
             remove(node: oldLast)
             return oldLast.value
         } else {
@@ -230,16 +231,14 @@ public class LinkedList<T>: Sequence {
     }
     
     public func dropFirst() -> LinkedList<T> {
-        let newList = LinkedList<T>()
-        newList.first = self.first?.next
-        newList.last = self.last
+        let newList = copy()
+        newList.popFirst()
         return newList
     }
     
     public func dropLast() -> LinkedList<T> {
-        let newList = LinkedList<T>()
-        newList.first = self.first
-        newList.last = self.last?.last
+        let newList = copy()
+        newList.popLast()
         return newList
     }
     
@@ -307,7 +306,7 @@ public class LinkedList<T>: Sequence {
     
     public func flatMap<X>(transform: (T) -> some Sequence<X>) -> LinkedList<X> {
         let outputList = LinkedList<X>()
-        for t in self {
+        self.forEach { t in
             transform(t).forEach { x in
                 outputList.append(x)
             }
@@ -363,9 +362,9 @@ public class LinkedList<T>: Sequence {
         
         public mutating func next() -> T? {
             if let currentNode {
-                let nextNode = currentNode.next
-                self.currentNode = nextNode
-                return nextNode?.value
+                let value = currentNode.value
+                self.currentNode = currentNode.next
+                return value
             } else {
                 return nil
             }

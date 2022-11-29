@@ -16,6 +16,8 @@ public enum QuestionType: Int, Codable, Equatable {
     case multipleChoice = 1
     case englishWritten = 2
     case foreignWritten = 3
+    
+    public static var questionTypes: [QuestionType] { [.multipleChoice, .englishWritten, .foreignWritten] }
 }
 
 public struct StudentSummary: Codable, Equatable {

@@ -44,6 +44,7 @@ public class TaskRepository
                where enrollment.StudentId == studentId
                join cla in db.Classes on enrollment.ClassId equals cla.ClassId
                join task in db.Tasks on cla.ClassId equals task.TaskId
+               where task.DueDate >= enrollment.JoinDate
                orderby task.DueDate descending
                select task;
     }

@@ -6,6 +6,10 @@ public class LearningLQN<T>: LeitnerQueueNetwork<T> where T: Identifiable {
     
     private let targetCards = 8
     
+    public override var isEmpty: Bool {
+        return numCardsCurrentlyLearning() == 0
+    }
+    
     public override func dequeue(fromQueue queueIndex: Int) -> (value: T, queue: Int)? {
         guard let value = queues[queueIndex].dequeue() else { return nil }
         
@@ -44,9 +48,11 @@ public class LearningLQN<T>: LeitnerQueueNetwork<T> where T: Identifiable {
             .dropFirst()
             .dropLast()
             .flatMap { idx, queue in
-                return queue.values.map { value in
+                let arr = queue.values.map { value in
                     return (value: value, queue: idx)
                 }
+                
+                return arr
             }
     }
     

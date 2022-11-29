@@ -44,7 +44,7 @@ class LearningQuestion: ObservableObject {
     
     private func markCard(answer: String, correctAnswer: String) -> Bool {
         let lowerAnswer = answer.lowercased()
-        let lowerCorrect = answer.lowercased()
+        let lowerCorrect = correctAnswer.lowercased()
         
         let possibleAnswers = answerGenerator.generate(answer: lowerCorrect)
         

@@ -66,6 +66,7 @@
 		52C28F872905F0AE0088593B /* WavingHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F862905F0AE0088593B /* WavingHand.swift */; };
 		52D6DE852913ADAD0069B1E3 /* AlertWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6DE842913ADAD0069B1E3 /* AlertWrapper.swift */; };
 		52D6DE872913B2920069B1E3 /* ShakeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6DE862913B2920069B1E3 /* ShakeEffect.swift */; };
+		52F345912936736E007E6019 /* AppTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F345902936736E007E6019 /* AppTextField.swift */; };
 		52F725BD291BC58500E1DF1C /* SheetHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F725BC291BC58500E1DF1C /* SheetHeading.swift */; };
 		52FB8AFF291427CA0086C6A1 /* JoinClassAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB8AFE291427CA0086C6A1 /* JoinClassAlert.swift */; };
 		52FB8B0129142A1F0086C6A1 /* AlertHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB8B0029142A1F0086C6A1 /* AlertHandler.swift */; };
@@ -134,6 +135,7 @@
 		52C28F862905F0AE0088593B /* WavingHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavingHand.swift; sourceTree = "<group>"; };
 		52D6DE842913ADAD0069B1E3 /* AlertWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWrapper.swift; sourceTree = "<group>"; };
 		52D6DE862913B2920069B1E3 /* ShakeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeEffect.swift; sourceTree = "<group>"; };
+		52F345902936736E007E6019 /* AppTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTextField.swift; sourceTree = "<group>"; };
 		52F725BC291BC58500E1DF1C /* SheetHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetHeading.swift; sourceTree = "<group>"; };
 		52FB8AFE291427CA0086C6A1 /* JoinClassAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinClassAlert.swift; sourceTree = "<group>"; };
 		52FB8B0029142A1F0086C6A1 /* AlertHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHandler.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				52D6DE842913ADAD0069B1E3 /* AlertWrapper.swift */,
 				526230E0291B1197009B158C /* CompletionBar.swift */,
 				52F725BC291BC58500E1DF1C /* SheetHeading.swift */,
+				52F345902936736E007E6019 /* AppTextField.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 				52D6DE852913ADAD0069B1E3 /* AlertWrapper.swift in Sources */,
 				526230E1291B1197009B158C /* CompletionBar.swift in Sources */,
 				52C28F812905C4EA0088593B /* TaskList.swift in Sources */,
+				52F345912936736E007E6019 /* AppTextField.swift in Sources */,
 				523E0A6428F5760D00B505F0 /* TaskScreen.swift in Sources */,
 				527ACFA82911B7160008147A /* HomeController.swift in Sources */,
 				52C28F872905F0AE0088593B /* WavingHand.swift in Sources */,

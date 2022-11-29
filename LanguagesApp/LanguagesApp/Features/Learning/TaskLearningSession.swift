@@ -55,6 +55,9 @@ class TaskLearningSession: LearningSession {
         } else {
             guard let nextCardData = lqn.dequeueWithLearningHeuristic() else { return }
             
+            lastCard = nextCardData.value
+            lastQueue = nextCardData.queue
+            
             var newCard = nextCardData.value
             newCard.nextQuestionType = QuestionType(rawValue: nextCardData.queue)!
             

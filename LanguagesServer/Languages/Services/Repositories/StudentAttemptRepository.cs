@@ -16,7 +16,7 @@ public class StudentAttemptRepository
     // This method returns a list rather than an IQueryable conforming type because it requires client-side
     // computation in addition to the commands performed by SQL server. This is due to issues with the EFCore
     // framework translating LINQ query syntax to SQL for queries involving outer joins/group by statements.
-    public List<StudentProgress> ProgressForTask(int deckId, int classId)
+    public List<StudentProgress> ProgressForTask(int deckId, int classId, DateTime setDate)
     {
         List<Card> cards = (from card in db.Cards
                             where card.DeckId == deckId
@@ -35,7 +35,7 @@ public class StudentAttemptRepository
                 Email = student.Email,
                 StudentId = student.StudentId,
                 Name = student.DisplayName,
-                Progress = StudentProgress(cards, student.StudentId)
+                Progress = StudentProgress(cards, student.StudentId, setDate)
             });
         }
 
@@ -44,30 +44,22 @@ public class StudentAttemptRepository
             .ToList();
     }
 
-    public int StudentProgress(List<Card> cards, int studentId)
+    public int StudentProgress(List<Card> cards, int studentId, DateTime setDate)
     {
         int numCompleted = 0;
         int expectedQuestions = cards.Count() * (int)QuestionType.ForeignWritten;
 
         foreach (Card card in cards)
         {
-            StudentAttempt? latestAttempt = (from attempt in db.StudentAttempts
-                                             where attempt.StudentId == studentId
-                                             where attempt.CardId == card.CardId
-                                             orderby attempt.AttemptDate descending
-                                             select attempt).FirstOrDefault();
-
-            if (latestAttempt == null)
+            StudentAttempt? greatestAttempt = CorrectAttemptsInWindow(studentId, card.CardId, setDate, DateTime.Now).OrderByDescending(attempt => attempt.QuestionType).FirstOrDefault();
+            
+            if (greatestAttempt == null)
             {
                 numCompleted += 0;
             }
-            else if (latestAttempt.Correct)
-            {
-                numCompleted += latestAttempt.QuestionType;
-            }
             else
             {
-                numCompleted += Math.Max(latestAttempt.QuestionType - 1, 0);
+                numCompleted += greatestAttempt.QuestionType;
             }
         }
 
@@ -75,7 +67,7 @@ public class StudentAttemptRepository
     }
 
     // Is faster that calculating progress and comparing to 100%.
-    public bool HasCompletedTask(int studentId, int deckId)
+    public bool HasCompletedTask(int studentId, int deckId, DateTime setDate)
     {
         List<Card> cards = (from card in db.Cards
                             where card.DeckId == deckId
@@ -83,12 +75,7 @@ public class StudentAttemptRepository
 
         foreach (Card card in cards)
         {
-            bool hasCompleted = (from attempt in db.StudentAttempts
-                                 where attempt.StudentId == studentId
-                                 where attempt.CardId == card.CardId
-                                 where attempt.QuestionType == (int)QuestionType.ForeignWritten
-                                 where attempt.Correct
-                                 select attempt).Any();
+            bool hasCompleted = CorrectAttemptsInWindow(studentId, card.CardId, setDate, DateTime.Now).Where(attempt => attempt.QuestionType == (int)QuestionType.ForeignWritten).Any();
 
             if (!hasCompleted) return false;
         }
@@ -193,6 +180,7 @@ public class StudentAttemptRepository
                       where attempt.CardId == card.CardId
                       where attempt.StudentId == enrol.StudentId
                       where attempt.AttemptDate.Date < DateTime.Now.Date
+                      where attempt.AttemptDate >= task.SetDate
                       where attempt.Correct
                       orderby attempt.QuestionType descending
                       select attempt.QuestionType
@@ -223,6 +211,7 @@ public class StudentAttemptRepository
                       from attempt in db.StudentAttempts
                       where attempt.CardId == card.CardId
                       where attempt.StudentId == enrol.StudentId
+                      where attempt.AttemptDate >= task.SetDate
                       where attempt.Correct
                       orderby attempt.QuestionType descending
                       select attempt.QuestionType

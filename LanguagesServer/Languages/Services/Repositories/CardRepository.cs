@@ -31,19 +31,21 @@ public class CardRepository
         return from enrol in db.Enrollments
                where enrol.StudentId == studentId
                join task in db.Tasks on enrol.ClassId equals task.ClassId
+               where task.DueDate >= enrol.JoinDate
                join card in db.Cards on task.DeckId equals card.DeckId
-               let latestAttemptAtCard = (
+               let greatestAttemptAtCard = (
                    from attempt in db.StudentAttempts
                    where attempt.CardId == card.CardId
                    where attempt.StudentId == enrol.StudentId
-                   orderby attempt.AttemptDate descending
+                   where attempt.AttemptDate > task.SetDate
+                   orderby attempt.QuestionType descending
                    select attempt
                ).First()
-               let nextQuestionType = latestAttemptAtCard == null ?
+               let nextQuestionType = greatestAttemptAtCard == null ?
                    (int)QuestionType.MultipleChoice :
-                   (latestAttemptAtCard.Correct ?
-                       latestAttemptAtCard.QuestionType + 1 :
-                       latestAttemptAtCard.QuestionType - 1
+                   (greatestAttemptAtCard.Correct ?
+                       greatestAttemptAtCard.QuestionType + 1 :
+                       greatestAttemptAtCard.QuestionType - 1
                    )
                where nextQuestionType <= (int)QuestionType.ForeignWritten
                orderby task.DueDate
@@ -61,6 +63,7 @@ public class CardRepository
     {
         return from enr in db.Enrollments
                join task in db.Tasks on enr.ClassId equals task.ClassId
+               where task.DueDate >= enr.JoinDate
                join card in db.Cards on task.DeckId equals card.DeckId
                orderby Guid.NewGuid() // random order
                select card;

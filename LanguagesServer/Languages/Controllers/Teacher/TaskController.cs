@@ -72,7 +72,8 @@ public class TeacherTaskController : ControllerBase
         {
             ClassId = classId,
             DeckId = deckId,
-            DueDate = dueDateAsDate
+            DueDate = dueDateAsDate,
+            SetDate = DateTime.Now
         };
 
         db.Tasks.Add(task);

@@ -4,6 +4,7 @@ import LanguagesAPI
 struct LearningCardView: View {
     @ObservedObject var question: LearningQuestion
     @State private var answer = ""
+    @FocusState private var focused: Bool?
     let next: (Bool) -> Void
     
     var body: some View {
@@ -25,22 +26,25 @@ struct LearningCardView: View {
                     MultipleChoiceGrid(choices: options, answer: $answer)
                 }
             case .englishWritten, .foreignWritten:
-                WrittenResponse(answer: $answer)
+                AppTextField(focusState: _focused, text: $answer, placeholder: "Translation...")
             }
             
             Spacer(minLength: 0)
             
             AppButton(enabled: !answer.isEmpty, title: "Submit") {
+                focused = nil
                 question.answerQuestion(answer: answer)
             }
         }
         .padding()
         .overlay {
-            if let correct = question.correct {
-                Popup(correct: correct, feedback: question.feedback, next: { next(correct) })
+            Group {
+                if let correct = question.correct {
+                    Popup(correct: correct, feedback: question.feedback, next: { next(correct) })
+                }
             }
+            .animation(.default, value: question.correct)
         }
-        .animation(.spring(dampingFraction: 0.8), value: question.correct)
         .onChange(of: question.card) { _ in
             answer = ""
         }
@@ -98,15 +102,6 @@ struct ChoiceCard: View {
             answer = choice
         }
         .aspectRatio(1.0, contentMode: .fit)
-    }
-}
-
-struct WrittenResponse: View {
-    @Binding var answer: String
-    
-    var body: some View {
-        TextField("Translation:", text: $answer)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
     }
 }
 

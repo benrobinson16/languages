@@ -10,6 +10,7 @@ public class Task
     public int TaskId { get; set; }
 
     public DateTime DueDate { get; set; }
+    public DateTime SetDate { get; set; }
     public int DeckId { get; set; }
     public int ClassId { get; set; }
 }

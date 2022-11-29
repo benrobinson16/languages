@@ -8,11 +8,16 @@ struct LearningMessageView: View {
             Spacer()
             Panel {
                 VStack {
+                    Spacer(minLength: 0)
+                    
                     Text(message.title)
                         .font(.appTitle)
+                        .padding(.bottom)
                     
                     Text(message.body)
                         .font(.appSubheading)
+                    
+                    Spacer(minLength: 0)
                     
                     AppButton(title: message.option1.name, action: message.option1.action)
                     

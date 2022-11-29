@@ -40,5 +40,6 @@ struct LearningScreen: View {
                 await session.nextQuestion()
             }
         }
+        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
     }
 }
