@@ -92,22 +92,35 @@ public struct AnswerGenerator: AnswerGenerating {
             return results
             
         case .alternatives:
-            // Use [] because the entire arrays are added together (not the element strings)
+            var options: [[String]] = []
+            ast.children.forEach { child in
+                let childPermutations = permutationsOfAST(ast: child)
+                options.append(childPermutations)
+            }
+            
+            while options.count > 1 {
+                let a = options.remove(at: 0)
+                let b = options.remove(at: 0)
+                let ab = permutations(a, b) { $0 + (!$0.isEmpty && !$1.isEmpty ? "/" : "") + $1 }
+                let ba = permutations(b, a) { $0 + (!$0.isEmpty && !$1.isEmpty ? "/" : "") + $1 }
+                
+                options.append(a + b + ab + ba)
+            }
+            
+            return options[0]
+            
+        case .optional:
             var results: [String] = []
             ast.children.forEach { child in
                 let childPermutations = permutationsOfAST(ast: child)
                 results.append(contentsOf: childPermutations)
             }
-            return results
             
-        case .optional:
-            // Use [] because the entire arrays are added together (not the element strings),
-            // and one option should be to not provide the optional string
-            var results = [""]
-            ast.children.forEach { child in
-                let childPermutations = permutationsOfAST(ast: child)
-                results.append(contentsOf: childPermutations)
+            results.forEach {
+                results.append("(" + $0 + ")")
             }
+            results.append("")
+            
             return results
             
         case .content:
@@ -117,7 +130,7 @@ public struct AnswerGenerator: AnswerGenerating {
     
     private func removePrefixArticles(_ answers: [String], articles: [String]) -> [String] {
         return answers.flatMap { answer in
-            articles
+            return articles
                 .filter { answer.hasPrefix($0) }
                 .map { String(answer.dropFirst($0.count)) }
         }
@@ -125,7 +138,7 @@ public struct AnswerGenerator: AnswerGenerating {
     
     private func permutations(_ arr1: [String], _ arr2: [String], combine: (String, String) -> String) -> [String] {
         return arr1.flatMap { a in
-            arr2.map { b in
+            return arr2.map { b in
                 combine(a, b)
             }
         }

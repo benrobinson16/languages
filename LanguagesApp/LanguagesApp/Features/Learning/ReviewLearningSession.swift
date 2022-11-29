@@ -9,6 +9,8 @@ class ReviewLearningSession: LearningSession {
     
     @MainActor
     override func nextQuestion(wasCorrect: Bool? = nil) async {
+        completion += 0.1
+        
         if questionQueue.isEmpty {
             if currentCard != nil {
                 // Display success
@@ -27,7 +29,6 @@ class ReviewLearningSession: LearningSession {
             }
         } else {
             currentCard = await nextCard()
-            completion += 0.1
         }
     }
     

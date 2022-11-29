@@ -10,11 +10,14 @@ public struct IntelligentMarking {
     }
     
     public func isCorrect(userAnswer: String, teacherAnswer: String) -> Bool {
-        let possibleAnswers = answerGenerator.generate(answer: teacherAnswer)
-        if possibleAnswers.contains(userAnswer) { return true }
+        let cleanedUserAnswer = userAnswer.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let cleanedTeacherAnswer = teacherAnswer.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        
+        let possibleAnswers = answerGenerator.generate(answer: cleanedTeacherAnswer)
+        if possibleAnswers.contains(cleanedUserAnswer) { return true }
         
         for possibleAnswer in possibleAnswers {
-            if typoDetector.isOnlyTypo(source: userAnswer, target: possibleAnswer) {
+            if typoDetector.isOnlyTypo(source: cleanedUserAnswer, target: possibleAnswer) {
                 return true
             }
         }

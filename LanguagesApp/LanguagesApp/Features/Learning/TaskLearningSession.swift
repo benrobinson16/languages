@@ -38,7 +38,7 @@ class TaskLearningSession: LearningSession {
             lqn.enqueue(lastCard, intoQueue: max(newQueue, 1))
         }
         
-        if let nextCardData = lqn.dequeueWithLearningHeuristic() {
+        if !lqn.isEmpty, let nextCardData = lqn.dequeueWithLearningHeuristic() {
             lastCard = nextCardData.value
             lastQueue = nextCardData.queue
             
