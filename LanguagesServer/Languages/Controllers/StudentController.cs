@@ -42,6 +42,15 @@ public class StudentController: ControllerBase
             .Where(t => !da.StudentAttempts.HasCompletedTask(student.StudentId, t.DeckId, t.SetDate))
             .ToList();
 
+        List<TaskVm> upcoming = taskVms
+            .Where(t => t.DueDate >= DateTime.Now)
+            .ToList();
+
+        List<TaskVm> taskList = incompleteOverdue
+            .Union(upcoming)
+            .OrderBy(t => t.DueDate)
+            .ToList();
+
         string message = "";
         if (incompleteOverdue.Count() == 1)
         {
@@ -65,7 +74,7 @@ public class StudentController: ControllerBase
         {
             StreakHistory = da.StudentAttempts.StreakHistoryForStudent(student.StudentId),
             StreakLength = da.StudentAttempts.StreakLengthForStudent(student.StudentId),
-            Tasks = taskVms,
+            Tasks = taskList,
             Enrollments = da.Enrollments.VmsForStudent(student.StudentId).ToList(),
             DailyPercentage = percentage,
             OverdueMessage = message,

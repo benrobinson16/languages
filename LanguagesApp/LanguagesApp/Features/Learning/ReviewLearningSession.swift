@@ -7,9 +7,14 @@ class ReviewLearningSession: LearningSession {
     private var questionQueue = Queue<Card>()
     override var mode: String { "Review" }
     
+    private var isFirstCard = true
+    
     @MainActor
     override func nextQuestion(wasCorrect: Bool? = nil) async {
-        completion += 0.1
+        if !isFirstCard {
+            completion += 0.1
+        }
+        isFirstCard = false
         
         if questionQueue.isEmpty {
             if currentCard != nil {
@@ -25,10 +30,12 @@ class ReviewLearningSession: LearningSession {
                 await startSession()
                 
                 currentCard = await nextCard()
+                currentMessage = nil
                 completion = 0.0
             }
         } else {
             currentCard = await nextCard()
+            currentMessage = nil
         }
     }
     

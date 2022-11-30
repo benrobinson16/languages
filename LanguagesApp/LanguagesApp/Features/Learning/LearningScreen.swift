@@ -22,14 +22,14 @@ struct LearningScreen: View {
     var body: some View {
         VStack {
             LearningProgressBar(completion: session.completion, mode: session.mode, dismiss: Navigator.shared.goHome)
-            if let card = session.currentCard {
+            if let message = session.currentMessage {
+                LearningMessageView(message: message)
+            } else if let card = session.currentCard {
                 LearningCardView(question: LearningQuestion(card: card)) { wasCorrect in
                     Task {
                         await session.nextQuestion(wasCorrect: wasCorrect)
                     }
                 }
-            } else if let message = session.currentMessage {
-                LearningMessageView(message: message)
             } else {
                 ProgressView()
             }

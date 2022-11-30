@@ -14,12 +14,14 @@ public class TeacherTaskController : ControllerBase
     DatabaseContext db;
     DatabaseAccess da;
     Shield shield;
+    PushNotifier push;
 
-    public TeacherTaskController(DatabaseContext db, DatabaseAccess da, Shield shield)
+    public TeacherTaskController(DatabaseContext db, DatabaseAccess da, Shield shield, PushNotifier push)
     {
         this.db = db;
         this.da = da;
         this.shield = shield;
+        this.push = push;
     }
 
     /// <summary>
@@ -78,6 +80,9 @@ public class TeacherTaskController : ControllerBase
 
         db.Tasks.Add(task);
         db.SaveChanges();
+
+        List<int> students = da.Enrollments.ForClass(classId).Select(e => e.StudentId).ToList();
+        push.SendNewTask(cla.Name, teacher.DisplayName, deck.Name, dueDateAsDate, students);
 
         return new TaskVm
         {

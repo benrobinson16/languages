@@ -10,6 +10,12 @@ import LanguagesAPI
 import DataStructures
 import IntelligentMarking
 
+enum TaskLearningState {
+    case question
+    case newSetOf10
+    case moveToReview
+}
+
 class TaskLearningSession: LearningSession {
     private let onCompletion: () -> Void
     private let lqn = LearningLQN<Card>(queues: .init(array: [
@@ -26,8 +32,6 @@ class TaskLearningSession: LearningSession {
     private var lastCard: Card? = nil
     private var lastQueue: Int? = nil
     
-    private var cardsUntilReview = 10
-    
     init(onCompletion: @escaping () -> Void) {
         self.onCompletion = onCompletion
         super.init()
@@ -35,27 +39,34 @@ class TaskLearningSession: LearningSession {
     
     @MainActor
     override func nextQuestion(wasCorrect: Bool? = nil) async {
+        // Re-insert last card if it exists
         if let lastCard = lastCard, let lastQueue = lastQueue, let wasCorrect = wasCorrect {
             let newQueue = wasCorrect ? lastQueue + 1 : lastQueue - 1
             lqn.enqueue(lastCard, intoQueue: max(newQueue, 1))
         }
         
-        if cardsUntilReview == 0 {
-            cardsUntilReview = 10
+        if lastCard != nil {
+            completion += 0.1
+        }
+        
+        // If completed 10...
+        if completion == 1.0 || lqn.isEmpty {
+            completion = 1.0
             guard let token = Authenticator.shared.token else { Navigator.shared.goHome(); return }
-            do {
+            await ErrorHandler.shared.wrapAsync {
                 let dayCompletion = try await LanguagesAPI.makeRequest(.dailyCompletion(token: token))
                 if dayCompletion == 1.0 {
-                    // Display completion
-                    currentMessage = .init(
-                        title: "🎉 Well Done!",
-                        body: "You've completed all your task cardsf for the day.",
-                        option1: .init(name: "Continue reviewing", action: { }),
-                        option2: .init(name: "Exit", action: Navigator.shared.goHome)
-                    )
-                    currentCard = nil
+                    if lastCard == nil {
+                        onCompletion()
+                    } else {
+                        currentMessage = .init(
+                            title: "🎉 Well Done!",
+                            body: "You've completed all your task cards for the day.",
+                            option1: .init(name: "Continue reviewing", action: onCompletion),
+                            option2: .init(name: "Exit", action: Navigator.shared.goHome)
+                        )
+                    }
                 } else {
-                    // Display interstitial message
                     currentMessage = .init(
                         title: "👍 Way to go!",
                         body: "That's another 10 cards. You've completed \(dayCompletion.formatted(.percent)) of today's work.",
@@ -63,11 +74,17 @@ class TaskLearningSession: LearningSession {
                         option2: nil
                     )
                 }
-            } catch {
-                ErrorHandler.shared.report(error)
-                Navigator.shared.goHome()
             }
-        } else if !lqn.isEmpty, let nextCardData = lqn.dequeueWithLearningHeuristic() {
+        } else {
+            if completion > 1.0 {
+                completion = 0.0
+            }
+            
+            guard let nextCardData = lqn.dequeueWithLearningHeuristic() else {
+                Navigator.shared.goHome()
+                return
+            }
+            
             lastCard = nextCardData.value
             lastQueue = nextCardData.queue
             
@@ -89,20 +106,6 @@ class TaskLearningSession: LearningSession {
             
             currentCard = newCard
             currentMessage = nil
-            
-            completion += 0.1 // FIXME: Actual completion
-        } else if currentCard != nil {
-            // Display success
-            currentMessage = .init(
-                title: "Well Done!",
-                body: "You've completed all your task cards.",
-                option1: .init(name: "Continue reviewing", action: { }),
-                option2: .init(name: "Exit", action: Navigator.shared.goHome)
-            )
-            currentCard = nil
-        } else {
-            // Alert the view a new learning session should be created
-            onCompletion()
         }
     }
     

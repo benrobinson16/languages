@@ -107,7 +107,6 @@ public class PushNotifier
             .Replace("-----BEGIN PRIVATE KEY-----", "")
             .Replace("-----END PRIVATE KEY-----", "")
             .Replace("\r", "");
-            //.Replace("\n", "");
         byte[] keyBytes = Convert.FromBase64String(cleanedContents);
 
         ECDsa key = ECDsa.Create();

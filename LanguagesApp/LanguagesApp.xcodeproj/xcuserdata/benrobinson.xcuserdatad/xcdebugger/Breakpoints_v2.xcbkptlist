@@ -378,8 +378,8 @@
             filePath = "LanguagesApp/Features/Learning/ReviewLearningSession.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "nextCard()"
             landmarkType = "7">
          </BreakpointContent>
@@ -410,8 +410,8 @@
             filePath = "LanguagesApp/Features/Learning/ReviewLearningSession.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "nextQuestion(wasCorrect:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -474,8 +474,8 @@
             filePath = "LanguagesApp/Features/Learning/LearningScreen.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -530,69 +530,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EDF6BAA7-7CDB-4C48-B527-718D9F420598"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LanguagesApp/Features/Learning/TaskLearningSession.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "nextQuestion(wasCorrect:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EDF6BAA7-7CDB-4C48-B527-718D9F420598 - 503b74be6281767"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for LanguagesApp.TaskLearningSession.nextQuestion(wasCorrect: Swift.Optional&lt;Swift.Bool&gt;) async -&gt; ()"
-                  moduleName = "LanguagesApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/Features/Learning/TaskLearningSession.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "284">
-               </Location>
-               <Location
-                  uuid = "EDF6BAA7-7CDB-4C48-B527-718D9F420598 - 503b74be6281767"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for LanguagesApp.TaskLearningSession.nextQuestion(wasCorrect: Swift.Optional&lt;Swift.Bool&gt;) async -&gt; ()"
-                  moduleName = "LanguagesApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/Features/Learning/TaskLearningSession.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "632">
-               </Location>
-               <Location
-                  uuid = "EDF6BAA7-7CDB-4C48-B527-718D9F420598 - 503b74be6281767"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for LanguagesApp.TaskLearningSession.nextQuestion(wasCorrect: Swift.Optional&lt;Swift.Bool&gt;) async -&gt; ()"
-                  moduleName = "LanguagesApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/LanguagesApp/Features/Learning/TaskLearningSession.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "812">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "A3399106-D30D-42A4-9542-9D9C9C068A73"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -604,22 +541,6 @@
             endingLineNumber = "10"
             landmarkName = "isEmpty"
             landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7CE45706-E66B-44A8-A1AF-B1547234FCA8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LanguagesApp/Features/Learning/ReviewLearningSession.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "12"
-            endingLineNumber = "12"
-            landmarkName = "nextQuestion(wasCorrect:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
