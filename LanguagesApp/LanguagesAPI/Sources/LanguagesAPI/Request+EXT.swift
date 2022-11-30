@@ -102,4 +102,13 @@ extension Request {
             data: ["cardId": String(cardId)]
         )
     }
+    
+    public static func dailyCompletion(token: String) -> Request<Double> {
+        return .init(
+            method: .get,
+            url: studentUrl.appending(path: "dailyCompletion"),
+            headers: ["Authorization": token],
+            data: [:]
+        )
+    }
 }

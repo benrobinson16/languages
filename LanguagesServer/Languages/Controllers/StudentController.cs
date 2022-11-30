@@ -227,4 +227,20 @@ public class StudentController: ControllerBase
 
         return selectedCards.Select(c => c.ForeignTerm).ToList();
     }
+
+    [HttpGet("dailyCompletion")]
+    public double GetDailyCompletion()
+    {
+        Student student = shield.AuthenticateStudent(Request);
+
+        int expectedQuestions = da.StudentAttempts.ExpectedQuestionsToday(student.StudentId);
+        int completedQuestions = da.StudentAttempts.CardsAnsweredToday(student.StudentId);
+        int minRemainingQuestions = da.StudentAttempts.MinRemainingQuestionsToday(student.StudentId);
+        int effectiveCompleted = Math.Min(completedQuestions, expectedQuestions - minRemainingQuestions);
+        double percentage = expectedQuestions > 0 ? effectiveCompleted / expectedQuestions : 1.0;
+        if (percentage < 0) percentage = 0.0;
+        if (percentage > 1) percentage = 1.0;
+
+        return percentage;
+    }
 }

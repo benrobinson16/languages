@@ -26,6 +26,8 @@ class TaskLearningSession: LearningSession {
     private var lastCard: Card? = nil
     private var lastQueue: Int? = nil
     
+    private var cardsUntilReview = 10
+    
     init(onCompletion: @escaping () -> Void) {
         self.onCompletion = onCompletion
         super.init()
@@ -38,7 +40,34 @@ class TaskLearningSession: LearningSession {
             lqn.enqueue(lastCard, intoQueue: max(newQueue, 1))
         }
         
-        if !lqn.isEmpty, let nextCardData = lqn.dequeueWithLearningHeuristic() {
+        if cardsUntilReview == 0 {
+            cardsUntilReview = 10
+            guard let token = Authenticator.shared.token else { Navigator.shared.goHome(); return }
+            do {
+                let dayCompletion = try await LanguagesAPI.makeRequest(.dailyCompletion(token: token))
+                if dayCompletion == 1.0 {
+                    // Display completion
+                    currentMessage = .init(
+                        title: "🎉 Well Done!",
+                        body: "You've completed all your task cardsf for the day.",
+                        option1: .init(name: "Continue reviewing", action: { }),
+                        option2: .init(name: "Exit", action: Navigator.shared.goHome)
+                    )
+                    currentCard = nil
+                } else {
+                    // Display interstitial message
+                    currentMessage = .init(
+                        title: "👍 Way to go!",
+                        body: "That's another 10 cards. You've completed \(dayCompletion.formatted(.percent)) of today's work.",
+                        option1: .init(name: "Continue learning", action: { }),
+                        option2: nil
+                    )
+                }
+            } catch {
+                ErrorHandler.shared.report(error)
+                Navigator.shared.goHome()
+            }
+        } else if !lqn.isEmpty, let nextCardData = lqn.dequeueWithLearningHeuristic() {
             lastCard = nextCardData.value
             lastQueue = nextCardData.queue
             

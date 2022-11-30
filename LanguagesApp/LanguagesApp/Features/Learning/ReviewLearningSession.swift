@@ -16,7 +16,7 @@ class ReviewLearningSession: LearningSession {
                 // Display success
                 currentMessage = .init(
                     title: "🥳 Well Done!",
-                    body: "You've completed all your task cards.",
+                    body: "You've completed 10 review cards.",
                     option1: .init(name: "Continue reviewing", action: detachedNextQuestion),
                     option2: .init(name: "Exit", action: Navigator.shared.goHome)
                 )
