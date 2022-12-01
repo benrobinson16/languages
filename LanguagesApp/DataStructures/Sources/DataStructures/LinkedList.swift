@@ -329,8 +329,18 @@ public class LinkedList<T>: Sequence {
     }
     
     public func randomElement() -> T? {
+        guard !isEmpty else { return nil }
+        
         let index = Int.random(in: 0..<self.count)
         return first?.nodeAtIndex(index: index)?.value
+    }
+    
+    @discardableResult
+    public func removeRandomElement() -> T? {
+        guard !isEmpty else { return nil }
+        
+        let index = Int.random(in: 0..<self.count)
+        return remove(atPosition: index)
     }
     
     public func toArray() -> [T] {
@@ -341,6 +351,17 @@ public class LinkedList<T>: Sequence {
             values.append(this.value)
         }
         return values
+    }
+    
+    public func shuffled() -> LinkedList<T> {
+        let listCopy = self.copy()
+        let output = LinkedList<T>()
+        
+        while !listCopy.isEmpty {
+            output.append(listCopy.removeRandomElement()!)
+        }
+        
+        return output
     }
     
     // MARK: - Sequence conformance

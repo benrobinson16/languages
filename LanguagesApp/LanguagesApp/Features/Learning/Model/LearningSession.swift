@@ -1,10 +1,3 @@
-//
-//  LearningSession.swift
-//  LanguagesApp
-//
-//  Created by Ben Robinson on 01/11/2022.
-//
-
 import Foundation
 import LanguagesAPI
 
@@ -16,4 +9,9 @@ class LearningSession: ObservableObject {
     
     func nextQuestion(wasCorrect: Bool? = nil) async { }
     func startSession() async { }
+    
+    func dismiss() {
+        Navigator.shared.goHome()
+        NotificationCenter.default.post(name: .refreshData, object: nil)
+    }
 }

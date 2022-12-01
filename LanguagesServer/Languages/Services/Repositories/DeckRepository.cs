@@ -31,6 +31,7 @@ public class DeckRepository
         return from deck in db.Decks
                where deck.TeacherId == teacherId
                let numCards = db.Cards.Where(c => c.DeckId == deck.DeckId).Count()
+               orderby deck.CreationDate descending
                select new DeckVm
                {
                    DeckId = deck.DeckId,

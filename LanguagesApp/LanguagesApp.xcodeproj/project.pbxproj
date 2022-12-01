@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		522D98FD28F4187300D17239 /* SignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D98FC28F4187300D17239 /* SignInButton.swift */; };
+		5238779E2938AE8E0046F8DA /* MultipleChoiceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238779D2938AE8E0046F8DA /* MultipleChoiceCard.swift */; };
+		523877A02938AEA60046F8DA /* ChoiceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238779F2938AEA60046F8DA /* ChoiceCard.swift */; };
+		523877A22938AEBD0046F8DA /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523877A12938AEBD0046F8DA /* Popup.swift */; };
 		523E0A5C28F574F700B505F0 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523E0A5B28F574F700B505F0 /* HomeScreen.swift */; };
 		523E0A6228F5759300B505F0 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523E0A6128F5759300B505F0 /* SplashScreen.swift */; };
 		523E0A6428F5760D00B505F0 /* TaskScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523E0A6328F5760D00B505F0 /* TaskScreen.swift */; };
@@ -50,7 +53,6 @@
 		52AEE46429198CB900B65EB5 /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEE46329198CB900B65EB5 /* Carousel.swift */; };
 		52AEE46929199CB500B65EB5 /* FileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEE46829199CB500B65EB5 /* FileController.swift */; };
 		52AEE46D2919A15E00B65EB5 /* hellos.json in Resources */ = {isa = PBXBuildFile; fileRef = 52AEE46C2919A15E00B65EB5 /* hellos.json */; };
-		52AEE46F2919A1C700B65EB5 /* articles.json in Resources */ = {isa = PBXBuildFile; fileRef = 52AEE46E2919A1C700B65EB5 /* articles.json */; };
 		52BDFDC8291A6D1100BEC3F6 /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BDFDC7291A6D1100BEC3F6 /* TaskController.swift */; };
 		52BDFDCA291A6D1B00BEC3F6 /* TaskCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BDFDC9291A6D1B00BEC3F6 /* TaskCardView.swift */; };
 		52C28F732905BAA10088593B /* Color+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C28F722905BAA10088593B /* Color+EXT.swift */; };
@@ -76,6 +78,9 @@
 /* Begin PBXFileReference section */
 		522712DC28ED8FFE0098719F /* LanguagesAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LanguagesAPI; sourceTree = "<group>"; };
 		522D98FC28F4187300D17239 /* SignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButton.swift; sourceTree = "<group>"; };
+		5238779D2938AE8E0046F8DA /* MultipleChoiceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceCard.swift; sourceTree = "<group>"; };
+		5238779F2938AEA60046F8DA /* ChoiceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceCard.swift; sourceTree = "<group>"; };
+		523877A12938AEBD0046F8DA /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		523E0A5B28F574F700B505F0 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		523E0A6128F5759300B505F0 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		523E0A6328F5760D00B505F0 /* TaskScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskScreen.swift; sourceTree = "<group>"; };
@@ -119,7 +124,6 @@
 		52AEE46329198CB900B65EB5 /* Carousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
 		52AEE46829199CB500B65EB5 /* FileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileController.swift; sourceTree = "<group>"; };
 		52AEE46C2919A15E00B65EB5 /* hellos.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hellos.json; sourceTree = "<group>"; };
-		52AEE46E2919A1C700B65EB5 /* articles.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = articles.json; sourceTree = "<group>"; };
 		52BDFDC7291A6D1100BEC3F6 /* TaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
 		52BDFDC9291A6D1B00BEC3F6 /* TaskCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCardView.swift; sourceTree = "<group>"; };
 		52C28F722905BAA10088593B /* Color+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+EXT.swift"; sourceTree = "<group>"; };
@@ -158,6 +162,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5238779B2938AA790046F8DA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				527AD2A829116656001A1AD5 /* LearningSession.swift */,
+				527AD2AA29116662001A1AD5 /* ReviewLearningSession.swift */,
+				527AD2AC29116670001A1AD5 /* TaskLearningSession.swift */,
+				527ACFA02911A75D0008147A /* LearningQuestion.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5238779C2938AA870046F8DA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				527AD2A029116599001A1AD5 /* LearningCardView.swift */,
+				527AD2A2291165B9001A1AD5 /* LearningMessageView.swift */,
+				523E0A6728F5762000B505F0 /* LearningScreen.swift */,
+				52534ABE2923AE3400F5FCC8 /* LearningProgressBar.swift */,
+				5238779D2938AE8E0046F8DA /* MultipleChoiceCard.swift */,
+				5238779F2938AEA60046F8DA /* ChoiceCard.swift */,
+				523877A12938AEBD0046F8DA /* Popup.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		523E0A5E28F5750100B505F0 /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,7 +292,6 @@
 			isa = PBXGroup;
 			children = (
 				52AEE46C2919A15E00B65EB5 /* hellos.json */,
-				52AEE46E2919A1C700B65EB5 /* articles.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -294,14 +322,8 @@
 		52FB8B0629142EDF0086C6A1 /* Learning */ = {
 			isa = PBXGroup;
 			children = (
-				527AD2A829116656001A1AD5 /* LearningSession.swift */,
-				527AD2AA29116662001A1AD5 /* ReviewLearningSession.swift */,
-				527AD2AC29116670001A1AD5 /* TaskLearningSession.swift */,
-				527ACFA02911A75D0008147A /* LearningQuestion.swift */,
-				527AD2A029116599001A1AD5 /* LearningCardView.swift */,
-				527AD2A2291165B9001A1AD5 /* LearningMessageView.swift */,
-				523E0A6728F5762000B505F0 /* LearningScreen.swift */,
-				52534ABE2923AE3400F5FCC8 /* LearningProgressBar.swift */,
+				5238779C2938AA870046F8DA /* View */,
+				5238779B2938AA790046F8DA /* Model */,
 			);
 			path = Learning;
 			sourceTree = "<group>";
@@ -434,7 +456,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52AEE46F2919A1C700B65EB5 /* articles.json in Resources */,
 				52AEE46D2919A15E00B65EB5 /* hellos.json in Resources */,
 				524C5ABE28E2FACF00A4BDD1 /* Preview Assets.xcassets in Resources */,
 				524C5ABB28E2FACF00A4BDD1 /* Assets.xcassets in Resources */,
@@ -450,7 +471,9 @@
 			files = (
 				527AD2AB29116662001A1AD5 /* ReviewLearningSession.swift in Sources */,
 				527ACFA12911A75D0008147A /* LearningQuestion.swift in Sources */,
+				523877A22938AEBD0046F8DA /* Popup.swift in Sources */,
 				522D98FD28F4187300D17239 /* SignInButton.swift in Sources */,
+				523877A02938AEA60046F8DA /* ChoiceCard.swift in Sources */,
 				52C28F832905C7BD0088593B /* FootnoteButton.swift in Sources */,
 				52C28F752905BB4D0088593B /* TitleGreeting.swift in Sources */,
 				527AD2A6291165DD001A1AD5 /* Message.swift in Sources */,
@@ -492,6 +515,7 @@
 				52D6DE852913ADAD0069B1E3 /* AlertWrapper.swift in Sources */,
 				526230E1291B1197009B158C /* CompletionBar.swift in Sources */,
 				52C28F812905C4EA0088593B /* TaskList.swift in Sources */,
+				5238779E2938AE8E0046F8DA /* MultipleChoiceCard.swift in Sources */,
 				52F345912936736E007E6019 /* AppTextField.swift in Sources */,
 				523E0A6428F5760D00B505F0 /* TaskScreen.swift in Sources */,
 				527ACFA82911B7160008147A /* HomeController.swift in Sources */,

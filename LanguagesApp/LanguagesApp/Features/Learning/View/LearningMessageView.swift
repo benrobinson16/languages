@@ -31,4 +31,3 @@ struct LearningMessageView: View {
         }
     }
 }
-

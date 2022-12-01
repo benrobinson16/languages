@@ -1,20 +1,7 @@
-//
-//  TaskLearningSession.swift
-//  LanguagesApp
-//
-//  Created by Ben Robinson on 01/11/2022.
-//
-
 import Foundation
 import LanguagesAPI
 import DataStructures
 import IntelligentMarking
-
-enum TaskLearningState {
-    case question
-    case newSetOf10
-    case moveToReview
-}
 
 class TaskLearningSession: LearningSession {
     private let onCompletion: () -> Void
@@ -63,8 +50,9 @@ class TaskLearningSession: LearningSession {
                             title: "🎉 Well Done!",
                             body: "You've completed all your task cards for the day.",
                             option1: .init(name: "Continue reviewing", action: onCompletion),
-                            option2: .init(name: "Exit", action: Navigator.shared.goHome)
+                            option2: .init(name: "Exit", action: dismiss)
                         )
+                        currentCard = nil
                     }
                 } else {
                     currentMessage = .init(
@@ -73,6 +61,7 @@ class TaskLearningSession: LearningSession {
                         option1: .init(name: "Continue learning", action: { }),
                         option2: nil
                     )
+                    currentCard = nil
                 }
             }
         } else {
@@ -81,7 +70,7 @@ class TaskLearningSession: LearningSession {
             }
             
             guard let nextCardData = lqn.dequeueWithLearningHeuristic() else {
-                Navigator.shared.goHome()
+                dismiss()
                 return
             }
             
@@ -97,7 +86,11 @@ class TaskLearningSession: LearningSession {
                     let distractors = try await LanguagesAPI.makeRequest(.distractors(cardId: newCard.cardId, token: token))
                     let gen = AnswerGenerator(articles: []) // Intentionally disable article removal
                     let answers = distractors + [newCard.foreignTerm]
-                    newCard.options = answers.map { gen.generate(answer: $0).randomElement() ?? "NO ANSWERS" }
+                    
+                    newCard.options = LinkedList(array: answers)
+                        .shuffled()
+                        .map { gen.generate(answer: $0).randomElement() ?? "NO ANSWERS" }
+                        .toArray()
                 } catch {
                     ErrorHandler.shared.report(error)
                     Navigator.shared.goHome()

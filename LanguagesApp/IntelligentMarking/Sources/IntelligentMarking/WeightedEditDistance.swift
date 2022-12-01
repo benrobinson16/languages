@@ -12,14 +12,11 @@ public struct WeightedEditDistance: TypoDetecting {
     private var memo: HashTable<StringCombo, Int> = .init()
     private let threshold: Double
     
-    public init(perCharacterThreshold threshold: Double) {
+    public init?(perCharacterThreshold threshold: Double) {
         self.threshold = threshold
         
-        let url = Bundle.module.url(forResource: "keyboard", withExtension: "json")!
-        
         do {
-            let data = try Data(contentsOf: url)
-            let json = try JSONDecoder().decode([String: [String]].self, from: data)
+            let json = try FileController().loadKeyboard()
             
             // Insert each row into a hash table. Using force unwrapping because we know
             // and can assume that each string contains exactly one letter.
@@ -31,7 +28,7 @@ public struct WeightedEditDistance: TypoDetecting {
             
             self.keyboard = Graph(adjacencyLists: adjacencyLists)
         } catch {
-            fatalError("Failed to read in keyboard graph.")
+            return nil
         }
     }
     

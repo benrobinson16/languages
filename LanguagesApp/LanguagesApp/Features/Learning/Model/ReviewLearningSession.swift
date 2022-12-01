@@ -23,7 +23,7 @@ class ReviewLearningSession: LearningSession {
                     title: "🥳 Well Done!",
                     body: "You've completed 10 review cards.",
                     option1: .init(name: "Continue reviewing", action: detachedNextQuestion),
-                    option2: .init(name: "Exit", action: Navigator.shared.goHome)
+                    option2: .init(name: "Exit", action: dismiss)
                 )
                 currentCard = nil
             } else {
@@ -49,7 +49,11 @@ class ReviewLearningSession: LearningSession {
                 let distractors = try await LanguagesAPI.makeRequest(.distractors(cardId: nextCard.cardId, token: token))
                 let gen = AnswerGenerator(articles: []) // Intentionally disable article removal
                 let answers = distractors + [nextCard.foreignTerm]
-                nextCard.options = answers.map { gen.generate(answer: $0).randomElement() ?? "NO ANSWERS" }
+                
+                nextCard.options = LinkedList(array: answers)
+                    .shuffled()
+                    .map { gen.generate(answer: $0).randomElement() ?? "NO ANSWERS" }
+                    .toArray()
             } catch {
                 ErrorHandler.shared.report(error)
                 Navigator.shared.goHome()

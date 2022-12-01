@@ -24,7 +24,8 @@ let package = Package(
                 "DataStructures"
             ],
             resources: [
-                .process("keyboard.json")
+                .process("Data/keyboard.json"),
+                .process("Data/articles.json")
             ]
         ),
         .testTarget(

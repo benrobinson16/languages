@@ -21,7 +21,7 @@ struct LearningScreen: View {
     
     var body: some View {
         VStack {
-            LearningProgressBar(completion: session.completion, mode: session.mode, dismiss: Navigator.shared.goHome)
+            LearningProgressBar(completion: session.completion, mode: session.mode, dismiss: dismiss)
             if let message = session.currentMessage {
                 LearningMessageView(message: message)
             } else if let card = session.currentCard {
@@ -31,7 +31,9 @@ struct LearningScreen: View {
                     }
                 }
             } else {
+                Spacer()
                 ProgressView()
+                Spacer()
             }
         }
         .onAppear {
@@ -41,5 +43,10 @@ struct LearningScreen: View {
             }
         }
         .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+    }
+    
+    func dismiss() {
+        Navigator.shared.goHome()
+        NotificationCenter.default.post(name: .refreshData, object: nil)
     }
 }

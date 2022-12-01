@@ -9,19 +9,34 @@ public struct IntelligentMarking {
         self.typoDetector = typoDetector
     }
     
-    public func isCorrect(userAnswer: String, teacherAnswer: String) -> Bool {
-        let cleanedUserAnswer = userAnswer.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        let cleanedTeacherAnswer = teacherAnswer.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+    public func isCorrect(userAnswer: String, teacherAnswer: String, language: String) -> Bool {
+        return isCorrectFeedback(userAnswer: userAnswer, teacherAnswer: teacherAnswer, language: language).isCorrect
+    }
+    
+    public func isCorrectFeedback(userAnswer: String, teacherAnswer: String, language: String) -> (isCorrect: Bool, correction: String?) {
+        let cleanedUserAnswer = clean(answer: userAnswer)
+        let cleanedTeacherAnswer = clean(answer: teacherAnswer)
         
-        let possibleAnswers = answerGenerator.generate(answer: cleanedTeacherAnswer)
-        if possibleAnswers.contains(cleanedUserAnswer) { return true }
+        let possibleAnswers = answerGenerator.generate(answer: cleanedTeacherAnswer, language: language)
+        if possibleAnswers.contains(cleanedUserAnswer) { return (true, nil) }
         
         for possibleAnswer in possibleAnswers {
             if typoDetector.isOnlyTypo(source: cleanedUserAnswer, target: possibleAnswer) {
-                return true
+                return (true, possibleAnswer)
             }
         }
         
-        return false
+        return (false, possibleAnswers.randomElement())
+    }
+    
+    private func clean(answer: String) -> String {
+        return answer
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .applyingTransform(.stripDiacritics, reverse: false)!
+            .applyingTransform(.toLatin, reverse: false)!
+            .lowercased()
+            .replacingOccurrences(of: "’", with: "'")
+            .replacingOccurrences(of: "“", with: "\"")
+            .replacingOccurrences(of: "”", with: "\"")
     }
 }
