@@ -58,9 +58,3 @@ struct LearningCardView: View {
         }
     }
 }
-
-
-
-
-
-

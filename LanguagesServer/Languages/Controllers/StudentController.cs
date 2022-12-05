@@ -24,12 +24,6 @@ public class StudentController: ControllerBase
         this.mm = mm;
     }
 
-    [HttpGet("test")]
-    public string Test()
-    {
-        return "Connected to LanguagesAPI.";
-    }
-
     [HttpGet("summary")]
     public StudentSummaryVm Summary()
     {
@@ -108,7 +102,7 @@ public class StudentController: ControllerBase
         if (!studentAssignedTask) throw new LanguagesUnauthorized();
 
         List<Card> deck = da.Cards.ForDeck(task.DeckId).ToList();
-        task.Completion = da.StudentAttempts.StudentProgress(deck, student.StudentId, task.SetDate);
+        task.Completion = (double)da.StudentAttempts.StudentProgress(deck, student.StudentId, task.SetDate) / 100.0;
 
         return new StudentTaskSummaryVm
         {

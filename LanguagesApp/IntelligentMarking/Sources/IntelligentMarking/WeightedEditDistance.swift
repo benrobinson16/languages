@@ -12,24 +12,20 @@ public struct WeightedEditDistance: TypoDetecting {
     private var memo: HashTable<StringCombo, Int> = .init()
     private let threshold: Double
     
-    public init?(perCharacterThreshold threshold: Double) {
+    public init(perCharacterThreshold threshold: Double) {
         self.threshold = threshold
         
-        do {
-            let json = try FileController().loadKeyboard()
-            
-            // Insert each row into a hash table. Using force unwrapping because we know
-            // and can assume that each string contains exactly one letter.
-            let adjacencyLists = HashTable<Character, LinkedList<Character>>()
-            for key in json.keys {
-                let value = json[key]!.map { $0.first! }
-                adjacencyLists.set(LinkedList(array: value), forKey: key.first!)
-            }
-            
-            self.keyboard = Graph(adjacencyLists: adjacencyLists)
-        } catch {
-            return nil
+        let json = try! FileController().loadKeyboard()
+        
+        // Insert each row into a hash table. Using force unwrapping because we know
+        // and can assume that each string contains exactly one letter.
+        let adjacencyLists = HashTable<Character, LinkedList<Character>>()
+        for key in json.keys {
+            let value = json[key]!.map { $0.first! }
+            adjacencyLists.set(LinkedList(array: value), forKey: key.first!)
         }
+        
+        self.keyboard = Graph(adjacencyLists: adjacencyLists)
     }
     
     public func isOnlyTypo(source: String, target: String) -> Bool {

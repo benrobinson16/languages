@@ -47,16 +47,16 @@ class ReviewLearningSession: LearningSession {
             guard let token = Authenticator.shared.token else { Navigator.shared.goHome(); return nextCard }
             do {
                 let distractors = try await LanguagesAPI.makeRequest(.distractors(cardId: nextCard.cardId, token: token))
-                let gen = AnswerGenerator(articles: []) // Intentionally disable article removal
+                let gen = AnswerGenerator()
                 let answers = distractors + [nextCard.foreignTerm]
                 
                 nextCard.options = LinkedList(array: answers)
                     .shuffled()
-                    .map { gen.generate(answer: $0).randomElement() ?? "NO ANSWERS" }
+                    .map { gen.generate(answer: $0, language: nil).randomElement() ?? "NO ANSWERS" }
                     .toArray()
             } catch {
                 ErrorHandler.shared.report(error)
-                Navigator.shared.goHome()
+                dismiss()
             }
         }
         

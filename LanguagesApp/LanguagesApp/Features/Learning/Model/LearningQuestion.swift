@@ -12,16 +12,7 @@ class LearningQuestion: ObservableObject {
     init(card: Card) {
         self.card = card
         
-        let answerGenerator: AnswerGenerator
-        if let articles = FileController.shared.articles {
-            answerGenerator = AnswerGenerator(articles: articles)
-        } else if let articles = FileController.shared.readArticles(languageCode: "fr") { // only French supported
-            answerGenerator = AnswerGenerator(articles: articles)
-        } else {
-            // Will continue silently, without providing the article ignoring feature.
-            answerGenerator = AnswerGenerator(articles: [])
-        }
-        
+        let answerGenerator = AnswerGenerator()
         let typoDetector = WeightedEditDistance(perCharacterThreshold: 0.2)
         self.marker = IntelligentMarking(answerGenerator: answerGenerator, typoDetector: typoDetector)
     }
@@ -30,7 +21,8 @@ class LearningQuestion: ObservableObject {
         guard let token = Authenticator.shared.token else { return }
         
         let correctAnswer = card.nextQuestionType == .englishWritten ? card.englishTerm : card.foreignTerm
-        let results = marker.isCorrectFeedback(userAnswer: answer, teacherAnswer: correctAnswer)
+        let languageCode = card.nextQuestionType == .englishWritten ? "en" : "fr"
+        let results = marker.isCorrectFeedback(userAnswer: answer, teacherAnswer: correctAnswer, language: languageCode)
         
         correct = results.isCorrect
         

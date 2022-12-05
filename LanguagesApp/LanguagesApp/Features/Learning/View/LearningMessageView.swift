@@ -13,9 +13,11 @@ struct LearningMessageView: View {
                     Text(message.title)
                         .font(.appTitle)
                         .padding(.bottom)
+                        .multilineTextAlignment(.center)
                     
                     Text(message.body)
                         .font(.appSubheading)
+                        .multilineTextAlignment(.center)
                     
                     Spacer(minLength: 0)
                     

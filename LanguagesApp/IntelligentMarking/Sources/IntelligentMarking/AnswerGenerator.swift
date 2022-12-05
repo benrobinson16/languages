@@ -2,24 +2,20 @@ import Foundation
 import DataStructures
 
 public protocol AnswerGenerating {
-    func generate(answer: String, language: String) -> [String]
+    func generate(answer: String, language: String?) -> [String]
 }
 
 public struct AnswerGenerator: AnswerGenerating {
     private let articles: [String: [String]]
     
-    public init?() {
-        do {
-            self.articles = try FileController().loadArticles()
-        } catch {
-            return nil
-        }
+    public init() {
+        self.articles = try! FileController().loadArticles()
     }
     
-    public func generate(answer: String, language: String) -> [String] {
+    public func generate(answer: String, language: String?) -> [String] {
         let ast = produceAST(answer: answer)
         let answersWithArticles = permutationsOfAST(ast: ast)
-        let answersWithoutArticles = removePrefixArticles(answersWithArticles, articles: articles[language] ?? [])
+        let answersWithoutArticles = removePrefixArticles(answersWithArticles, articles: articles[language ?? ""] ?? [])
         return answersWithArticles + answersWithoutArticles
     }
     

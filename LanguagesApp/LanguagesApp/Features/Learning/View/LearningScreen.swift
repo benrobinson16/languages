@@ -24,6 +24,10 @@ struct LearningScreen: View {
             LearningProgressBar(completion: session.completion, mode: session.mode, dismiss: dismiss)
             if let message = session.currentMessage {
                 LearningMessageView(message: message)
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .trailing).combined(with: .opacity),
+                        removal: .move(edge: .leading).combined(with: .opacity)
+                    ))
             } else if let card = session.currentCard {
                 LearningCardView(question: LearningQuestion(card: card)) { wasCorrect in
                     Task {
@@ -36,6 +40,7 @@ struct LearningScreen: View {
                 Spacer()
             }
         }
+        .animation(.spring(), value: session.currentMessage)
         .onAppear {
             Task {
                 await session.startSession()
