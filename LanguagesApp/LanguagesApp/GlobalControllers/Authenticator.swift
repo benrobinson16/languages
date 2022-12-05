@@ -84,6 +84,12 @@ class Authenticator: ObservableObject {
         return idToken
     }
     
+    func signOutDetached() {
+        ErrorHandler.shared.detachAsync {
+            try await self.signOut()
+        }
+    }
+    
     @MainActor
     func signOut() async throws {
         try await Notifier.shared.removeDeviceToken()
