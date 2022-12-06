@@ -246,4 +246,24 @@ public class StudentController: ControllerBase
 
         return percentage;
     }
+
+    [HttpPost("settingsSummary")]
+    public Student GetSettingsSummary(DateTime time, bool enabled)
+    {
+        Student student = shield.AuthenticateStudent(Request);
+        return student;
+    }
+
+    [HttpPost("updateNotificationSettings")]
+    public StatusResponse UpdateNotificationSettings(DateTime time, bool enabled)
+    {
+        Student student = shield.AuthenticateStudent(Request);
+
+        student.ReminderTime = time;
+        student.DailyReminderEnabled = enabled;
+
+        db.SaveChanges();
+
+        return new StatusResponse { Success = true };
+    }
 }

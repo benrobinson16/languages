@@ -111,4 +111,22 @@ extension Request {
             data: [:]
         )
     }
+    
+    public static func settingsSummary(token: String) -> Request<SettingsSummary> {
+        return .init(
+            method: .get,
+            url: studentUrl.appendingPathExtension("settingsSummary"),
+            headers: ["Authorization": token],
+            data: []
+        )
+    }
+    
+    public static func updateNotificationSettings(time: Date, enabled: Bool, token: String) -> Request<StatusResponse> {
+        return .init(
+            method: .post,
+            url: studentUrl.appendingPathExtension("updateNotificationSettings"),
+            headers: ["Authorization": token],
+            data: ["time": time.ISO8601Format(), "enabled": String(enabled)]
+        )
+    }
 }
