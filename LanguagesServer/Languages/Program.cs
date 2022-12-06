@@ -2,9 +2,8 @@ using System.Text.Json;
 using GlobalExceptionHandler.WebApi;
 using Languages.Services;
 using Languages.ApiModels;
-using Languages.Services.MockServices;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.HttpOverrides;
+using FluentScheduler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +30,8 @@ builder.Services.AddSingleton<Authenticator>(new Authenticator());
 // Generate documentation site.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
 
 var app = builder.Build();
 
@@ -71,3 +72,16 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 
 app.MapControllers();
 app.Run();
+
+JobManager.Initialize();
+
+JobManager.AddJob(
+    () => {
+        PushNotifier? push = app.Services.CreateScope().ServiceProvider.GetService(typeof(PushNotifier)) as PushNotifier;
+        if (push != null)
+        {
+            push.SendDailyReminders();
+        }
+    },
+    s => s.ToRunEvery(5).Minutes()
+);

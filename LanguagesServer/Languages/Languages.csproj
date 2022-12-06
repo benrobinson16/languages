@@ -23,6 +23,7 @@
     <PackageReference Include="JWT" Version="9.0.3" />
     <PackageReference Include="GlobalExceptionHandler" Version="4.0.2" />
     <PackageReference Include="RestSharp" Version="108.0.2" />
+    <PackageReference Include="FluentScheduler" Version="5.5.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +44,7 @@
     <None Remove="Constants\" />
     <None Remove="Constants\apns-key.p8" />
     <None Remove="RestSharp" />
+    <None Remove="FluentScheduler" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DbModels\" />

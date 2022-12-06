@@ -13,6 +13,8 @@ public class Student
 	public string Surname { get; set; }
 	public string Email { get; set; }
 	public string? DeviceToken { get; set; }
+	public DateTime ReminderTime { get; set; }
+	public bool DailyReminderEnabled { get; set; }
 
 	public string DisplayName => FirstName + " " + Surname;
 }

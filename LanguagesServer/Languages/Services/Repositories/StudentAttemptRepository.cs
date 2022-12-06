@@ -234,4 +234,3 @@ public class StudentAttemptRepository
         return qry.Count();
     }
 }
-

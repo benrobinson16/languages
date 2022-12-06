@@ -34,6 +34,7 @@
 		526230E1291B1197009B158C /* CompletionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526230E0291B1197009B158C /* CompletionBar.swift */; };
 		526230E3291B17D2009B158C /* TaskDetailsCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526230E2291B17D2009B158C /* TaskDetailsCards.swift */; };
 		526230E7291B1AD2009B158C /* Notification+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526230E6291B1AD2009B158C /* Notification+EXT.swift */; };
+		52646616293F54D300C7BCAE /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52646615293F54D300C7BCAE /* SettingsController.swift */; };
 		5274EAEB2918578000B808DF /* SplashKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5274EAEA2918578000B808DF /* SplashKit */; };
 		5274EAEE291857B000B808DF /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5274EAED291857B000B808DF /* OnboardingScreen.swift */; };
 		5274EAF02918623400B808DF /* ClassList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5274EAEF2918623400B808DF /* ClassList.swift */; };
@@ -106,6 +107,7 @@
 		526230E0291B1197009B158C /* CompletionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionBar.swift; sourceTree = "<group>"; };
 		526230E2291B17D2009B158C /* TaskDetailsCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsCards.swift; sourceTree = "<group>"; };
 		526230E6291B1AD2009B158C /* Notification+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+EXT.swift"; sourceTree = "<group>"; };
+		52646615293F54D300C7BCAE /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		5274EAED291857B000B808DF /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
 		5274EAEF2918623400B808DF /* ClassList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassList.swift; sourceTree = "<group>"; };
 		527ACF9E2911A6260008147A /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 			isa = PBXGroup;
 			children = (
 				523E0A6528F5761600B505F0 /* SettingsScreen.swift */,
+				52646615293F54D300C7BCAE /* SettingsController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				527AD2AB29116662001A1AD5 /* ReviewLearningSession.swift in Sources */,
 				527ACFA12911A75D0008147A /* LearningQuestion.swift in Sources */,
 				523877A22938AEBD0046F8DA /* Popup.swift in Sources */,
+				52646616293F54D300C7BCAE /* SettingsController.swift in Sources */,
 				522D98FD28F4187300D17239 /* SignInButton.swift in Sources */,
 				523877A02938AEA60046F8DA /* ChoiceCard.swift in Sources */,
 				52C28F832905C7BD0088593B /* FootnoteButton.swift in Sources */,

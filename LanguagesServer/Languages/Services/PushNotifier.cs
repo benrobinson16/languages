@@ -2,11 +2,10 @@
 using JWT.Builder;
 using System.Net;
 using System.Security.Cryptography;
-using RestSharp;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Dynamic;
+using Languages.DbModels;
 
 namespace Languages.Services;
 
@@ -17,6 +16,17 @@ public class PushNotifier
     public PushNotifier(DatabaseAccess da)
     {
         this.da = da;
+    }
+
+    public void SendDailyReminders()
+    {
+        List<Student> students = da.Students.ForDailyReminders().ToList();
+        SendNotification(
+            "Time to practice!",
+            "Remember to do some vocabulary revision today.",
+            "DAILY_REMINDER",
+            students
+        );
     }
 
     public void SendCongrats(string teacherName, string deckName, int student)
@@ -81,6 +91,20 @@ public class PushNotifier
             .Select(stu => da.Students.ForId(stu).SingleOrDefault())
             .Where(result => result != null)
             .Select(result => result!.DeviceToken)
+            .Where(token => token != null)
+            .Select(token => token!)
+            .ToList();
+
+        foreach (string t in tokens)
+        {
+            SendPayloadToApple(t, title, body, category);
+        }
+    }
+
+    private void SendNotification(string title, string body, string category, List<Student> students)
+    {
+        List<string> tokens = students
+            .Select(result => result.DeviceToken)
             .Where(token => token != null)
             .Select(token => token!)
             .ToList();
