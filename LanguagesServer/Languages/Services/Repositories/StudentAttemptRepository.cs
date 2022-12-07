@@ -244,12 +244,6 @@ public class StudentAttemptRepository
         if (percentage < 0) percentage = 0.0;
         if (percentage > 1) percentage = 1.0;
 
-        Console.WriteLine("\n\nDAILY COMPLETION");
-        Console.WriteLine("Expected questions: {0}", expectedQuestions);
-        Console.WriteLine("Completed questions: {0}", completedQuestions);
-        Console.WriteLine("Min remaining questions: {0}", minRemainingQuestions);
-        Console.WriteLine("Completion: {0}", percentage);
-
         return percentage;
     }
 }
