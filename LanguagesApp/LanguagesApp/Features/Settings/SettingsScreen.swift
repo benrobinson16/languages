@@ -23,16 +23,16 @@ struct SettingsScreen: View {
                     }
                 }
                 .disabled(!notificationsAllowed)
-                
+
                 Section(header: Text("Account")) {
-                    LabeledContent("Name", value: summary.firstName + " " + summary.surname)
+                    LabeledContent("Name", value: summary.name)
                     LabeledContent("Email", value: summary.email)
                     Button.init("Log out", role: .destructive, action: Authenticator.shared.signOutDetached)
                 }
             } else {
                 ProgressView()
             }
-            
+
             Section {
                 Text("Languages v\(version) (\(build))")
                 Text("Created by Ben Robinson")

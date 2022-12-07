@@ -247,7 +247,7 @@ public class StudentController: ControllerBase
         return percentage;
     }
 
-    [HttpPost("settingsSummary")]
+    [HttpGet("settingsSummary")]
     public SettingsSummary GetSettingsSummary()
     {
         Student student = shield.AuthenticateStudent(Request);
