@@ -248,10 +248,17 @@ public class StudentController: ControllerBase
     }
 
     [HttpPost("settingsSummary")]
-    public Student GetSettingsSummary(DateTime time, bool enabled)
+    public SettingsSummary GetSettingsSummary()
     {
         Student student = shield.AuthenticateStudent(Request);
-        return student;
+
+        return new SettingsSummary
+        {
+            Name = student.DisplayName,
+            Email = student.Email,
+            DailyReminderEnabled = student.DailyReminderEnabled,
+            ReminderTime = student.ReminderTime
+        };
     }
 
     [HttpPost("updateNotificationSettings")]

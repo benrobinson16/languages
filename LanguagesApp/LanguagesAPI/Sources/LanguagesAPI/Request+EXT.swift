@@ -117,7 +117,7 @@ extension Request {
             method: .get,
             url: studentUrl.appendingPathExtension("settingsSummary"),
             headers: ["Authorization": token],
-            data: []
+            data: [:]
         )
     }
     

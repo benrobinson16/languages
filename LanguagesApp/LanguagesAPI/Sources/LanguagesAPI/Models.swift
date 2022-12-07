@@ -66,9 +66,8 @@ public struct EnrollmentVm: Codable, Identifiable, Equatable {
 }
 
 public struct SettingsSummary: Codable, Equatable {
-    public let firstName: String
-    public let surname: String
+    public let name: String
     public let email: String
-    public let reminderTime: Date
-    public let dailyReminderEnabled: Bool
+    public var reminderTime: Date
+    public var dailyReminderEnabled: Bool
 }
