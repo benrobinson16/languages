@@ -189,14 +189,14 @@ public class StudentAttemptRepository
                   let questionsRequired = (int)QuestionType.ForeignWritten - greatestAttemptAtCard
                   select new { QuestionsRequired = questionsRequired, DueDate = task.DueDate };
 
-        return (int)qry
+        return (int)Math.Ceiling(qry
             .ToList()
             .Select(x =>
                 x.DueDate > DateTime.Now ?
                     x.QuestionsRequired / Math.Ceiling((x.DueDate - DateTime.Now).TotalDays) :
                     x.QuestionsRequired
             )
-            .Sum();
+            .Sum());
     }
 
     public int MinRemainingQuestionsToday(int studentId)
