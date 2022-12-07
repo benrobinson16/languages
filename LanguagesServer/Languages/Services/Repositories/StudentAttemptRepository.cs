@@ -233,4 +233,23 @@ public class StudentAttemptRepository
 
         return qry.Count();
     }
+
+    public double DailyCompletion(int studentId)
+    {
+        int expectedQuestions = ExpectedQuestionsToday(studentId);
+        int completedQuestions = CardsAnsweredToday(studentId);
+        int minRemainingQuestions = MinRemainingQuestionsToday(studentId);
+        int effectiveCompleted = Math.Min(completedQuestions, expectedQuestions - minRemainingQuestions);
+        double percentage = expectedQuestions > 0 ? effectiveCompleted / expectedQuestions : 1.0;
+        if (percentage < 0) percentage = 0.0;
+        if (percentage > 1) percentage = 1.0;
+
+        Console.WriteLine("\n\nDAILY COMPLETION");
+        Console.WriteLine("Expected questions: {0}", expectedQuestions);
+        Console.WriteLine("Completed questions: {0}", completedQuestions);
+        Console.WriteLine("Min remaining questions: {0}", minRemainingQuestions);
+        Console.WriteLine("Completion: {0}", percentage);
+
+        return percentage;
+    }
 }

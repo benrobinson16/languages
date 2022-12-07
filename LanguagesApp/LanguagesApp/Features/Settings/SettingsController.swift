@@ -11,7 +11,7 @@ class SettingsController: ObservableObject {
         guard !isLoading else { return }
         guard let token = Authenticator.shared.token else { Navigator.shared.goHome(); return }
         
-        ErrorHandler.shared.detachAsync {
+        ErrorHandler.shared.detachAsync { @MainActor in
             self.summary = try await LanguagesAPI.makeRequest(.settingsSummary(token: token))
         } finally: {
             self.isLoading = false

@@ -12,8 +12,10 @@ struct HomeScreen: View {
                 VStack(alignment: .leading, spacing: 16) {
                     HStack(spacing: 8) {
                         Spacer()
-                        Button(action: controller.signOut) {
-                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                        Button {
+                            nav.open(.settings)
+                        } label: {
+                            Image(systemName: "gear")
                                 .font(.appSubheading)
                                 .foregroundColor(.primary)
                         }
@@ -39,10 +41,9 @@ struct HomeScreen: View {
                         .padding(.bottom, 30)
                     
                     HStack {
-                        Spacer()
-                        FootnoteButton(title: "Settings") { nav.open(.settings) }
+                        Spacer(minLength: 0)
                         FootnoteButton(title: "Refresh") { controller.loadSummary() }
-                        Spacer()
+                        Spacer(minLength: 0)
                     }
                 }
                 .padding()

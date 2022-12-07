@@ -2,24 +2,33 @@ import SwiftUI
 import LanguagesAPI
 
 struct TaskScreen: View {
+    @ObservedObject private var nav = Navigator.shared
     @StateObject private var controller = TaskController()
     
     var body: some View {
         Group {
             if let summary = controller.summary {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 16) {
-                        SheetHeading(title: summary.taskDetails.deckName, dismiss: controller.dismiss)
-                        
-                        TaskDetailCards(details: summary.taskDetails)
-                        
-                        ForEach(summary.cards) { card in
-                            TaskCardView(card: card)
+                NavigationView {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 16) {
+                            TaskDetailCards(details: summary.taskDetails)
+                            
+                            ForEach(summary.cards) { card in
+                                TaskCardView(card: card)
+                            }
+                        }
+                        .padding()
+                    }
+                    .transition(.opacity)
+                    .navigationTitle(Text(summary.taskDetails.deckName))
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button(action: nav.goHome) {
+                                Text("Close")
+                            }
                         }
                     }
-                    .padding()
                 }
-                .transition(.opacity)
             } else {
                 ProgressView()
             }

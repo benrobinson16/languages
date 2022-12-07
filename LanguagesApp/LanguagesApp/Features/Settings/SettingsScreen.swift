@@ -5,40 +5,48 @@ struct SettingsScreen: View {
     @StateObject private var controller = SettingsController()
     
     var body: some View {
-        Form {
-            SheetHeading(title: "Settings", dismiss: nav.goHome)
-            
-            if let summary = controller.summary, let notificationsAllowed = controller.notificationsAllowed {
-                Section(header: Text("Notifications")) {
-                    Toggle(
-                        "Reminder Notifications",
-                        isOn: .init(get: { summary.dailyReminderEnabled }, set: controller.setNotificationsEnabled)
-                    )
-                    if summary.dailyReminderEnabled {
-                        DatePicker(
-                            "Daily Reminder Time",
-                            selection: .init(get: { summary.reminderTime }, set: controller.setNotificationsTime),
-                            displayedComponents: .hourAndMinute
+        NavigationView {
+            Form {
+                if let summary = controller.summary, let notificationsAllowed = controller.notificationsAllowed {
+                    Section(header: Text("Notifications")) {
+                        Toggle(
+                            "Reminder Notifications",
+                            isOn: .init(get: { summary.dailyReminderEnabled }, set: controller.setNotificationsEnabled)
                         )
+                        if summary.dailyReminderEnabled {
+                            DatePicker(
+                                "Daily Reminder Time",
+                                selection: .init(get: { summary.reminderTime }, set: controller.setNotificationsTime),
+                                displayedComponents: .hourAndMinute
+                            )
+                        }
+                    }
+                    .disabled(!notificationsAllowed)
+
+                    Section(header: Text("Account")) {
+                        LabeledContent("Name", value: summary.name)
+                        LabeledContent("Email", value: summary.email)
+                        Button.init("Log out", role: .destructive, action: Authenticator.shared.signOutDetached)
+                    }
+                } else {
+                    ProgressView()
+                }
+
+                Section {
+                    Text("Languages v\(version) (\(build))")
+                    Text("Created by Ben Robinson")
+                }
+            }
+            .formStyle(.automatic)
+            .navigationTitle(Text("Settings"))
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: nav.goHome) {
+                        Text("Close")
                     }
                 }
-                .disabled(!notificationsAllowed)
-
-                Section(header: Text("Account")) {
-                    LabeledContent("Name", value: summary.name)
-                    LabeledContent("Email", value: summary.email)
-                    Button.init("Log out", role: .destructive, action: Authenticator.shared.signOutDetached)
-                }
-            } else {
-                ProgressView()
-            }
-
-            Section {
-                Text("Languages v\(version) (\(build))")
-                Text("Created by Ben Robinson")
             }
         }
-        .formStyle(.automatic)
         .onAppear(perform: controller.loadSummary)
         .onAppear(perform: controller.checkNotificationsAllowed)
     }
