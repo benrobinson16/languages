@@ -21,6 +21,7 @@ public class PushNotifier
     public void SendDailyReminders()
     {
         List<Student> students = da.Students.ForDailyReminders().ToList();
+        Console.WriteLine(students.Count);
         SendNotification(
             "Time to practice!",
             "Remember to do some vocabulary revision today.",

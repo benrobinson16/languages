@@ -11,7 +11,7 @@ struct ChoiceCard: View {
                     answer == choice ? Color.appAccent : Color.gray.opacity(0.75),
                     style: .init(lineWidth: answer == choice ? 4.0 : 2.0)
                 )
-                .foregroundColor(answer == choice ? Color.panelBackground : Color(uiColor: .systemBackground))
+                .background(answer == choice ? Color.panelBackground : Color(uiColor: .systemBackground))
                 .animation(.spring(), value: answer)
             
             Text(choice)
