@@ -72,18 +72,20 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 
 JobManager.Initialize();
 
-JobManager.AddJob(() => Console.WriteLine("Late job!"), (s) => s.ToRunEvery(5).Seconds());
-
 JobManager.AddJob(
     () => {
-        Console.WriteLine("Run job");
         PushNotifier? push = app.Services.CreateScope().ServiceProvider.GetService(typeof(PushNotifier)) as PushNotifier;
         if (push != null)
         {
+            Console.WriteLine("Running notifications.");
             push.SendDailyReminders();
         }
+        else
+        {
+            Console.WriteLine("Failed to run notifications.");
+        }
     },
-    s => s.ToRunEvery(1).Minutes()
+    s => s.ToRunEvery(5).Minutes()
 );
 
 JobManager.Start();
