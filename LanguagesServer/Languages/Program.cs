@@ -77,11 +77,12 @@ JobManager.Initialize();
 
 JobManager.AddJob(
     () => {
+        Console.WriteLine("Run job");
         PushNotifier? push = app.Services.CreateScope().ServiceProvider.GetService(typeof(PushNotifier)) as PushNotifier;
         if (push != null)
         {
             push.SendDailyReminders();
         }
     },
-    s => s.ToRunEvery(5).Minutes()
+    s => s.ToRunEvery(1).Minutes()
 );

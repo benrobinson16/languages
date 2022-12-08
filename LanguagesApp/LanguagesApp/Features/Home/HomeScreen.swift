@@ -42,7 +42,7 @@ struct HomeScreen: View {
                     
                     HStack {
                         Spacer(minLength: 0)
-                        FootnoteButton(title: "Refresh") { controller.loadSummary() }
+                        FootnoteButton(title: "Refresh") { controller.loadSummary() }d
                         Spacer(minLength: 0)
                     }
                 }
