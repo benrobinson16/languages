@@ -46,11 +46,15 @@ public class StudentAttemptRepository
 
     public int StudentProgress(List<Card> cards, int studentId, DateTime setDate)
     {
+        Console.WriteLine("SetDate = " + setDate.ToShortDateString());
+
         int numCompleted = 0;
         int expectedQuestions = cards.Count() * (int)QuestionType.ForeignWritten;
 
         foreach (Card card in cards)
         {
+            Console.WriteLine(CorrectAttemptsInWindow(studentId, card.CardId, setDate, DateTime.Now).ToList().Count());
+
             StudentAttempt? greatestAttempt = CorrectAttemptsInWindow(studentId, card.CardId, setDate, DateTime.Now).OrderByDescending(attempt => attempt.QuestionType).FirstOrDefault();
             
             if (greatestAttempt == null)
