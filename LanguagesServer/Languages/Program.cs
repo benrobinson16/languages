@@ -86,3 +86,5 @@ JobManager.AddJob(
     },
     s => s.ToRunEvery(1).Minutes()
 );
+
+JobManager.Start();
