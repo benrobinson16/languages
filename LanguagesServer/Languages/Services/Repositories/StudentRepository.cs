@@ -41,10 +41,10 @@ public class StudentRepository
                where student.DailyReminderEnabled
                where student.ReminderTime.TimeOfDay >= DateTime.Now.TimeOfDay
                where student.ReminderTime.TimeOfDay < DateTime.Now.AddMinutes(5).TimeOfDay
-               where !(from attempt in db.StudentAttempts
-                       where attempt.StudentId == student.StudentId
-                       where attempt.AttemptDate.Date == DateTime.Now.Date
-                       select attempt).Any()
+               // where !(from attempt in db.StudentAttempts
+               //         where attempt.StudentId == student.StudentId
+               //         where attempt.AttemptDate.Date == DateTime.Now.Date
+               //         select attempt).Any()
                select student;
     }
 }
