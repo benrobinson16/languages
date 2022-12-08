@@ -85,7 +85,7 @@ JobManager.AddJob(
             Console.WriteLine("Failed to run notifications.");
         }
     },
-    s => s.ToRunEvery(5).Seconds()
+    s => s.ToRunEvery(5).Minutes()
 );
 
 JobManager.Start();
