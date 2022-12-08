@@ -70,10 +70,9 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 });
 
-app.MapControllers();
-app.Run();
-
 JobManager.Initialize();
+
+JobManager.AddJob(() => Console.WriteLine("Late job!"), (s) => s.ToRunEvery(5).Seconds());
 
 JobManager.AddJob(
     () => {
@@ -88,3 +87,6 @@ JobManager.AddJob(
 );
 
 JobManager.Start();
+
+app.MapControllers();
+app.Run();
