@@ -40,7 +40,7 @@ public class StudentRepository
         return from student in db.Students
                where student.DailyReminderEnabled
                where student.ReminderTime.TimeOfDay >= DateTime.Now.TimeOfDay
-               where student.ReminderTime.TimeOfDay < DateTime.Now.AddMinutes(5).TimeOfDay
+               where student.ReminderTime.TimeOfDay < DateTime.Now.AddMinutes(1).TimeOfDay
                where !(from attempt in db.StudentAttempts
                        where attempt.StudentId == student.StudentId
                        where attempt.AttemptDate.Date == DateTime.Now.Date

@@ -2,72 +2,91 @@ import XCTest
 @testable import IntelligentMarking
 
 final class AnswerGeneratorTests: XCTestCase {
-    let generator = AnswerGenerator(articles: [
-        "le ", "la ", "les ", "l'", "un ", "une ", "de ", "du ", "des "
-    ])
+    let generator = AnswerGenerator()
     
-    let testCases: [(answer: String, expectedAnswers: [String])] = [
+    let testCases: [(answer: String, language: String, expectedAnswers: [String])] = [
         (
             "je suis né(e)",
+            "fr",
             [
                 "je suis né",
-                "je suis née"
+                "je suis née",
+                "je suis né(e)"
             ]
         ),
         (
-            "aa(b)cc(d)/1234",
+            "aa(b)cc/1234",
+            "en",
             [
                 "1234",
                 "aacc",
-                "aaccd",
                 "aabcc",
-                "aabccd"
+                "aa(b)cc",
+                "aacc/1234",
+                "aabcc/1234",
+                "aa(b)cc/1234",
+                "1234/aacc",
+                "1234/aabcc",
+                "1234/aa(b)cc"
             ]
         ),
         (
             "un crayon (vert)",
+            "fr",
             [
                 "un crayon",
                 "un crayon vert",
+                "un crayon (vert)",
                 "crayon",
-                "crayon vert"
+                "crayon vert",
+                "un crayon (vert)"
             ]
         ),
         (
-            "a dog/cat is green/orange or purple (in colour)",
-            [
-                "a dog is green or purple",
-                "a dog is orange or purple",
-                "a cat is green or purple",
-                "a cat is orange or purple",
-                "a dog is green or purple in colour",
-                "a dog is orange or purple in colour",
-                "a cat is green or purple in colour",
-                "a cat is orange or purple in colour"
-            ]
-        ),
-        (
-            "a dog/cat is green/(orange or) purple (in colour)",
+            "a dog/cat is green (or) purple",
+            "en",
             [
                 "a dog is green purple",
-                "a dog is orange or purple",
+                "a dog is green or purple",
+                "a dog is green (or) purple",
                 "a cat is green purple",
-                "a cat is orange or purple",
-                "a dog is green purple in colour",
-                "a dog is orange or purple in colour",
-                "a cat is green purple in colour",
-                "a cat is orange or purple in colour",
-                "a cat is purple",
-                "a cat is purple in colour",
-                "a dog is purple",
-                "a dog is purple in colour"
+                "a cat is green or purple",
+                "a cat is green (or) purple",
+                "a dog/cat is green purple",
+                "a dog/cat is green or purple",
+                "a dog/cat is green (or) purple",
+                "a cat/dog is green purple",
+                "a cat/dog is green or purple",
+                "a cat/dog is green (or) purple",
+                "dog is green purple",
+                "dog is green or purple",
+                "dog is green (or) purple",
+                "cat is green purple",
+                "cat is green or purple",
+                "cat is green (or) purple",
+                "dog/cat is green purple",
+                "dog/cat is green or purple",
+                "dog/cat is green (or) purple",
+                "cat/dog is green purple",
+                "cat/dog is green or purple",
+                "cat/dog is green (or) purple"
+            ]
+        ),
+        (
+            "[hello world]/[hi earth]",
+            "en",
+            [
+                "hello world",
+                "hi earth",
+                "hello world/hi earth",
+                "hi earth/hello world"
             ]
         )
     ]
     
     func testAnswerGeneration() {
         for testCase in testCases {
-            let answers = generator.generate(answer: testCase.answer)
+            let answers = generator.generate(answer: testCase.answer, language: testCase.language)
             compareArrays(arr1: testCase.expectedAnswers, arr2: answers)
         }
     }

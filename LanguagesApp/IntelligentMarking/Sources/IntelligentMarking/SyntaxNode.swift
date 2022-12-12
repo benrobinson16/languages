@@ -1,6 +1,7 @@
 import Foundation
 
 enum SyntaxNode: Equatable {
+    case group
     case concatenated
     case spaceSeparated
     case alternatives

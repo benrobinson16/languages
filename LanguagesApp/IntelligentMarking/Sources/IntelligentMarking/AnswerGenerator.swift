@@ -23,7 +23,23 @@ public struct AnswerGenerator: AnswerGenerating {
         var currentNode = TreeNode<SyntaxNode>(.concatenated, parent: nil)
         
         for c in answer {
-            if c == "(" {
+            if c == "[" {
+                if currentNode.value.isContent() {
+                    currentNode = currentNode.parentOrCreateParent(.concatenated)
+                    currentNode = currentNode.insertChildRight(.group)
+                } else {
+                    currentNode = currentNode.insertChildRight(.group)
+                }
+            } else if c == "]" {
+                if let optionalParent = currentNode.findParent(.group) {
+                    currentNode = optionalParent.parentEqualsOrCreateParent(.concatenated)
+                } else if let parent = currentNode.parent, !parent.value.isContent() {
+                    currentNode = currentNode.insertChildRight(.content(""))
+                    currentNode.value = currentNode.value.appendToContent(c)
+                } else {
+                    currentNode.value = currentNode.value.appendToContent(c)
+                }
+            } else if c == "(" {
                 if currentNode.value == .optional || currentNode.value.isContent() {
                     // Concatenate on the existing node
                     currentNode = currentNode.parentEqualsOrCreateParent(.concatenated)
@@ -55,7 +71,11 @@ public struct AnswerGenerator: AnswerGenerating {
                 }
             } else if c == "/" {
                 // Move the most recent node into an alternatives node
-                currentNode = currentNode.insertAbove(.alternatives)
+                if currentNode.parent?.value == .concatenated {
+                    currentNode = currentNode.parent!.insertAbove(.alternatives)
+                } else {
+                    currentNode = currentNode.insertAbove(.alternatives)
+                }
             } else if !currentNode.value.isContent() {
                 // Create a new content node and append.
                 currentNode = currentNode.insertChildRight(.content(""))
@@ -71,7 +91,7 @@ public struct AnswerGenerator: AnswerGenerating {
     
     private func permutationsOfAST(ast: TreeNode<SyntaxNode>) -> [String] {
         switch ast.value {
-        case .concatenated:
+        case .group, .concatenated:
             // Use [""] because each string is appended to the previous strings
             var results = [""]
             ast.children.forEach { child in
