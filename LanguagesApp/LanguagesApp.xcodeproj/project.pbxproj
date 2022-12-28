@@ -73,6 +73,7 @@
 		52FB8AFF291427CA0086C6A1 /* JoinClassAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB8AFE291427CA0086C6A1 /* JoinClassAlert.swift */; };
 		52FB8B0129142A1F0086C6A1 /* AlertHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB8B0029142A1F0086C6A1 /* AlertHandler.swift */; };
 		52FB8B0329142EB30086C6A1 /* JoinClassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB8B0229142EB30086C6A1 /* JoinClassController.swift */; };
+		52FEF7EF295C8E1800FA9A85 /* Double+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FEF7EE295C8E1800FA9A85 /* Double+EXT.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,6 +145,7 @@
 		52FB8AFE291427CA0086C6A1 /* JoinClassAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinClassAlert.swift; sourceTree = "<group>"; };
 		52FB8B0029142A1F0086C6A1 /* AlertHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHandler.swift; sourceTree = "<group>"; };
 		52FB8B0229142EB30086C6A1 /* JoinClassController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinClassController.swift; sourceTree = "<group>"; };
+		52FEF7EE295C8E1800FA9A85 /* Double+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+EXT.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +220,7 @@
 				52D6DE862913B2920069B1E3 /* ShakeEffect.swift */,
 				526230DE291B0E29009B158C /* Date+EXT.swift */,
 				526230E6291B1AD2009B158C /* Notification+EXT.swift */,
+				52FEF7EE295C8E1800FA9A85 /* Double+EXT.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -506,6 +509,7 @@
 				527AD2A129116599001A1AD5 /* LearningCardView.swift in Sources */,
 				52AEE46929199CB500B65EB5 /* FileController.swift in Sources */,
 				527AD2A929116656001A1AD5 /* LearningSession.swift in Sources */,
+				52FEF7EF295C8E1800FA9A85 /* Double+EXT.swift in Sources */,
 				527ACFA32911B2100008147A /* ErrorHandler.swift in Sources */,
 				52C28F7D2905BF840088593B /* AppButton.swift in Sources */,
 				524D5A8F28EED13E00035DB6 /* Authenticator.swift in Sources */,

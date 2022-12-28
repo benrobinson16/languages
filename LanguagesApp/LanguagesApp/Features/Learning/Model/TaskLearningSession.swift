@@ -61,7 +61,7 @@ class TaskLearningSession: LearningSession {
                 } else {
                     currentMessage = .init(
                         title: "👍 Way to go!",
-                        body: "That's another 10 cards. You've completed \(dayCompletion.formatted(.percent)) of today's work.",
+                        body: "That's another 10 cards. You've completed \(dayCompletion.formatPercentage()) of today's work.",
                         option1: .init(name: "Continue learning", action: { }),
                         option2: nil
                     )

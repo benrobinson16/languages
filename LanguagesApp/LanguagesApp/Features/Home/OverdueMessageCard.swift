@@ -13,5 +13,8 @@ struct OverdueMessageCard: View {
                 Spacer(minLength: 0)
             }
         }
+        .onTapGesture {
+            Navigator.shared.open(.learning)
+        }
     }
 }

@@ -8,7 +8,7 @@ struct TaskDetailCards: View {
         if let completion = details.completion {
             Panel {
                 VStack(alignment: .center, spacing: 8.0) {
-                    Text(completion.formatted(.percent))
+                    Text(completion.formatPercentage())
                         .font(.appTitle)
                         .foregroundColor(.appSecondaryAccent)
                     

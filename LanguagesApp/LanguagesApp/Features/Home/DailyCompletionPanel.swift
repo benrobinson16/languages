@@ -7,7 +7,7 @@ struct DailyCompletionPanel: View {
     var body: some View {
         Panel {
                 VStack(alignment: .center, spacing: 16) {
-                    Text(percentage.formatted(.percent))
+                    Text(percentage.formatPercentage())
                         .font(.appTitle)
                     
                     Text("of today's cards completed")
