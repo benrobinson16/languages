@@ -240,7 +240,7 @@ public class StudentAttemptRepository
         int completedQuestions = CardsAnsweredToday(studentId);
         int minRemainingQuestions = MinRemainingQuestionsToday(studentId);
         int effectiveCompleted = Math.Min(completedQuestions, expectedQuestions - minRemainingQuestions);
-        double percentage = expectedQuestions > 0 ? effectiveCompleted / expectedQuestions : 1.0;
+        double percentage = expectedQuestions > 0 ? (double)effectiveCompleted / expectedQuestions : 1.0;
         if (percentage < 0.0) percentage = 0.0;
         if (percentage > 1.0) percentage = 1.0;
 
