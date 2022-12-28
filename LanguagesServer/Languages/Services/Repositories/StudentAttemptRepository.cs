@@ -244,6 +244,10 @@ public class StudentAttemptRepository
         if (percentage < 0) percentage = 0.0;
         if (percentage > 1) percentage = 1.0;
 
+        Console.WriteLine("EXPECTED: " + Convert.ToString(expectedQuestions));
+        Console.WriteLine("COMPLETED: " + Convert.ToString(completedQuestions));
+        Console.WriteLine("MIN REMAINING: " + Convert.ToString(minRemainingQuestions));
+
         return percentage;
     }
 }
