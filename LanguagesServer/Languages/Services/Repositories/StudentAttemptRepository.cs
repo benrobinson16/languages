@@ -241,12 +241,14 @@ public class StudentAttemptRepository
         int minRemainingQuestions = MinRemainingQuestionsToday(studentId);
         int effectiveCompleted = Math.Min(completedQuestions, expectedQuestions - minRemainingQuestions);
         double percentage = expectedQuestions > 0 ? effectiveCompleted / expectedQuestions : 1.0;
-        if (percentage < 0) percentage = 0.0;
-        if (percentage > 1) percentage = 1.0;
+        if (percentage < 0.0) percentage = 0.0;
+        if (percentage > 1.0) percentage = 1.0;
 
         Console.WriteLine("EXPECTED: " + Convert.ToString(expectedQuestions));
         Console.WriteLine("COMPLETED: " + Convert.ToString(completedQuestions));
         Console.WriteLine("MIN REMAINING: " + Convert.ToString(minRemainingQuestions));
+        Console.WriteLine("EFFECTIVE COMPLETED: " + Convert.ToString(effectiveCompleted));
+        Console.WriteLine("PERCENTAGE: " + Convert.ToString(percentage));
 
         return percentage;
     }
