@@ -21,6 +21,16 @@ public class PushNotifier
     public void SendDailyReminders()
     {
         List<Student> students = da.Students.ForDailyReminders().ToList();
+
+        if (students.Count() == 0)
+        {
+            Console.WriteLine("NONE");
+        }
+        else
+        {
+            Console.WriteLine(string.Join(", ", students.Select(s => s.DisplayName)));
+        }
+
         SendNotification(
             "Time to practice!",
             "Remember to do some vocabulary revision today.",
