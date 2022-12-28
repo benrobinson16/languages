@@ -22,15 +22,6 @@ public class PushNotifier
     {
         List<Student> students = da.Students.ForDailyReminders().ToList();
 
-        if (students.Count() == 0)
-        {
-            Console.WriteLine("NONE");
-        }
-        else
-        {
-            Console.WriteLine(string.Join(", ", students.Select(s => s.DisplayName)));
-        }
-
         SendNotification(
             "Time to practice!",
             "Remember to do some vocabulary revision today.",
@@ -186,15 +177,10 @@ public class PushNotifier
         Console.WriteLine(response.StatusCode);
         Console.WriteLine(await response.Content.ReadAsStringAsync());
 
-        if (response.StatusCode == HttpStatusCode.OK)
-        {
-            // Success
-            Console.WriteLine("Success");
-        }
-        else
+        if (response.StatusCode != HttpStatusCode.OK)
         {
             // Failure
-            Console.WriteLine("FAILURE");
+            Console.WriteLine("Failure sending APNs request. Aborting.");
         }
     }
 }

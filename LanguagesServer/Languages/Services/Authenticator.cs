@@ -62,7 +62,7 @@ public class Authenticator
         }
         catch
         {
-            Console.WriteLine("Error");
+            Console.WriteLine("Error decoding/validating token. User is null.");
         }
 
         // Check the keys before the next request

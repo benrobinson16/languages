@@ -77,12 +77,12 @@ JobManager.AddJob(
         PushNotifier? push = app.Services.CreateScope().ServiceProvider.GetService(typeof(PushNotifier)) as PushNotifier;
         if (push != null)
         {
-            Console.WriteLine("Running notifications.");
+            Console.WriteLine("Running daily notifications.");
             push.SendDailyReminders();
         }
         else
         {
-            Console.WriteLine("Failed to run notifications.");
+            Console.WriteLine("Failed to run daily notifications.");
         }
     },
     s => s.ToRunEvery(1).Minutes()
