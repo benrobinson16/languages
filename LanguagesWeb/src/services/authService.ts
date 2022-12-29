@@ -1,4 +1,5 @@
 import { AuthenticationResult, Configuration, EventType, PublicClientApplication } from "@azure/msal-browser";
+import { errorToast } from "../helper/toast";
 
 const options: Configuration = {
     auth: {
@@ -76,7 +77,7 @@ class AuthService {
     
         this.instance.handleRedirectPromise()
             .then(() => { })
-            .catch(err => console.log(err));
+            .catch(err => errorToast("An authentication error ocurred."));
     }
 
     /** Create the header for an API request. */

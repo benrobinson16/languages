@@ -40,8 +40,8 @@ export function TaskCard(props: {task: Task, key: number}) {
 
     return (
         <Card onClick={() => dispatch(openTask(props.task.id))}>
-            <Text textAlign="left" fontSize="lg" fontWeight="semibold" >{props.task.className}</Text>
-            <Text textAlign="left" fontSize="md">{props.task.deckName}</Text>
+            <Text textAlign="left" fontSize="lg" fontWeight="semibold" >{props.task.deckName}</Text>
+            <Text textAlign="left" fontSize="md">{props.task.className}</Text>
             <Text textAlign="left" fontSize="md">Due by {dateStr}</Text>
         </Card>
     );

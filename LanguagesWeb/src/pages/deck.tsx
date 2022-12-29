@@ -1,9 +1,10 @@
-import { VStack, Heading, SimpleGrid, Spinner, UnorderedList, Text, ListItem, Flex, Button, Spacer } from "@chakra-ui/react";
+import { VStack, SimpleGrid, Spinner, UnorderedList, Text, ListItem, Flex, Button, Spacer } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { CardList } from "../components/entityList";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import * as deckActions from "../redux/deck";
 import UICard from "../components/card";
+import EditableHeading from "../components/editableHeading";
 
 export default function DeckPage(props: { id: number }) {
     const dispatch = useAppDispatch();
@@ -24,9 +25,9 @@ export default function DeckPage(props: { id: number }) {
     return (
         <VStack width={"100%"} padding={8} spacing={8}>
             <Flex width="100%">
-                <Heading alignSelf="start">{deck.name}</Heading>
+                <EditableHeading initialValue={deck.name} onSave={(value) => dispatch(deckActions.editDeckName(props.id, value))} />
                 <Spacer />
-                <Button onClick={() => dispatch(deckActions.deleteDeck(props.id))} marginLeft={2}>Delete</Button>
+                <Button onClick={() => dispatch(deckActions.deleteDeck(props.id))}>Delete</Button>
             </Flex>
             <SimpleGrid width="100%" columns={2} gap={8}>
                 <CardList cards={cards} deck={deck} />

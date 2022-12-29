@@ -1,9 +1,10 @@
-import { Heading, SimpleGrid, Spinner, VStack, Text, Flex, Spacer, Button } from "@chakra-ui/react";
+import { SimpleGrid, Spinner, VStack, Text, Flex, Spacer, Button } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import * as classActions from "../redux/class";
 import { StudentList, TaskList } from "../components/entityList";
 import Card from "../components/card";
+import EditableHeading from "../components/editableHeading";
 
 export default function ClassPage(props: { id: number }) {
     const dispatch = useAppDispatch();
@@ -33,7 +34,7 @@ export default function ClassPage(props: { id: number }) {
     return (
         <VStack width="100vw" padding={8} spacing={8}>
             <Flex width="100%">
-                <Heading alignSelf="start">{cla?.name}</Heading>
+                <EditableHeading initialValue={cla?.name} onSave={(value) => dispatch(classActions.editClassName(props.id, value))} />
                 <Spacer />
                 <Button onClick={() => dispatch(classActions.showJoinCode())}>Show join code</Button>
                 <Button onClick={() => dispatch(classActions.deleteClass(props.id))} marginLeft={2}>Delete</Button>

@@ -59,10 +59,22 @@ export const loadClassDetails = (classId: number): TypedThunk => {
         try {
             const token = getState().auth.token || await authService.getToken();
             const response = await endpoints.getClass.makeRequest(token, { classId });
-            console.log(response);
             dispatch(finishedLoading(response));
         } catch (error) {
             errorToast(error);
+        }
+    };
+};
+
+export const editClassName = (classId: number, name: string): TypedThunk => {
+    return async (dispatch, getState) => {
+        try {
+            const token = getState().auth.token || await authService.getToken();
+            await endpoints.editClass.makeRequestVoid(token, { classId, name });
+            successToast("Class name updated.");
+        } catch (error) {
+            errorToast(error);
+            dispatch(loadClassDetails(classId)); // Reset name
         }
     };
 };

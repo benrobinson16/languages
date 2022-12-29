@@ -10,7 +10,6 @@ interface DeckState {
     isLoading: boolean,
     deck: Deck | null,
     cards: Card[] | null,
-    isSaving: boolean,
     changesMade: boolean
 }
 
@@ -18,7 +17,6 @@ const initialState: DeckState = {
     isLoading: false,
     deck: null,
     cards: null,
-    isSaving: false,
     changesMade: false
 }
 
@@ -30,14 +28,12 @@ export const deckSlice = createSlice({
             state.isLoading = true;
             state.deck = null;
             state.cards = null;
-            state.isSaving = false;
             state.changesMade = false;
         },
         finishedLoading: (state, action: PayloadAction<DeckSummary>) => {
             state.deck = action.payload.deckDetails;
             state.cards = action.payload.cards;
             state.isLoading = false;
-            state.isSaving = false;
             state.changesMade = false;
         },
         editedCard: (state, action: PayloadAction<{ index: number, card: Card }>) => {
@@ -53,21 +49,11 @@ export const deckSlice = createSlice({
         },
         removeCard: (state, action: PayloadAction<number>) => {
             state.cards = state.cards?.filter(c => c.cardId !== action.payload) ?? null;
-        },
-        startedSaving: (state) => {
-            state.isSaving = true;
-        },
-        finishedSaving: (state) => {
-            state.isSaving = false;
-            state.changesMade = false;
-        },
-        failedSaving: (state) => {
-            state.isSaving = false;
         }
     }
 });
 
-export const { startedLoading, finishedLoading, editedCard, addCard, removeCard, startedSaving, finishedSaving, failedSaving } = deckSlice.actions;
+export const { startedLoading, finishedLoading, editedCard, addCard, removeCard } = deckSlice.actions;
 
 export const loadDeckDetails = (deckId: number): TypedThunk => {
     return async (dispatch, getState) => {
@@ -105,7 +91,6 @@ export const saveCard = (card: Card, deck: Deck): TypedThunk => {
     return async (dispatch, getState) => {
         try {
             const token = getState().auth.token || await authService.getToken();
-            console.log({ deckId: deck.deckId, cardId: card.cardId, englishTerm: card.englishTerm, foreignTerm: card.foreignTerm });
             await endpoints.editCard.makeRequest(token, { deckId: deck.deckId, cardId: card.cardId, englishTerm: card.englishTerm, foreignTerm: card.foreignTerm });
         } catch (error) {
             errorToast(error);
@@ -149,17 +134,15 @@ export const deleteCard = (cardId: number): TypedThunk => {
     };
 };
 
-export const saveDeckName = (deck: Deck): TypedThunk => {
+export const editDeckName = (deckId: number, name: string): TypedThunk => {
     return async (dispatch, getState) => {
-        dispatch(startedSaving());
-
         try {
             const token = getState().auth.token || await authService.getToken();
-            await endpoints.editDeck.makeRequest(token, { deckId: deck.deckId, name: deck.name });
-            dispatch(finishedSaving());
+            await endpoints.editDeck.makeRequest(token, { deckId, name });
+            successToast("Deck name updated.");
         } catch (error) {
             errorToast(error);
-            dispatch(failedSaving());
+            dispatch(loadDeckDetails(deckId)); // Reset name
         }
     };
 };
