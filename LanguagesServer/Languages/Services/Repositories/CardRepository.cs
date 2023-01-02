@@ -82,7 +82,7 @@ public class CardRepository
     {
         int numCorrect = db.StudentAttempts.Where(a => a.CardId == cardId && a.Correct).Count();
         int numIncorrect = db.StudentAttempts.Where(a => a.CardId == cardId && !a.Correct).Count();
-        double difficulty = (numCorrect + 7) / (numIncorrect + numCorrect + 10);
+        double difficulty = (numCorrect + AverageDifficulty()) / (numIncorrect + numCorrect + 1);
 
         Card card = ForId(cardId).Single();
         card.Difficulty = difficulty;
@@ -109,5 +109,12 @@ public class CardRepository
         int maxSkip = db.Cards.Count();
         int skip = new Random().Next() % maxSkip;
         return db.Cards.Skip(skip).First();
+    }
+
+    public double AverageDifficulty()
+    {
+        double correctAnswers = db.StudentAttempts.Where(a => a.Correct).Count();
+        double totalAnswers = db.StudentAttempts.Count();
+        return correctAnswers / totalAnswers;
     }
 }

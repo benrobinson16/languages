@@ -23,7 +23,7 @@ export default function DeckPage(props: { id: number }) {
     }
 
     return (
-        <VStack width={"100%"} padding={8} spacing={8}>
+        <VStack width="100vw" padding={8} spacing={8}>
             <Flex width="100%">
                 <EditableHeading initialValue={deck.name} onSave={(value) => dispatch(deckActions.editDeckName(props.id, value))} />
                 <Spacer />

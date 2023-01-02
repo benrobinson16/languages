@@ -86,6 +86,16 @@ public class PushNotifier
         );
     }
 
+    public void SendTaskDueDateChange(string teacherName, string deckName, DateTime dueDate, List<int> students)
+    {
+        SendNotification(
+            "Due Date Changed",
+            teacherName + " has changed the due date for " + deckName + " to be " + dueDate.ToShortDateString() + ".",
+            "DUE_DATE_CHANGED",
+            students
+        );
+    }
+
     private void SendNotification(string title, string body, string category, List<int> students)
     {
         List<string> tokens = students

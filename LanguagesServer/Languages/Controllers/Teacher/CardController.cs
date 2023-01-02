@@ -61,7 +61,7 @@ public class TeacherCardController : ControllerBase
             DeckId = deckId,
             EnglishTerm = englishTerm ?? "",
             ForeignTerm = foreignTerm ?? "",
-            Difficulty = 0.7
+            Difficulty = da.Cards.AverageDifficulty()
         };
 
         db.Cards.Add(card);

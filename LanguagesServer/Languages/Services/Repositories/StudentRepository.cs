@@ -1,5 +1,4 @@
 ﻿using Languages.DbModels;
-using Microsoft.EntityFrameworkCore;
 
 namespace Languages.Services.Repositories;
 
@@ -39,8 +38,12 @@ public class StudentRepository
     {
         return from student in db.Students
                where student.DailyReminderEnabled
-               where student.ReminderTime.TimeOfDay >= DateTime.Now.TimeOfDay
-               where student.ReminderTime.TimeOfDay < DateTime.Now.AddMinutes(1).TimeOfDay
+               let now = DateTime.Now.TimeOfDay
+               let nowPlusOne = DateTime.Now.AddMinutes(1).TimeOfDay
+               let target = student.ReminderTime.TimeOfDay
+               where (now > nowPlusOne
+                     ? target >= now && target < nowPlusOne
+                     : target >= now || target < nowPlusOne)
                where !(from attempt in db.StudentAttempts
                        where attempt.StudentId == student.StudentId
                        where attempt.AttemptDate.Date == DateTime.Now.Date

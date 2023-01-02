@@ -78,11 +78,19 @@ export const saveTaskDueDate = (): TypedThunk => {
         const newDueDate = getState().task.dueDate;
         if (task === null || newDueDate === null) return;
 
+        if (newDueDate < Date.now()) {
+            errorToast("Due date must be in the future.");
+            dispatch(failedSaving());
+            dispatch(loadTaskDetails(task.id));
+            return;
+        }
+
         try {
             const token = getState().auth.token || await authService.getToken();
             await endpoints.editTask.makeRequest(token, { taskId: task.id, deckId: task.deckId, classId: task.classId, dueDate: newDueDate });
             const response = await endpoints.getTask.makeRequest(token, { taskId: task.id });
-            dispatch(finishedSaving(response))
+            dispatch(finishedSaving(response));
+            successToast("Saved new due date.");
         } catch (error) {
             errorToast(error);
             dispatch(failedSaving());

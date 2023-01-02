@@ -52,11 +52,6 @@ public class NotificationController : ControllerBase
         push.SendCongrats(teacher.DisplayName, deck.Name, studentId);
     }
 
-    [HttpGet("test")]
-    public void TestNotification() {
-        push.SendCongrats("Mr Robinson", "SOME DECK NAME", db.Students.First().StudentId);
-    }
-
     // Helper method to extract Task, Class and Deck from taskId. Does not fall
     // under DatabaseAccess service because it is across objects, and also requires
     // ownership checks that can throw to fail the entire request.

@@ -52,7 +52,7 @@ public class AccountController : ControllerBase
     /// Checks if a teacher has already been registered using the OAUTH token.
     /// </summary>
     /// <returns>Whether the teacher is already registered.</returns>
-    [HttpPost("teacher/isnew")]
+    [HttpGet("teacher/isnew")]
     public bool IsNewTeacher()
     {
         User user = shield.Authenticate(Request);
@@ -64,8 +64,8 @@ public class AccountController : ControllerBase
     /// Will create the student with the OAUTH data if doesn't already exist.
     /// </summary>
     /// <returns>Whether the student is a new student.</returns>
-    [HttpPost("student/isnew")]
-    public bool IsNewStudent()
+    [HttpPost("student/register")]
+    public bool RegisterStudent()
     {
         User user = shield.Authenticate(Request);
         bool isNew = !da.Students.ForEmail(user.Email).Any();

@@ -23,7 +23,7 @@ class HomeController: ObservableObject {
         
         ErrorHandler.shared.detachAsync { @MainActor in
             guard let token = Authenticator.shared.token else { throw AppError.notAuthenticated }
-            let isNewStudent = try await LanguagesAPI.makeRequest(.isNewStudent(token: token))
+            let isNewStudent = try await LanguagesAPI.makeRequest(.register(token: token))
             if isNewStudent {
                 Navigator.shared.open(.onboarding)
             } else {

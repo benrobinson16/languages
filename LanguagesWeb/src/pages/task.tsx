@@ -1,6 +1,7 @@
 import { VStack, Heading, SimpleGrid, Spinner, Input, Flex, Spacer } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AppButton, DestructiveButton } from "../components/buttons";
+import DatePicker from "../components/datePicker";
 import { ProgressList } from "../components/entityList";
 import MotionBox from "../components/motionBox";
 import * as nav from "../redux/nav";
@@ -42,12 +43,7 @@ export default function TaskPage(props: { id: number }) {
                     align="start"
                 >
                     <Heading>Due Date:</Heading>
-                    <Input
-                        placeholder="Select Date and Time"
-                        size="md"
-                        type="datetime-local"
-                        onChange={newVal => dispatch(taskActions.editedDueDate(newVal.target.valueAsNumber))}
-                    />
+                    <DatePicker date={new Date(task.dueDate)} onChange={d => dispatch(taskActions.editedDueDate(d.valueOf()))} />
                     <Flex width="100%">
                         <AppButton onClick={() => dispatch(taskActions.saveTaskDueDate())} isLoading={isSaving}>Save</AppButton>
                         <Spacer />

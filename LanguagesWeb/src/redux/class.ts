@@ -68,6 +68,12 @@ export const loadClassDetails = (classId: number): TypedThunk => {
 
 export const editClassName = (classId: number, name: string): TypedThunk => {
     return async (dispatch, getState) => {
+        if (name.trim().length === 0) {
+            errorToast("This class name is invalid. Please ensure it is not empty.");
+            dispatch(loadClassDetails(classId)); // Reset name
+            return;
+        }
+
         try {
             const token = getState().auth.token || await authService.getToken();
             await endpoints.editClass.makeRequestVoid(token, { classId, name });

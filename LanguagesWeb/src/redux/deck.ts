@@ -47,13 +47,19 @@ export const deckSlice = createSlice({
             state.cards.push(action.payload);
             window.scrollTo(0, document.body.scrollHeight);
         },
+        replaceCard: (state, action: PayloadAction<{ card: Card, replacementCard: Card }>) => {
+            let index = state.cards!.indexOf(action.payload.card) ?? -1;
+            if (index >= 0) {
+                state.cards![index] = action.payload.replacementCard;
+            }
+        },
         removeCard: (state, action: PayloadAction<number>) => {
             state.cards = state.cards?.filter(c => c.cardId !== action.payload) ?? null;
         }
     }
 });
 
-export const { startedLoading, finishedLoading, editedCard, addCard, removeCard } = deckSlice.actions;
+export const { startedLoading, finishedLoading, editedCard, addCard, replaceCard, removeCard } = deckSlice.actions;
 
 export const loadDeckDetails = (deckId: number): TypedThunk => {
     return async (dispatch, getState) => {
@@ -91,7 +97,12 @@ export const saveCard = (card: Card, deck: Deck): TypedThunk => {
     return async (dispatch, getState) => {
         try {
             const token = getState().auth.token || await authService.getToken();
-            await endpoints.editCard.makeRequest(token, { deckId: deck.deckId, cardId: card.cardId, englishTerm: card.englishTerm, foreignTerm: card.foreignTerm });
+            if (card.cardId != -1) {
+                await endpoints.editCard.makeRequest(token, { deckId: deck.deckId, cardId: card.cardId, englishTerm: card.englishTerm, foreignTerm: card.foreignTerm });
+            } else if (card.englishTerm.trim().length != 0 && card.foreignTerm.trim().length != 0) {
+                const replacementCard = await endpoints.newCard.makeRequest(token, { deckId: deck.deckId, englishTerm: card.englishTerm, foreignTerm: card.foreignTerm });
+                dispatch(replaceCard({ card, replacementCard }));
+            }
         } catch (error) {
             errorToast(error);
         }
@@ -100,13 +111,7 @@ export const saveCard = (card: Card, deck: Deck): TypedThunk => {
 
 export const newCard = (deck: Deck): TypedThunk => {
     return async (dispatch, getState) => {
-        try {
-            const token = getState().auth.token || await authService.getToken();
-            const card = await endpoints.newCard.makeRequest(token, { deckId: deck.deckId, englishTerm: "", foreignTerm: "" });
-            dispatch(addCard(card));
-        } catch (error) {
-            errorToast(error);
-        }
+        dispatch(addCard({ cardId: -1, englishTerm: "", foreignTerm: "" }));
     };
 };
 
@@ -136,6 +141,12 @@ export const deleteCard = (cardId: number): TypedThunk => {
 
 export const editDeckName = (deckId: number, name: string): TypedThunk => {
     return async (dispatch, getState) => {
+        if (name.trim().length === 0) {
+            errorToast("This deck name is invalid. Please ensure it is not empty.");
+            dispatch(loadDeckDetails(deckId)); // Reset name
+            return;
+        }
+
         try {
             const token = getState().auth.token || await authService.getToken();
             await endpoints.editDeck.makeRequest(token, { deckId, name });

@@ -104,34 +104,53 @@ public class TeacherTaskController : ControllerBase
     /// <param name="dueDate">The new due date of the task in milliseconds since the Unix Epoch.</param>
     /// <returns>The edited task.</returns>
     [HttpPatch]
-    public Task Patch(int taskId, int deckId, int classId, double dueDate)
+    public TaskVm Patch(int taskId, int deckId, int classId, double dueDate)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
         Task? task = da.Tasks.ForId(taskId).SingleOrDefault();
         if (task == null) throw new LanguagesResourceNotFound();
 
-        Class? originalClass = da.Classes.ForId(task.ClassId).SingleOrDefault();
-        if (originalClass == null) throw new LanguagesResourceNotFound();
-        if (originalClass.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
+        Class? cla = da.Classes.ForId(task.ClassId).SingleOrDefault();
+        if (cla == null) throw new LanguagesResourceNotFound();
+        if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
-        if (classId != originalClass.ClassId)
+        if (classId != cla.ClassId)
         {
             Class? newClass = da.Classes.ForId(classId).SingleOrDefault();
             if (newClass == null) throw new LanguagesResourceNotFound();
             if (newClass.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
             task.ClassId = classId;
+            cla = newClass;
         }
 
         // Convert from unix timestamp to C# DateTime.
         DateTime dueDateAsDate = DateTime.UnixEpoch.AddMilliseconds(dueDate);
+        bool dueDateDidChange = dueDateAsDate != task.DueDate;
 
+        Deck? newDeck = da.Decks.ForId(deckId).SingleOrDefault();
+        if (newDeck == null) throw new LanguagesResourceNotFound();
         task.DeckId = deckId;
+
         task.DueDate = dueDateAsDate;
         db.SaveChanges();
 
-        return task;
+        if (dueDateDidChange)
+        {
+            List<int> studentIds = da.Enrollments.ForClass(classId).Select(e => e.StudentId).ToList();
+            push.SendTaskDueDateChange(teacher.DisplayName, newDeck.Name, task.DueDate, studentIds);
+        }
+
+        return new TaskVm
+        {
+            Id = task.TaskId,
+            ClassId = classId,
+            ClassName = cla.Name,
+            DeckId = deckId,
+            DeckName = newDeck.Name,
+            DueDate = task.DueDate
+        };
     }
 
     /// <summary>

@@ -131,17 +131,17 @@ public class StudentAttemptRepository
 
     public int StreakLengthForStudent(int studentId)
     {
-        int numDays = 0;
-        bool didAttempt = true;
+        int numDays = -1;
+        bool didAttempt;
         DateTime date = DateTime.Now.Date;
 
-        while (didAttempt)
+        do
         {
+            numDays += 1;
             didAttempt = AllAttemptsInWindow(studentId, date, date.AddDays(1)).Any();
             date = date.AddDays(-1);
-
-            if (didAttempt) numDays += 1;
         }
+        while (didAttempt);
 
         return numDays;
     }
@@ -239,16 +239,16 @@ public class StudentAttemptRepository
         int expectedQuestions = ExpectedQuestionsToday(studentId);
         int completedQuestions = CardsAnsweredToday(studentId);
         int minRemainingQuestions = MinRemainingQuestionsToday(studentId);
-        int effectiveCompleted = Math.Min(completedQuestions, expectedQuestions - minRemainingQuestions);
-        double percentage = expectedQuestions > 0 ? (double)effectiveCompleted / expectedQuestions : 1.0;
+
+        if (minRemainingQuestions + completedQuestions > expectedQuestions)
+            expectedQuestions = minRemainingQuestions + completedQuestions;
+
+        double percentage = expectedQuestions > 0
+            ? (double)completedQuestions / expectedQuestions
+            : 1.0;
+
         if (percentage < 0.0) percentage = 0.0;
         if (percentage > 1.0) percentage = 1.0;
-
-        Console.WriteLine("EXPECTED: " + Convert.ToString(expectedQuestions));
-        Console.WriteLine("COMPLETED: " + Convert.ToString(completedQuestions));
-        Console.WriteLine("MIN REMAINING: " + Convert.ToString(minRemainingQuestions));
-        Console.WriteLine("EFFECTIVE COMPLETED: " + Convert.ToString(effectiveCompleted));
-        Console.WriteLine("PERCENTAGE: " + Convert.ToString(percentage));
 
         return percentage;
     }

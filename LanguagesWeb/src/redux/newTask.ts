@@ -88,6 +88,11 @@ export const createNewTask = (): TypedThunk => {
             return;
         }
 
+        if (dueDate < Date.now()) {
+            errorToast("Due date must be in the future.");
+            return;
+        }
+        
         if (isLoading) return;
         dispatch(startedCreating());
 

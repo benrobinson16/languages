@@ -20,7 +20,7 @@ Endpoints are defined centrally here for the following reasons.
 
 // Account/general endpoints.
 export const getTeacherDetails = new ApiEndpoint<Teacher>("account", "teacher/details", "GET");
-export const teacherIsNew = new ApiEndpoint<boolean>("account", "teacher/isNew", "POST");
+export const teacherIsNew = new ApiEndpoint<boolean>("account", "teacher/isNew", "GET");
 export const registerTeacher = new ParameterisedEndpoint<"title" | "surname", Teacher>("account", "teacher/register", "POST");
 export const getSummary = new ApiEndpoint<TeacherSummary>("teacher", "summary", "GET");
 

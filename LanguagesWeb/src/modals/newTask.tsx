@@ -4,6 +4,7 @@ import { AppButton } from "../components/buttons";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import * as newTaskActions from "../redux/newTask";
 import { ClassField, DeckField } from "../components/autocompleteField";
+import DatePicker from "../components/datePicker";
 
 export default function NewTaskModal() {
     const dispatch = useAppDispatch();
@@ -42,12 +43,7 @@ export default function NewTaskModal() {
                         />
                         <br />
                         <Text textAlign="left">Due Date:</Text>
-                        <Input
-                            placeholder="Select Date and Time"
-                            size="md"
-                            type="datetime-local"
-                            onChange={newVal => dispatch(newTaskActions.changedDate(newVal.target.valueAsNumber))}
-                        />
+                        <DatePicker onChange={d => dispatch(newTaskActions.changedDate(d.valueOf()))} />
                     </VStack>
                 </ModalBody>
                 <ModalFooter>

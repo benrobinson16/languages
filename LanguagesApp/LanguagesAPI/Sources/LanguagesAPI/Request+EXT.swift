@@ -4,10 +4,10 @@ let studentUrl = URL(string: "https://api.languages.benrobinson.dev/student")!
 let accountUrl = URL(string: "https://api.languages.benrobinson.dev/account/student")!
 
 extension Request {
-    public static func isNewStudent(token: String) -> Request<Bool> {
+    public static func register(token: String) -> Request<Bool> {
         return .init(
-            method: .post,
-            url: accountUrl.appending(path: "isNew"),
+            method: .get,
+            url: accountUrl.appending(path: "register"),
             headers: ["Authorization": token],
             data: [:]
         )
@@ -123,7 +123,7 @@ extension Request {
     
     public static func updateNotificationSettings(time: Date, enabled: Bool, token: String) -> Request<StatusResponse> {
         return .init(
-            method: .post,
+            method: .patch,
             url: studentUrl.appending(path: "updateNotificationSettings"),
             headers: ["Authorization": token],
             data: ["time": time.ISO8601Format(), "enabled": String(enabled)]

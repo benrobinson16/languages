@@ -244,7 +244,7 @@ public class StudentController: ControllerBase
         };
     }
 
-    [HttpPost("updateNotificationSettings")]
+    [HttpPatch("updateNotificationSettings")]
     public StatusResponse UpdateNotificationSettings(DateTime time, bool enabled)
     {
         Student student = shield.AuthenticateStudent(Request);
