@@ -175,7 +175,7 @@ public class StudentController: ControllerBase
     {
         Student student = shield.AuthenticateStudent(Request);
 
-        Enrollment? enrollment = da.Enrollments.ById(classId, student.StudentId).FirstOrDefault();
+        Enrollment? enrollment = da.Enrollments.ForId(classId, student.StudentId).FirstOrDefault();
         if (enrollment == null)
         {
             return new StatusResponse
@@ -200,6 +200,9 @@ public class StudentController: ControllerBase
     {
         Student student = shield.AuthenticateStudent(Request);
 
+        Card? targetCard = da.Cards.ForId(cardId).SingleOrDefault();
+        if (targetCard == null) throw new LanguagesResourceNotFound();
+
         List<Card> siblingCards = da.Cards.SiblingsForCard(cardId).ToList();
         List<Card> selectedCards = new List<Card>();
         Random random = new Random();
@@ -207,14 +210,23 @@ public class StudentController: ControllerBase
         while (selectedCards.Count() < 3 && siblingCards.Count() >= 1)
         {
             int index = random.Next() % siblingCards.Count();
-            selectedCards.Add(siblingCards[index]);
+            Card selectedCard = siblingCards[index];
+
+            if (selectedCard.EnglishTerm != targetCard.EnglishTerm && selectedCard.ForeignTerm != targetCard.ForeignTerm)
+            {
+                selectedCards.Add(selectedCard);
+            }
+
             siblingCards.RemoveAt(index);
         }
 
         while (selectedCards.Count() < 3)
         {
             Card newCard = da.Cards.RandomCard();
-            if (!selectedCards.Any(c => c.CardId == newCard.CardId))
+
+            if (selectedCards.Any(c => c.CardId == newCard.CardId)) continue;
+
+            if (newCard.EnglishTerm != targetCard.EnglishTerm && newCard.ForeignTerm != targetCard.ForeignTerm)
             {
                 selectedCards.Add(newCard);
             }

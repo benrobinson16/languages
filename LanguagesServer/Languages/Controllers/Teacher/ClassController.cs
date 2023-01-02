@@ -8,13 +8,13 @@ namespace Languages.Controllers;
 
 [ApiController]
 [Route("/teacher/class")]
-public class TeacherClassController : ControllerBase
+public class ClassController : ControllerBase
 {
     DatabaseContext db;
     DatabaseAccess da;
     Shield shield;
 
-    public TeacherClassController(DatabaseContext db, DatabaseAccess da, Shield shield)
+    public ClassController(DatabaseContext db, DatabaseAccess da, Shield shield)
     {
         this.db = db;
         this.da = da;

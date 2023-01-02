@@ -10,14 +10,12 @@ namespace Languages.Controllers;
 [Route("/teacher/notification")]
 public class NotificationController : ControllerBase
 {
-    DatabaseContext db;
     DatabaseAccess da;
     Shield shield;
     PushNotifier push;
 
-    public NotificationController(DatabaseContext db, DatabaseAccess da, Shield shield, PushNotifier push)
+    public NotificationController(DatabaseAccess da, Shield shield, PushNotifier push)
     {
-        this.db = db;
         this.da = da;
         this.shield = shield;
         this.push = push; 

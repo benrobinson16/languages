@@ -7,13 +7,13 @@ namespace Languages.Controllers;
 
 [ApiController]
 [Route("/teacher/deck")]
-public class TeacherDeckController : ControllerBase
+public class DeckController : ControllerBase
 {
     DatabaseContext db;
     DatabaseAccess da;
     Shield shield;
 
-    public TeacherDeckController(DatabaseContext db, DatabaseAccess da, Shield shield)
+    public DeckController(DatabaseContext db, DatabaseAccess da, Shield shield)
     {
         this.db = db;
         this.da = da;

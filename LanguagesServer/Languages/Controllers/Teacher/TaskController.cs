@@ -9,14 +9,14 @@ namespace Languages.Controllers;
 
 [ApiController]
 [Route("/teacher/task")]
-public class TeacherTaskController : ControllerBase
+public class TaskController : ControllerBase
 {
     DatabaseContext db;
     DatabaseAccess da;
     Shield shield;
     PushNotifier push;
 
-    public TeacherTaskController(DatabaseContext db, DatabaseAccess da, Shield shield, PushNotifier push)
+    public TaskController(DatabaseContext db, DatabaseAccess da, Shield shield, PushNotifier push)
     {
         this.db = db;
         this.da = da;
@@ -104,7 +104,7 @@ public class TeacherTaskController : ControllerBase
     /// <param name="dueDate">The new due date of the task in milliseconds since the Unix Epoch.</param>
     /// <returns>The edited task.</returns>
     [HttpPatch]
-    public TaskVm Patch(int taskId, int deckId, int classId, double dueDate)
+    public TaskVm Patch(int taskId, int? deckId, int? classId, double? dueDate)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
@@ -115,40 +115,53 @@ public class TeacherTaskController : ControllerBase
         if (cla == null) throw new LanguagesResourceNotFound();
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
-        if (classId != cla.ClassId)
+        Deck? deck = da.Decks.ForId(task.DeckId).SingleOrDefault();
+        if (deck == null) throw new LanguagesResourceNotFound();
+
+        if (classId != cla.ClassId && classId != null)
         {
-            Class? newClass = da.Classes.ForId(classId).SingleOrDefault();
+            Class? newClass = da.Classes.ForId(classId.Value).SingleOrDefault();
             if (newClass == null) throw new LanguagesResourceNotFound();
             if (newClass.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
-            task.ClassId = classId;
+            task.ClassId = classId.Value;
             cla = newClass;
         }
 
-        // Convert from unix timestamp to C# DateTime.
-        DateTime dueDateAsDate = DateTime.UnixEpoch.AddMilliseconds(dueDate);
-        bool dueDateDidChange = dueDateAsDate != task.DueDate;
+        if (deckId != null && deckId != task.DeckId)
+        {
+            Deck? newDeck = da.Decks.ForId(deckId.Value).SingleOrDefault();
+            if (newDeck == null) throw new LanguagesResourceNotFound();
 
-        Deck? newDeck = da.Decks.ForId(deckId).SingleOrDefault();
-        if (newDeck == null) throw new LanguagesResourceNotFound();
-        task.DeckId = deckId;
+            task.DeckId = deckId.Value;
+            deck = newDeck;
+        }
 
-        task.DueDate = dueDateAsDate;
+        bool dueDateDidChange = false;
+        if (dueDate != null)
+        {
+            // Convert from unix timestamp to C# DateTime.
+            DateTime dueDateAsDate = DateTime.UnixEpoch.AddMilliseconds(dueDate.Value);
+
+            dueDateDidChange = dueDateAsDate != task.DueDate;
+            task.DueDate = dueDateAsDate;
+        }
+
         db.SaveChanges();
 
         if (dueDateDidChange)
         {
-            List<int> studentIds = da.Enrollments.ForClass(classId).Select(e => e.StudentId).ToList();
-            push.SendTaskDueDateChange(teacher.DisplayName, newDeck.Name, task.DueDate, studentIds);
+            List<int> studentIds = da.Enrollments.ForClass(task.ClassId).Select(e => e.StudentId).ToList();
+            push.SendTaskDueDateChange(teacher.DisplayName, deck.Name, task.DueDate, studentIds);
         }
 
         return new TaskVm
         {
             Id = task.TaskId,
-            ClassId = classId,
+            ClassId = cla.ClassId,
             ClassName = cla.Name,
-            DeckId = deckId,
-            DeckName = newDeck.Name,
+            DeckId = deck.DeckId,
+            DeckName = deck.Name,
             DueDate = task.DueDate
         };
     }

@@ -8,15 +8,13 @@ namespace Languages.Controllers;
 
 [ApiController]
 [Route("/teacher/summary")]
-public class TeacherSummaryController : ControllerBase
+public class SummaryController : ControllerBase
 {
-    DatabaseContext db;
     DatabaseAccess da;
     Shield shield;
 
-    public TeacherSummaryController(DatabaseContext db, DatabaseAccess da, Shield shield)
+    public SummaryController(DatabaseAccess da, Shield shield)
     {
-        this.db = db;
         this.da = da;
         this.shield = shield;
     }

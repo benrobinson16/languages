@@ -40,7 +40,6 @@
     <None Remove="Services\Repositories\" />
     <None Remove="Controllers\Teacker\" />
     <None Remove="ApiModels\" />
-    <None Remove="Services\MockServices\" />
     <None Remove="Constants\" />
     <None Remove="Constants\apns-key.p8" />
     <None Remove="RestSharp" />
@@ -51,7 +50,6 @@
     <Folder Include="Services\Repositories\" />
     <Folder Include="Controllers\Teacher\" />
     <Folder Include="ApiModels\" />
-    <Folder Include="Services\MockServices\" />
     <Folder Include="Constants\" />
   </ItemGroup>
 

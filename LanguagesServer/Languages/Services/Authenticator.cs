@@ -96,18 +96,18 @@ public class Authenticator
         nextRefresh = DateTime.Now.AddMinutes(30);
     }
 
-    class Response
+    private class Response
     {
         public List<JsonWebKey> keys;
     }
 
-    class JsonWebKey
+    private class JsonWebKey
     {
         public string kid;
         public string[] x5c;
     }
 
-    class BearerToken
+    private class BearerToken
     {
         public string aud;
         public string iss;

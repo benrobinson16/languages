@@ -33,19 +33,11 @@ public class EnrollmentRepository
 			   };
     }
 
-	public IQueryable<Enrollment> ById(int classId, int studentId)
+	public IQueryable<Enrollment> ForId(int classId, int studentId)
     {
 		return from enrol in db.Enrollments
 			   where enrol.StudentId == studentId
 					 && enrol.ClassId == classId
-			   select enrol;
-    }
-
-	public IQueryable<Enrollment> ForEmail(string email)
-    {
-		return from student in db.Students
-			   where student.Email == email
-			   join enrol in db.Enrollments on student.StudentId equals enrol.StudentId
 			   select enrol;
     }
 }

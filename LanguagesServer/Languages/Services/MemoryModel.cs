@@ -80,12 +80,12 @@ public class MemoryModel
             new TimeWindow { Start = d1, End = startDate, CorrectWeight = 16, IncorrectWeight = 32 },
         };
     }
-}
 
-class TimeWindow
-{
-    public DateTime Start { get; set; }
-    public DateTime End { get; set; }
-    public double CorrectWeight { get; set; }
-    public double IncorrectWeight { get; set; }
+    private class TimeWindow
+    {
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public double CorrectWeight { get; set; }
+        public double IncorrectWeight { get; set; }
+    }
 }

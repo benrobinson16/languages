@@ -7,13 +7,13 @@ namespace Languages.Controllers;
 
 [ApiController]
 [Route("/teacher/card")]
-public class TeacherCardController : ControllerBase
+public class CardController : ControllerBase
 {
     DatabaseContext db;
     DatabaseAccess da;
     Shield shield;
 
-    public TeacherCardController(DatabaseContext db, DatabaseAccess da, Shield shield)
+    public CardController(DatabaseContext db, DatabaseAccess da, Shield shield)
     {
         this.db = db;
         this.da = da;
@@ -79,7 +79,7 @@ public class TeacherCardController : ControllerBase
     /// <param name="foreignTerm">The new foreign translation.</param>
     /// <returns>The newly edited card.</returns>
     [HttpPatch]
-    public Card Patch(int cardId, int deckId, string? englishTerm, string? foreignTerm)
+    public Card Patch(int cardId, int? deckId, string? englishTerm, string? foreignTerm)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
@@ -90,13 +90,13 @@ public class TeacherCardController : ControllerBase
         if (originalDeck == null) throw new LanguagesResourceNotFound();
         if (originalDeck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
-        if (deckId != originalDeck.DeckId)
+        if (deckId != originalDeck.DeckId && deckId != null)
         {
-            Deck? newDeck = da.Decks.ForId(deckId).SingleOrDefault();
+            Deck? newDeck = da.Decks.ForId(deckId.Value).SingleOrDefault();
             if (newDeck == null) throw new LanguagesResourceNotFound();
             if (newDeck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
-            card.DeckId = deckId;
+            card.DeckId = deckId.Value;
         }
 
         card.EnglishTerm = englishTerm ?? card.EnglishTerm;
@@ -112,7 +112,7 @@ public class TeacherCardController : ControllerBase
     /// </summary>
     /// <param name="cardId">The id of the card to delete.</param>
     [HttpDelete]
-    public Card Delete(int cardId)
+    public void Delete(int cardId)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
 
@@ -126,7 +126,5 @@ public class TeacherCardController : ControllerBase
         db.Cards.Remove(card);
         da.StudentAttempts.RemoveForCard(cardId);
         db.SaveChanges();
-
-        return card;
     }
 }

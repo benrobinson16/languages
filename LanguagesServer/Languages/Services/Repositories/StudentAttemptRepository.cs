@@ -168,7 +168,7 @@ public class StudentAttemptRepository
         }
     }
 
-    public int ExpectedQuestionsToday(int studentId)
+    private int ExpectedQuestionsToday(int studentId)
     {
         var qry = from enrol in db.Enrollments
                   where enrol.StudentId == studentId
@@ -199,7 +199,7 @@ public class StudentAttemptRepository
             .Sum());
     }
 
-    public int MinRemainingQuestionsToday(int studentId)
+    private int MinRemainingQuestionsToday(int studentId)
     {
         var qry = from enrol in db.Enrollments
                   where enrol.StudentId == studentId
@@ -223,7 +223,7 @@ public class StudentAttemptRepository
         return (int)qry.Sum();
     }
 
-    public int CardsAnsweredToday(int studentId)
+    private int CardsAnsweredToday(int studentId)
     {
         var qry = from attempt in db.StudentAttempts
                   where attempt.StudentId == studentId

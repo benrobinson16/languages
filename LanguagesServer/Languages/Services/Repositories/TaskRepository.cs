@@ -150,6 +150,7 @@ public class TaskRepository
         var studentQry = from task in db.Tasks
                          where task.TaskId == taskId
                          join enrollment in db.Enrollments on task.ClassId equals enrollment.ClassId
+                         where enrollment.JoinDate <= task.DueDate
                          select enrollment.StudentId;
 
         return studentQry.Contains(studentId);
