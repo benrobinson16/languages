@@ -24,6 +24,9 @@ export const signUpSlice = createSlice({
     initialState,
     reducers: {
         showSignUp: (state) => {
+            state.title = "";
+            state.surname = "";
+            state.isLoading = false;
             state.showDrawer = true;
         },
         hideSignUp: (state) => {

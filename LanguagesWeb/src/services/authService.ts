@@ -21,7 +21,7 @@ class AuthService {
         this.instance = new PublicClientApplication(options)
     }
 
-    /** Gets the id token for the user, redirecting them to sign in if necessary. */
+    /** Gets the id token for the user silently. */
     async getToken(): Promise<string> {
         const account = this.instance.getAllAccounts()[0];
         if (account == null) throw Error("Not authenticated.");

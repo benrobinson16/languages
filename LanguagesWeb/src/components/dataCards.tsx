@@ -10,11 +10,16 @@ import { sendCongratsNotification, sendReminderNotification } from "../redux/tas
 export function ClassCard(props: {class: Class, key: number}) {
     const dispatch = useAppDispatch();
 
+    let studentsText = "students";
+    if (props.class.numStudents == 1) {
+        studentsText = "student";
+    }
+
     return (
         <Card onClick={() => dispatch(openClass(props.class.id))}>
             <Text textAlign="left" fontSize="lg" fontWeight="semibold" >{props.class.name}</Text>
             <Text textAlign="left" fontSize="md">{props.class.numActiveTasks} active tasks</Text>
-            <Text textAlign="left" fontSize="md">{props.class.numStudents} students</Text>
+            <Text textAlign="left" fontSize="md">{props.class.numStudents} {studentsText}</Text>
         </Card>
     );
 }
@@ -24,10 +29,15 @@ export function DeckCard(props: {deck: Deck, key: number}) {
 
     const dateStr = props.deck.creationDate ? new Date(props.deck.creationDate).toDateString() : "Never";
 
+    let cardsText = "cards";
+    if (props.deck.numCards == 1) {
+        cardsText = "card";
+    }
+
     return (
         <Card onClick={() => dispatch(openDeck(props.deck.deckId))}>
             <Text textAlign="left" fontSize="lg" fontWeight="semibold" >{props.deck.name}</Text>
-            <Text textAlign="left" fontSize="md">{props.deck.numCards ?? 0} cards</Text>
+            <Text textAlign="left" fontSize="md">{props.deck.numCards ?? 0} {cardsText}</Text>
             <Text textAlign="left" fontSize="md">Created {dateStr}</Text>
         </Card>
     );

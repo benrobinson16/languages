@@ -6,7 +6,7 @@ let accountUrl = URL(string: "https://api.languages.benrobinson.dev/account/stud
 extension Request {
     public static func register(token: String) -> Request<Bool> {
         return .init(
-            method: .get,
+            method: .post,
             url: accountUrl.appending(path: "register"),
             headers: ["Authorization": token],
             data: [:]

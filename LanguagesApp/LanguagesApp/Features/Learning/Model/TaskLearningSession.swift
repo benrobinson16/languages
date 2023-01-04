@@ -62,7 +62,7 @@ class TaskLearningSession: LearningSession {
                     currentMessage = .init(
                         title: "👍 Way to go!",
                         body: "That's another 10 cards. You've completed \(dayCompletion.formatPercentage()) of today's work.",
-                        option1: .init(name: "Continue learning", action: { }),
+                        option1: .init(name: "Continue learning", action: detachedNextQuestion),
                         option2: nil
                     )
                     currentCard = nil
@@ -102,6 +102,12 @@ class TaskLearningSession: LearningSession {
             
             currentCard = newCard
             currentMessage = nil
+        }
+    }
+    
+    private func detachedNextQuestion() {
+        Task {
+            await nextQuestion()
         }
     }
     

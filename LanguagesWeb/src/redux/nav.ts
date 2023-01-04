@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface NavPage {
-    id: "home" | "class" | "deck" | "task" | "signup",
+    id: "home" | "class" | "deck" | "task",
     data: number | null
 }
 

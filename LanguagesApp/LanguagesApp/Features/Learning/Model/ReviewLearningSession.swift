@@ -63,7 +63,7 @@ class ReviewLearningSession: LearningSession {
         return nextCard
     }
     
-    func detachedNextQuestion() {
+    private func detachedNextQuestion() {
         Task {
             await nextQuestion()
         }

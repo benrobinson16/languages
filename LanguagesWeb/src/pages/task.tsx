@@ -1,5 +1,5 @@
 import { VStack, Heading, SimpleGrid, Spinner, Input, Flex, Spacer } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { AppButton, DestructiveButton } from "../components/buttons";
 import DatePicker from "../components/datePicker";
 import { ProgressList } from "../components/entityList";
