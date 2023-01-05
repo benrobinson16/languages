@@ -42,8 +42,8 @@ public class StudentRepository
                let nowPlusOne = DateTime.Now.AddMinutes(1).TimeOfDay
                let target = student.ReminderTime.TimeOfDay
                where (now > nowPlusOne
-                     ? target >= now && target < nowPlusOne
-                     : target >= now || target < nowPlusOne)
+                     ? target >= now || target < nowPlusOne
+                     : target >= now && target < nowPlusOne)
                where !(from attempt in db.StudentAttempts
                        where attempt.StudentId == student.StudentId
                        where attempt.AttemptDate.Date == DateTime.Now.Date
