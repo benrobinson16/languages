@@ -25,6 +25,7 @@ public class EnrollmentRepository
 			   where enrol.StudentId == studentId
 			   join cla in db.Classes on enrol.ClassId equals cla.ClassId
 			   join teacher in db.Teachers on cla.TeacherId equals teacher.TeacherId
+			   orderby enrol.JoinDate descending
 			   select new EnrollmentVm
 			   {
 				   ClassId = cla.ClassId,
