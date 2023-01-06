@@ -32,6 +32,7 @@ class HomeController: ObservableObject {
             self.summary = try await LanguagesAPI.makeRequest(.summary(token: token))
         } finally: {
             self.isLoading = false
+            Notifier.shared.registerForPushNotifications()
         }
     }
     

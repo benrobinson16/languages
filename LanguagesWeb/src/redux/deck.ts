@@ -97,9 +97,9 @@ export const saveCard = (card: Card, deck: Deck): TypedThunk => {
     return async (dispatch, getState) => {
         try {
             const token = getState().auth.token || await authService.getToken();
-            if (card.cardId != -1) {
+            if (card.cardId !== -1) {
                 await endpoints.editCard.makeRequest(token, { deckId: deck.deckId, cardId: card.cardId, englishTerm: card.englishTerm, foreignTerm: card.foreignTerm });
-            } else if (card.englishTerm.trim().length != 0 && card.foreignTerm.trim().length != 0) {
+            } else if (card.englishTerm.trim().length !== 0 && card.foreignTerm.trim().length !== 0) {
                 const replacementCard = await endpoints.newCard.makeRequest(token, { deckId: deck.deckId, englishTerm: card.englishTerm, foreignTerm: card.foreignTerm });
                 dispatch(replaceCard({ card, replacementCard }));
             }

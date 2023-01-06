@@ -11,7 +11,7 @@ export function ClassCard(props: {class: Class, key: number}) {
     const dispatch = useAppDispatch();
 
     let studentsText = "students";
-    if (props.class.numStudents == 1) {
+    if (props.class.numStudents === 1) {
         studentsText = "student";
     }
 
@@ -30,7 +30,7 @@ export function DeckCard(props: {deck: Deck, key: number}) {
     const dateStr = props.deck.creationDate ? new Date(props.deck.creationDate).toDateString() : "Never";
 
     let cardsText = "cards";
-    if (props.deck.numCards == 1) {
+    if (props.deck.numCards === 1) {
         cardsText = "card";
     }
 

@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Input, ModalFooter, VStack, Text } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, VStack, Text } from "@chakra-ui/react";
 import React from "react";
 import { AppButton } from "../components/buttons";
 import { useAppDispatch, useAppSelector } from "../redux/store";
