@@ -11,7 +11,7 @@ namespace Languages.Services;
 
 public class Authenticator
 {
-    private readonly string keyEndpoint = "https://login.microsoftonline.com/common/discovery/keys";
+    private readonly string keyEndpoint = "https://login.microsoftonline.com/common/discovery/v2.0/keys";
     private readonly string audience = "67d7b840-45a6-480b-be53-3d93c187ed66";
     private readonly string issuerDomain = "https://login.microsoftonline.com/";
 
@@ -102,7 +102,7 @@ public class Authenticator
         }
 
         certificates = newCerts;
-        nextRefresh = DateTime.Now.AddMinutes(30);
+        nextRefresh = DateTime.Now.AddMinutes(10);
     }
 
     private class Response
