@@ -1,4 +1,5 @@
 import SwiftUI
+import LanguagesUI
 
 struct LearningMessageView: View {
     let message: Message

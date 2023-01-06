@@ -1,4 +1,5 @@
 import SwiftUI
+import LanguagesUI
 
 struct SplashScreen: View {
     @StateObject private var controller = SplashController()

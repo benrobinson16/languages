@@ -1,12 +1,19 @@
 import SwiftUI
 
-struct AppButton: View {
-    var enabled: Bool = true
-    var color: Color = .appAccent
-    let title: String
-    let action: () -> Void
+public struct AppButton: View {
+    private let enabled: Bool
+    private let color: Color
+    private let title: String
+    private let action: () -> Void
     
-    var body: some View {
+    public init(enabled: Bool = true, color: Color = .appAccent, title: String, action: @escaping () -> Void) {
+        self.enabled = enabled
+        self.color = color
+        self.title = title
+        self.action = action
+    }
+    
+    public var body: some View {
         Button(action: action) {
             HStack {
                 Spacer()

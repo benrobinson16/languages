@@ -1,11 +1,17 @@
 import SwiftUI
 
-struct CompletionBar: View {
-    let percentage: Double
-    var height: Double = 24
-    var cornerRadius: Double = 8
+public struct CompletionBar: View {
+    public let percentage: Double
+    public let height: Double
+    public let cornerRadius: Double
     
-    var body: some View {
+    public init(percentage: Double, height: Double = 24, cornerRadius: Double = 8) {
+        self.percentage = percentage
+        self.height = height
+        self.cornerRadius = cornerRadius
+    }
+    
+    public var body: some View {
         GeometryReader { geom in
             ZStack(alignment: .leading) {
                 Rectangle()

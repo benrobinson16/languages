@@ -1,11 +1,11 @@
 import SwiftUI
 
-public struct SplashTitleView: View {
+struct SplashTitleView: View {
     let title: (line1: String, line2: String)
     let image: AnyView?
     let mainColor: Color
     
-    public init(title: (line1: String, line2: String), image: AnyView?, mainColor: Color) {
+    init(title: (line1: String, line2: String), image: AnyView?, mainColor: Color) {
         self.title = title
         self.image = image
         self.mainColor = mainColor

@@ -1,5 +1,6 @@
 import SwiftUI
 import LanguagesAPI
+import LanguagesUI
 
 struct TaskCardView: View {
     let card: Card

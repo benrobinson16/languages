@@ -4,6 +4,11 @@ struct InfoContainerView: View {
     let content: [InfoDetailData]
     let mainColor: Color
     
+    init(content: [InfoDetailData], mainColor: Color) {
+        self.content = content
+        self.mainColor = mainColor
+    }
+    
     var body: some View {
         LazyVGrid(columns: [GridItem(.fixed(100.0), spacing: 0.0, alignment: .center), GridItem(.flexible(), spacing: 0.0)], alignment: .leading, spacing: 16.0) {
             ForEach(content) { content in

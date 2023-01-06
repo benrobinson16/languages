@@ -1,5 +1,6 @@
 import SwiftUI
 import SplashKit
+import LanguagesUI
 
 struct OnboardingScreen: View {
     var body: some View {

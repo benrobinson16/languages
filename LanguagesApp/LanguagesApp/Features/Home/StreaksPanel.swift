@@ -1,5 +1,6 @@
 import SwiftUI
 import LanguagesAPI
+import LanguagesUI
 
 struct StreaksPanel: View {
     public let streakHistory: [StreakDay]

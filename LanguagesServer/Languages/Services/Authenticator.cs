@@ -43,9 +43,13 @@ public class Authenticator
         try
         {
             X509Certificate2 cert = certificates[header.Kid];
+            Console.WriteLine("1");
             IJwtAlgorithm algorithm = new RS256Algorithm(cert);
+            Console.WriteLine("2");
             IJwtDecoder validatedDecoder = new JwtDecoder(serializer, validator, urlEncoder, algorithm);
+            Console.WriteLine("3");
             BearerToken decodedToken = validatedDecoder.DecodeToObject<BearerToken>(bearerToken);
+            Console.WriteLine("4");
 
             bool audValid = decodedToken.aud == audience;
             bool issValid = decodedToken.iss.StartsWith(issuerDomain);

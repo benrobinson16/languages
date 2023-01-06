@@ -1,5 +1,6 @@
 import SwiftUI
 import LanguagesAPI
+import LanguagesUI
 
 struct LearningCardView: View {
     @ObservedObject var question: LearningQuestion
@@ -26,7 +27,7 @@ struct LearningCardView: View {
                     MultipleChoiceGrid(choices: options, answer: $answer)
                 }
             case .englishWritten, .foreignWritten:
-                AppTextField(focusState: _focused, text: $answer, placeholder: "Translation...")
+                AppTextField(focusState: $focused, text: $answer, placeholder: "Translation...")
             }
             
             Spacer(minLength: 0)

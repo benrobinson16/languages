@@ -1,4 +1,5 @@
 import SwiftUI
+import LanguagesUI
 
 struct DailyCompletionPanel: View {
     let percentage: Double

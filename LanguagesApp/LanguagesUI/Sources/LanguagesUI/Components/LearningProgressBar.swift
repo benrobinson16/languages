@@ -1,15 +1,21 @@
 import Foundation
 import SwiftUI
 
-struct LearningProgressBar: View {
-    let completion: Double
-    let mode: String
-    let dismiss: () -> Void
+public struct TopProgressBar: View {
+    private let completion: Double
+    private let title: String
+    private let dismiss: () -> Void
     
-    var body: some View {
+    public init(completion: Double, title: String, dismiss: @escaping () -> Void) {
+        self.completion = completion
+        self.title = title
+        self.dismiss = dismiss
+    }
+    
+    public var body: some View {
         VStack {
             HStack {
-                Text(mode)
+                Text(title)
                     .font(.appSubheading)
                 
                 Spacer()

@@ -1,13 +1,13 @@
 import SwiftUI
 
 /// Use `SplashScrollView` if you want to control the content of the splash screen.
-public struct SplashScrollView<T>: View where T: View {
-    public let buttonText: String
-    public let buttonColor: Color
-    public let buttonTap: () -> Void
-    public let content: () -> T
+struct SplashScrollView<T>: View where T: View {
+    let buttonText: String
+    let buttonColor: Color
+    let buttonTap: () -> Void
+    let content: () -> T
     
-    public init(
+    init(
         buttonText: String,
         buttonColor: Color,
         buttonTap: @escaping () -> Void,
@@ -19,7 +19,7 @@ public struct SplashScrollView<T>: View where T: View {
         self.content = content
     }
     
-    public var body: some View {
+    var body: some View {
         ZStack {
             ScrollView {
                 content()

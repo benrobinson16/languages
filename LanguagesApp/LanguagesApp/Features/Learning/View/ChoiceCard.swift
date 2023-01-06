@@ -1,4 +1,5 @@
 import SwiftUI
+import LanguagesUI
 
 struct ChoiceCard: View {
     let choice: String
@@ -19,9 +20,9 @@ struct ChoiceCard: View {
                 .multilineTextAlignment(.center)
                 .padding()
         }
+        .aspectRatio(1.0, contentMode: .fit)
         .onTapGesture {
             answer = choice
         }
-        .aspectRatio(1.0, contentMode: .fit)
     }
 }

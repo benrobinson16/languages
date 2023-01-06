@@ -1,23 +1,23 @@
 import SwiftUI
 
 extension Font {
-    static var appTitle: Font {
+    public static var appTitle: Font {
         return .system(size: 40, weight: .semibold, design: .rounded)
     }
     
-    static var appSecondary: Font {
+    public static var appSecondary: Font {
         return .system(size: 20, weight: .regular, design: .rounded)
     }
     
-    static var appTitle2: Font {
+    public static var appTitle2: Font {
         return .system(size: 24, weight: .semibold, design: .rounded)
     }
     
-    static var appSubheading: Font {
+    public static var appSubheading: Font {
         return .system(size: 20, weight: .medium, design: .rounded)
     }
     
-    static var appButton: Font {
+    public static var appButton: Font {
         return .system(size: 20, weight: .semibold, design: .rounded)
     }
 }

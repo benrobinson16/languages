@@ -1,17 +1,17 @@
 import SwiftUI
 
-public struct SplashButton: View {
+struct SplashButton: View {
     let buttonText: String
     let buttonColor: Color
     let buttonTap: () -> Void
     
-    public init(buttonText: String, buttonColor: Color, buttonTap: @escaping () -> Void) {
+    init(buttonText: String, buttonColor: Color, buttonTap: @escaping () -> Void) {
         self.buttonText = buttonText
         self.buttonColor = buttonColor
         self.buttonTap = buttonTap
     }
     
-    public var body: some View {
+    var body: some View {
         Button {
             buttonTap()
         } label: {

@@ -1,5 +1,6 @@
 import SwiftUI
 import LanguagesAPI
+import LanguagesUI
 
 struct HomeScreen: View {
     @StateObject private var controller = HomeController()
@@ -27,6 +28,9 @@ struct HomeScreen: View {
                     
                     if !summary.overdueMessage.isEmpty {
                         OverdueMessageCard(message: summary.overdueMessage)
+                            .onTapGesture {
+                                Navigator.shared.open(.learning)
+                            }
                     }
                     
                     DailyCompletionPanel(percentage: summary.dailyPercentage) { nav.open(.learning) }

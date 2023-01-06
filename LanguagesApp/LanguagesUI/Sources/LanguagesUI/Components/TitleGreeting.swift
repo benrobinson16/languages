@@ -1,9 +1,13 @@
 import SwiftUI
 
-struct TitleGreeting: View {
-    let name: String
+public struct TitleGreeting: View {
+    private let name: String
     
-    var body: some View {
+    public init(name: String) {
+        self.name = name
+    }
+    
+    public var body: some View {
         ZStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 if name.trimmingCharacters(in: .whitespaces).isEmpty {
@@ -28,7 +32,7 @@ struct TitleGreeting: View {
         }
     }
     
-    func getGreeting() -> String {
+    private func getGreeting() -> String {
         let hour = Calendar(identifier: .gregorian).component(.hour, from: .now)
         if hour < 6 {
             return "Hi there"

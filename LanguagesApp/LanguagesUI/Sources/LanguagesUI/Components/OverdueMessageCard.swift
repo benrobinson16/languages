@@ -1,9 +1,13 @@
 import SwiftUI
 
-struct OverdueMessageCard: View {
-    let message: String
+public struct OverdueMessageCard: View {
+    private let message: String
     
-    var body: some View {
+    public init(message: String) {
+        self.message = message
+    }
+    
+    public var body: some View {
         Panel(color: .backgroundRed) {
             HStack(spacing: 0) {
                 Text(message)
@@ -12,9 +16,6 @@ struct OverdueMessageCard: View {
                 
                 Spacer(minLength: 0)
             }
-        }
-        .onTapGesture {
-            Navigator.shared.open(.learning)
         }
     }
 }

@@ -1,4 +1,5 @@
 import SwiftUI
+import LanguagesUI
 
 struct LearningScreenWrapper: View {
     @State private var isReviewing = false
@@ -21,7 +22,7 @@ struct LearningScreen: View {
     
     var body: some View {
         VStack {
-            LearningProgressBar(completion: session.completion, mode: session.mode, dismiss: dismiss)
+            TopProgressBar(completion: session.completion, title: session.mode, dismiss: dismiss)
             if let message = session.currentMessage {
                 LearningMessageView(message: message)
                     .transition(.asymmetric(

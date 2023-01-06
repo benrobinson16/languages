@@ -1,7 +1,7 @@
 import Foundation
 
 extension Double {
-    func formatPercentage() -> String {
+    public func formatPercentage() -> String {
         guard self <= 1.0 else { return "100%" }
         guard self >= 0.0 else { return "0%" }
         
