@@ -50,13 +50,13 @@ public class Authenticator
             bool audValid = decodedToken.aud == audience;
             bool issValid = decodedToken.iss.StartsWith(issuerDomain);
 
-            if (audValid && issValid)
+            if (audValid && issValid && (decodedToken.email != null || decodedToken.preferred_username != null))
             {
                 user = new User
                 {
                     FirstName = decodedToken.given_name,
                     Surname = decodedToken.family_name,
-                    Email = decodedToken.email.ToLower()
+                    Email = (decodedToken.email ?? decodedToken.preferred_username!).ToLower()
                 };
             }
         }
@@ -113,6 +113,7 @@ public class Authenticator
         public string iss;
         public string family_name;
         public string given_name;
-        public string email;
+        public string? email;
+        public string? preferred_username;
     }
 }
