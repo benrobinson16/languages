@@ -41,6 +41,7 @@ struct SplashScreen: View {
                 files.readHellos()
             }
         }
+        .onAppear(perform: controller.signInSilently())
         .onDisappear { shown = false }
     }
 }

@@ -47,7 +47,6 @@ export function DeckField(props: { name: string, onChange: (id: number | null) =
     }
 
     const change = (e: SingleValue<{label: string, value: number}>) => {
-        console.log(e);
         props.onChange(e == null ? null : e.value);
     };
 

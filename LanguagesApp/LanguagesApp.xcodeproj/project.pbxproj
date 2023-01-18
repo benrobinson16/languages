@@ -159,14 +159,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		523E0A5E28F5750100B505F0 /* ViewComponents */ = {
-			isa = PBXGroup;
-			children = (
-				52D6DE842913ADAD0069B1E3 /* AlertWrapper.swift */,
-			);
-			path = ViewComponents;
-			sourceTree = "<group>";
-		};
 		523E0A6928F5768100B505F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				527ACFA52911B3450008147A /* AppError.swift */,
+				52D6DE842913ADAD0069B1E3 /* AlertWrapper.swift */,
 				524D5A9028EED16D00035DB6 /* UIApplication+EXT.swift */,
 				526230E6291B1AD2009B158C /* Notification+EXT.swift */,
 			);
@@ -213,7 +206,6 @@
 				52FB8B0829142F370086C6A1 /* GlobalControllers */,
 				527AD2A4291165D3001A1AD5 /* Model */,
 				523E0A7128F5794A00B505F0 /* Helper */,
-				523E0A5E28F5750100B505F0 /* ViewComponents */,
 				52FB8B0429142EC50086C6A1 /* Features */,
 				524C5AB828E2FACA00A4BDD1 /* RootNav.swift */,
 				524D5A8D28EEC79A00035DB6 /* Info.plist */,

@@ -33,6 +33,7 @@ public class TaskController : ControllerBase
     public TeacherTaskSummaryVm Get(int taskId)
     {
         Teacher teacher = shield.AuthenticateTeacher(Request);
+        if (!da.Tasks.OwnedByTeacher(taskId, teacher.TeacherId)) throw new LanguagesUnauthorized();
 
         TaskVm? task = da.Tasks.VmForId(taskId).SingleOrDefault();
         if (task == null) throw new LanguagesResourceNotFound();
@@ -91,7 +92,8 @@ public class TaskController : ControllerBase
             ClassName = cla.Name,
             DeckId = deckId,
             DeckName = deck.Name,
-            DueDate = task.DueDate
+            DueDate = task.DueDate,
+            SetDate = task.SetDate
         };
     }
 
@@ -162,7 +164,8 @@ public class TaskController : ControllerBase
             ClassName = cla.Name,
             DeckId = deck.DeckId,
             DeckName = deck.Name,
-            DueDate = task.DueDate
+            DueDate = task.DueDate,
+            SetDate = task.SetDate
         };
     }
 

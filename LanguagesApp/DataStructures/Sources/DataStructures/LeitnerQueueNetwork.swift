@@ -1,9 +1,9 @@
 import Foundation
 
 public class LeitnerQueueNetwork<T> {
-    let queues: LinkedList<any Queueing<T>>
+    let queues: LinkedList<Queue<T>>
     
-    public init(queues: LinkedList<any Queueing<T>>) {
+    public init(queues: LinkedList<Queue<T>>) {
         self.queues = queues
     }
     
@@ -30,5 +30,9 @@ public class LeitnerQueueNetwork<T> {
     
     public var isEmpty: Bool {
         return queues.allSatisfy { $0.isEmpty }
+    }
+    
+    public var count: Int {
+        return queues.reduce(initial: 0) { $0.count + $1 }
     }
 }

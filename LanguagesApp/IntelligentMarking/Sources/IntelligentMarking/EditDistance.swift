@@ -5,8 +5,8 @@ public struct EditDistance: TypoDetecting {
     private let memo: HashTable<StringCombo, Int> = .init()
     private let threshold: Double
     
-    public init(threshold: Double) {
-        self.threshold = threshold
+    public init(perCharacterThreshold: Double) {
+        self.threshold = perCharacterThreshold
     }
     
     public func isOnlyTypo(source: String, target: String) -> Bool {

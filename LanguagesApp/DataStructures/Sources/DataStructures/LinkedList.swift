@@ -253,9 +253,9 @@ public class LinkedList<T>: Sequence {
     /// - Parameter condition: A function that determines whether or not to remove the element.
     /// - Returns: The values that were removed.
     @discardableResult
-    public func removeWhere(condition: (T) -> Bool) -> [T] {
+    public func removeWhere(condition: (T) -> Bool) -> LinkedList<T> {
         var next = first
-        var removedValues: [T] = []
+        let removedValues = LinkedList<T>()
         while let this = next {
             next = this.next
             if condition(this.value) {

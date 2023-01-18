@@ -10,6 +10,10 @@ public class LearningLQN<T>: LeitnerQueueNetwork<T> where T: Identifiable {
         return numCardsCurrentlyLearning() == 0
     }
     
+    public override var count: Int {
+        return numCardsCurrentlyLearning()
+    }
+    
     public override func dequeue(fromQueue queueIndex: Int) -> (value: T, queue: Int)? {
         guard let value = queues[queueIndex].dequeue() else { return nil }
         
@@ -19,7 +23,7 @@ public class LearningLQN<T>: LeitnerQueueNetwork<T> where T: Identifiable {
         return (value, queueIndex)
     }
     
-    private func currentLearningQueues() -> LinkedList<any Queueing<T>> {
+    private func currentLearningQueues() -> LinkedList<Queue<T>> {
         return queues
             .dropFirst()
             .dropLast()
@@ -42,18 +46,14 @@ public class LearningLQN<T>: LeitnerQueueNetwork<T> where T: Identifiable {
         return currentLearningQueues().reduce(0) { $0 + $1.count }
     }
     
-    private func cardsCurrentlyLearning() -> LinkedList<(value: T, queue: Int)> {
-        return queues
+    private func firstCardFound() -> (value: T, queue: Int)? {
+        let queue = queues
             .enumerated()
             .dropFirst()
             .dropLast()
-            .flatMap { idx, queue in
-                let arr = queue.values.map { value in
-                    return (value: value, queue: idx)
-                }
-                
-                return arr
-            }
+            .filter { !$0.value.isEmpty }[0]
+        
+        return (value: queue.value.dequeue()!, queue: queue.index)
     }
     
     public func dequeueWithLearningHeuristic() -> (value: T, queue: Int)? {
@@ -62,21 +62,34 @@ public class LearningLQN<T>: LeitnerQueueNetwork<T> where T: Identifiable {
             enqueue(dequeue(fromQueue: 0)!.value, intoQueue: 1)
         }
         
-        if numCardsCurrentlyLearning() == 1 {
-            return cardsCurrentlyLearning()[0]
+        if numCardsCurrentlyLearning() == 0 {
+            return nil
+        } else if numCardsCurrentlyLearning() == 1 {
+            return firstCardFound()!
         }
         
         let weights = queueWeights()
         var chosenCard: T? = nil
         var chosenQueueIndex = 0
+        let toReinsert = LinkedList<(value: T, queue: Int)>()
         
         repeat {
             let random = Double.random(in: 0...1)
-            let queueIndex = weights.first { $0.threshold >= random }?.queueIndex
+            chosenQueueIndex = weights.first { $0.threshold >= random }?.queueIndex
                 ?? weights.filter { $0.threshold != 0 }[0].queueIndex
-            chosenCard = dequeue(fromQueue: queueIndex)?.value
-            chosenQueueIndex = queueIndex
-        } while chosenCard?.id == lastValue && chosenCard == nil
+            chosenCard = dequeue(fromQueue: chosenQueueIndex)?.value
+            
+            if let chosen = chosenCard, chosen.id == lastValue {
+                toReinsert.append((value: chosen, queue: chosenQueueIndex))
+                
+                chosenCard = nil
+                chosenQueueIndex = 0
+            }
+        } while chosenCard == nil
+        
+        for (value, queue) in toReinsert {
+            enqueue(value, intoQueue: queue)
+        }
         
         return (value: chosenCard!, queue: chosenQueueIndex)
     }
