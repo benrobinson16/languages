@@ -130,6 +130,7 @@ public class ClassController : ControllerBase
         if (cla.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
         da.Tasks.RemoveForClass(cla.ClassId);
+        db.SaveChanges();
         db.Classes.Remove(cla);
         db.SaveChanges();
     }
