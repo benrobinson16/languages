@@ -9,7 +9,7 @@ public class MemoryModel
     DatabaseAccess da;
 
     // Constant weights
-    double difficultyWeight = 1.0;
+    double difficultyWeight = 10.0;
     double dailyPenalty = 0.05;
 
     public MemoryModel(DatabaseAccess da)
