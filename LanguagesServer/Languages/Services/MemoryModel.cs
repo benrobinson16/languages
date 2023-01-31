@@ -68,7 +68,11 @@ public class MemoryModel
             summation += (window.CorrectWeight * numCorrect) - (window.IncorrectWeight * numIncorrect);
         }
 
-        return Logistic(summation / 100.0);
+        // We divide the summation by 20 to get roughly reasonable values out.
+        // This does not impact the functioning of the algorithm since the cards
+        // are just ordered in terms of their modelled prob(success) - not the
+        // absolute values.
+        return Logistic(summation / 20.0);
     }
 
     private double Logistic(double z)
