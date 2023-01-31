@@ -8,12 +8,15 @@ class ErrorHandler: ObservableObject {
     private init() { }
     public static let shared = ErrorHandler()
     
+    func dismiss() {
+        showAlert = false
+    }
+    
     func handleResponse(_ response: StatusResponse) {
         if !response.success {
-            if let message = response.message {
-                errorMessage = message
-            } else {
-                errorMessage = "An unexpected error occured."
+            DispatchQueue.main.async {
+                self.errorMessage = response.message ?? "An unexpected error occurred."
+                self.showAlert = true
             }
         }
     }
@@ -22,8 +25,9 @@ class ErrorHandler: ObservableObject {
         if let error {
             errorMessage = error.localizedDescription
         } else {
-            errorMessage = "An unexpected error occured."
+            errorMessage = "An unexpected error occurred."
         }
+        self.showAlert = true
     }
     
     func wrap(_ operation: () throws -> Void, finally: (() -> Void)? = nil) {

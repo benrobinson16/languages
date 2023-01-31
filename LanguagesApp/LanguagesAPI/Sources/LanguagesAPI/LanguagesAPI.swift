@@ -1,6 +1,11 @@
 import Foundation
 
+/// Static namespace through which to comminucate with the server.
 public struct LanguagesAPI {
+    
+    /// Starts a new request to the server.
+    /// - Parameter request: A ``Request`` instance describing how to make the request and the return type.
+    /// - Returns: The response received from the server. Decoded as JSON to the data type specified by the ``Request``.
     public static func makeRequest<Response: Decodable>(_ request: Request<Response>) async throws -> Response {
         let urlRequest = try request.makeUrlRequest()
         

@@ -7,6 +7,8 @@ public struct SplashScreenView: View {
     /// The content the `SplashScreenView` should display.
     let content: SplashScreenData
     
+    /// Creates a new ``SplashScreenView``
+    /// - Parameter contentData: A representation of the screen data
     public init(_ contentData: SplashScreenData) {
         self.content = contentData
     }
@@ -14,7 +16,6 @@ public struct SplashScreenView: View {
     public var body: some View {
         SplashScrollView(buttonText: content.buttonText, buttonColor: content.tintColor) {
             content.onButtonTap()
-            //presentationMode.wrappedValue.dismiss()
         } content: {
             VStack(alignment: .center) {
                 SplashTitleView(title: content.title, image: content.titleImage, mainColor: content.tintColor)

@@ -6,6 +6,122 @@ final class AnswerGeneratorTests: XCTestCase {
     
     let testCases: [(answer: String, language: String, expectedAnswers: [String])] = [
         (
+            "vert(e)",
+            "fr",
+            [
+                "vert",
+                "verte",
+                "vert(e)"
+            ]
+        ),
+        (
+            "nouveau/nouvelle",
+            "fr",
+            [
+                "nouveau",
+                "nouvelle",
+                "nouveau/nouvelle",
+                "nouvelle/nouveau"
+            ]
+        ),
+        (
+            "green cat/dog",
+            "en",
+            [
+                "green cat",
+                "green dog",
+                "green cat/dog",
+                "green dog/cat"
+            ]
+        ),
+        (
+            "[green cat]/[blue dog]",
+            "en",
+            [
+                "green cat",
+                "blue dog",
+                "green cat/blue dog",
+                "blue dog/green cat"
+            ]
+        ),
+        (
+            "indigo/violet",
+            "en",
+            [
+                "indigo",
+                "violet",
+                "indigo/violet",
+                "violet/indigo"
+            ]
+        ),
+        (
+            "pretty/beautiful view",
+            "en",
+            [
+                "pretty view",
+                "beautiful view",
+                "pretty/beautiful view",
+                "beautiful/pretty view"
+            ]
+        ),
+        (
+            "cheap/[good deal]",
+            "en",
+            [
+                "cheap",
+                "good deal",
+                "cheap/good deal",
+                "good deal/cheap"
+            ]
+        ),
+        (
+            "to throw (away)",
+            "en",
+            [
+                "to throw",
+                "to throw away",
+                "to throw (away)"
+            ]
+        ),
+        (
+            "the computer",
+            "en",
+            [
+                "the computer",
+                "computer"
+            ]
+        ),
+        (
+            "a dog",
+            "en",
+            [
+                "a dog",
+                "dog"
+            ]
+        ),
+        (
+            "le chien",
+            "fr",
+            [
+                "le chien",
+                "chien"
+            ]
+        ),
+        (
+            "[la voiture]/[l'hopital]",
+            "fr",
+            [
+                "la voiture",
+                "voiture",
+                "l'hopital",
+                "hopital",
+                "la voiture/l'hopital",
+                "voiture/l'hopital",
+                "l'hopital/la voiture",
+                "hopital/la voiture"
+            ]
+        ),
+        (
             "je suis né(e)",
             "fr",
             [

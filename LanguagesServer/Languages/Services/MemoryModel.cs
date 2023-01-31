@@ -8,8 +8,9 @@ public class MemoryModel
 {
     DatabaseAccess da;
 
-    // Constant weight
+    // Constant weights
     double difficultyWeight = 1.0;
+    double dailyPenalty = 0.05;
 
     public MemoryModel(DatabaseAccess da)
     {
@@ -45,9 +46,20 @@ public class MemoryModel
             .ToList();
     }
 
-    private double ModelCard(Card card, int studentId)
+    public double ModelCard(Card card, int studentId)
     {
         double summation = -card.Difficulty * difficultyWeight;
+
+        int? daysSinceAttempt = da.StudentAttempts.DaysSinceAttempt(card.CardId, studentId);
+        if (daysSinceAttempt != null && daysSinceAttempt < 60)
+        {
+            summation -= dailyPenalty * (int)daysSinceAttempt;
+        }
+        else
+        {
+            summation -= dailyPenalty * 60;
+        }
+
         foreach (TimeWindow window in GetTimeWindows(DateTime.Now))
         {
             int numCorrect = da.StudentAttempts.CorrectAttemptsInWindow(studentId, card.CardId, window.Start, window.End).Count();
@@ -55,6 +67,7 @@ public class MemoryModel
             int numIncorrect = numTotal - numCorrect;
             summation += (window.CorrectWeight * numCorrect) - (window.IncorrectWeight * numIncorrect);
         }
+
         return Logistic(summation);
     }
 

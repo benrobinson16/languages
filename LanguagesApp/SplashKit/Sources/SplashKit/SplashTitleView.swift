@@ -1,15 +1,10 @@
 import SwiftUI
 
+/// The title of the onboarding screen.
 struct SplashTitleView: View {
     let title: (line1: String, line2: String)
     let image: AnyView?
     let mainColor: Color
-    
-    init(title: (line1: String, line2: String), image: AnyView?, mainColor: Color) {
-        self.title = title
-        self.image = image
-        self.mainColor = mainColor
-    }
     
     public var body: some View {
         VStack {

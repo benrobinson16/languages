@@ -21,6 +21,7 @@ public struct SplashScreenData {
     /// The tint color to apply to the title line 2 and the info detail row images.
     let tintColor: Color
     
+    /// Memberwise intialiser.
     public init(title: (line1: String, line2: String),
                 titleImage: AnyView?,
                 infoContent: [InfoDetailData],

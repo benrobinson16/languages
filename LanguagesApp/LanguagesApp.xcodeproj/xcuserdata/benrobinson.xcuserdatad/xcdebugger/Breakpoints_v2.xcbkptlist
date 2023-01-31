@@ -453,33 +453,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "52E75491-F658-4D71-976B-C790464D8EC6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IntelligentMarking/Sources/IntelligentMarking/AnswerGenerator.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "generate(answer:language:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DA2428C6-DD56-41F6-958E-0F1AE0861E2A"
+            uuid = "782DF075-2CD8-46DE-89FB-AF5455376F63"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IntelligentMarking/Sources/IntelligentMarking/AnswerGenerator.swift"
+            filePath = "IntelligentMarking/Tests/IntelligentMarkingTests/IntelligentMarkingTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "generate(answer:language:)"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "testAnswerGeneration()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "782DF075-2CD8-46DE-89FB-AF5455376F63 - 12f328a1f7ecd4d0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IntelligentMarkingTests.IntelligentMarkingTests.testAnswerGeneration() -&gt; ()"
+                  moduleName = "IntelligentMarkingTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/IntelligentMarking/Tests/IntelligentMarkingTests/IntelligentMarkingTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "1232">
+               </Location>
+               <Location
+                  uuid = "782DF075-2CD8-46DE-89FB-AF5455376F63 - 12f328a1f7ecd4f3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IntelligentMarkingTests.IntelligentMarkingTests.testAnswerGeneration() -&gt; ()"
+                  moduleName = "IntelligentMarkingTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/IntelligentMarking/Tests/IntelligentMarkingTests/IntelligentMarkingTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "1232">
+               </Location>
+               <Location
+                  uuid = "782DF075-2CD8-46DE-89FB-AF5455376F63 - 12f328a1f7ecdcd6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IntelligentMarkingTests.IntelligentMarkingTests.testAnswerGeneration() -&gt; ()"
+                  moduleName = "IntelligentMarkingTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benrobinson/Desktop/NEA/LanguagesApp/IntelligentMarking/Tests/IntelligentMarkingTests/IntelligentMarkingTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "116"
+                  endingLineNumber = "116"
+                  offsetFromSymbolStart = "1232">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

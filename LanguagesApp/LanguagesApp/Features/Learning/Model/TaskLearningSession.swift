@@ -43,6 +43,7 @@ class TaskLearningSession: LearningSession {
             await ErrorHandler.shared.wrapAsync {
                 let dayCompletion = try await LanguagesAPI.makeRequest(.dailyCompletion(token: token))
                 if dayCompletion >= 1.0 {
+                    completion = 1.0
                     currentMessage = .init(
                         title: "🎉 Well Done!",
                         body: "You've completed all your task cards for the day.",

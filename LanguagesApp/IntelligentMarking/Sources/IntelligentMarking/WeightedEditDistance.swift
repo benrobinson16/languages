@@ -29,14 +29,24 @@ public struct WeightedEditDistance: TypoDetecting {
     }
     
     public func isOnlyTypo(source: String, target: String) -> Bool {
-        return Double(calculate(from: source, to: target)) <= threshold * Double(target.count)
+        let maxDistance = threshold * Double(target.replacingOccurrences(of: " ", with: "").count)
+        let distance = Double(editDistance(from: source, to: target))
+        return distance <= maxDistance
     }
     
-    func calculate(from start: any StringProtocol, to end: any StringProtocol) -> Int {
+    public func editDistance(from start: String, to end: String) -> Int {
+        return calculate(from: clean(s: start), to: clean(s: end))
+    }
+    
+    private func clean(s: String) -> String {
+        return s.lowercased().replacingOccurrences(of: " ", with: "")
+    }
+    
+    private func calculate(from start: any StringProtocol, to end: any StringProtocol) -> Int {
         return calculate(from: String(start), to: String(end))
     }
         
-    func calculate(from start: String, to end: String) -> Int {
+    private func calculate(from start: String, to end: String) -> Int {
         if start == end {
             return 0
         } else if start.isEmpty {
@@ -76,7 +86,7 @@ public struct WeightedEditDistance: TypoDetecting {
             
         case .substitution(let a, let b):
             if a.isLetter && b.isLetter {
-                let path = keyboard.bfs(startPos: a, target: b)!
+                let path = keyboard.bfs(startPos: Character(a.lowercased()), target: Character(b.lowercased()))!
                 let distance = path.count - 1
                 return min(distance, 3)
             } else {

@@ -36,8 +36,16 @@ class ReviewLearningSession: LearningSession {
         }
     }
     
-    private func nextCard() async -> Card {
-        var nextCard = questionQueue.dequeue()!
+    private func nextCard() async -> Card? {
+        guard var nextCard = questionQueue.dequeue() else {
+            // No card available; abort session
+            Navigator.shared.goHome()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                AlertHandler.shared.show("No cards available", body: "Ask your teacher to set you some homework!")
+            }
+            return nil
+        }
+        
         nextCard.nextQuestionType = QuestionType.questionTypes.randomElement()!
         
         if nextCard.nextQuestionType == .multipleChoice {

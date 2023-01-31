@@ -168,6 +168,20 @@ public class StudentAttemptRepository
         }
     }
 
+    public int? DaysSinceAttempt(int cardId, int studentId)
+    {
+        var qry = from attempt in db.StudentAttempts
+                  where attempt.CardId == cardId
+                  where attempt.StudentId == studentId
+                  orderby attempt.AttemptDate descending
+                  select attempt.AttemptDate;
+
+        if (!qry.Any()) return null;
+
+        DateTime mostRecent = qry.First();
+        return DateTime.Now.Subtract(mostRecent).Days;
+    }
+
     private int ExpectedQuestionsToday(int studentId)
     {
         var qry = from enrol in db.Enrollments

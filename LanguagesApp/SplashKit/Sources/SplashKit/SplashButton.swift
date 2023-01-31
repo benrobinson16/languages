@@ -1,15 +1,10 @@
 import SwiftUI
 
+/// View component for the button at the bottom of the onboarding screen.
 struct SplashButton: View {
     let buttonText: String
     let buttonColor: Color
     let buttonTap: () -> Void
-    
-    init(buttonText: String, buttonColor: Color, buttonTap: @escaping () -> Void) {
-        self.buttonText = buttonText
-        self.buttonColor = buttonColor
-        self.buttonTap = buttonTap
-    }
     
     var body: some View {
         Button {

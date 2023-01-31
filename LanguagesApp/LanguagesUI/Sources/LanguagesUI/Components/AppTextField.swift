@@ -1,10 +1,16 @@
 import SwiftUI
 
+/// Standardised app text field.
 public struct AppTextField: View {
     @Binding private var text: String
     private var focusState: FocusState<Bool?>.Binding
     private let placeholder: String
     
+    /// Memberwise initialiser.
+    /// - Parameters:
+    ///   - focusState: Whether the text field should currently be focused (i.e. keyboard open and typing).
+    ///   - text: The current text.
+    ///   - placeholder: The placeholder if no value is present.
     public init(focusState: FocusState<Bool?>.Binding, text: Binding<String>, placeholder: String) {
         self.placeholder = placeholder
         self.focusState = focusState

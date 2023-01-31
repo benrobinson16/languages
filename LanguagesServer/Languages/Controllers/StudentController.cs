@@ -82,6 +82,14 @@ public class StudentController: ControllerBase
         return mm.NextCardsToReview(student.StudentId);
     }
 
+    [HttpGet("modelcard")]
+    public double ModelCard(int cardId)
+    {
+        Student student = shield.AuthenticateStudent(Request);
+        Card card = da.Cards.ForId(cardId).Single();
+        return mm.ModelCard(card, student.StudentId);
+    }
+
     [HttpGet("taskdetails")]
     public StudentTaskSummaryVm TaskDetails(int taskId)
     {
@@ -230,6 +238,16 @@ public class StudentController: ControllerBase
             {
                 selectedCards.Add(newCard);
             }
+        }
+
+        while (selectedCards.Count() < 3)
+        {
+            selectedCards.Add(new Card
+            {
+                CardId = -1,
+                EnglishTerm = "ERROR!",
+                ForeignTerm = "ERROR!"
+            });
         }
 
         return selectedCards.Select(c => c.ForeignTerm).ToList();

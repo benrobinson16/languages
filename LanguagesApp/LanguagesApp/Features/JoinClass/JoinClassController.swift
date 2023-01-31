@@ -16,15 +16,19 @@ class JoinClassController: ObservableObject {
             return
         }
         
+        Navigator.shared.goHome()
         ErrorHandler.shared.detachAsync {
             guard let token = Authenticator.shared.token else { throw AppError.notAuthenticated }
             let response = try await LanguagesAPI.makeRequest(.joinClass(joinCode: self.joinCode, token: token))
             if response.success {
                 NotificationCenter.default.post(name: .refreshData, object: nil)
-                Navigator.shared.goHome()
                 AlertHandler.shared.show("Success!", body: response.message ?? "You have been added to the class.")
+                DispatchQueue.main.async {
+                    self.joinCode = ""
+                }
             } else {
-                ErrorHandler.shared.handleResponse(response)
+                AlertHandler.shared.show(response.message ?? "An unknown error occurred.")
+                Navigator.shared.open(.joinClass)
             }
         }
     }

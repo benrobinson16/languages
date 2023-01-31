@@ -38,6 +38,24 @@ struct AlertWrapper<Content>: View where Content: View {
             } message: { message in
                 Text(message)
             }
-
+            .alert(
+                "Error",
+                isPresented: $errors.showAlert,
+                presenting: errors.errorMessage
+            ) { _ in
+                if let opt1 = alerts.option1 {
+                    Button(opt1.name, action: opt1.action)
+                    
+                    if let opt2 = alerts.option2 {
+                        Button(opt2.name, action: opt2.action)
+                    }
+                } else {
+                    Button("OK") {
+                        errors.dismiss()
+                    }
+                }
+            } message: { message in
+                Text(message)
+            }
     }
 }

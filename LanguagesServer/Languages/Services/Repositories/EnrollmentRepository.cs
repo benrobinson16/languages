@@ -41,4 +41,10 @@ public class EnrollmentRepository
 					 && enrol.ClassId == classId
 			   select enrol;
     }
+
+	public void RemoveForClass(int classId)
+    {
+		IQueryable<Enrollment> enrollments = ForClass(classId);
+		db.Enrollments.RemoveRange(enrollments);
+	}
 }

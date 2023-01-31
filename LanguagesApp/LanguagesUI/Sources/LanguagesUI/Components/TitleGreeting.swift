@@ -1,8 +1,11 @@
 import SwiftUI
 
+/// A composite component displaying a greeting to the user with a waving hand.
 public struct TitleGreeting: View {
     private let name: String
     
+    /// Memberwise initialiser.
+    /// - Parameter name: The (display) name of the user.
     public init(name: String) {
         self.name = name
     }
