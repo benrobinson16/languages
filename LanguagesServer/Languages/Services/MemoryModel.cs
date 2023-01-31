@@ -68,11 +68,11 @@ public class MemoryModel
             summation += (window.CorrectWeight * numCorrect) - (window.IncorrectWeight * numIncorrect);
         }
 
-        // We divide the summation by 10 to get roughly reasonable values out.
+        // We divide the summation by 5 to get roughly reasonable values out.
         // This does not impact the functioning of the algorithm since the cards
         // are just ordered in terms of their modelled prob(success) - not the
         // absolute values.
-        return Logistic(summation / 10.0);
+        return Logistic(summation / 5.0);
     }
 
     private double Logistic(double z)
@@ -90,11 +90,11 @@ public class MemoryModel
 
         return new List<TimeWindow>
         {
-            new TimeWindow { Start = d5, End = d4, CorrectWeight = 1, IncorrectWeight = 2 },
-            new TimeWindow { Start = d4, End = d3, CorrectWeight = 2, IncorrectWeight = 3 },
-            new TimeWindow { Start = d3, End = d2, CorrectWeight = 3, IncorrectWeight = 4 },
-            new TimeWindow { Start = d2, End = d1, CorrectWeight = 4, IncorrectWeight = 5 },
-            new TimeWindow { Start = d1, End = startDate, CorrectWeight = 5, IncorrectWeight = 6 },
+            new TimeWindow { Start = d5, End = d4, CorrectWeight = 1, IncorrectWeight = 1 },
+            new TimeWindow { Start = d4, End = d3, CorrectWeight = 2, IncorrectWeight = 2 },
+            new TimeWindow { Start = d3, End = d2, CorrectWeight = 3, IncorrectWeight = 3 },
+            new TimeWindow { Start = d2, End = d1, CorrectWeight = 4, IncorrectWeight = 4 },
+            new TimeWindow { Start = d1, End = startDate, CorrectWeight = 5, IncorrectWeight = 5 },
         };
     }
 
