@@ -50,8 +50,8 @@ public class MemoryModel
     }
 
     const double attemptWeightBase = 1.05;
-    const double noReviewPenaltyWeight = 0.1;
-    const double logisticScale = 1.0;
+    const double noReviewPenaltyWeight = 0.3;
+    const double logisticScale = 0.5;
 
     public double ModelCard(Card card, int studentId)
     {
@@ -61,14 +61,14 @@ public class MemoryModel
         foreach (StudentAttempt attempt in attempts)
         {
             int days = (DateTime.Now - attempt.AttemptDate).Days;
-            summation = summation + (attempt.Correct ? 1 : -1) * Math.Pow(attemptWeightBase, days);
+            summation = summation + (attempt.Correct ? 1 : -1) * Math.Pow(attemptWeightBase, -days);
         }
 
         StudentAttempt? mostRecent = attempts.MaxBy(a => a.AttemptDate);
         if (mostRecent != null)
         {
             int days = (DateTime.Now - mostRecent.AttemptDate).Days;
-            summation -= noReviewPenaltyWeight * Math.Log(days + 1);
+            summation -= noReviewPenaltyWeight * Math.Log2(days + 1);
         }
 
         return Logistic(summation / logisticScale);
