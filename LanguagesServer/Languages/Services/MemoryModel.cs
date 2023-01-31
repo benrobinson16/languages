@@ -7,15 +7,17 @@ namespace Languages.Services;
 public class MemoryModel
 {
     DatabaseAccess da;
+    DatabaseContext db;
 
     // Constant weights
     const double difficultyWeight = 15.0;
     const double dailyPenaltyWeight = 1;
     const double bias = 5.0;
 
-    public MemoryModel(DatabaseAccess da)
+    public MemoryModel(DatabaseAccess da, DatabaseContext db)
     {
         this.da = da;
+        this.db = db;
     }
 
     public List<CardVm> NextCardsToReview(int studentId, int sampleSize = 100, int outputSize = 10)
@@ -47,7 +49,32 @@ public class MemoryModel
             .ToList();
     }
 
+    const double attemptWeightBase = 1.05;
+    const double noReviewPenaltyWeight = 1.0;
+    const double logisticScale = 1.0;
+
     public double ModelCard(Card card, int studentId)
+    {
+        double summation = 0.0;
+
+        List<StudentAttempt> attempts = db.StudentAttempts.Where(s => s.StudentId == studentId && s.CardId == card.CardId).ToList();
+        foreach (StudentAttempt attempt in attempts)
+        {
+            int days = (DateTime.Now - attempt.AttemptDate).Days;
+            summation = summation + (attempt.Correct ? 1 : -1) * Math.Pow(attemptWeightBase, days);
+        }
+
+        StudentAttempt? mostRecent = attempts.MaxBy(a => a.AttemptDate);
+        if (mostRecent != null)
+        {
+            int days = (DateTime.Now - mostRecent.AttemptDate).Days;
+            summation -= noReviewPenaltyWeight * Math.Log(days + 1);
+        }
+
+        return Logistic(summation / logisticScale);
+    }
+
+    public double ModelCard2(Card card, int studentId)
     {
         double summation = 0.0;
         summation += bias;
