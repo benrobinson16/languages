@@ -9,8 +9,9 @@ public class MemoryModel
     DatabaseAccess da;
 
     // Constant weights
-    double difficultyWeight = 15.0;
-    double dailyPenalty = 0.15;
+    const double difficultyWeight = 15.0;
+    const double dailyPenalty = 0.15;
+    const double bias = 2.0;
 
     public MemoryModel(DatabaseAccess da)
     {
@@ -48,7 +49,9 @@ public class MemoryModel
 
     public double ModelCard(Card card, int studentId)
     {
-        double summation = -card.Difficulty * difficultyWeight;
+        double summation = 0.0;
+        summation += bias;
+        summation -= card.Difficulty * difficultyWeight;
 
         int? daysSinceAttempt = da.StudentAttempts.DaysSinceAttempt(card.CardId, studentId);
         if (daysSinceAttempt != null && daysSinceAttempt < 60)
