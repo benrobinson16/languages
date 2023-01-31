@@ -90,11 +90,11 @@ public class MemoryModel
 
         return new List<TimeWindow>
         {
-            new TimeWindow { Start = d5, End = d4, CorrectWeight = 1, IncorrectWeight = 1.5 },
+            new TimeWindow { Start = d5, End = d4, CorrectWeight = 1, IncorrectWeight = 2 },
             new TimeWindow { Start = d4, End = d3, CorrectWeight = 2, IncorrectWeight = 3 },
-            new TimeWindow { Start = d3, End = d2, CorrectWeight = 4, IncorrectWeight = 4 },
-            new TimeWindow { Start = d2, End = d1, CorrectWeight = 8, IncorrectWeight = 12 },
-            new TimeWindow { Start = d1, End = startDate, CorrectWeight = 16, IncorrectWeight = 24 },
+            new TimeWindow { Start = d3, End = d2, CorrectWeight = 3, IncorrectWeight = 4 },
+            new TimeWindow { Start = d2, End = d1, CorrectWeight = 4, IncorrectWeight = 5 },
+            new TimeWindow { Start = d1, End = startDate, CorrectWeight = 5, IncorrectWeight = 6 },
         };
     }
 
