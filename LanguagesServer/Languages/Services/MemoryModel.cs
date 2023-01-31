@@ -68,7 +68,7 @@ public class MemoryModel
             summation += (window.CorrectWeight * numCorrect) - (window.IncorrectWeight * numIncorrect);
         }
 
-        return Logistic(summation);
+        return Logistic(summation / 100.0);
     }
 
     private double Logistic(double z)
