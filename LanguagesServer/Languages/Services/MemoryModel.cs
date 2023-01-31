@@ -50,7 +50,7 @@ public class MemoryModel
     }
 
     const double attemptWeightBase = 1.05;
-    const double noReviewPenaltyWeight = 1.0;
+    const double noReviewPenaltyWeight = 0.1;
     const double logisticScale = 1.0;
 
     public double ModelCard(Card card, int studentId)
