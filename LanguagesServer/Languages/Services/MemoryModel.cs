@@ -10,7 +10,7 @@ public class MemoryModel
     DatabaseContext db;
 
     // Constant weights
-    const double difficultyWeight = 15.0;
+    const double difficultyWeight = 1.0;
     const double dailyPenaltyWeight = 1;
     const double bias = 5.0;
 
@@ -61,15 +61,17 @@ public class MemoryModel
         foreach (StudentAttempt attempt in attempts)
         {
             int days = (DateTime.Now - attempt.AttemptDate).Days;
-            summation = summation + (attempt.Correct ? 1 : -1) * Math.Pow(attemptWeightBase, -days);
+            summation = summation + (attempt.Correct ? 1 : -1) * Math.Pow(attemptWeightBase, -(0.5 * days));
         }
 
         StudentAttempt? mostRecent = attempts.MaxBy(a => a.AttemptDate);
         if (mostRecent != null)
         {
             int days = (DateTime.Now - mostRecent.AttemptDate).Days;
-            summation -= noReviewPenaltyWeight * Math.Log2(days + 1);
+            summation -= noReviewPenaltyWeight * Math.Log2((0.5 * days) + 1);
         }
+
+        summation += (1 - card.Difficulty) * difficultyWeight;
 
         return Logistic(summation / logisticScale);
     }
