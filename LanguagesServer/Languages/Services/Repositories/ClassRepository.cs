@@ -33,6 +33,7 @@ public class ClassRepository
                where cla.TeacherId == teacherId
                let students = db.Enrollments.Where(e => e.ClassId == cla.ClassId).Count()
                let tasks = db.Tasks.Where(t => t.DueDate > DateTime.Now && t.ClassId == cla.ClassId).Count()
+               orderby cla.ClassId descending
                select new ClassVm
                {
                    Id = cla.ClassId,
