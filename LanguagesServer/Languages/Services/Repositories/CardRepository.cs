@@ -115,6 +115,10 @@ public class CardRepository
     {
         double correctAnswers = db.StudentAttempts.Where(a => a.Correct).Count();
         double totalAnswers = db.StudentAttempts.Count();
+
+        // Provide a sensible default if we do not have enough data.
+        if (totalAnswers < 5 || correctAnswers < 5) return 0.7;
+
         return correctAnswers / totalAnswers;
     }
 }

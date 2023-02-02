@@ -56,15 +56,12 @@ public class CardController : ControllerBase
         if (deck == null) throw new LanguagesResourceNotFound();
         if (deck.TeacherId != teacher.TeacherId) throw new LanguagesUnauthorized();
 
-        double gammaBar = da.Cards.AverageDifficulty();
-        Console.WriteLine(gammaBar);
-
         Card card = new Card
         {
             DeckId = deckId,
             EnglishTerm = englishTerm ?? "",
             ForeignTerm = foreignTerm ?? "",
-            Difficulty = gammaBar
+            Difficulty = da.Cards.AverageDifficulty()
         };
 
         db.Cards.Add(card);
