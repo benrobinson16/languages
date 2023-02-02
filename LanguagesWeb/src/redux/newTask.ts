@@ -62,6 +62,11 @@ export const newTaskSlice = createSlice({
         },
         closeModal: (state) => {
             state.showModal = false;
+            state.isLoading = false;
+            state.classId = null;
+            state.deckId = null;
+            state.dueDate = null;
+            state.classEditable = true;
         }
     }
 });
