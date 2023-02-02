@@ -153,6 +153,14 @@ public class StudentAttemptRepository
                select attempt;
     }
 
+    public IQueryable<StudentAttempt> StudentAttemptsForCard(int studentId, int cardId)
+    {
+        return from attempt in db.StudentAttempts
+               where attempt.CardId == cardId
+               where attempt.StudentId == studentId
+               select attempt;
+    }
+
     public void RemoveForCard(int cardId)
     {
         IQueryable<StudentAttempt> attempts = AttemptsForCard(cardId);

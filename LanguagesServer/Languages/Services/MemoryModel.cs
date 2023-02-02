@@ -10,9 +10,10 @@ public class MemoryModel
     DatabaseContext db;
 
     // Constant weights
-    const double difficultyWeight = 1.0;
-    const double dailyPenaltyWeight = 1;
-    const double bias = 5.0;
+    const double kDifficulty = 1.0;
+    const double kAttemptBase = 1.05;
+    const double kNoReview = 0.3;
+    const double kScale = 0.5;
 
     public MemoryModel(DatabaseAccess da, DatabaseContext db)
     {
@@ -49,88 +50,49 @@ public class MemoryModel
             .ToList();
     }
 
-    const double attemptWeightBase = 1.05;
-    const double noReviewPenaltyWeight = 0.3;
-    const double logisticScale = 0.5;
-
     public double ModelCard(Card card, int studentId)
     {
         double summation = 0.0;
 
-        List<StudentAttempt> attempts = db.StudentAttempts.Where(s => s.StudentId == studentId && s.CardId == card.CardId).ToList();
+        // Get a list of attempts for the algorithm to
+        List<StudentAttempt> attempts = da.StudentAttempts
+            .StudentAttemptsForCard(studentId, card.CardId)
+            .ToList();
+
+        // Adjust by the weight of each attempt
         foreach (StudentAttempt attempt in attempts)
         {
-            int days = (DateTime.Now - attempt.AttemptDate).Days;
-            summation = summation + (attempt.Correct ? 1 : -1) * Math.Pow(attemptWeightBase, -(0.5 * days));
+            summation += AttemptWeighting(attempt.AttemptDate, attempt.Correct);
         }
 
+        // Adjust by the time since the card was last reviewed
         StudentAttempt? mostRecent = attempts.MaxBy(a => a.AttemptDate);
         if (mostRecent != null)
         {
-            int days = (DateTime.Now - mostRecent.AttemptDate).Days;
-            summation -= noReviewPenaltyWeight * Math.Log2((0.5 * days) + 1);
+            summation += NoReviewPenalty(mostRecent.AttemptDate);
         }
 
-        summation += (1 - card.Difficulty) * difficultyWeight;
+        // Adjust by the difficulty rating
+        summation += (1 - card.Difficulty) * kDifficulty;
 
-        return Logistic(summation / logisticScale);
+        // Convert to a percentage [0, 1]
+        return Logistic(summation / kScale);
     }
 
-    public double ModelCard2(Card card, int studentId)
+    private double AttemptWeighting(DateTime attemptDate, bool correct)
     {
-        double summation = 0.0;
-        summation += bias;
-        summation -= card.Difficulty * difficultyWeight;
+        int days = (DateTime.Now - attemptDate).Days;
+        return (correct ? 1 : -1) * Math.Pow(kAttemptBase, -(0.5 * days));
+    }
 
-        int? daysSinceAttempt = da.StudentAttempts.DaysSinceAttempt(card.CardId, studentId);
-        if (daysSinceAttempt != null && daysSinceAttempt >= 1)
-        {
-            summation -= Math.Log((double)daysSinceAttempt);
-        }
-
-        foreach (TimeWindow window in GetTimeWindows(DateTime.Now))
-        {
-            int numCorrect = da.StudentAttempts.CorrectAttemptsInWindow(studentId, card.CardId, window.Start, window.End).Count();
-            int numTotal = da.StudentAttempts.AttemptsInWindow(studentId, card.CardId, window.Start, window.End).Count();
-            int numIncorrect = numTotal - numCorrect;
-            summation += (window.CorrectWeight * numCorrect) - (window.IncorrectWeight * numIncorrect);
-        }
-
-        // We divide the summation by 3 to get roughly reasonable values out.
-        // This does not impact the functioning of the algorithm since the cards
-        // are just ordered in terms of their modelled prob(success) - not the
-        // absolute values.
-        return Logistic(summation / 3.0);
+    private double NoReviewPenalty(DateTime lastReview)
+    {
+        int days = (DateTime.Now - lastReview).Days;
+        return -kNoReview * Math.Log2((0.5 * days) + 1);
     }
 
     private double Logistic(double z)
     {
         return 1.0 / (1 + Math.Exp(-z));
-    }
-
-    private List<TimeWindow> GetTimeWindows(DateTime startDate)
-    {
-        DateTime d1 = startDate.Date.AddDays(-1);
-        DateTime d2 = startDate.Date.AddDays(-7);
-        DateTime d3 = startDate.Date.AddDays(-30);
-        DateTime d4 = startDate.Date.AddDays(-120);
-        DateTime d5 = startDate.Date.AddDays(-360);
-
-        return new List<TimeWindow>
-        {
-            new TimeWindow { Start = d5, End = d4, CorrectWeight = 1, IncorrectWeight = 2 },
-            new TimeWindow { Start = d4, End = d3, CorrectWeight = 2, IncorrectWeight = 3 },
-            new TimeWindow { Start = d3, End = d1, CorrectWeight = 3, IncorrectWeight = 4 },
-            new TimeWindow { Start = d2, End = d1, CorrectWeight = 4, IncorrectWeight = 5 },
-            new TimeWindow { Start = d1, End = startDate, CorrectWeight = 5, IncorrectWeight = 6 },
-        };
-    }
-
-    private class TimeWindow
-    {
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-        public double CorrectWeight { get; set; }
-        public double IncorrectWeight { get; set; }
     }
 }

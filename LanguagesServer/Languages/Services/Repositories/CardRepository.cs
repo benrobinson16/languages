@@ -82,7 +82,7 @@ public class CardRepository
     {
         int numCorrect = db.StudentAttempts.Where(a => a.CardId == cardId && a.Correct).Count();
         int numIncorrect = db.StudentAttempts.Where(a => a.CardId == cardId && !a.Correct).Count();
-        double difficulty = (numCorrect + AverageDifficulty()) / (numIncorrect + numCorrect + 1);
+        double difficulty = (numIncorrect + (5 * AverageDifficulty())) / (numIncorrect + numCorrect + 5);
 
         Card card = ForId(cardId).Single();
         card.Difficulty = difficulty;
