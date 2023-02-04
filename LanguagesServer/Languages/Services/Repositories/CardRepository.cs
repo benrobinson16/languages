@@ -71,6 +71,7 @@ public class CardRepository
     public IQueryable<Card> RandomSampleForStudent(int studentId)
     {
         return from enr in db.Enrollments
+               where enr.StudentId == studentId
                join task in db.Tasks on enr.ClassId equals task.ClassId
                where task.DueDate >= enr.JoinDate
                join card in db.Cards on task.DeckId equals card.DeckId
