@@ -45,7 +45,7 @@ public class PushNotifier
         if (dueDate > DateTime.Now)
         {
             // Future
-            string strDateDue = "on " + dueDate.ToShortDateString();
+            string strDateDue = "on " + dueDate.ToString("dd/MM/yyyy");
             if (dueDate.Date.AddDays(-1) == DateTime.Now.Date)
             {
                 strDateDue = "tomorrow";
@@ -61,7 +61,7 @@ public class PushNotifier
         else
         {
             // Past
-            string strDateDue = "on " + dueDate.ToShortDateString();
+            string strDateDue = "on " + dueDate.ToString("dd/MM/yyyy");
             if (dueDate.Date.AddDays(1) == DateTime.Now.Date)
             {
                 strDateDue = "yesterday";
@@ -80,7 +80,7 @@ public class PushNotifier
     {
         SendNotification(
             "New Task",
-            teacherName + " has set a new task for " + className + ". Complete " + deckName + " by " + dueDate.ToShortDateString() + ".",
+            teacherName + " has set a new task for " + className + ". Complete " + deckName + " by " + dueDate.ToString("dd/MM/yyyy") + ".",
             "NEW_TASK",
             students
         );
@@ -90,7 +90,7 @@ public class PushNotifier
     {
         SendNotification(
             "Due Date Changed",
-            teacherName + " has changed the due date for " + deckName + " to be " + dueDate.ToShortDateString() + ".",
+            teacherName + " has changed the due date for " + deckName + " to be " + dueDate.ToString("dd/MM/yyyy") + ".",
             "DUE_DATE_CHANGED",
             students
         );
