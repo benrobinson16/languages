@@ -25,12 +25,9 @@ public class MemoryModel
     {
         List<Card> cardSample = da.Cards
             .RandomSampleForStudent(studentId)
-            .Take(sampleSize)
-            .ToList()
             .Distinct()
+            .Take(sampleSize)
             .ToList();
-
-        Console.WriteLine(cardSample.Count());
 
         List<(Card, double)> cardModelPairs = new List<(Card, double)>();
         foreach (Card card in cardSample)
