@@ -25,6 +25,7 @@ public class MemoryModel
     {
         List<Card> cardSample = da.Cards
             .RandomSampleForStudent(studentId)
+            .DistinctBy(c => c.CardId)
             .Take(sampleSize)
             .ToList();
 
@@ -35,9 +36,15 @@ public class MemoryModel
             cardModelPairs.Add((card, modelVal));
         }
 
+        if (cardModelPairs.Count() > 10)
+        {
+            cardModelPairs = cardModelPairs
+                .OrderBy(pair => pair.Item2)
+                .Take(outputSize)
+                .ToList();
+        }
+
         return cardModelPairs
-            .OrderBy(pair => pair.Item2)
-            .Take(outputSize)
             .Select(pair => pair.Item1)
             .Select(c => new CardVm
             {
