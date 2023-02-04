@@ -68,6 +68,7 @@ public class LearningLQN<T>: LeitnerQueueNetwork<T> where T: Identifiable {
             return firstCardFound()!
         }
         
+        let previousId = lastValue
         let weights = queueWeights()
         var chosenCard: T? = nil
         var chosenQueueIndex = 0
@@ -79,7 +80,7 @@ public class LearningLQN<T>: LeitnerQueueNetwork<T> where T: Identifiable {
                 ?? weights.filter { $0.threshold != 0 }[0].queueIndex
             chosenCard = dequeue(fromQueue: chosenQueueIndex)?.value
             
-            if let chosen = chosenCard, chosen.id == lastValue {
+            if let chosen = chosenCard, chosen.id == previousId {
                 toReinsert.append((value: chosen, queue: chosenQueueIndex))
                 
                 chosenCard = nil

@@ -9,7 +9,7 @@ class ReviewLearningSession: LearningSession {
     
     @MainActor
     override func nextQuestion(wasCorrect: Bool? = nil) async {
-        if currentMessage == nil {
+        if wasCorrect != nil {
             completion += 0.1
         }
         

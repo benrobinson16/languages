@@ -35,7 +35,8 @@ export default function DeckPage(props: { id: number }) {
                     <UICard>
                             <Text textAlign="left" width="100%">Creating multiple valid responses for a card is easy. Simply follow the following rules:</Text>
                             <UnorderedList paddingLeft="1.25rem" spacing={2}>
-                                <ListItem>Separate different responses with a slash, for example "3 / three".</ListItem>
+                                <ListItem>Provide alternative responses with a slash, for example "3/three".</ListItem>
+                                <ListItem>Group an alternative response using square brackets if it is more than one word, for example "[le chien]/[un chat]"</ListItem>
                                 <ListItem>Provide optional content in brackets, for example "vert(e)".</ListItem>
                                 <ListItem>Articles are automatically detected and excluded from marking unless the gender (if applicable) is wrong.</ListItem>
                             </UnorderedList>

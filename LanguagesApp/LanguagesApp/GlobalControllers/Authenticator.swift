@@ -45,8 +45,12 @@ class Authenticator: ObservableObject {
     }
     
     func signInDetached() {
-        ErrorHandler.shared.detachAsync {
-            _ = try await self.interactivelyAcquireToken()
+        Task {
+            do {
+                _ = try await self.interactivelyAcquireToken()
+            } catch {
+                AlertHandler.shared.show("Could not sign in", body: "Please try again later.")
+            }
         }
     }
     

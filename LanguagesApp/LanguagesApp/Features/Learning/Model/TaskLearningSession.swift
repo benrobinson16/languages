@@ -26,6 +26,7 @@ class TaskLearningSession: LearningSession {
     
     @MainActor
     override func nextQuestion(wasCorrect: Bool? = nil) async {
+        print("NEXT QUESTION")
         guard let token = Authenticator.shared.token else { dismiss(); return }
         
         if let currentCard = currentCard, let lastQueue = lastQueue, let wasCorrect = wasCorrect {
