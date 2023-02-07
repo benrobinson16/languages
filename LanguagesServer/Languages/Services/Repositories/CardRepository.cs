@@ -5,7 +5,7 @@ namespace Languages.Services.Repositories;
 
 public class CardRepository
 {
-    DatabaseContext db;
+    private DatabaseContext db;
 
     public CardRepository(DatabaseContext db)
     {

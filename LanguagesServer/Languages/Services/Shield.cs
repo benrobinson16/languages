@@ -5,8 +5,8 @@ namespace Languages.Services;
 
 public class Shield
 {
-    DatabaseAccess da;
-    Authenticator auth;
+    private DatabaseAccess da;
+    private Authenticator auth;
 
     public Shield(DatabaseAccess da, Authenticator auth)
     {

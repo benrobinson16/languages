@@ -1,6 +1,7 @@
 import SwiftUI
 import LanguagesUI
 
+/// Represents an interstitial learning progress message.
 struct LearningMessageView: View {
     let message: Message
     

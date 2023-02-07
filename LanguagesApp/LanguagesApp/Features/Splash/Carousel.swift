@@ -1,11 +1,18 @@
 import SwiftUI
 
+/// Represents a rotating carousel view of words.
 struct Carousel: View  {
     @State private var words: [Word]
     private let delay: Double
     private let font: Font
     private let moveLeft: Bool
     
+    /// Creates a new carousel.
+    /// - Parameters:
+    ///   - words: The words in the carousel.
+    ///   - delay: The delay between rotations.
+    ///   - font: The font of each word.
+    ///   - moveLeft: Whether the carousel should rotate left (false = right).
     init(words: [String], delay: Double, font: Font, moveLeft: Bool) {
         self.words = words.map { .init(content: $0) }
         self.delay = delay
@@ -20,6 +27,7 @@ struct Carousel: View  {
     }
 }
 
+/// Represents a horizontal stack of words.
 fileprivate struct WordList: View {
     let date: Date
     
@@ -47,6 +55,8 @@ fileprivate struct WordList: View {
         .onChange(of: date, perform: increment)
     }
     
+    /// Move to the next time step.
+    /// - Parameter newDate: The new timestep.
     func increment(_ newDate: Date) {
         withAnimation {
             if moveLeft {
@@ -60,6 +70,7 @@ fileprivate struct WordList: View {
     }
 }
 
+/// Represents a single word for the carousel.
 fileprivate struct Word: Identifiable, Equatable, Hashable {
     let content: String
     

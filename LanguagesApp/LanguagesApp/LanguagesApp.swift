@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
-import MSAL
 
+/// The root application.
 @main
 struct LanguagesApp: App {
     @UIApplicationDelegateAdaptor private var delegate: AppDelegate

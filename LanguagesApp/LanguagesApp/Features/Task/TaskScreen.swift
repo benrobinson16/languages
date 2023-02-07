@@ -1,6 +1,7 @@
 import SwiftUI
 import LanguagesAPI
 
+/// The task details screen.
 struct TaskScreen: View {
     @ObservedObject private var nav = Navigator.shared
     @StateObject private var controller = TaskController()

@@ -1,6 +1,7 @@
 import SwiftUI
 import LanguagesUI
 
+/// A marking popup (correct/incorrect + feedback).
 struct Popup: View {
     let correct: Bool
     let feedback: String?

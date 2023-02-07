@@ -10,8 +10,8 @@ namespace Languages.Controllers;
 [Route("/teacher/summary")]
 public class SummaryController : ControllerBase
 {
-    DatabaseAccess da;
-    Shield shield;
+    private DatabaseAccess da;
+    private Shield shield;
 
     public SummaryController(DatabaseAccess da, Shield shield)
     {

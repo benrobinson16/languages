@@ -1,6 +1,7 @@
 import SwiftUI
 import LanguagesUI
 
+/// Represents the entire learning screen, passing in the correct learning session as a dependency.
 struct LearningScreenWrapper: View {
     @State private var isReviewing = false
     
@@ -17,6 +18,7 @@ struct LearningScreenWrapper: View {
     }
 }
 
+/// The learning screen view.
 struct LearningScreen: View {
     @ObservedObject var session: LearningSession
     
@@ -51,6 +53,7 @@ struct LearningScreen: View {
         .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
     }
     
+    /// Closes the learning screen view.
     func dismiss() {
         Navigator.shared.goHome()
         NotificationCenter.default.post(name: .refreshData, object: nil)

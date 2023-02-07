@@ -1,10 +1,12 @@
 import Foundation
 import LanguagesAPI
 
+/// View model for the ``TaskScreen``.
 class TaskController: ObservableObject {
     @Published private(set) var summary: TaskSummary? = nil
     private var isLoading = false
     
+    /// Gets the task summary.
     func loadSummary() {
         guard !isLoading else { return }
         isLoading = true
@@ -18,6 +20,7 @@ class TaskController: ObservableObject {
         }
     }
     
+    /// Closes the task view.
     func dismiss() {
         Navigator.shared.goHome()
         summary = nil

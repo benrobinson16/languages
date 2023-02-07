@@ -4,6 +4,7 @@ import LanguagesUI
 import DataStructures
 import IntelligentMarking
 
+/// Represents a task learning session using a Leitner Queue Network.
 class TaskLearningSession: LearningSession {
     private let onCompletion: () -> Void
     private let lqn = LearningLQN<Card>(queues: .init(array: [
@@ -19,11 +20,15 @@ class TaskLearningSession: LearningSession {
     
     private var lastQueue: Int? = nil
     
+    /// Creates a new task learning session.
+    /// - Parameter onCompletion: Callback for when the task cards have been completed.
     init(onCompletion: @escaping () -> Void) {
         self.onCompletion = onCompletion
         super.init()
     }
     
+    /// Gets the next question, dequeueing from the LQN.
+    /// - Parameter wasCorrect: Whether the student was correct on the previous card.
     @MainActor
     override func nextQuestion(wasCorrect: Bool? = nil) async {
         print("NEXT QUESTION")
@@ -110,12 +115,14 @@ class TaskLearningSession: LearningSession {
         }
     }
     
+    /// Gets the next question in a detached task.
     private func detachedNextQuestion() {
         Task {
             await nextQuestion()
         }
     }
     
+    /// Starts the session by getting data from the server.
     override func startSession() async {
         guard let token = Authenticator.shared.token else { return }
         

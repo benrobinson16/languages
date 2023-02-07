@@ -2,6 +2,7 @@ import SwiftUI
 import LanguagesAPI
 import LanguagesUI
 
+/// Represents a card in the card list.
 struct TaskCardView: View {
     let card: Card
     

@@ -5,7 +5,7 @@ namespace Languages.Services.Repositories;
 
 public class EnrollmentRepository
 {
-	DatabaseContext db;
+	private DatabaseContext db;
 
 	public EnrollmentRepository(DatabaseContext db)
 	{

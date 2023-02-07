@@ -1,10 +1,11 @@
 import SwiftUI
 import LanguagesUI
 
+/// Splash screen view with animations and sign in button.
 struct SplashScreen: View {
     @StateObject private var controller = SplashController()
     @State private var shown = false
-    @ObservedObject private var files = FileController.shared
+    @State private var hellos: [String]? = nil
     
     var body: some View {
         ZStack(alignment: .center) {
@@ -12,7 +13,7 @@ struct SplashScreen: View {
                 .font(.appTitle)
                 .offset(y: -300)
             
-            if let hellos = files.hellos {
+            if let hellos = hellos {
                 VStack(spacing: 24.0) {
                     Carousel(words: hellos.shuffled(), delay: 2.3, font: .appTitle2, moveLeft: true)
                     Carousel(words: hellos.shuffled(), delay: 0.0, font: .appSubheading, moveLeft: false)
@@ -37,8 +38,8 @@ struct SplashScreen: View {
         .animation(.easeInOut(duration: 1.0), value: shown)
         .onAppear {
             shown = true
-            if files.hellos == nil {
-                files.readHellos()
+            if hellos == nil {
+                hellos = FileController().readHellos()
             }
         }
         .onAppear(perform: controller.signInSilently)

@@ -1,41 +1,55 @@
 import Foundation
 
+/// Represents a node in a linked list with references to nodes in front and behind it. Stores a value.
 fileprivate class Node<T>: Identifiable, Equatable {
     let id = UUID()
     var value: T
     private(set) var next: Node?
     private(set) var last: Node?
     
+    /// Creates a new node.
+    /// - Parameter value: The value for the node to store.
     init(_ value: T) {
         self.value = value
     }
     
+    /// The length of this node and any nodes later in the sequence.
+    /// - Returns: The length of the sequence starting here.
     func length() -> Int {
         return 1 + (next?.length() ?? 0)
     }
     
+    /// Inserts a new node after the current one.
+    /// - Parameter newNode: The new node.
     func insertAfter(newNode: Node) {
         newNode.next = next
         newNode.last = self
         next = newNode
     }
     
+    /// Inserts a new node before the current one.
+    /// - Parameter newNode: The new node.
     func insertBefore(newNode: Node) {
         newNode.next = self
         newNode.last = last
         last = newNode
     }
     
+    /// Gets the node at the specified offset from the current node.
+    /// - Parameter index: The offset to inspect.
+    /// - Returns: The node at that offset. `nil` if none.
     func nodeAtIndex(index: Int) -> Node? {
         if index == 0 { return self }
         return next?.nodeAtIndex(index: index - 1)
     }
     
+    /// Remove this node from the sequence.
     func remove() {
         next?.last = last
         last?.next = next
     }
     
+    /// Compare the nodes by id.
     static func == (_ lhs: Node, _ rhs: Node) -> Bool {
         return lhs.id == rhs.id
     }
@@ -46,10 +60,13 @@ public class LinkedList<T>: Sequence {
     private var first: Node<T>?
     private var last: Node<T>?
     
+    /// Creates a new empty linked list.
     public init() {
         // nothing
     }
     
+    /// Creates a new linked list, storing the values in the provided array.
+    /// - Parameter array: An array of values.
     public init(array: [T]) {
         var first: Node<T>?
         var last: Node<T>?
@@ -230,18 +247,23 @@ public class LinkedList<T>: Sequence {
         }
     }
     
+    /// Return a new list that omits the first value.
+    /// - Returns: The new list.
     public func dropFirst() -> LinkedList<T> {
         let newList = copy()
         newList.popFirst()
         return newList
     }
     
+    /// Return a new list that omits the last value.
+    /// - Returns: The new list.
     public func dropLast() -> LinkedList<T> {
         let newList = copy()
         newList.popLast()
         return newList
     }
     
+    /// Remove all elements from the list.
     public func clear() {
         first = nil
         last = nil
@@ -266,6 +288,10 @@ public class LinkedList<T>: Sequence {
         return removedValues
     }
     
+    /// Replace values meeting the condition with a new value.
+    /// - Parameters:
+    ///   - newValue: The new value to replace old values with.
+    ///   - condition: A predicate for wether a value meets the condition.
     public func replaceWhere(newValue: T, condition: (T) -> Bool) {
         var next = first
         while let this = next {
@@ -276,6 +302,9 @@ public class LinkedList<T>: Sequence {
         }
     }
     
+    /// Returns a new linked list that only includes values that meet the condition.
+    /// - Parameter condition: A predicate for whether an element should be included or not.
+    /// - Returns: A new linked list.
     public func filter(condition: (T) -> Bool) -> LinkedList<T> {
         let outputList = LinkedList<T>()
         self.forEach { value in
@@ -286,6 +315,8 @@ public class LinkedList<T>: Sequence {
         return outputList
     }
     
+    /// Perform a function for each element in the list.
+    /// - Parameter perform: The action to carry out.
     public func forEach(perform: (T) -> Void) {
         var next = first
         while let this = next {
@@ -294,16 +325,24 @@ public class LinkedList<T>: Sequence {
         }
     }
     
+    /// Transform each element to a new value and return a new list.
+    /// - Parameter transform: A function mapping to new values.
+    /// - Returns: A new transformed linked list.
     public func map<X>(transform: (T) -> X) -> LinkedList<X> {
         let outputList = LinkedList<X>()
         self.forEach { outputList.append(transform($0)) }
         return outputList
     }
     
+    /// Copy the linked list. This performs a shallow copy, so if the values are reference type, only the references are copied.
+    /// - Returns: A new linked list.
     public func copy() -> LinkedList<T> {
         return self.map { $0 }
     }
     
+    /// Transform each element into a sequence and return a new linked list formed from all the elements in those sequences.
+    /// - Parameter transform: A function mapping from element to a new sequence.
+    /// - Returns: A linked list of the flattened transformed values.
     public func flatMap<X>(transform: (T) -> some Sequence<X>) -> LinkedList<X> {
         let outputList = LinkedList<X>()
         self.forEach { t in
@@ -314,12 +353,19 @@ public class LinkedList<T>: Sequence {
         return outputList
     }
     
+    /// Obtain a result by applying a function to each element in turn.
+    /// - Parameters:
+    ///   - initial: The initial result.
+    ///   - nextPartialResult: A function mapping to the next partial result.
+    /// - Returns: The final result.
     public func reduce<X>(initial: X, nextPartialResult: (T, X) -> X) -> X {
         var output = initial
         self.forEach { output = nextPartialResult($0, output) }
         return output
     }
     
+    /// Gets a linked list of indices and their corresponding values.
+    /// - Returns: A linked list of indices and values.
     public func enumerated() -> LinkedList<(index: Int, value: T)> {
         var i = -1
         return self.map { value in
@@ -328,6 +374,8 @@ public class LinkedList<T>: Sequence {
         }
     }
     
+    /// Gets a random element from the list.
+    /// - Returns: A random element. `nil` if the list is empty.
     public func randomElement() -> T? {
         guard !isEmpty else { return nil }
         
@@ -335,6 +383,8 @@ public class LinkedList<T>: Sequence {
         return first?.nodeAtIndex(index: index)?.value
     }
     
+    /// Remove a random element from the list.
+    /// - Returns: A random element. `nil` if the list is empty.
     @discardableResult
     public func removeRandomElement() -> T? {
         guard !isEmpty else { return nil }
@@ -343,6 +393,8 @@ public class LinkedList<T>: Sequence {
         return remove(atPosition: index)
     }
     
+    /// Converts the list to an array for interfacing with external code.
+    /// - Returns: An array copy of the list.
     public func toArray() -> [T] {
         var next = first
         var values: [T] = []
@@ -353,6 +405,8 @@ public class LinkedList<T>: Sequence {
         return values
     }
     
+    /// Produce a new shuffled version of the list.
+    /// - Returns: A new shuffled list.
     public func shuffled() -> LinkedList<T> {
         let listCopy = self.copy()
         let output = LinkedList<T>()
@@ -400,6 +454,9 @@ extension LinkedList where T: Equatable {
         removeWhere { $0 == value }
     }
     
+    /// Gets whether the provided value is in the list using the equality operator.
+    /// - Parameter value: The target value.
+    /// - Returns: Whether the value was found after a linear search.
     public func contains(_ value: T) -> Bool {
         var didContain = false
         forEach { v in
@@ -412,6 +469,8 @@ extension LinkedList where T: Equatable {
 }
 
 extension LinkedList where T: Comparable {
+    /// Gets the maximum element in the list.
+    /// - Returns: The maximum element. `nil` if the list is empty.
     public func max() -> T? {
         var maxSoFar = first?.value
         self.forEach {
@@ -422,6 +481,8 @@ extension LinkedList where T: Comparable {
         return maxSoFar
     }
     
+    /// Gets the minimum element in the list.
+    /// - Returns: The minimum element. `nil` if the list is empty.
     public func min() -> T? {
         var minSoFar = first?.value
         self.forEach {

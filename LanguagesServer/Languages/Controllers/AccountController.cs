@@ -10,9 +10,9 @@ namespace Languages.Controllers;
 [Route("/account")]
 public class AccountController : ControllerBase
 {
-    DatabaseContext db;
-    DatabaseAccess da;
-    Shield shield;
+    private DatabaseContext db;
+    private DatabaseAccess da;
+    private Shield shield;
 
     public AccountController(DatabaseContext db, DatabaseAccess da, Shield shield)
     {

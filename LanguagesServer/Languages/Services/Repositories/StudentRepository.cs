@@ -4,7 +4,7 @@ namespace Languages.Services.Repositories;
 
 public class StudentRepository
 {
-    DatabaseContext db;
+    private DatabaseContext db;
 
     public StudentRepository(DatabaseContext db)
     {

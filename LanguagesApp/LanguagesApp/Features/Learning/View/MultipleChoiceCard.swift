@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Represents a grid of multiple choice options.
 struct MultipleChoiceGrid: View {
     let choices: [String]
     @Binding var answer: String
@@ -17,6 +18,8 @@ struct MultipleChoiceGrid: View {
         }
     }
     
+    /// Indicates the user has tapped an answer.
+    /// - Parameter answer: The answer that was tapped.
     func onSelection(_ answer: String) {
         self.answer = answer
     }

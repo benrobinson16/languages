@@ -2,6 +2,7 @@ import SwiftUI
 import LanguagesAPI
 import LanguagesUI
 
+/// Represents a list of tasks for the home screen.
 struct TaskList: View {
     let tasks: [TaskVm]
     let selected: (Int) -> Void
@@ -29,6 +30,7 @@ struct TaskList: View {
     }
 }
 
+/// A single panel representing a task.
 fileprivate struct TaskItem: View {
     let task: TaskVm
     let selected: (Int) -> Void

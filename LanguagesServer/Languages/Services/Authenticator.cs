@@ -98,17 +98,20 @@ public class Authenticator
 
     private class Response
     {
+        // Camel case (rather than pascal case) used to facilitate JWT parsing.
         public List<JsonWebKey> keys;
     }
 
     private class JsonWebKey
     {
+        // Camel case (rather than pascal case) used to facilitate JWT parsing.
         public string kid;
         public string[] x5c;
     }
 
     private class BearerToken
     {
+        // Camel case (rather than pascal case) used to facilitate JWT parsing.
         public string aud;
         public string iss;
         public string family_name;

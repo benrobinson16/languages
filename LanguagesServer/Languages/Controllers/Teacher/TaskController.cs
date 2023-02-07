@@ -11,10 +11,10 @@ namespace Languages.Controllers;
 [Route("/teacher/task")]
 public class TaskController : ControllerBase
 {
-    DatabaseContext db;
-    DatabaseAccess da;
-    Shield shield;
-    PushNotifier push;
+    private DatabaseContext db;
+    private DatabaseAccess da;
+    private Shield shield;
+    private PushNotifier push;
 
     public TaskController(DatabaseContext db, DatabaseAccess da, Shield shield, PushNotifier push)
     {

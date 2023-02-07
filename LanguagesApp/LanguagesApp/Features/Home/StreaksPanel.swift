@@ -2,6 +2,7 @@ import SwiftUI
 import LanguagesAPI
 import LanguagesUI
 
+/// Represents the card which shows the streak history.
 struct StreaksPanel: View {
     public let streakHistory: [StreakDay]
     public let streakLength: Int
@@ -19,6 +20,8 @@ struct StreaksPanel: View {
                 HStack {
                     ForEach(streakHistory.reversed(), id: \.date) { history in
                         Spacer()
+                        
+                        /// Circle representing one day.
                         ZStack {
                             Circle()
                                 .frame(height: 42)
@@ -35,6 +38,9 @@ struct StreaksPanel: View {
         }
     }
     
+    /// Gets the letter to respresent a given date.
+    /// - Parameter date: The date to represent.
+    /// - Returns: The letter that should be used.
     func getDayLetter(date: Date) -> String {
         let weekday = Calendar(identifier: .gregorian).component(.weekday, from: date)
         switch weekday {

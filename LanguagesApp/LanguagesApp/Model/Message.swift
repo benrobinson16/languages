@@ -1,3 +1,4 @@
+/// Represents a message an interstitial learning view.
 struct Message: Equatable {
     let title: String
     let body: String
@@ -5,6 +6,7 @@ struct Message: Equatable {
     let option2: MessageOption?
 }
 
+/// Represents a button in an alert.
 struct MessageOption: Equatable {
     let name: String
     let action: () -> Void

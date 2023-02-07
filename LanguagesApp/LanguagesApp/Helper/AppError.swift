@@ -1,5 +1,6 @@
 import Foundation
 
+/// Represents an error thrown by the application.
 enum AppError: Error {
     case notAuthenticated
     case noConnection

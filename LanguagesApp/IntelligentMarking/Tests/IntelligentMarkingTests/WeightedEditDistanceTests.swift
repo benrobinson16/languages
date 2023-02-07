@@ -24,6 +24,7 @@ final class WeightedEditDistanceTests: XCTestCase {
         for testCase in testCases {
             let distance = editDistance.editDistance(from: testCase.start, to: testCase.end)
             let distance2 = editDistance.editDistance(from: testCase.end, to: testCase.start)
+            
             XCTAssertEqual(distance, testCase.distance)
             XCTAssertEqual(distance2, testCase.distance)
         }

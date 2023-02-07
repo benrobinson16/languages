@@ -2,6 +2,7 @@ import SwiftUI
 import LanguagesAPI
 import LanguagesUI
 
+/// Represents a list of classes.
 struct ClassList: View {
     let classes: [EnrollmentVm]
     let joinClass: () -> Void
@@ -41,6 +42,7 @@ struct ClassList: View {
     }
 }
 
+/// A single card representing a class.
 fileprivate struct ClassItem: View {
     let enrollment: EnrollmentVm
     let deleteEnrollment: (Int) -> Void

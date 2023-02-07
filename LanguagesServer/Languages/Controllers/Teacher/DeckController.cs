@@ -9,9 +9,9 @@ namespace Languages.Controllers;
 [Route("/teacher/deck")]
 public class DeckController : ControllerBase
 {
-    DatabaseContext db;
-    DatabaseAccess da;
-    Shield shield;
+    private DatabaseContext db;
+    private DatabaseAccess da;
+    private Shield shield;
 
     public DeckController(DatabaseContext db, DatabaseAccess da, Shield shield)
     {

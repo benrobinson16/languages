@@ -2,6 +2,7 @@ import SwiftUI
 import LanguagesAPI
 import LanguagesUI
 
+/// Represents the main dashboard of the app for signed in users.
 struct HomeScreen: View {
     @StateObject private var controller = HomeController()
     @ObservedObject private var nav = Navigator.shared
@@ -62,6 +63,7 @@ struct HomeScreen: View {
         }
         .onAppear(perform: controller.loadSummary)
         .onChange(of: controller.summary) { newValue in
+            // Animate in via opacity.
             if newValue != nil {
                 opacity = 1.0
             } else {

@@ -2,6 +2,7 @@ import SwiftUI
 import LanguagesAPI
 import LanguagesUI
 
+/// Represents a question view.
 struct LearningCardView: View {
     @ObservedObject var question: LearningQuestion
     @State private var answer = ""
@@ -51,6 +52,8 @@ struct LearningCardView: View {
         }
     }
     
+    /// Helper to get the correct string to display to the user.
+    /// - Returns: The question string to display.
     func getQuestionString() -> String {
         if question.card.nextQuestionType == .englishWritten {
             return question.card.foreignTerm

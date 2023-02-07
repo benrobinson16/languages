@@ -2,6 +2,7 @@ import SwiftUI
 import SplashKit
 import LanguagesUI
 
+/// The onboarding screen to display to new users.
 struct OnboardingScreen: View {
     var body: some View {
         SplashKit.SplashScreenView(SplashScreenData(
@@ -35,6 +36,7 @@ struct OnboardingScreen: View {
         ))
     }
     
+    /// Dismiss the onboarding view and show the join class alert.
     func joinFirstClass() {
         Task {
             await Notifier.shared.askForPermissionIfNeeded()

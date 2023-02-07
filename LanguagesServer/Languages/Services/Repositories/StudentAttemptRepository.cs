@@ -6,7 +6,7 @@ namespace Languages.Services.Repositories;
 
 public class StudentAttemptRepository
 {
-    DatabaseContext db;
+    private DatabaseContext db;
 
     public StudentAttemptRepository(DatabaseContext db)
     {

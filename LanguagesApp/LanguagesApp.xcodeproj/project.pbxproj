@@ -138,10 +138,10 @@
 		5238779B2938AA790046F8DA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				527ACFA02911A75D0008147A /* LearningQuestion.swift */,
 				527AD2A829116656001A1AD5 /* LearningSession.swift */,
 				527AD2AA29116662001A1AD5 /* ReviewLearningSession.swift */,
 				527AD2AC29116670001A1AD5 /* TaskLearningSession.swift */,
-				527ACFA02911A75D0008147A /* LearningQuestion.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -149,11 +149,11 @@
 		5238779C2938AA870046F8DA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5238779F2938AEA60046F8DA /* ChoiceCard.swift */,
 				527AD2A029116599001A1AD5 /* LearningCardView.swift */,
 				527AD2A2291165B9001A1AD5 /* LearningMessageView.swift */,
 				523E0A6728F5762000B505F0 /* LearningScreen.swift */,
 				5238779D2938AE8E0046F8DA /* MultipleChoiceCard.swift */,
-				5238779F2938AEA60046F8DA /* ChoiceCard.swift */,
 				523877A12938AEBD0046F8DA /* Popup.swift */,
 			);
 			path = View;
@@ -169,10 +169,11 @@
 		523E0A7128F5794A00B505F0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				527ACFA52911B3450008147A /* AppError.swift */,
 				52D6DE842913ADAD0069B1E3 /* AlertWrapper.swift */,
-				524D5A9028EED16D00035DB6 /* UIApplication+EXT.swift */,
+				527ACFA52911B3450008147A /* AppError.swift */,
+				52AEE46829199CB500B65EB5 /* FileController.swift */,
 				526230E6291B1AD2009B158C /* Notification+EXT.swift */,
+				524D5A9028EED16D00035DB6 /* UIApplication+EXT.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -267,8 +268,8 @@
 		52FB8B0529142ECA0086C6A1 /* JoinClass */ = {
 			isa = PBXGroup;
 			children = (
-				52FB8B0229142EB30086C6A1 /* JoinClassController.swift */,
 				52FB8AFE291427CA0086C6A1 /* JoinClassAlert.swift */,
+				52FB8B0229142EB30086C6A1 /* JoinClassController.swift */,
 			);
 			path = JoinClass;
 			sourceTree = "<group>";
@@ -285,12 +286,12 @@
 		52FB8B0729142F000086C6A1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				5274EAEF2918623400B808DF /* ClassList.swift */,
+				52C28F782905BD0A0088593B /* DailyCompletionPanel.swift */,
 				527ACFA72911B7160008147A /* HomeController.swift */,
 				523E0A5B28F574F700B505F0 /* HomeScreen.swift */,
-				52C28F782905BD0A0088593B /* DailyCompletionPanel.swift */,
 				52C28F7E2905C1390088593B /* StreaksPanel.swift */,
 				52C28F802905C4EA0088593B /* TaskList.swift */,
-				5274EAEF2918623400B808DF /* ClassList.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -298,13 +299,12 @@
 		52FB8B0829142F370086C6A1 /* GlobalControllers */ = {
 			isa = PBXGroup;
 			children = (
-				524D5A8E28EED13E00035DB6 /* Authenticator.swift */,
-				527ACF9E2911A6260008147A /* Navigator.swift */,
-				527ACFA22911B2100008147A /* ErrorHandler.swift */,
 				52FB8B0029142A1F0086C6A1 /* AlertHandler.swift */,
-				52AEE46829199CB500B65EB5 /* FileController.swift */,
-				524D49B3291FE1F00097B3AF /* Notifier.swift */,
 				524D49B5291FE6400097B3AF /* AppDelegate.swift */,
+				524D5A8E28EED13E00035DB6 /* Authenticator.swift */,
+				527ACFA22911B2100008147A /* ErrorHandler.swift */,
+				527ACF9E2911A6260008147A /* Navigator.swift */,
+				524D49B3291FE1F00097B3AF /* Notifier.swift */,
 			);
 			path = GlobalControllers;
 			sourceTree = "<group>";
@@ -312,9 +312,9 @@
 		52FB8B0929142F4B0086C6A1 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				52AEE46329198CB900B65EB5 /* Carousel.swift */,
 				527ACFA92911B8960008147A /* SplashController.swift */,
 				523E0A6128F5759300B505F0 /* SplashScreen.swift */,
-				52AEE46329198CB900B65EB5 /* Carousel.swift */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -322,8 +322,8 @@
 		52FB8B0A29142F790086C6A1 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				523E0A6528F5761600B505F0 /* SettingsScreen.swift */,
 				52646615293F54D300C7BCAE /* SettingsController.swift */,
+				523E0A6528F5761600B505F0 /* SettingsScreen.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -331,10 +331,10 @@
 		52FB8B0B29142F820086C6A1 /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				523E0A6328F5760D00B505F0 /* TaskScreen.swift */,
-				52BDFDC7291A6D1100BEC3F6 /* TaskController.swift */,
 				52BDFDC9291A6D1B00BEC3F6 /* TaskCardView.swift */,
+				52BDFDC7291A6D1100BEC3F6 /* TaskController.swift */,
 				526230E2291B17D2009B158C /* TaskDetailsCards.swift */,
+				523E0A6328F5760D00B505F0 /* TaskScreen.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";

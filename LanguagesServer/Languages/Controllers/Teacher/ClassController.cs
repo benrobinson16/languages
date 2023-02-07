@@ -10,9 +10,9 @@ namespace Languages.Controllers;
 [Route("/teacher/class")]
 public class ClassController : ControllerBase
 {
-    DatabaseContext db;
-    DatabaseAccess da;
-    Shield shield;
+    private DatabaseContext db;
+    private DatabaseAccess da;
+    private Shield shield;
 
     public ClassController(DatabaseContext db, DatabaseAccess da, Shield shield)
     {

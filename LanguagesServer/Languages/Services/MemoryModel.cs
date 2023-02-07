@@ -6,19 +6,17 @@ namespace Languages.Services;
 
 public class MemoryModel
 {
-    DatabaseAccess da;
-    DatabaseContext db;
+    private DatabaseAccess da;
 
     // Constant weights
-    const double kDifficulty = 1.0;
-    const double kAttemptBase = 1.05;
-    const double kNoReview = 0.3;
-    const double kScale = 0.5;
+    private const double kDifficulty = 1.0;
+    private const double kAttemptBase = 1.05;
+    private const double kNoReview = 0.3;
+    private const double kScale = 0.5;
 
-    public MemoryModel(DatabaseAccess da, DatabaseContext db)
+    public MemoryModel(DatabaseAccess da)
     {
         this.da = da;
-        this.db = db;
     }
 
     public List<CardVm> NextCardsToReview(int studentId, int sampleSize = 100, int outputSize = 10)

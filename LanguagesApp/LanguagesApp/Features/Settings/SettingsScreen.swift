@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// View for the settings screen of the application.
 struct SettingsScreen: View {
     @ObservedObject private var nav = Navigator.shared
     @StateObject private var controller = SettingsController()
@@ -61,10 +62,12 @@ struct SettingsScreen: View {
         .onAppear(perform: controller.checkNotificationsAllowed)
     }
     
+    /// Computed property for the version of the app.
     var version: String {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "ERROR"
     }
     
+    /// Computed property for the build number of the app.
     var build: String {
         return Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "ERROR"
     }

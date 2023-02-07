@@ -31,6 +31,7 @@ public class Queue<T> {
         return list.popFirst()
     }
     
+    /// Removes all values from the queue.
     public func clear() {
         list.clear()
     }

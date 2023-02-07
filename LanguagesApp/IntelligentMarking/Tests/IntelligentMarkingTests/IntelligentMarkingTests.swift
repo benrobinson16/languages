@@ -110,15 +110,6 @@ final class IntelligentMarkingTests: XCTestCase {
                 language: testCase.language
             )
             
-            if correct != testCase.correct {
-                print(testCase.userAnswer)
-                print(testCase.teacherAnswer)
-                _ = marker.isCorrect(
-                    userAnswer: testCase.userAnswer,
-                    teacherAnswer: testCase.teacherAnswer,
-                    language: testCase.language
-                )
-            }
             XCTAssertEqual(correct, testCase.correct)
         }
     }

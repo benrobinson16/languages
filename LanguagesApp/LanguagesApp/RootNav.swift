@@ -1,6 +1,7 @@
 import SwiftUI
 import DataStructures
 
+/// The root navigation controller, managing what screen is currently shown.
 struct RootNav: View {
     @ObservedObject private var nav = Navigator.shared
     @ObservedObject private var auth = Authenticator.shared

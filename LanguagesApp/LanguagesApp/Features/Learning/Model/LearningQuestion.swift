@@ -2,21 +2,27 @@ import Foundation
 import LanguagesAPI
 import IntelligentMarking
 
+/// Represents a single question and the associated lifecycle.
 class LearningQuestion: ObservableObject {
+    private let kWeightedEditDistanceThreshold = 0.2
     private let marker: IntelligentMarking
     
     let card: Card
     @Published var correct: Bool? = nil
     @Published var feedback: String? = nil
     
+    /// Creates a new question with the given card.
+    /// - Parameter card: The card to ask the question on.
     init(card: Card) {
         self.card = card
         
         let answerGenerator = AnswerGenerator()
-        let typoDetector = WeightedEditDistance(perCharacterThreshold: 0.2)
+        let typoDetector = WeightedEditDistance(perCharacterThreshold: kWeightedEditDistanceThreshold)
         self.marker = IntelligentMarking(answerGenerator: answerGenerator, typoDetector: typoDetector)
     }
     
+    /// Answer a question.
+    /// - Parameter answer: The user's answer.
     func answerQuestion(answer: String) {
         guard let token = Authenticator.shared.token else { return }
         

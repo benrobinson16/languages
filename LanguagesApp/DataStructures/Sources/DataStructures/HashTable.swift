@@ -1,7 +1,10 @@
+/// Implementation of a hash table/dictionary using an array of linked lists to resolve collisions.
 public class HashTable<Key, Value>: Sequence where Key: Hashable {
     private var arr: [LinkedList<(key: Key, value: Value)>]
     private let numBins: Int
     
+    /// Creates a new empty hash table.
+    /// - Parameter numBins: The number of bins to provide. By default this is 1000. Must be positive.
     public init(numBins: Int = 1_000) {
         guard numBins > 0 else { fatalError("Invalid number of bins") }
         self.numBins = numBins
@@ -41,6 +44,8 @@ public class HashTable<Key, Value>: Sequence where Key: Hashable {
         bin.prepend((key, value))
     }
     
+    /// Removes a given key and value from the table.
+    /// - Parameter key: The key to remove.
     public func remove(key: Key) {
         let hash = abs(key.hashValue) % numBins
         let bin = arr[hash]
@@ -69,14 +74,20 @@ public class HashTable<Key, Value>: Sequence where Key: Hashable {
         return value(forKey: key) != nil
     }
     
+    /// Gets an array of keys in the table.
+    /// - Returns: An array of keys.
     public func keys() -> [Key] {
         return kvPairs().map(\.key)
     }
     
+    /// Gets an arrray of values in the table.
+    /// - Returns: An array of values.
     public func values() -> [Value] {
         return kvPairs().map(\.value)
     }
     
+    /// Gets an array of key value pairs from the table.
+    /// - Returns: An array of keys and values.
     public func kvPairs() -> [(key: Key, value: Value)] {
         var pairs: [(key: Key, value: Value)] = []
         for bin in arr {

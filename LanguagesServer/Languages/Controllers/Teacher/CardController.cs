@@ -9,9 +9,9 @@ namespace Languages.Controllers;
 [Route("/teacher/card")]
 public class CardController : ControllerBase
 {
-    DatabaseContext db;
-    DatabaseAccess da;
-    Shield shield;
+    private DatabaseContext db;
+    private DatabaseAccess da;
+    private Shield shield;
 
     public CardController(DatabaseContext db, DatabaseAccess da, Shield shield)
     {

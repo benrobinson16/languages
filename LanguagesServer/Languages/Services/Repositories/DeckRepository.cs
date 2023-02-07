@@ -5,7 +5,7 @@ namespace Languages.Services.Repositories;
 
 public class DeckRepository
 {
-    DatabaseContext db;
+    private DatabaseContext db;
 
     public DeckRepository(DatabaseContext db)
     {

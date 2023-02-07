@@ -1,6 +1,7 @@
 import Foundation
 import MSAL
 
+/// Handles the auhtnetication process.
 class Authenticator: ObservableObject {
     private let accountIdKey = "msal.auth.account.id"
     private let clientId = "67d7b840-45a6-480b-be53-3d93c187ed66"
@@ -28,14 +29,21 @@ class Authenticator: ObservableObject {
         self.msal = application
     }
     
+    /// Handles a response from Microsoft.
+    /// - Parameter url: The response deep linked URL.
     func openUrl(url: URL) {
         MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: nil)
     }
     
+    /// Connects the MSAL library to a view controller so that it can display the web view.
+    /// - Parameter vc: The view controller to show the web view on.
     func connectToViewController(vc: UIViewController) {
         self.viewController = vc
     }
     
+    /// Asynchronously gets an OAuth token, interactively communicating with the user if needed.
+    /// - Parameter useCache: Whether to use the cache.
+    /// - Returns: The OAuth token if authentication was successful.
     func getToken(useCache: Bool = true) async throws -> String {
         if useCache, let token = token {
             return token
@@ -44,6 +52,7 @@ class Authenticator: ObservableObject {
         return try await interactivelyAcquireToken()
     }
     
+    /// Creates a task to interactively sign in.
     func signInDetached() {
         Task {
             do {
@@ -54,12 +63,15 @@ class Authenticator: ObservableObject {
         }
     }
     
+    /// Creates a task to silently sign in.
     func signInSilentlyDetached() {
         Task {
             _ = try? await self.silentlyAcquireToken()
         }
     }
     
+    /// Gets a token via a sign in view.
+    /// - Returns: The OAuth token if authentication was successful.
     @MainActor
     private func interactivelyAcquireToken() async throws -> String {
         guard let viewController else { throw AuthError.noViewController }
@@ -74,6 +86,8 @@ class Authenticator: ObservableObject {
         return idToken
     }
     
+    /// Gets a token in the background.
+    /// - Returns: The OAuth token if authentication was successful.
     @MainActor
     private func silentlyAcquireToken() async throws -> String {
         guard let accountId else { throw AuthError.noAccount }
@@ -88,12 +102,14 @@ class Authenticator: ObservableObject {
         return idToken
     }
     
+    /// Creates a task to sign out of the account.
     func signOutDetached() {
         ErrorHandler.shared.detachAsync {
             try await self.signOut()
         }
     }
     
+    /// Signs a user out of their Microsoft account.
     @MainActor
     func signOut() async throws {
         try await Notifier.shared.removeDeviceToken()

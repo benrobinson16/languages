@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// View to show alerts to the user from ``AlertHandler`` and ``ErrorHandler``.
 struct AlertWrapper<Content>: View where Content: View {
     let content: () -> Content
     

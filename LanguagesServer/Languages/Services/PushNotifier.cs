@@ -13,6 +13,15 @@ public class PushNotifier
 {
     private DatabaseAccess da;
 
+    private const string kid = "6J3TF84B5K";
+    private const string iss = "QARY953TUQ";
+    private const string baseUrl = "https://api.sandbox.push.apple.com:443";
+    private const string bundleId = "dev.benrobinson.LanguagesApp";
+    private const string pathToKey = "/Constants/apns-key.p8";
+
+    private string? providerToken = null;
+    private DateTime lastGenerated = DateTime.UnixEpoch;
+
     public PushNotifier(DatabaseAccess da)
     {
         this.da = da;
@@ -125,15 +134,6 @@ public class PushNotifier
             SendPayloadToApple(t, title, body, category);
         }
     }
-
-    private const string kid = "6J3TF84B5K";
-    private const string iss = "QARY953TUQ";
-    private const string baseUrl = "https://api.sandbox.push.apple.com:443";
-    private const string bundleId = "dev.benrobinson.LanguagesApp";
-    private const string pathToKey = "/Constants/apns-key.p8";
-
-    private string? providerToken = null;
-    private DateTime lastGenerated = DateTime.UnixEpoch;
 
     private string GenerateAPNsToken()
     {

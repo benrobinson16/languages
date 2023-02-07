@@ -2,6 +2,7 @@ import SwiftUI
 import LanguagesAPI
 import LanguagesUI
 
+/// Detail cards about a task.
 struct TaskDetailCards: View {
     let details: TaskVm
     

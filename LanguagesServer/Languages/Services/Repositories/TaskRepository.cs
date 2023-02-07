@@ -7,7 +7,7 @@ namespace Languages.Services.Repositories;
 
 public class TaskRepository
 {
-    DatabaseContext db;
+    private DatabaseContext db;
 
     public TaskRepository(DatabaseContext db)
     {

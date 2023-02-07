@@ -207,10 +207,9 @@ final class AnswerGeneratorTests: XCTestCase {
         }
     }
     
+    /// Helper function to compare two arrays as an XCTest. This ensures the two arrays contain the same number of elements
+    /// and also contain all elements from the other, with no requirement on the two to be sorted.
     private func compareArrays(arr1: [String], arr2: [String]) {
-        print(arr1.sorted())
-        print(arr2.sorted())
-        
         for ele in arr1 {
             XCTAssertTrue(arr2.contains(ele), "Expected arr2 to contain " + ele)
         }

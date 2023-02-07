@@ -3,10 +3,13 @@ import LanguagesAPI
 import DataStructures
 import IntelligentMarking
 
+/// Manages a review learning session.
 class ReviewLearningSession: LearningSession {
     private var questionQueue = Queue<Card>()
     override var mode: String { "Review" }
     
+    /// Gets the next queuestion from the queue, or provides an interstitial card,
+    /// - Parameter wasCorrect: Whether the user answered the previous card correctly.
     @MainActor
     override func nextQuestion(wasCorrect: Bool? = nil) async {
         if wasCorrect != nil {
@@ -36,6 +39,8 @@ class ReviewLearningSession: LearningSession {
         }
     }
     
+    /// Helper to get the next card from the queue.
+    /// - Returns: The card (if any).
     private func nextCard() async -> Card? {
         guard var nextCard = questionQueue.dequeue() else {
             // No card available; abort session
@@ -68,12 +73,14 @@ class ReviewLearningSession: LearningSession {
         return nextCard
     }
     
+    /// Gets the next question as a detached task.
     private func detachedNextQuestion() {
         Task {
             await nextQuestion()
         }
     }
     
+    /// Starts the session by getting cards from the server.
     override func startSession() async {
         guard let token = Authenticator.shared.token else { return }
         

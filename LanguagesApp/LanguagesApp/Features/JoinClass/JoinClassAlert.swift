@@ -1,6 +1,7 @@
 import SwiftUI
 import LanguagesAPI
 
+/// Alert contents for the Join Class alert.
 struct JoinClassAlert: View {
     @StateObject private var controller = JoinClassController()
     let firstJoin: Bool

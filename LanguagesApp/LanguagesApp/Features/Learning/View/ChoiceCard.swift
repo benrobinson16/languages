@@ -1,6 +1,7 @@
 import SwiftUI
 import LanguagesUI
 
+/// Represents a multiple choice response card.
 struct ChoiceCard: View {
     let choice: String
     @Binding var answer: String

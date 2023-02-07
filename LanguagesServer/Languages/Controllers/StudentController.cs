@@ -11,10 +11,10 @@ namespace Languages.Controllers;
 [Route("/student")]
 public class StudentController: ControllerBase
 {
-    DatabaseContext db;
-    DatabaseAccess da;
-    Shield shield;
-    MemoryModel mm;
+    private DatabaseContext db;
+    private DatabaseAccess da;
+    private Shield shield;
+    private MemoryModel mm;
 
     public StudentController(DatabaseContext db, DatabaseAccess da, Shield shield, MemoryModel mm)
     {
