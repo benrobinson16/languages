@@ -12,6 +12,11 @@ public class CardRepository
         this.db = db;
     }
 
+    /// <summary>
+    /// Gets cards based on id.
+    /// </summary>
+    /// <param name="id">The cardid.</param>
+    /// <returns>A query for cards with that id.</returns>
     public IQueryable<Card> ForId(int id)
     {
         return from card in db.Cards
@@ -19,6 +24,11 @@ public class CardRepository
                select card;
     }
 
+    /// <summary>
+    /// Gets cards by the deck they're in.
+    /// </summary>
+    /// <param name="deckId">The id of the deck.</param>
+    /// <returns>A query for cards in that deck.</returns>
     public IQueryable<Card> ForDeck(int deckId)
     {
         return from card in db.Cards
@@ -26,6 +36,11 @@ public class CardRepository
                select card;
     }
 
+    /// <summary>
+    /// Gets cards with their current LQN state.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <returns>A query for LQN cards with current queue.</returns>
     public IQueryable<CardVm> TaskVmsForStudent(int studentId)
     {
         return from enrol in db.Enrollments
@@ -68,6 +83,11 @@ public class CardRepository
                };
     }
 
+    /// <summary>
+    /// Gets a randomised list of cards.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <returns>A query for all assigned cards, in random order.</returns>
     public IQueryable<Card> RandomSampleForStudent(int studentId)
     {
         return from enr in db.Enrollments
@@ -79,6 +99,10 @@ public class CardRepository
                select card;
     }
 
+    /// <summary>
+    /// Updates the difficulty of a card.
+    /// </summary>
+    /// <param name="cardId">The id of the card to update.</param>
     public void UpdateDifficulty(int cardId)
     {
         int numCorrect = db.StudentAttempts.Where(a => a.CardId == cardId && a.Correct).Count();
@@ -90,12 +114,21 @@ public class CardRepository
         db.SaveChanges();
     }
 
+    /// <summary>
+    /// Removes all cards in a deck.
+    /// </summary>
+    /// <param name="deckId">The deck to clear.</param>
     public void RemoveForDeck(int deckId)
     {
         IQueryable<Card> cards = ForDeck(deckId);
         db.Cards.RemoveRange(cards);
     }
 
+    /// <summary>
+    /// Gets cards in the same deck as a given card.
+    /// </summary>
+    /// <param name="cardId">The card to find siblings for.</param>
+    /// <returns>A query for sibling cards.</returns>
     public IQueryable<Card> SiblingsForCard(int cardId)
     {
         return from card in db.Cards
@@ -105,6 +138,10 @@ public class CardRepository
                select sibling;
     }
 
+    /// <summary>
+    /// Gets a random card from the database.
+    /// </summary>
+    /// <returns>A random card (if any).</returns>
     public Card RandomCard()
     {
         int maxSkip = db.Cards.Count();
@@ -112,6 +149,10 @@ public class CardRepository
         return db.Cards.Skip(skip).First();
     }
 
+    /// <summary>
+    /// Gets the average difficulty of the all cards.
+    /// </summary>
+    /// <returns>Average difficulty.</returns>
     public double AverageDifficulty()
     {
         double incorrectAnswers = db.StudentAttempts.Where(a => !a.Correct).Count();

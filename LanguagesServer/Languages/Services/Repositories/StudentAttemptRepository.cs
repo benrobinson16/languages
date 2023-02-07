@@ -44,6 +44,13 @@ public class StudentAttemptRepository
             .ToList();
     }
 
+    /// <summary>
+    /// Gets a student's progress through a set of cards since a set date.
+    /// </summary>
+    /// <param name="cards">The cards to check.</param>
+    /// <param name="studentId">The student's id.</param>
+    /// <param name="setDate">The date to check from.</param>
+    /// <returns>A rounded percentage 0...1000</returns>
     public int StudentProgress(List<Card> cards, int studentId, DateTime setDate)
     {
         int numCompleted = 0;
@@ -83,6 +90,14 @@ public class StudentAttemptRepository
         return true;
     }
 
+    /// <summary>
+    /// Queries student attempts in a given window for a given card.
+    /// </summary>
+    /// <param name="studentId">Student's id.</param>
+    /// <param name="cardId">The id of the card to check.</param>
+    /// <param name="start">The window start.</param>
+    /// <param name="end">The window end.</param>
+    /// <returns>A query of attempts.</returns>
     public IQueryable<StudentAttempt> AttemptsInWindow(int studentId, int cardId, DateTime start, DateTime end)
     {
         return from attempt in db.StudentAttempts
@@ -93,12 +108,27 @@ public class StudentAttemptRepository
                select attempt;
     }
 
+    /// <summary>
+    /// Gets correct attempts in a given window for a given card.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <param name="cardId">The id of the card to check.</param>
+    /// <param name="start">The start of the window.</param>
+    /// <param name="end">The end of the window.</param>
+    /// <returns>A query of attempts.</returns>
     public IQueryable<StudentAttempt> CorrectAttemptsInWindow(int studentId, int cardId, DateTime start, DateTime end)
     {
         return AttemptsInWindow(studentId, cardId, start, end)
             .Where(attempt => attempt.Correct);
     }
 
+    /// <summary>
+    /// Gets all attempts by a student in a window.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <param name="start">The start of the window.</param>
+    /// <param name="end">The end of the window.</param>
+    /// <returns></returns>
     public IQueryable<StudentAttempt> AllAttemptsInWindow(int studentId, DateTime start, DateTime end)
     {
         return from attempt in db.StudentAttempts
@@ -108,6 +138,11 @@ public class StudentAttemptRepository
                select attempt;
     }
 
+    /// <summary>
+    /// Gets a list of streak days for a student in the last 7 days.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <returns>A list of streak days.</returns>
     public List<StreakDay> StreakHistoryForStudent(int studentId)
     {
         List<StreakDay> streakDays = new List<StreakDay>();
@@ -129,6 +164,11 @@ public class StudentAttemptRepository
         return streakDays;
     }
 
+    /// <summary>
+    /// Gets a student's current streak length.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <returns>The length of their streak.</returns>
     public int StreakLengthForStudent(int studentId)
     {
         int numDays = -1;
@@ -146,6 +186,11 @@ public class StudentAttemptRepository
         return numDays;
     }
 
+    /// <summary>
+    /// Gets all attempts for a given card ever.
+    /// </summary>
+    /// <param name="cardId">The id of the card.</param>
+    /// <returns>A query of attempts.</returns>
     public IQueryable<StudentAttempt> AttemptsForCard(int cardId)
     {
         return from attempt in db.StudentAttempts
@@ -153,6 +198,12 @@ public class StudentAttemptRepository
                select attempt;
     }
 
+    /// <summary>
+    /// Geta all attempts for a given card by a given student.
+    /// </summary>
+    /// <param name="studentId">The id of the student.</param>
+    /// <param name="cardId">The id of the card.</param>
+    /// <returns>A query of attempts.</returns>
     public IQueryable<StudentAttempt> StudentAttemptsForCard(int studentId, int cardId)
     {
         return from attempt in db.StudentAttempts
@@ -161,12 +212,20 @@ public class StudentAttemptRepository
                select attempt;
     }
 
+    /// <summary>
+    /// Removes student attempts for a card.
+    /// </summary>
+    /// <param name="cardId">The card to remove attempts for.</param>
     public void RemoveForCard(int cardId)
     {
         IQueryable<StudentAttempt> attempts = AttemptsForCard(cardId);
         db.StudentAttempts.RemoveRange(attempts);
     }
 
+    /// <summary>
+    /// Remove all student attempts for cards in a deck.
+    /// </summary>
+    /// <param name="deckId">The id of the deck.</param>
     public void RemoveForDeck(int deckId)
     {
         List<Card> cards = db.Cards.Where(c => c.DeckId == deckId).ToList();
@@ -176,6 +235,12 @@ public class StudentAttemptRepository
         }
     }
 
+    /// <summary>
+    /// Gets the number of days since the user last reviewed a card.
+    /// </summary>
+    /// <param name="cardId">The card's id.</param>
+    /// <param name="studentId">Ths student's id.</param>
+    /// <returns>The days since their latest attempt. Null if never attempted.</returns>
     public int? DaysSinceAttempt(int cardId, int studentId)
     {
         var qry = from attempt in db.StudentAttempts
@@ -190,6 +255,12 @@ public class StudentAttemptRepository
         return DateTime.Now.Subtract(mostRecent).Days;
     }
 
+    /// <summary>
+    /// Gets the number of expected questions today. This is calculated as the
+    /// sum of each task's daily required questions to complete on time.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <returns>The expected number of questions.</returns>
     private int ExpectedQuestionsToday(int studentId)
     {
         var qry = from enrol in db.Enrollments
@@ -221,6 +292,12 @@ public class StudentAttemptRepository
             .Sum());
     }
 
+    /// <summary>
+    /// The minimum remaining number of questions to answer today in
+    /// order to ensure all tasks due tomorrow are completed.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <returns>The minimum number of questions due today.</returns>
     private int MinRemainingQuestionsToday(int studentId)
     {
         var qry = from enrol in db.Enrollments
@@ -245,6 +322,11 @@ public class StudentAttemptRepository
         return (int)qry.Sum();
     }
 
+    /// <summary>
+    /// The number of correct questions answered today.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <returns>The number of questions answered by the student.</returns>
     private int CardsAnsweredToday(int studentId)
     {
         var qry = from attempt in db.StudentAttempts
@@ -256,6 +338,12 @@ public class StudentAttemptRepository
         return qry.Count();
     }
 
+    /// <summary>
+    /// Gets the estimated percentage completion of the student
+    /// through their expected daily revision.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <returns>A percentage 0...1</returns>
     public double DailyCompletion(int studentId)
     {
         int expectedQuestions = ExpectedQuestionsToday(studentId);

@@ -11,6 +11,11 @@ public class StudentRepository
         this.db = db;
     }
 
+    /// <summary>
+    /// Gets students with the provided email.
+    /// </summary>
+    /// <param name="email">The email to search for.</param>
+    /// <returns>A query for students with that email.</returns>
     public IQueryable<Student> ForEmail(string email)
     {
         return from student in db.Students
@@ -18,6 +23,11 @@ public class StudentRepository
                select student;
     }
 
+    /// <summary>
+    /// Gets students enrolled in a ceetain class.
+    /// </summary>
+    /// <param name="classId">The id of the class to search for.</param>
+    /// <returns>A query for students in that class.</returns>
     public IQueryable<Student> ForClass(int classId)
     {
         return from enrol in db.Enrollments
@@ -27,6 +37,11 @@ public class StudentRepository
                select stu;
     }
 
+    /// <summary>
+    /// Gets students with the provided id.
+    /// </summary>
+    /// <param name="studentId">The search id.</param>
+    /// <returns>A query for students with that id.</returns>
     public IQueryable<Student> ForId(int studentId)
     {
         return from student in db.Students
@@ -34,6 +49,12 @@ public class StudentRepository
                select student;
     }
 
+    /// <summary>
+    /// Gets students who should be delivered notifications in
+    /// the next minute. I.e. those with notifications enabled, set
+    /// in the next minute and who have not already practiced today.
+    /// </summary>
+    /// <returns>A query for students meeting these criteria.</returns>
     public IQueryable<Student> ForDailyReminders()
     {
         return from student in db.Students

@@ -5,6 +5,7 @@ using Languages.ApiModels;
 
 public class DateConverter : JsonConverter<DateTime>
 {
+    // Provide date conversion so that the correct ISO format is used.
     public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         string? str = reader.GetString();
@@ -18,6 +19,7 @@ public class DateConverter : JsonConverter<DateTime>
         }
     }
 
+    // Provide date conversion so that the correct ISO format is used.
     public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
     {
         writer.WriteStringValue(

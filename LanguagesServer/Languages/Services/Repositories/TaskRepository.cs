@@ -14,6 +14,11 @@ public class TaskRepository
         this.db = db;
     }
 
+    /// <summary>
+    /// Gets tasks with the provided id.
+    /// </summary>
+    /// <param name="id">The task id.</param>
+    /// <returns>A query for tasks with that id.</returns>
     public IQueryable<Task> ForId(int id)
     {
         return from task in db.Tasks
@@ -21,6 +26,12 @@ public class TaskRepository
                select task;
     }
 
+    /// <summary>
+    /// Gets vms for tasks with the provided id. Includes
+    /// data on deck and class name in addition to normal fields.
+    /// </summary>
+    /// <param name="id">The task id.</param>
+    /// <returns>A query for task view models with that id.</returns>
     public IQueryable<TaskVm> VmForId(int id)
     {
         return from task in db.Tasks
@@ -39,6 +50,11 @@ public class TaskRepository
                };
     }
 
+    /// <summary>
+    /// Gets tasks that have been assigned to a student.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <returns>A query for tasks for that student.</returns>
     public IQueryable<Task> ForStudent(int studentId)
     {
         return from enrollment in db.Enrollments
@@ -50,6 +66,12 @@ public class TaskRepository
                select task;
     }
 
+    /// <summary>
+    /// Gets task view models that have been assigned to a student.
+    /// Includes class/deck names in addition to normal fields.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <returns>A query for tasks for that student.</returns>
     public IQueryable<TaskVm> VmsForStudent(int studentId)
     {
         return from enrollment in db.Enrollments
@@ -71,6 +93,11 @@ public class TaskRepository
                };
     }
 
+    /// <summary>
+    /// Get tasks set by a teacher.
+    /// </summary>
+    /// <param name="teacherId">The teacher's id.</param>
+    /// <returns>A query for tasks set by that teacher.</returns>
     public IQueryable<Task> ForTeacher(int teacherId)
     {
         return from cla in db.Classes
@@ -80,6 +107,12 @@ public class TaskRepository
                select task;
     }
 
+    /// <summary>
+    /// Get task vms set by a teacher. Includes class and deck
+    /// names in addition to default fields.
+    /// </summary>
+    /// <param name="teacherId">The teacher's id.</param>
+    /// <returns>A query for task vms set by that teacher.</returns>
     public IQueryable<TaskVm> VmsForTeacher(int teacherId)
     {
         return from cla in db.Classes
@@ -99,6 +132,11 @@ public class TaskRepository
                };
     }
 
+    /// <summary>
+    /// Get tasks assigned to a class.
+    /// </summary>
+    /// <param name="classId">The class id.</param>
+    /// <returns>A query for tasks.</returns>
     public IQueryable<Task> ForClass(int classId)
     {
         return from task in db.Tasks
@@ -107,6 +145,12 @@ public class TaskRepository
                select task;
     }
 
+    /// <summary>
+    /// Get task view movels assigned to a class. Includes
+    /// class and deck names in addition to default fields.
+    /// </summary>
+    /// <param name="classId">The id of the class.</param>
+    /// <returns>A query for task vms.</returns>
     public IQueryable<TaskVm> VmsForClass(int classId)
     {
         return from task in db.Tasks
@@ -126,6 +170,11 @@ public class TaskRepository
                };
     }
 
+    /// <summary>
+    /// Gets tasks that have been set using the provided deck.
+    /// </summary>
+    /// <param name="deckId">The deck's id.</param>
+    /// <returns>A query fot tasks with that deck.</returns>
     public IQueryable<Task> ForDeck(int deckId)
     {
         return from task in db.Tasks
@@ -134,6 +183,12 @@ public class TaskRepository
                select task;
     }
 
+    /// <summary>
+    /// Checks if a given task is owned by a given teacher.
+    /// </summary>
+    /// <param name="taskId">The task's id.</param>
+    /// <param name="teacherId">The teacher's id.</param>
+    /// <returns>Whether the teacher owns that task.</returns>
     public bool OwnedByTeacher(int taskId, int teacherId)
     {
         var classQry = from task in db.Tasks
@@ -145,6 +200,12 @@ public class TaskRepository
         return taskClass?.TeacherId == teacherId;
     }
 
+    /// <summary>
+    /// Checks if a given task has been assigned to a student/
+    /// </summary>
+    /// <param name="taskId">The id of the task.</param>
+    /// <param name="studentId">The student's id.</param>
+    /// <returns></returns>
     public bool AssignedToStudent(int taskId, int studentId)
     {
         var studentQry = from task in db.Tasks
@@ -156,6 +217,11 @@ public class TaskRepository
         return studentQry.Contains(studentId);
     }
 
+    /// <summary>
+    /// Gets tasks that are active (before due date) for a given class.
+    /// </summary>
+    /// <param name="classId">The class id.</param>
+    /// <returns>A query for matching tasks.</returns>
     public IQueryable<Task> ActiveForClass(int classId)
     {
         return from task in db.Tasks
@@ -164,12 +230,20 @@ public class TaskRepository
                select task;
     }
 
+    /// <summary>
+    /// Removes all tasks assigned to a class.
+    /// </summary>
+    /// <param name="classId">The class id.</param>
     public void RemoveForClass(int classId)
     {
         IQueryable<Task> tasks = ForClass(classId);
         db.Tasks.RemoveRange(tasks);
     }
 
+    /// <summary>
+    /// Removes all tasks assigned using a deck.
+    /// </summary>
+    /// <param name="deckId">The deck id.</param>
     public void RemoveForDeck(int deckId)
     {
         IQueryable<Task> tasks = ForDeck(deckId);

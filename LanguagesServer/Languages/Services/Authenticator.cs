@@ -9,6 +9,9 @@ using Languages.ApiModels;
 
 namespace Languages.Services;
 
+/// <summary>
+/// Responsible for validating JWTs.
+/// </summary>
 public class Authenticator
 {
     private readonly string keyEndpoint = "https://login.microsoftonline.com/common/discovery/v2.0/keys";
@@ -23,9 +26,15 @@ public class Authenticator
         certificates = new Dictionary<string, X509Certificate2>();
         nextRefresh = DateTime.Now;
 
+        // Load the keys to allow requests.
         RefreshPublicKeys();
     }
 
+    /// <summary>
+    /// Validates and decodes a JWT using public keys from Microsoft.
+    /// </summary>
+    /// <param name="bearerToken">The user-provided JWT.</param>
+    /// <returns>A User object from the JWT, or null if invalid.</returns>
     public User? Authenticate(string bearerToken)
     {
         if (bearerToken == null || bearerToken == "") return null;
@@ -74,6 +83,9 @@ public class Authenticator
         return user;
     }
 
+    /// <summary>
+    /// Gets new public keys from Micrsofot.
+    /// </summary>
     private async void RefreshPublicKeys()
     {
         HttpClient client = new HttpClient();
@@ -98,7 +110,7 @@ public class Authenticator
 
     private class Response
     {
-        // Camel case (rather than pascal case) used to facilitate JWT parsing.
+        // Camel case (rather than pascal case) used to facilitate JSON decoding.
         public List<JsonWebKey> keys;
     }
 

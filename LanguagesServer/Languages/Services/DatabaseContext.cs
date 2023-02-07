@@ -4,12 +4,16 @@ using Task = Languages.DbModels.Task;
 
 namespace Languages.Services;
 
+/// <summary>
+/// Responsible for the connection to the database.
+/// </summary>
 public class DatabaseContext : DbContext
 {
     public DatabaseContext() : base() { }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
+        // Password will contain actual password when run.
         string connectionString = "server=languages-database.cozrjn0fmjmy.eu-west-2.rds.amazonaws.com; port=3306; database=Languages; user=admin; password=SV30XOV9OBc3PofJcwie";
         options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     }
@@ -31,6 +35,7 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<StudentAttempt>().ToTable("StudentAttempt");
     }
 
+    // Each of the tables in the database.
     public DbSet<Student> Students { get; set; }
     public DbSet<Teacher> Teachers { get; set; }
     public DbSet<Enrollment> Enrollments { get; set; }

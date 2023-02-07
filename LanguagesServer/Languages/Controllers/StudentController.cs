@@ -24,6 +24,10 @@ public class StudentController: ControllerBase
         this.mm = mm;
     }
 
+    /// <summary>
+    /// Gets summary information for the student home screen.
+    /// </summary>
+    /// <returns>Student home screen information.</returns>
     [HttpGet("summary")]
     public StudentSummaryVm Summary()
     {
@@ -68,6 +72,10 @@ public class StudentController: ControllerBase
         };
     }
 
+    /// <summary>
+    /// Gets all task cards to learn along with current queue.
+    /// </summary>
+    /// <returns>A list of cards.</returns>
     [HttpGet("taskcards")]
     public List<CardVm> TaskCards()
     {
@@ -75,6 +83,11 @@ public class StudentController: ControllerBase
         return da.Cards.TaskVmsForStudent(student.StudentId).ToList();
     }
 
+    /// <summary>
+    /// Gets 10 cards for review from all cards ever
+    /// set to user using memory model.
+    /// </summary>
+    /// <returns></returns>
     [HttpGet("reviewcards")]
     public List<CardVm> ReviewCards()
     {
@@ -82,6 +95,12 @@ public class StudentController: ControllerBase
         return mm.NextCardsToReview(student.StudentId);
     }
 
+    /// <summary>
+    /// Test endpoint to get the modelled probability of
+    /// successful recall for a card.
+    /// </summary>
+    /// <param name="cardId">The id of the card to model.</param>
+    /// <returns>The probability of successful recall.</returns>
     [HttpGet("modelcard")]
     public double ModelCard(int cardId)
     {
@@ -90,6 +109,13 @@ public class StudentController: ControllerBase
         return mm.ModelCard(card, student.StudentId);
     }
 
+    /// <summary>
+    /// Gets summary information about a task for the details page.
+    /// </summary>
+    /// <param name="taskId"></param>
+    /// <returns>Task details and a list of cards.</returns>
+    /// <exception cref="LanguagesResourceNotFound">Bad task id.</exception>
+    /// <exception cref="LanguagesUnauthorized">Student not assigned task.</exception>
     [HttpGet("taskdetails")]
     public StudentTaskSummaryVm TaskDetails(int taskId)
     {
@@ -111,6 +137,13 @@ public class StudentController: ControllerBase
         };
     }
 
+    /// <summary>
+    /// Notifies the server that a question was answered.
+    /// </summary>
+    /// <param name="cardId">The id of the card answered.</param>
+    /// <param name="correct">Did the user get it right?</param>
+    /// <param name="questionType">The question type id.</param>
+    /// <returns>StatusResponse indicating success.</returns>
     [HttpPost("didAnswer")]
     public StatusResponse PostDidAnswer(int cardId, bool correct, int questionType)
     {
@@ -133,6 +166,11 @@ public class StudentController: ControllerBase
         return new StatusResponse { Success = true };
     }
 
+    /// <summary>
+    /// Joins a student to a class.
+    /// </summary>
+    /// <param name="joinCode">The join code of the class to join.</param>
+    /// <returns>A status response indicating success/failure.</returns>
     [HttpPost("joinClass")]
     public StatusResponse JoinClass(string joinCode)
     {
@@ -178,6 +216,11 @@ public class StudentController: ControllerBase
         };
     }
 
+    /// <summary>
+    /// Remove student from class.
+    /// </summary>
+    /// <param name="classId">The class to leave.</param>
+    /// <returns>A status response indicating success/failure.</returns>
     [HttpPost("leaveClass")]
     public StatusResponse LeaveClass(int classId)
     {
@@ -203,6 +246,12 @@ public class StudentController: ControllerBase
         };
     }
 
+    /// <summary>
+    /// Gets a list of 3 distractors for multiple choice questions.
+    /// </summary>
+    /// <param name="cardId">The id of the correct answer.</param>
+    /// <returns>A list of 3 distractors.</returns>
+    /// <exception cref="LanguagesResourceNotFound">Bad cardid.</exception>
     [HttpGet("distractors")]
     public List<string> GetDistractors(int cardId)
     {
@@ -253,6 +302,10 @@ public class StudentController: ControllerBase
         return selectedCards.Select(c => c.ForeignTerm).ToList();
     }
 
+    /// <summary>
+    /// Gets the estimated daily completion of a student.
+    /// </summary>
+    /// <returns>Estimate completion in range 0...1</returns>
     [HttpGet("dailyCompletion")]
     public double GetDailyCompletion()
     {
@@ -260,6 +313,10 @@ public class StudentController: ControllerBase
         return da.StudentAttempts.DailyCompletion(student.StudentId);
     }
 
+    /// <summary>
+    /// Gets the summary of a student's settings to display.
+    /// </summary>
+    /// <returns>Student's current settings.</returns>
     [HttpGet("settingsSummary")]
     public SettingsSummary GetSettingsSummary()
     {
@@ -274,6 +331,12 @@ public class StudentController: ControllerBase
         };
     }
 
+    /// <summary>
+    /// Updates the notification settings for a student.
+    /// </summary>
+    /// <param name="time">The time of day to send reminders.</param>
+    /// <param name="enabled">Whether reminders should be enabled.</param>
+    /// <returns>A status response indicating success.</returns>
     [HttpPatch("updateNotificationSettings")]
     public StatusResponse UpdateNotificationSettings(DateTime time, bool enabled)
     {

@@ -2,6 +2,9 @@
 
 namespace Languages.Services;
 
+/// <summary>
+/// Responsible for queries on the database.
+/// </summary>
 public class DatabaseAccess
 {
     public CardRepository Cards;
@@ -13,6 +16,10 @@ public class DatabaseAccess
     public TaskRepository Tasks;
     public TeacherRepository Teachers;
 
+    /// <summary>
+    /// Creates a new DatabaseAccess layer.
+    /// </summary>
+    /// <param name="db">The database context to use.</param>
     public DatabaseAccess(DatabaseContext db)
     {
         this.Cards = new CardRepository(db);

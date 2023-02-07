@@ -12,6 +12,11 @@ public class TeacherRepository
         this.db = db;
     }
 
+    /// <summary>
+    /// Gets teacher with the provided email address.
+    /// </summary>
+    /// <param name="email">The email to search.</param>
+    /// <returns>A query for matching teachers.</returns>
     public IQueryable<Teacher> ForEmail(string email)
     {
         return from teacher in db.Teachers

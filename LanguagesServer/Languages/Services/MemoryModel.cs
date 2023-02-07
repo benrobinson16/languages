@@ -4,6 +4,9 @@ using Languages.DbModels;
 
 namespace Languages.Services;
 
+/// <summary>
+/// Responsibel for modelling the probability of successful recall.
+/// </summary>
 public class MemoryModel
 {
     private DatabaseAccess da;
@@ -19,6 +22,14 @@ public class MemoryModel
         this.da = da;
     }
 
+    /// <summary>
+    /// Gets a list of cards to review next with the lowest
+    /// modelled probability of successful recall.
+    /// </summary>
+    /// <param name="studentId">The student's id.</param>
+    /// <param name="sampleSize">The number of random cards to model.</param>
+    /// <param name="outputSize">The number of cards to output.</param>
+    /// <returns>A list of cards to review next.</returns>
     public List<CardVm> NextCardsToReview(int studentId, int sampleSize = 100, int outputSize = 10)
     {
         List<Card> cardSample = da.Cards
@@ -55,6 +66,12 @@ public class MemoryModel
             .ToList();
     }
 
+    /// <summary>
+    /// Gets the modelled probability of successful recall for a card.
+    /// </summary>
+    /// <param name="card">The card to model.</param>
+    /// <param name="studentId">The student's id.</param>
+    /// <returns></returns>
     public double ModelCard(Card card, int studentId)
     {
         double summation = 0.0;
@@ -84,18 +101,37 @@ public class MemoryModel
         return Logistic(summation / kScale);
     }
 
+    /// <summary>
+    /// Weight an attempt correct based on time of correct and
+    /// whether or not it was correctly answered.
+    /// </summary>
+    /// <param name="attemptDate">When the attempt happened.</param>
+    /// <param name="correct">Whether the attempt was correct.</param>
+    /// <returns>The weighting for this attempt.</returns>
     private double AttemptWeighting(DateTime attemptDate, bool correct)
     {
         int days = (DateTime.Now - attemptDate).Days;
         return (correct ? 1 : -1) * Math.Pow(kAttemptBase, -(0.5 * days));
     }
 
+    /// <summary>
+    /// Calculates the penalty for not reviewing a term for
+    /// any period of time.
+    /// </summary>
+    /// <param name="lastReview">The date of the last review.</param>
+    /// <returns>The penalty to apply.</returns>
     private double NoReviewPenalty(DateTime lastReview)
     {
         int days = (DateTime.Now - lastReview).Days;
         return -kNoReview * Math.Log2((0.5 * days) + 1);
     }
 
+    /// <summary>
+    /// The logistic function. Applies upper and lower bounds
+    /// of 1 and 0 and a smooth curve between them.
+    /// </summary>
+    /// <param name="z">The input value.</param>
+    /// <returns>The logistic output.</returns>
     private double Logistic(double z)
     {
         return 1.0 / (1 + Math.Exp(-z));

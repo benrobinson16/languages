@@ -12,6 +12,11 @@ public class EnrollmentRepository
 		this.db = db;
 	}
 
+	/// <summary>
+    /// Gets enrollments for a given class.
+    /// </summary>
+    /// <param name="classId">The class id.</param>
+    /// <returns>A query for enrollments in that class.</returns>
 	public IQueryable<Enrollment> ForClass(int classId)
 	{
 		return from enrol in db.Enrollments
@@ -19,6 +24,12 @@ public class EnrollmentRepository
 			   select enrol;
 	}
 
+	/// <summary>
+    /// Gets enrollment view models for a student. Includes
+    /// the teacher's name in addition to standard fields.
+    /// </summary>
+    /// <param name="studentId">The id of the student.</param>
+    /// <returns>A query for enrollment view models.</returns>
 	public IQueryable<EnrollmentVm> VmsForStudent(int studentId)
     {
 		return from enrol in db.Enrollments

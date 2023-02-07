@@ -31,8 +31,6 @@ builder.Services.AddSingleton<Authenticator>(new Authenticator());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,9 +46,13 @@ app.UseCors((opt) =>
     opt.AllowCredentials();
     opt.AllowAnyHeader();
     opt.AllowAnyMethod();
-    opt.WithOrigins("http://localhost:3000", "https://languages.benrobinson.dev", "*", "https://api.sandbox.push.apple.com");
+    opt.WithOrigins(
+        "https://languages.benrobinson.dev",
+        "https://api.sandbox.push.apple.com"
+    );
 });
 
+// Error handling
 app.UseGlobalExceptionHandler(opt => {
     opt.ResponseBody(s => JsonSerializer.Serialize(new
     {
@@ -65,6 +67,7 @@ app.UseGlobalExceptionHandler(opt => {
     opt.Map<LanguagesInternalError>().ToStatusCode(StatusCodes.Status500InternalServerError);
 });
 
+// Use headers from the Apache proxy server.
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
@@ -72,9 +75,14 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 
 JobManager.Initialize();
 
+// Run the push notification service every minute.
 JobManager.AddJob(
     () => {
-        PushNotifier? push = app.Services.CreateScope().ServiceProvider.GetService(typeof(PushNotifier)) as PushNotifier;
+        // Get the PushNotifier from the service environment.
+        PushNotifier? push = app.Services.CreateScope()
+            .ServiceProvider
+            .GetService(typeof(PushNotifier)) as PushNotifier;
+
         if (push != null)
         {
             Console.WriteLine("Running daily notifications.");
@@ -90,5 +98,6 @@ JobManager.AddJob(
 
 JobManager.Start();
 
+// Start the app after connection the controllers.
 app.MapControllers();
 app.Run();
