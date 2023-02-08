@@ -21,23 +21,29 @@ export const newClassSlice = createSlice({
     name: "newclass",
     initialState,
     reducers: {
+        // Opens the modal to create a new class.
         showNewClassModal: (state) => {
             state.showModal = true;
         },
+        // Changes the name of the class to display.
         nameChange: (state, action: PayloadAction<string>) => {
             state.name = action.payload;
         },
+        // Log that the system is currently creating a new class.
         startedCreating: (state) => {
             state.isLoading = true;
         },
+        // Log that the system has finished creating a new class.
         finishedCreating: (state) => {
             state.showModal = false;
             state.isLoading = false;
             state.name = "";
         },
+        // Log that the system has failed to create a class.
         failedCreating: (state) => {
             state.isLoading = false;
         },
+        // Close the new class modal.
         closeModal: (state) => {
             state.showModal = false;
         }
@@ -46,7 +52,7 @@ export const newClassSlice = createSlice({
 
 export const { showNewClassModal, nameChange, startedCreating, finishedCreating, failedCreating, closeModal } = newClassSlice.actions;
 
-/** Gets and saves the classes for the current user. */
+// Gets and saves the classes for the current user.
 export const createNewClass = (): TypedThunk => {
     return async (dispatch, getState): Promise<void> => {
         const name = getState().newClass.name;

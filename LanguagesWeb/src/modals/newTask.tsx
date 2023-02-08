@@ -6,13 +6,16 @@ import * as newTaskActions from "../redux/newTask";
 import { ClassField, DeckField } from "../components/autocompleteField";
 import DatePicker from "../components/datePicker";
 
+// Represents the modal that allows the user to create a new task.
 export default function NewTaskModal() {
     const dispatch = useAppDispatch();
     
+    // Get data from the store.
     const showModal = useAppSelector(state => state.newTask.showModal);
     const isLoading = useAppSelector(state => state.newTask.isLoading);
     const classEditable = useAppSelector(state => state.newTask.classEditable);
 
+    // Consider the case where the class has not already been provided.
     let classField = null;
     if (classEditable) {
         classField = (

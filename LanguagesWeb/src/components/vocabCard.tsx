@@ -6,11 +6,13 @@ import * as deckActions from "../redux/deck";
 import { useAppDispatch } from "../redux/store";
 import { FiTrash2, FiCopy } from "react-icons/fi";
 
+// Represents an editable card in a deck.
 export default function VocabCard(props: { card: Card, deck: Deck }) {
     const dispatch = useAppDispatch();
     const [englishTerm, setEnglishTerm] = useState(props.card.englishTerm); // State with default value
     const [foreignTerm, setForeignTerm] = useState(props.card.foreignTerm); // State with default value
 
+    // Sends an action to the store to save the changes.
     const save = () => {
         dispatch(deckActions.saveCard({
             cardId: props.card.cardId, 
@@ -19,10 +21,12 @@ export default function VocabCard(props: { card: Card, deck: Deck }) {
         }, props.deck));
     };
 
+    // Sends an action to the store to delete the card.
     const deleteCard = () => {
         dispatch(deckActions.deleteCard(props.card.cardId));
     };
 
+    // Sneds an action to the store to copy the card.
     const copyCard = () => {
         dispatch(deckActions.copyCard(props.card, props.deck));
     }

@@ -7,6 +7,7 @@ import { AppDispatch, TypedThunk, useAppDispatch } from "../redux/store";
 import { openClass, openDeck, openTask } from "../redux/nav";
 import { sendCongratsNotification, sendReminderNotification } from "../redux/task";
 
+// A view representing a single class.
 export function ClassCard(props: {class: Class, key: number}) {
     const dispatch = useAppDispatch();
 
@@ -24,6 +25,7 @@ export function ClassCard(props: {class: Class, key: number}) {
     );
 }
 
+// A view representing a single deck.
 export function DeckCard(props: {deck: Deck, key: number}) {
     const dispatch = useAppDispatch();
 
@@ -43,6 +45,7 @@ export function DeckCard(props: {deck: Deck, key: number}) {
     );
 }
 
+// A view representing a single task.
 export function TaskCard(props: {task: Task, key: number}) {
     const dispatch = useAppDispatch();
 
@@ -57,6 +60,7 @@ export function TaskCard(props: {task: Task, key: number}) {
     );
 }
 
+// A button for creating new entities.
 export function NewEntityCard(props: {title: string, action: (dispatch: AppDispatch) => void}) {
     const dispatch = useAppDispatch();
 
@@ -74,6 +78,7 @@ export function NewEntityCard(props: {title: string, action: (dispatch: AppDispa
     )
 }
 
+// A card representing student progress through a task.
 export function ProgressCard(props: { studentProgress: StudentProgress, taskId: number }) {
     const dispatch = useAppDispatch();
 
@@ -81,6 +86,7 @@ export function ProgressCard(props: { studentProgress: StudentProgress, taskId: 
     let buttonText: string;
     let notification: TypedThunk<void>;
 
+    // Conditionally apply colors and notification type.
     if (props.studentProgress.progress >= 95) {
         color = "green";
         buttonText = "👏";

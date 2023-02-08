@@ -12,9 +12,11 @@ import NewClassModal from "../modals/newClass";
 import NewTaskModal from "../modals/newTask";
 import NewDeckModal from "../modals/newDeck";
 
+// Manages the current navigation state and the current page.
 export default function Nav() {
     const currentPage = useAppSelector(state => state.nav.navStack[state.nav.navStack.length - 1]);
 
+    // If the user is not logged in, show the log in page.
     if (currentPage === undefined) {
         return <LogInPage />;
     }

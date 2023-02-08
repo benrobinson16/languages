@@ -20,16 +20,21 @@ export const authSlice = createSlice({
     name: "navigation",
     initialState,
     reducers: {
+        // Log that the system is currently authenticating (in
+        // order to prevent multiple simultaneous authentications).
         startedAuthenticating: (state) => {
             state.isAuthenticating = true;
             state.token = null;
         },
+        // Save a token.
         gotToken: (state, action: PayloadAction<string>) => {
             state.token = action.payload;
         },
+        // Log that the system has finished authenticating.
         finishedAuthenticating: (state) => {
             state.isAuthenticating = false;
         },
+        // Also log that the system has finished authenticating.
         encounteredError: (state) => {
             state.isAuthenticating = false;
         }
@@ -38,7 +43,8 @@ export const authSlice = createSlice({
 
 export const { startedAuthenticating, gotToken, finishedAuthenticating, encounteredError } = authSlice.actions;
 
-/** Gets a token by authenticating with MSAL. Will not redirect so should only be used once the user is signed in. */
+// Gets a token by authenticating with MSAL. 
+// Will not redirect so should only be used once the user is signed in.
 export const getToken = (redirectToHome: boolean = false) => {
     return async (dispatch: AppDispatch, getState: () => AppState) => {
         if (getState().auth.isAuthenticating) return;
@@ -63,7 +69,7 @@ export const getToken = (redirectToHome: boolean = false) => {
     }
 }
 
-/** Logs a user in via MSAL redirection. */
+// Logs a user in via MSAL redirection.
 export const logIn = () => {
     return async (dispatch: AppDispatch, getState: () => AppState) => {
         if (getState().auth.isAuthenticating) return;
@@ -78,7 +84,7 @@ export const logIn = () => {
     }
 }
 
-/** Responds to a login redirect by saving the response token, obtaining user details and redirecting to home screen. */
+// Responds to a login redirect by saving the response token, obtaining user details and redirecting to home screen.
 export const saveTokenAndRedirect = (token: string) => {
     return async (dispatch: AppDispatch, getState: () => AppState) => {
         dispatch(startedAuthenticating());

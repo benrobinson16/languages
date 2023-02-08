@@ -24,6 +24,7 @@ export class ParameterisedEndpoint<Keys extends string, Res> {
         this.method = method;
     }
 
+    // Makes a request to the server and waits for an empty response.
     async makeRequestVoid(token: string, data: Record<Keys, string | number>) {
         let headers = new Headers();
         headers.append("Authorization", token);
@@ -43,6 +44,7 @@ export class ParameterisedEndpoint<Keys extends string, Res> {
         await fetch(url, options);
     }
 
+    // Makes a request to the server and returns the result as a promise.
     async makeRequest(token: string, data: Record<Keys, string | number>): Promise<Res> {
         let headers = new Headers();
         headers.append("Authorization", token);

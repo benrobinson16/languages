@@ -4,12 +4,15 @@ import { AppButton } from "../components/buttons";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import * as newClassActions from "../redux/newClass";
 
+// Represents the modal that allows the user to create a new class.
 export default function NewClassModal() {
     const dispatch = useAppDispatch();
     
+    // Get data from the store.
     const showModal = useAppSelector(state => state.newClass.showModal);
     const isLoading = useAppSelector(state => state.newClass.isLoading);
 
+    // Create a new class when the user presses enter.
     const onKeyUp = (event: React.KeyboardEvent) => {
         if (event.key === "Enter") {
             dispatch(newClassActions.createNewClass());

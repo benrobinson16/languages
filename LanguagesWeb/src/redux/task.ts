@@ -26,28 +26,35 @@ export const taskSlice = createSlice({
     name: "task",
     initialState,
     reducers: {
+        // Log that the system is currently loading task details.
         startedLoading: (state) => {
             state.isLoading = true;
             state.task = null;
             state.students = null;
         },
+        // Log that the system has finished loading task details.
+        // Save the task details from the server's response.
         finishedLoading: (state, action: PayloadAction<TaskSummary>) => {
             state.task = action.payload.taskDetails;
             state.students = action.payload.students;
             state.isLoading = false;
         },
+        // Save the new due date.
         editedDueDate: (state, action: PayloadAction<number>) => {
             state.dueDate = action.payload;
         },
+        // Log that the system is currently saving the task.
         startedSaving: (state) => {
             state.isSaving = true
         },
+        // Log that the system has finished saving the task.
         finishedSaving: (state, action: PayloadAction<TaskSummary>) => {
             state.task = action.payload.taskDetails;
             state.students = action.payload.students;
             state.isLoading = false;
             state.isSaving = false;
         },
+        // Log that the system has failed to save the task.
         failedSaving: (state) => {
             state.isSaving = false;
         }

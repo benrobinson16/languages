@@ -20,6 +20,7 @@ export class ApiEndpoint<Res> {
         this.method = method;
     }
 
+    // Makes a request to the server and returns the result as a promise.
     async makeRequest(token: string): Promise<Res> {
         let headers = new Headers();
         headers.append("Authorization", token);

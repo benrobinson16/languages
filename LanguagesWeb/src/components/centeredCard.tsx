@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Center } from "@chakra-ui/react";
 
+// Component to center children in the center of the screen on a card.
 export default function CenteredCard(props: { children: React.ReactNode }) {
     return (
         <Box background="gray.200" height="100vh">

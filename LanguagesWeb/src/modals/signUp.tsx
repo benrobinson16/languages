@@ -3,12 +3,16 @@ import { Text, Drawer, DrawerBody, DrawerContent, DrawerFooter, DrawerOverlay, B
 import * as signUpActions from "../redux/signUp";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 
+// Provides a form for users to sign up via. Get them to provide a surname and title.
 export default function SignUpDrawer() {
     const dispatch = useAppDispatch();
+
+    // Get data from the store.
     const isOpen = useAppSelector(state => state.signUp.showDrawer);
     const title = useAppSelector(state => state.signUp.title);
     const surname = useAppSelector(state => state.signUp.surname);
 
+    // Log changes with the store.
     const close = () => dispatch(signUpActions.hideSignUp());
     const save = () => dispatch(signUpActions.createAccount());
     const onSurnameChange = (newSurname: string) => dispatch(signUpActions.changeSurname(newSurname));

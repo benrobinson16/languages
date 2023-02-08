@@ -6,18 +6,21 @@ import * as deckActions from "../redux/deck";
 import UICard from "../components/card";
 import EditableHeading from "../components/editableHeading";
 
+// Represents the deck details page for a given deck.
 export default function DeckPage(props: { id: number }) {
     const dispatch = useAppDispatch();
 
+    // Get data from the store.
     const isLoading = useAppSelector(state => state.deck.isLoading);
-    
     const deck = useAppSelector(state => state.deck.deck);
     const cards = useAppSelector(state => state.deck.cards);
 
+    // Load the deck on appear.
     useEffect(() => {
         dispatch(deckActions.loadDeckDetails(props.id));
     }, [dispatch, props.id]);
 
+    // Show a spinner if loading.
     if (isLoading || deck == null || cards == null) {
         return <Spinner />;
     }

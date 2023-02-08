@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Editable, Tooltip, EditablePreview, Input, EditableInput, Heading, HStack } from "@chakra-ui/react";
 
+// Saves the value of an editable heading. Visible only when editing.
 function SaveControl(props: { isEditing: boolean, onSubmit: () => void }) {
     if (props.isEditing) {
         return (
@@ -17,6 +18,7 @@ function SaveControl(props: { isEditing: boolean, onSubmit: () => void }) {
     }
 }
 
+// A heading that becomes editable when clicked.
 export default function EditableHeading(props: { initialValue: string, onSave: (value: string) => void }) {
     return (
         <Editable
@@ -39,4 +41,4 @@ export default function EditableHeading(props: { initialValue: string, onSave: (
             )}
         </Editable>
     );
-  }
+}

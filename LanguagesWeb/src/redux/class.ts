@@ -26,6 +26,7 @@ export const classSlice = createSlice({
     name: "class",
     initialState,
     reducers: {
+        // Log that the system is currently loading class details.
         startedLoading: (state) => {
             state.isLoading = true;
             state.class = null;
@@ -33,15 +34,18 @@ export const classSlice = createSlice({
             state.students = null;
             state.showJoinCode = false;
         },
+        // Saves the class details from the server's response.
         finishedLoading: (state, action: PayloadAction<ClassSummary>) => {
             state.class = action.payload.classDetails;
             state.tasks = action.payload.tasks;
             state.students = action.payload.students;
             state.isLoading = false;
         },
+        // Shows the join code modal.
         showJoinCode: (state) => {
             state.showJoinCode = true;
         },
+        // Closes the join code modal.
         closeJoinCode: (state) => {
             state.showJoinCode = false;
         }
@@ -50,6 +54,7 @@ export const classSlice = createSlice({
 
 export const { startedLoading, finishedLoading, showJoinCode, closeJoinCode } = classSlice.actions;
 
+// Gets class details for a given class from the server.
 export const loadClassDetails = (classId: number): TypedThunk => {
     return async (dispatch, getState) => {
         const isLoading = getState().class.isLoading;
@@ -66,6 +71,7 @@ export const loadClassDetails = (classId: number): TypedThunk => {
     };
 };
 
+// Edits the name of a class.
 export const editClassName = (classId: number, name: string): TypedThunk => {
     return async (dispatch, getState) => {
         if (name.trim().length === 0) {
@@ -85,6 +91,7 @@ export const editClassName = (classId: number, name: string): TypedThunk => {
     };
 };
 
+// Deletes a class from the server after confirming with the user.
 export const deleteClass = (classId: number): TypedThunk => {
     return async (dispatch, getState) => {
         const deleteText = "Are you sure you would like to delete this class?";

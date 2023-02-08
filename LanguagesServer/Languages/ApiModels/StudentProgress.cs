@@ -7,4 +7,3 @@ public class StudentProgress
     public string Email { get; set; }
     public int Progress { get; set; }
 }
-

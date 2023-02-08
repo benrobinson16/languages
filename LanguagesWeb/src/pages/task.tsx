@@ -8,18 +8,22 @@ import * as nav from "../redux/nav";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import * as taskActions from "../redux/task";
 
+// Shows details for a specific task.
 export default function TaskPage(props: { id: number }) {
     const dispatch = useAppDispatch();
 
+    // Get data from the store.
     const isLoading = useAppSelector(state => state.task.isLoading);
     const task = useAppSelector(state => state.task.task);
     const students = useAppSelector(state => state.task.students);
     const isSaving = useAppSelector(state => state.task.isSaving);
 
+    // Load the task details on appear.
     useEffect(() => {
         dispatch(taskActions.loadTaskDetails(props.id));
     }, [dispatch, props.id]);
 
+    // Show a spinner if the task is loading.
     if (isLoading || task == null || students == null) {
         return <Spinner />;
     }

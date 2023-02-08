@@ -2,6 +2,7 @@ import React from "react";
 import {VStack} from "@chakra-ui/react";
 import MotionBox from "./motionBox";
 
+// The props for the Card component.
 interface CardProps {
     children: React.ReactNode,
     onClick?: () => void,
@@ -9,6 +10,7 @@ interface CardProps {
     border?: string
 }
 
+// A generic card component for displaying a list item.
 export default function Card(props: CardProps) {
     if (props.onClick === undefined) {
         return (
@@ -25,6 +27,8 @@ export default function Card(props: CardProps) {
             </VStack>
         );
     } else {
+        // Onclick defined, so use a motion box to
+        // animate hovering with a scale effect.
         return (
             <MotionBox>
                 <VStack

@@ -10,6 +10,7 @@ import VocabCard from "./vocabCard";
 import * as deckActions from "../redux/deck";
 import { AppDispatch } from "../redux/store";
 
+// The generic props for an entity list.
 export interface EntityListProps<Entity> {
     entities: Entity[] | null,
     createCard: (entity: Entity) => JSX.Element,
@@ -20,6 +21,7 @@ export interface EntityListProps<Entity> {
     newCardAtEnd?: boolean
 }
 
+// Represents a list of entities (of any type).
 export function EntityList<Entity>(props: EntityListProps<Entity>) {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -85,6 +87,7 @@ export function EntityList<Entity>(props: EntityListProps<Entity>) {
     );
 }
 
+// Represents a list of classes.
 export function ClassList(props: {classes: Class[] | null}) {
     return EntityList({
         entities: props.classes,
@@ -96,6 +99,7 @@ export function ClassList(props: {classes: Class[] | null}) {
     });
 }
 
+// Represents a list of decks.
 export function DeckList(props: {decks: Deck[] | null}) {
     return EntityList({
         entities: props.decks,
@@ -107,6 +111,7 @@ export function DeckList(props: {decks: Deck[] | null}) {
     });
 }
 
+// Represents a list of cards.
 export function TaskList(props: {tasks: Task[] | null, classId?: number}) {
     return EntityList({
         entities: props.tasks,
@@ -118,6 +123,7 @@ export function TaskList(props: {tasks: Task[] | null, classId?: number}) {
     });
 }
 
+// Represents a list of students and their progress through a task.
 export function ProgressList(props: {students: StudentProgress[] | null, taskId: number}) {
     return EntityList({
         entities: props.students,
@@ -129,6 +135,7 @@ export function ProgressList(props: {students: StudentProgress[] | null, taskId:
     });
 }
 
+// Represents a list of students (without progress information).
 export function StudentList(props: {students: string[] | null}) {
     return EntityList({
         entities: props.students,
@@ -140,6 +147,7 @@ export function StudentList(props: {students: string[] | null}) {
     });
 }
 
+// Represents a list of cards in a deck.
 export function CardList(props: {cards: Card[] | null, deck: Deck | null}) {
     return EntityList({
         entities: props.cards,

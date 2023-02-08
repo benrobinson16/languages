@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 const MotionBoxComponent = motion(Box);
 
+// Define the variations of the motion box for hover.
 const variants = {
     rest: {
         scale: 1.0,
@@ -23,6 +24,7 @@ const variants = {
     }
 }
 
+// Creates the motion box component.
 export default function MotionBox(props: { children: React.ReactNode, maxWidth?: boolean, justifySelf?: string }) {
     return (
         <MotionBoxComponent

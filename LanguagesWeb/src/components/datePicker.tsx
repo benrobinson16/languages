@@ -1,6 +1,7 @@
 import { Input } from "@chakra-ui/react";
 import React, { useState } from "react";
 
+// A system date picker component.
 export default function DatePicker(props: { date?: Date, onChange: (date: Date) => void }) {
     const [localDate, setLocalDate] = useState(props.date);
 

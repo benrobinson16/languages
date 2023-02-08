@@ -1,3 +1,4 @@
+// Helper function to get an error message from an error object.
 export function extractErrorMessage(error: any): string {
     if (error instanceof Error) {
         return error.message;

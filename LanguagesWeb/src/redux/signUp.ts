@@ -23,26 +23,32 @@ export const signUpSlice = createSlice({
     name: "signup",
     initialState,
     reducers: {
+        // Shows the sign-up drawer.
         showSignUp: (state) => {
             state.title = "";
             state.surname = "";
             state.isLoading = false;
             state.showDrawer = true;
         },
+        // Closes the sign-up drawer.
         hideSignUp: (state) => {
             state.showDrawer = false;
         },
+        // Changes the surname to display.
         changeSurname: (state, action: PayloadAction<string>) => {
             if (state.isLoading) return;
             state.surname = action.payload;
         },
+        // Changes the title to display as selected.
         changeTitle: (state, action: PayloadAction<string>) => {
             if (state.isLoading) return;
             state.title = action.payload;
         },
+        // Log that the system is currently creating the account.
         startedCreatingAccount: (state) => {
             state.isLoading = true;
         },
+        // Log that the system has failed to create the account.
         failedCreatingAccount: (state) => {
             state.isLoading = false;
         }
@@ -51,7 +57,7 @@ export const signUpSlice = createSlice({
 
 export const { showSignUp, hideSignUp, changeSurname, changeTitle, startedCreatingAccount, failedCreatingAccount } = signUpSlice.actions;
 
-/** Creates an account for a new teacher, using the provided title and surname. */
+// Creates an account for a new teacher, using the provided title and surname.
 export const createAccount = (): TypedThunk => {
     return async (dispatch, getState): Promise<void> => {
 

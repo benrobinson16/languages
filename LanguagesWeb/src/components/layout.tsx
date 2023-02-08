@@ -3,6 +3,7 @@ import React from "react";
 import { useAppSelector } from "../redux/store";
 import { BackButton, HomeButton, SignOutButton } from "./buttons";
 
+// The standard layout for all pages. Includes navigation bar.
 export default function Layout(props: { children: React.ReactNode }) {
     const page = useAppSelector(state => state.nav.navStack[state.nav.navStack.length - 1]);
 

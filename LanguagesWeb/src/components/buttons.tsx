@@ -7,6 +7,7 @@ import { logIn } from "../redux/auth";
 import { useAppDispatch } from "../redux/store";
 import { back, popToHome } from "../redux/nav";
 
+// The props for the AppButton component.
 interface AppButtonProps {
     children: React.ReactNode,
     onClick: () => void,
@@ -15,6 +16,7 @@ interface AppButtonProps {
     loadingText?: string
 }
 
+// A styled button that is used throughout the app.
 export function AppButton(props: AppButtonProps) {
     return (
         <Button 
@@ -30,6 +32,8 @@ export function AppButton(props: AppButtonProps) {
     );
 }
 
+// A styled button that is used throughout the app 
+// for indicating a deletion.
 export function DestructiveButton(props: AppButtonProps) {
     return (
         <Button 
@@ -45,6 +49,7 @@ export function DestructiveButton(props: AppButtonProps) {
     );
 }
 
+// The branded Sign In with Microsoft button.
 export function SignInWithMicrosoftButton() {
     const dispatch = useAppDispatch();
 
@@ -55,6 +60,7 @@ export function SignInWithMicrosoftButton() {
     );
 }
 
+// The Sign Out button for display in the top corner.
 export function SignOutButton() {
     return (
         <Button
@@ -66,6 +72,7 @@ export function SignOutButton() {
     )
 }
 
+// The back navigation button which opens the previous page.
 export function BackButton() {
     const dispatch = useAppDispatch();
 
@@ -79,6 +86,7 @@ export function BackButton() {
     )
 }
 
+// The home navigation button which always opens the home page.
 export function HomeButton() {
     const dispatch = useAppDispatch();
 

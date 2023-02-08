@@ -2,12 +2,15 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Modal
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import * as classActions from "../redux/class";
 
+// Represents the modal that displays the join code for a class.
 export default function JoinCodeModal() {
     const dispatch = useAppDispatch();
     
+    // Get data from the store.
     const showModal = useAppSelector(state => state.class.showJoinCode);
     const cla = useAppSelector(state => state.class.class);
 
+    // Abort if class is null. Unexpected situation.
     if (cla == null) return <></>;
 
     return (

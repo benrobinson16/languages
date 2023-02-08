@@ -1,3 +1,5 @@
+import Foundation
+
 /// Implementation of a hash table/dictionary using an array of linked lists to resolve collisions.
 public class HashTable<Key, Value>: Sequence where Key: Hashable {
     private var arr: [LinkedList<(key: Key, value: Value)>]

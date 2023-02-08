@@ -21,23 +21,29 @@ export const newDeckSlice = createSlice({
     name: "newdeck",
     initialState,
     reducers: {
+        // Opens the modal to create a new deck.
         showModal: (state) => {
             state.showModal = true;
         },
+        // Change the displayed deck name.
         nameChange: (state, action: PayloadAction<string>) => {
             state.name = action.payload;
         },
+        // Log that the system is currently creating a new deck.
         startedCreating: (state) => {
             state.isLoading = true;
         },
+        // Log that the system has finished creating a new deck.
         finishedCreating: (state) => {
             state.showModal = false;
             state.isLoading = false;
             state.name = "";
         },
+        // Log that the system has failed to create a deck.
         failedCreating: (state) => {
             state.isLoading = false;
         },
+        // Close the new deck modal.
         closeModal: (state) => {
             state.showModal = false;
         }
@@ -46,7 +52,7 @@ export const newDeckSlice = createSlice({
 
 export const { showModal, nameChange, startedCreating, finishedCreating, failedCreating, closeModal } = newDeckSlice.actions;
 
-/** Gets and saves the classes for the current user. */
+// Gets and saves the classes for the current user.
 export const createNewDeck = (): TypedThunk => {
     return async (dispatch, getState): Promise<void> => {
         const name = getState().newDeck.name;

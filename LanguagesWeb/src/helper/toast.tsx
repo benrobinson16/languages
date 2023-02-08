@@ -3,6 +3,7 @@ import { createStandaloneToast } from "@chakra-ui/react";
 // Create the toast container. Must be the same instance throughout application, so declared in file here.
 export const { ToastContainer, toast } = createStandaloneToast();
 
+// Helper function to display an alert to the user for errors.
 export function errorToast(error: any) {
     let message = "An unexpected error ocurred.";
 
@@ -21,6 +22,7 @@ export function errorToast(error: any) {
     });
 }
 
+// Helper function to display an alert to the user for success.
 export function successToast(message: string) {
     toast({
         title: "Success",

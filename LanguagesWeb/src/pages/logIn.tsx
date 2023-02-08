@@ -7,9 +7,13 @@ import { useAppDispatch } from "../redux/store";
 import authService from "../services/authService";
 import SignUpDrawer from "../modals/signUp";
 
+// The splash screen for unauthenticated users.
 export default function LogInPage() {
     const dispatch = useAppDispatch();
 
+    // Register a callback to handle if the user has been redirected here
+    // from Microsoft Authentication. Try to get a token silently if the
+    // user has already signed in previously.
     useEffect(() => {
         authService.registerLoginCallback(token => {
             dispatch(authActions.saveTokenAndRedirect(token));

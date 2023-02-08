@@ -4,13 +4,16 @@ import { DeckList, ClassList, TaskList } from "../components/entityList";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import * as summaryActions from "../redux/summary";
 
+// Represents the main dashboard.
 export default function HomePage() {
     const dispatch = useAppDispatch();
 
+    // Get the main data from the store.
     const classes = useAppSelector(state => state.summary.classes);
     const decks = useAppSelector(state => state.summary.decks);
     const tasks = useAppSelector(state => state.summary.tasks);
 
+    // Load the data when displayed.
     useEffect(() => {
         dispatch(summaryActions.loadSummary());
     }, [dispatch]);

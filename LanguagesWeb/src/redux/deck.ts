@@ -24,43 +24,43 @@ export const deckSlice = createSlice({
     name: "deck",
     initialState,
     reducers: {
+        // Log that the system is currently loading deck details.
         startedLoading: (state) => {
             state.isLoading = true;
             state.deck = null;
             state.cards = null;
             state.changesMade = false;
         },
+        // Saves the deck details from the server's response.
         finishedLoading: (state, action: PayloadAction<DeckSummary>) => {
             state.deck = action.payload.deckDetails;
             state.cards = action.payload.cards;
             state.isLoading = false;
             state.changesMade = false;
         },
-        editedCard: (state, action: PayloadAction<{ index: number, card: Card }>) => {
-            if (state.cards == null || state.cards.length <= action.payload.index) return;
-            state.cards[0].englishTerm = action.payload.card.englishTerm;
-            state.cards[0].foreignTerm = action.payload.card.foreignTerm;
-            state.changesMade = true;
-        },
+        // Adds a card to the list to display. Scrolls it into view.
         addCard: (state, action: PayloadAction<Card>) => {
             if (state.cards == null) return;
             state.cards.push(action.payload);
             window.scrollTo(0, document.body.scrollHeight);
         },
+        // Replaces an old card with a newer version.
         replaceCard: (state, action: PayloadAction<{ card: Card, replacementCard: Card }>) => {
             let index = state.cards!.indexOf(action.payload.card) ?? -1;
             if (index >= 0) {
                 state.cards![index] = action.payload.replacementCard;
             }
         },
+        // Removes a card from the list to display.
         removeCard: (state, action: PayloadAction<number>) => {
             state.cards = state.cards?.filter(c => c.cardId !== action.payload) ?? null;
         }
     }
 });
 
-export const { startedLoading, finishedLoading, editedCard, addCard, replaceCard, removeCard } = deckSlice.actions;
+export const { startedLoading, finishedLoading, addCard, replaceCard, removeCard } = deckSlice.actions;
 
+// Gets deck details for a given deck from the server.
 export const loadDeckDetails = (deckId: number): TypedThunk => {
     return async (dispatch, getState) => {
         dispatch(startedLoading());
@@ -75,6 +75,7 @@ export const loadDeckDetails = (deckId: number): TypedThunk => {
     };
 };
 
+// Deletes a deck from the server, after confirming with the user.
 export const deleteDeck = (deckId: number): TypedThunk => {
     return async (dispatch, getState) => {
         const deleteText = "Are you sure you would like to delete this deck? All tasks associated with this deck will be deleted as well.";
@@ -93,6 +94,7 @@ export const deleteDeck = (deckId: number): TypedThunk => {
     }
 }
 
+// Saves a card to the server. Creates a new card if it doesn't have an ID.
 export const saveCard = (card: Card, deck: Deck): TypedThunk => {
     return async (dispatch, getState) => {
         try {
@@ -109,12 +111,14 @@ export const saveCard = (card: Card, deck: Deck): TypedThunk => {
     };
 };
 
+// Creates a new card with empty fields.
 export const newCard = (deck: Deck): TypedThunk => {
     return async (dispatch, getState) => {
         dispatch(addCard({ cardId: -1, englishTerm: "", foreignTerm: "" }));
     };
 };
 
+// Duplicates a card in the deck.
 export const copyCard = (card: Card, deck: Deck): TypedThunk => {
     return async (dispatch, getState) => {
         try {
@@ -127,6 +131,7 @@ export const copyCard = (card: Card, deck: Deck): TypedThunk => {
     };
 };
 
+// Deletes a card from the server.
 export const deleteCard = (cardId: number): TypedThunk => {
     return async (dispatch, getState) => {
         try {
@@ -139,6 +144,7 @@ export const deleteCard = (cardId: number): TypedThunk => {
     };
 };
 
+// Edits the name of the provided deck.
 export const editDeckName = (deckId: number, name: string): TypedThunk => {
     return async (dispatch, getState) => {
         if (name.trim().length === 0) {

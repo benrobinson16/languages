@@ -98,6 +98,7 @@ public struct WeightedEditDistance: TypoDetecting {
             )
         }
         
+        // Save in memo
         memo[combo] = editDistance
         return editDistance
     }
