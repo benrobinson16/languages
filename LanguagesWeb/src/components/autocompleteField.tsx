@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Select, SingleValue } from "chakra-react-select";
+import { Select } from "chakra-react-select";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import { Input } from "@chakra-ui/react";
 import * as summaryActions from "../redux/summary";

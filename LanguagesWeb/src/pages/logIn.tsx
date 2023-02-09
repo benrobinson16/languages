@@ -35,6 +35,7 @@ export default function LogInPage() {
                 >
                     <Heading>Languages</Heading>
                     <Text>A teacher platform to assign vocabularly learning homework to classes. Please sign in to continue.</Text>
+                    <Text color="red">The server/database is currently offline. Please start the server before using the app.</Text>
                     <SignInWithMicrosoftButton />
                 </VStack>
             </CenteredCard>
