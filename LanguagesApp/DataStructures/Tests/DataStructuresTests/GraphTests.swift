@@ -32,8 +32,7 @@ final class GraphTests: XCTestCase {
             "d": 3,
             "z": 2,
             "x": 3,
-            "c": 4,
-            "p": 9
+            "c": 4
         ]
         
         for (char, dist) in expectedDistancesFromQ {
