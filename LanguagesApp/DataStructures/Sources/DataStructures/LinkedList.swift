@@ -271,7 +271,7 @@ public class LinkedList<T>: Sequence {
     
     // MARK: - Higher order functions
     
-    /// Removes all elements in the array that
+    /// Removes all elements in the array that pass a condition.
     /// - Parameter condition: A function that determines whether or not to remove the element.
     /// - Returns: The values that were removed.
     @discardableResult
